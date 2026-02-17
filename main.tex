@@ -1,0 +1,207 @@
+% !TeX program = pdflatex
+% If you use biblatex/biber (recommended), compile with:
+% pdflatex -> biber -> pdflatex -> pdflatex
+
+\documentclass[11pt,a4paper,twoside,openany]{report}
+
+% -------------------------------------------------
+% Page layout / typography
+% -------------------------------------------------
+\usepackage[a4paper,margin=30mm,headheight=14pt]{geometry}
+\usepackage{microtype}              % better spacing/kerning
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}         % ok for pdflatex; remove if using lualatex/xelatex
+\usepackage{lmodern}                % modern Latin Modern fonts
+\usepackage{setspace}               % optional: \onehalfspacing etc.
+
+% -------------------------------------------------
+% Graphics / tables / lists
+% -------------------------------------------------
+\usepackage{graphicx}
+\usepackage{booktabs}               % professional tables
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+
+% -------------------------------------------------
+% Math (standard praxis)
+% -------------------------------------------------
+\usepackage{amsmath,amssymb,amsthm} % AMS core
+\usepackage{mathtools}             % extends/fixes amsmath
+\usepackage{bm}                    % bold math symbols
+\usepackage{dsfont}                % \mathds{1} indicator
+\usepackage{mathrsfs}              % script font \mathscr
+\usepackage{bbm}                   % alternative blackboard bold, incl. \mathbbm{1}
+\usepackage{siunitx}               % units/numbers (also nice in finance tables)
+
+% -------------------------------------------------
+% Theorems / definitions (edit to taste)
+% -------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% -------------------------------------------------
+% References / hyperlinks (standard modern setup)
+% -------------------------------------------------
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  pdftitle={Master Project},
+  pdfauthor={Your Name},
+  pdfsubject={Mathematical Finance},
+  pdfkeywords={Mathematical Finance, Stochastic Calculus, ...}
+}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+% -------------------------------------------------
+% Bibliography (biblatex + biber)
+% -------------------------------------------------
+\usepackage{csquotes} % recommended with biblatex
+\usepackage[backend=biber,style=authoryear,maxcitenames=2,maxbibnames=99]{biblatex}
+\addbibresource{references.bib}
+
+% -------------------------------------------------
+% Appendix + PDF inclusion (optional)
+% -------------------------------------------------
+\usepackage{appendix}
+\usepackage{pdfpages}
+
+% -------------------------------------------------
+% Nomenclature / symbols list (optional but common in math finance)
+% -------------------------------------------------
+\usepackage[intoc]{nomencl}
+\makenomenclature
+% Example: \nomenclature{$W_t$}{Standard Brownian motion}
+
+% -------------------------------------------------
+% Header / footer (simple, thesis-friendly)
+% -------------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% -------------------------------------------------
+% Table of contents depth (DETAILED ToC)
+% -------------------------------------------------
+% tocdepth: 0=part, 1=chapter, 2=section, 3=subsection, 4=subsubsection
+\setcounter{tocdepth}{3}  % show down to \subsection in ToC
+\setcounter{secnumdepth}{3} % number down to \subsection (or 4 for subsubsection)
+
+% -------------------------------------------------
+% Title metadata
+% -------------------------------------------------
+\newcommand{\thesistitle}{Aspects of Neural Networks in Continuous-Time Mathematical Finance}
+\newcommand{\thesisauthor}{Joël Wäspi}
+\newcommand{\thesisadvisor}{Martin Schweizer}
+\newcommand{\thesisaffil}{ETH Zürich}
+\newcommand{\thesisdate}{\today}
+
+\begin{document}
+
+% =================================================
+% Front matter (Roman numerals)
+% =================================================
+\pagenumbering{roman}
+
+\begin{titlepage}
+  \centering
+  \vspace*{2cm}
+  {\Large \thesisaffil\par}
+  \vspace{1.5cm}
+  {\huge\bfseries \thesistitle\par}
+  \vspace{1.0cm}
+  {\Large Master Project\par}
+  \vspace{2.0cm}
+  {\Large \thesisauthor\par}
+  \vspace{0.5cm}
+  {\large Advisor: \thesisadvisor\par}
+  \vfill
+  {\large \thesisdate\par}
+\end{titlepage}
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+% Write later. Keep short (often 150--300 words).
+\noindent
+\textit{Placeholder abstract.}
+
+\chapter*{Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+% Optional
+\noindent
+\textit{Placeholder acknowledgements.}
+
+\tableofcontents
+
+
+\printnomenclature
+\cleardoublepage
+
+% =================================================
+% Main matter (Arabic numerals)
+% =================================================
+\pagenumbering{arabic}
+
+% =================================================
+% Detailed scaffold for a Mathematical Finance project
+% (Edit freely before you start writing)
+% =================================================
+
+\chapter{Introduction}
+\textcite{Arandjelovic2025}
+\textcite{Buehler2018DeepHedging}
+\textcite{Hornik1991}
+
+\chapter{Mathematical Preliminaries}
+\section{Basic Probability Theory and Preliminary Results}
+\subsection{Martingale Convergence Theorem}
+\section{Semi-Martingale Integration}
+\subsection{Good Integrators}
+\subsection{Bounded-Integrands}
+\subsection{\(\mathcal{L}^1\)-Integrands}
+
+\chapter{Financial Mathematics Background}
+\section{Hedging}
+\subsection{Deep Hedging in Descrete Time}
+
+\chapter{}
+
+\chapter{Conclusion and Outlook}
+\section{Summary of contributions}
+\section{Future work}
+
+% =================================================
+% Bibliography
+% =================================================
+\cleardoublepage
+\printbibliography
+
+% =================================================
+% Appendix
+% =================================================
+\begin{appendices}
+\chapter{Additional proofs}
+\end{appendices}
+
+\end{document}
+
