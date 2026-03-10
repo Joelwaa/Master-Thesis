@@ -189,15 +189,14 @@ These sections will be based primarily on \parencite{Schweizer1995VarianceOptima
 \subsection{Self-financing strategies and stochastic integrals}
 \subsection{Mean-square hedging in continuous time}
 \subsection{Orthogonal projection and decompositions}
-These sections will be based primarily on \parencite{Schweizer2001GuidedTourQuadraticHedging}
+These sections will be based primarily on \parencite{Schweizer2001GuidedTourQuadraticHedging}. In particular, considering the setting of \parencite[Prop.~5.35.]{Arandjelovic2025} (Deep mean-variance hedging) we restrict to case where the price process is a martingale.
 
 \chapter{Neural Networks and Universal Approximation}
 \section{Feedforward neural networks}
 \subsection{Architectures and notation}
 
 \section{Universal approximation}
-\subsection{Cybenko's theorem}
-\subsection{Hornik's theorem}
+\subsection{Cybenko's theorem:\((C(K),||\cdot||_{\infty})\)and \((L^p(\mu),||\cdot||_{p})\)-density}
 \subsection{Discriminatory activation functions}
 Based on \parencite[Thm.~1,2]{Hornik1991}
 \section{Bounded measurable non-constant activation functions}
@@ -214,12 +213,14 @@ Based on \parencite[Thm.~5]{Hornik1991}, we will use tools from \parencite{Rudin
 \section{Quadratic hedging as a special case}
 \subsection{From convex risk measures to quadratic loss}
 Based on \parencite[Remark~3.4.]{Buehler2018DeepHedging}
-\subsection{Approximate optimale hedging in the context of deep hedging}
+\subsection{Approximate optimal hedging in the context of deep hedging}
 Show \parencite[Prop.~4.9.]{Buehler2018DeepHedging} for cost functionals \(C\equiv 0\) and in the approximate optimal hedging setting with \(l(\cdot)=(\cdot)^2\).
 \chapter{Approximation Theory in Chapter 5 of Arandjelovi\'c}
 \section{Neural networks on locally convex spaces}
 \subsection{The general setting}
+General idea for a neural network on a locally convex space \(X\) with topological dual \(X^* = \Gamma\), \(f\mapsto\psi(F(f)+\beta)\), where \(F\in\Gamma\).
 \subsection{Locally convex spaces and their topological duals}
+In particular, some "well-behaved" duals, like \(C(K)^{*}=\mathcal{M}(K), L^p(\mu)^*=L^q(\mu)\) etc. and characterisation of dual (e.g. as integral functionals). This plays an improtant role in defining and understanding neural networks on locally convex spaces.
 \subsection{\(\mathcal{H}^p\) martingale spaces and neural networks on \(\mathcal{H}^p\)-spaces}
 Based on \parencite[Ex.~5.8.]{Arandjelovic2025}.
 \section{Orlicz spaces}
@@ -230,12 +231,13 @@ Characterizing the topological dual of Orlicz spaces.
 \section{Universal approximation in Arandjelovi\'c's framework}
 \subsection{Assumption 5.13 (Activation function)}
 \subsection{Proposition 5.15 (Generalization of discriminatory property on locally convex spaces)}
+Show that the generalized neural network, with activation function obeying the same assumptions as in \parencite{Cybenko1989}, still are discriminatory and hence the density results still follow.
 \subsection{Theorem 5.16 (density of generalized neural networks in Orlitz spaces)}
 Emphasize the role of Hornik's/ Cybenko's arguments
 
 \chapter{Extension of the Activation Assumption}
 \section{Motivation for the extension}
-Maybe find an activation function that is bounded and non constant but not sigmoidal. 
+Maybe find an activation function that is bounded and non constant but not sigmoidal. If possible motivate with literature that such an example exists and is relevant.
 \section{A generalized version of Proposition 5.15}
 \subsection{Hornik's discriminatory argument revisited}
 \subsection{Proof}
@@ -246,24 +248,24 @@ Maybe find an activation function that is bounded and non constant but not sigmo
 Treatment of chapter \parencite[Prop.~5.17.,5.18,5.21.]{Arandjelovic2025}.
 \section{Measurable functions of information}
 Treatment of \parencite[Prop.~5.18,5.21.]{Arandjelovic2025} leading up to  \parencite[Thm.~5.23.]{Arandjelovic2025}.
-Conceptually: Reduction to countably generated sigma-fields and link to \parencite{Buehler2018DeepHedging}. More precisely: Understanding \parencite[Prop.~5.17]{Arandjelovic2025} as the measure theoretic statement that the uncountably generated market information \(\sigma-\)algebra can, under certain assumptions, be reduced to a countably generated one. \parencite[Prop.~5.21]{Arandjelovic2025} then shows that the latter implies that for real-valued maps we can find a countable sub-sigma algebra for which the map is also measurable. 
+Conceptually: Reduction to countably generated sigma-fields and a link to \parencite{Buehler2018DeepHedging}. More precisely: Understanding \parencite[Prop.~5.17]{Arandjelovic2025} as the measure theoretic statement that the uncountably generated market information \(\sigma-\)algebra can, under certain assumptions, be reduced to a countably generated one. \parencite[Prop.~5.21]{Arandjelovic2025} then shows that the latter implies that for real-valued maps, we can find a countable sub-sigma algebra for which the map is also measurable. 
 \parencite[Prop.~5.23]{Arandjelovic2025} then combines the insights about measurability and Orlitz density of neural networks to approximate maps \(g:(S,\mathcal{S})\rightarrow(\mathbb
-R\,\mathcal{B}(\mathbb{R})\) that are measurable w.r.t. market generated filtration \(\mathcal{S}\) (uncountably generated in general). This generalizes results from \parencite{Buehler2018DeepHedging} in particular the idea to approximate trading strategies, measurable w.r.t. finitely generated market-sigma-algebra to the uncountably generated case. 
+R\,\mathcal{B}(\mathbb{R})\) that are measurable with respect to market generated filtration \(\mathcal{S}\) (which is uncountably generated in general). This generalizes results from \parencite{Buehler2018DeepHedging}, in particular the idea to approximate trading strategies measurable with respect to finitely generated market-sigma-algebra to the uncountably generated case. 
 
 
 \section{Algorithmic strategies in continuous time}
 \subsection{Simple and elementary strategies}
  \parencite[Def.~5.27.]{Arandjelovic2025}.
 \subsection{From simple processes to stochastic integral}
-Density of simple processes \parencite[Prop.~5.28.]{Arandjelovic2025} and respective result for wealth processes / stochastic integrals: \parencite[Thm.~5.29.]{Arandjelovic2025}.
+Density of simple processes \parencite[Prop.~5.28.]{Arandjelovic2025} and the respective result for wealth processes / stochastic integrals: \parencite[Thm.~5.29.]{Arandjelovic2025}.
 \subsection{Specializing to martingale price processes}
-Version for martingale integrators \(M\in\mathcal{H}^p\) and integrands \(U\in L^p(M)\), \parencite[Thm.~5.32.]{Arandjelovic2025}.
+Version for martingale integrators \(M\in\mathcal{H}^p\) and integrands \(U\in L^p(M)\), \parencite[Thm.~5.32.]{Arandjelovic2025}
 
 \chapter{Deep Mean-Square Hedging in Continuous Time}
 \section{Theorem 5.35}
 \subsection{Statement and proof of the theorem}
 \subsection{Relation to classical quadratic hedging}
-
+Where classical mean quadratic hedging is mainly understood as stated in \parencite{Schweizer2001GuidedTourQuadraticHedging}.
 
 \chapter{Conclusion and Outlook}
 \section{Summary of contributions}
@@ -280,7 +282,8 @@ Version for martingale integrators \(M\in\mathcal{H}^p\) and integrands \(U\in L
 % Appendix
 % =================================================
 \begin{appendices}
-\chapter{Additional proofs}
+\chapter{Mathematical tools}
+Chebychev inequality, Doob's \(L^p\)-inequality, Burkholder-Davis-Gundy inequality (BDG), functional monotone class theorem, Bitcheler-Dellacherie Thm
 \end{appendices}
 
 \end{document}
