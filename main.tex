@@ -36,6 +36,7 @@
 
 % Operators
 \DeclareMathOperator*{\arginf}{arginf}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 \usepackage{bm}                    % bold math symbols
 \usepackage{dsfont}                % \mathds{1} indicator
@@ -229,7 +230,7 @@
 \section{Motivation and context}
 \section{Outline of the thesis}
 
-\chapter{Hedging}
+\chapter{Hedging}\label{sec:hedging}
 In order to explain the concept of hedging, we first convey a conceptual understanding. This will motivate the probabilistic set-up that leads us to a well defined mathematical problem that can be studied analytically.
 We formulate hedging from the perspective of a seller of a European call option. The latter gives the buyer the option to buy the underlying asset at the time of maturity at the strike price \(K\). the strike price is known at the time the option was acquired. Crucially, the owner of the option can only exercise the contract at maturity, not before. At maturity, the owner of the option will exercise his right to buy if the price of the underlying asset \(X\) at maturity is higher than the strike price \(K\). If the price of the underlying asset at maturity is below the strike price, the owner of the option doesn't exercise his right to buy. Thus, the payoff of the option for the owner is given by 
 \begin{align}
@@ -250,30 +251,33 @@ Then \(\mathbb{F}^0\) and  \(\mathbb{F}\) denote the raw respectively the comple
 \\\\
 The price of \(d+1\) tradable assets will be modeled by a \(\mathbb{R}_+^{d+1}\)-valued random process \(S = (S_t)_{t\in\mathbb{R}_+}\), with \(S_t(\omega) = (S_t^0(\omega),\dots,S_t^d(\omega))\in \mathbb{R}_+^d\) for every \(t\in\mathbb{R}_+\). Naturally, the stochastic process \(S\) is assumed to be \(\mathbb{F}\)-adapted, i.e., the random variable \(S_t\) is \(\mathcal{F}_t\)-measurable. In other words, the price of the asset \(S\) at time \(t\) is supposed to be known at time \(t\) (and not in advance). We interpret \(S^0\) as the bank account or any other risk free asset. To fix the units of the asset prices once and for all, we define \(X_t^{i}=S_t^{i}/S_t^0\). Hence \(S_t^0 = 1\) for all times, and we call \(X\) the \textit{discounted} price process.
 \\\\
-We may want to trade in these \(d+1\) assets by holding a certain number \(\vartheta_t\) of risky assets \(X_t^i,\;i=1,\dots,d\) and a number \(\eta\) of risk-free assets \(X_t^0\equiv 1\). We call the process \((\vartheta,\eta)\) a \textit{trading position} or a \textit{portfolio}. This trading position can be adjusted dynamically and generally evolves stochastically over time. We don't want to allow for insider trading, i.e., knowing the price at time \(f\) of a risky asset before time \(t\), hence giving the possibility to adjust the prices in a way to make a profit with probability 1. In order to enforce this requirement we model \(\mathbb{R}^{d}\)-valued process \(\vartheta\) to be \(\mathbb{F}\)-predictable. Hence, the value of the portfolio at some time \(T\) is given by \(V_t = \vartheta^TX_t+\eta_t1\). By trading in the market described by the assets \(X\), the accumulated gains and losses up to time \(t\) amount to \(G_t(\vartheta) = (\vartheta \bullet X)_t\)\footnote{at this point, the expression \((\vartheta \bullet X)_t\) should be understood as discrete or the "continuous" sum of "small" increments \(\vartheta_k^T(X_{k+1}-X_k)\) for \(k=0,\dots,t-1\). We will also refer to this as the integral of \(\vartheta\) with respect to the process \(X\)}. Up to this point, we allow for external cash flow or \(costs\). The cumulative amount of cash injected or taken out is given by the cumulative cost process \(C_t = V_t - (\vartheta \bullet X)_t\). Requiring that there is not external cash flow for \(t>0\) makes the portfolio \textit{self-financed} and the cumulative cost process constant, equal to the initial value of the portfolio \(C_t=V_0\quad\forall t\in\mathbb{R}_+\). Hence, for a self-financing strategy the value process \(V\) takes the form
+We may want to trade in these \(d+1\) assets by holding a certain number \(\vartheta_t\) of risky assets \(X_t^i,\;i=1,\dots,d\) and a number \(\eta\) of risk-free assets \(X_t^0\equiv 1\). We call the process \((\vartheta,\eta)\) a \textit{trading position} or a \textit{portfolio}. This trading position can be adjusted dynamically and generally evolves stochastically over time. We don't want to allow for insider trading, i.e., knowing the price at time \(f\) of a risky asset before time \(t\), hence giving the possibility to adjust the prices in a way to make a profit with probability 1. In order to enforce this requirement we model \(\mathbb{R}^{d}\)-valued process \(\vartheta\) to be \(\mathbb{F}\)-predictable. Hence, the value of the portfolio at some time \(t\geq 0\) is given by \(V_t = \vartheta^TX_t+\eta_t1\). By trading in the market described by the assets \(X\), the accumulated gains and losses up to time \(t\) amount to \(G_t(\vartheta) = (\vartheta \bullet X)_t\). At this point, the expression \((\vartheta \bullet X)_t\) should be understood as the sum \(\sum_{k=0}^{t-1}\vartheta_k(X_{k+1}-X_k)\) or for the general case as the stochastic integral \(\int_{0}^t\vartheta_s\diff X_s\). We deliberately want to keep the discussion general at this point. We denote \(\mathcal{L}(X)\) the set of \(\mathbb{F}\)-predictable, \(X\)-integrable/summable processes \(\vartheta\).
+\\\\
+Up to this point, we allow for external cash flow or \(costs\). The cumulative amount of cash injected or taken out is given by the cumulative cost process \(C_t = V_t - (\vartheta \bullet X)_t\). Requiring that there is not external cash flow for \(t>0\) makes the portfolio \textit{self-financed} and the cumulative cost process constant, equal to the initial value of the portfolio \(C_t=V_0\quad\forall t\in\mathbb{R}_+\). Hence, for a self-financing strategy the value process \(V\) takes the form
 \begin{equation}\label{eq:self financing strategy}
-    V_t(\vartheta) = V_0 + (\vartheta\bullet X)_s=V_0+G_t(\vartheta)\;.
+    V_t(\vartheta) = V_0 + (\vartheta\bullet X)_t=V_0+G_t(\vartheta)\;.
 \end{equation}
-Notice that \cref{eq:self financing strategy} is fully determined by \(V_0\) and the process \(\vartheta\) as \(\vartheta\) and \(V_0\) determine \(V_t\) by  \cref{eq:self financing strategy}. Finally, \(\eta\) is then determined by \(V_t = \vartheta^TX_t+\eta_t\). Hence, we denote a self-financing strategy by \((V_0,\vartheta)\). For the clarity of exposition, we introduce the notation. Let \(\Theta\) be a subset of \(\mathbb{F}\)-predictable, real-valued stochastic processes. Then 
+Notice that \cref{eq:self financing strategy} is fully determined by \(V_0\) and the process \(\vartheta\). Indeed \(\vartheta\) and \(V_0\) determine \(V_t\) by  \cref{eq:self financing strategy}. Finally, \(\eta\) is then determined by \(V_t = \vartheta^TX_t+\eta_t\). Hence, we denote a self-financing strategy by \((V_0,\vartheta)\). For the clarity of exposition, we introduce the notation. Let \(\Theta\) be a subset of \(\mathbb{F}\)-predictable, real-valued stochastic processes. Then 
 \begin{equation}
-    \mathcal{A}(\Theta)\coloneqq \mathbb{R}+G_T(\Theta)=\mathbb{R}+\left\{V_0+(\vartheta \bullet X)_T:(V_0,\vartheta)\in\mathbb{R}\times \Theta\right\}\;
+    \mathcal{A}(\Theta)\coloneqq \mathbb{R}+G_T(\Theta)=\left\{V_0+(\vartheta \bullet X)_T:(V_0,\vartheta)\in\mathbb{R}\times \Theta\right\}\;,
 \end{equation}
-Hence, \(\mathcal{A}(\Theta)\) defines the space of value processes for self-financing strategies \((V_0,\vartheta)\in\mathbb{R}\times \Theta\) The dependency on the tradable assets \(X=(X_0,\dots,X_d)\) is not shown explicitely as \(X\) is fixed once and for all.
+where \(G_T(\Theta)=\left\{(\vartheta \bullet X)_T:\vartheta\in \Theta\right\}\).\\
+Hence, \(\mathcal{A}(\Theta)\) defines the space of value processes for self-financing strategies \((V_0,\vartheta)\in\mathbb{R}\times \Theta\) We fix \(X=(X_0,\dots,X_d)\) fix once and for all and don't explicitely the dependency.
 \section{General idea of hedging}
-For the sake of a simple exposition of the underlying concepts, we introduce a finite horizon \(T\in\mathbb{R}_+\); i.e., we consider all the processes up to here (S,X,V,C,\(\vartheta\),\(\eta\)) as processes indexed by \(t\in[0,T]\). We call \(T\) the final time or a fixed time of maturity. Then \(V_T = V_0 + \int_{0}^T\vartheta_s \diff X_s\) is the final time value of the self-financing strategy \((V_0,\vartheta)\). 
+For the sake of a simple exposition of the underlying concepts, we introduce a finite horizon \(T\in\mathbb{R}_+\); i.e., we consider all the processes up to here (S,X,V,C,\(\vartheta\),\(\eta\)) as processes indexed by \(t\in[0,T]\). We call \(T\) the final time or a fixed time of maturity. Then \(V_T = V_0 + \int_{0}^T\vartheta_s \diff X_s\) is the final time value of the self-financing strategy \((V_0,\vartheta)\). As explained in the \cref{sec:hedging} we want to hedge a liablity \(H\) which we model to be a real-valued random variable whose value is known at a time \(T\geq 0\), i.e. \(H\in\mathcal{L}^0(\Omega,\mathcal{F}_T;\mathbb{R})\). For an concrete example, one might think of \(H\) as a europian call option and \(T\) the strike time of that option.
 \\
 We call a contingent claim \textit{attainable} if there exists a self-financing strategy \((\vartheta,\eta)\) such that
 \begin{equation}\label{eq:atteinable strategy}
     V_T = H\quad \mathbb{P}\text{-a.s.}\;.
 \end{equation}
-A market is \textit{complete} if all contingent claims are attainable. We will concentrate on hedging in incomplete markets. Hence, for a given contingent claim \(H\), there doesn't necessarily exist a self-financing strategy that replicates \(H\). Hence, we can approach this in three ways. Either we insist on \(V_T = H\quad\mathbb{P}\text{-a.s.}\) and let go of the self-financing assumption for the replicating strategy \((V_0,\vartheta)\). This would entail a non-constant cost process and the criterium we want to minize is exactly the cumulative costs of the trading startegy. Alternatively, we could insist on the self-financing condition and let go of the exact replication condition. Lastly, we could let go of both assumptions. We will concentrate on the second option; that is, we will insist on the self-replicating property but let go of the perfect replication property. 
+A market is \textit{complete} if all contingent claims are attainable. We will concentrate on hedging in incomplete markets. Hence, for a given contingent claim \(H\), there doesn't necessarily exist a self-financing strategy that replicates \(H\). Hence, we can approach this in three ways. Either we insist on \(V_T = H\quad\mathbb{P}\text{-a.s.}\) and let go of the self-financing assumption for the replicating strategy \((V_0,\vartheta)\). This would entail a non-constant cost process, and the criterion we want to minimize is exactly the cumulative costs of the trading strategy. Alternatively, we could insist on the self-financing condition and let go of the exact replication condition. Lastly, we could let go of both assumptions. We will concentrate on the second option; that is, we will insist on the self-replicating property but let go of the perfect replication property. 
 \\\\
-In particular, the corresponding hedging problem is then to find \textit{optimal} self-replicating strategy \((V_0,\vartheta)\) that best approximates the contingent claim at time \(T\). The nature of the problem now heavily relies on what we mean by optimal. For this, we will concentrate on two approaches: looking for the trading strategy that makes the terminal position of the seller \textit{acceptable}, and alternatively, the difference between the final value of the strategy and the liability. For the former, we will clarify what it means to be \textit{acceptable} and for ther latter we specify in which sense we define the difference that is by which notion of distance.
+In particular, the corresponding hedging problem is to find \textit{the optimal} self-replicating strategy \((V_0,\vartheta)\) that best approximates the contingent claim at time \(T\). The nature of the problem now heavily relies on what we mean by optimal. For this, we will concentrate on two approaches: looking for the trading strategy that makes the terminal position of the seller \textit{acceptable} and, alternatively, the difference between the final value of the strategy and the liability. For the former, we will clarify what it means to be \textit{acceptable} , and for the latter, we specify in which sense we define the difference, namely by which notion of distance.
 In the most general case, we define hedging for some \textit{hedging measure} \(d:\mathcal{L}^0(\mathbb{P,\mathcal{F};\mathbb{R}})\to\mathbb{R}\), where \(\mathcal{L}^0(\mathbb{P,\mathcal{F};\mathbb{R}})\) denotes the set of real-valued random variables. Then we define the optimal hedging strategy by the solution to the following minimization problem
 \begin{equation}\label{eq:general hedging}
-    \inf_{\vartheta\in\Theta}d(H-V_T(\vartheta))\;.
+    \inf_{(V_0,\vartheta)\in\mathcal{A}(\Theta)}d(H-V_T(\vartheta))\;,
 \end{equation}
-for some liability \(H\). If \cref{eq:general hedging} admits a solution \(\vartheta^*\) \footnote{\(\vartheta^*\) need not be in \(\Theta\). If we equip \(\Theta\) with some topology, we have in any case \(\vartheta^*\in\bar{\Theta}\)} we call it an \textit{optimal trading strategy}. What we mean by optimal depends on the choice of the hedging measure.  
+for some liability \(H\in\mathcal{L}^0(\mathbb{P,\mathcal{F}_T;\mathbb{R}})\) and terminal wealth of a self-financing strategy \(V_T(\vartheta)= V_0+(\vartheta\bullet X)_T\). At this point, no finiteness or attainability claims are set upon or deduced from \cref{eq:general hedging}. If, however, \cref{eq:general hedging} admits a solution \((V_0^*,\vartheta^*)\in\mathcal{A}(\Theta)\), in the sense that the infimum of \cref{eq:general hedging} is attained in \(\mathcal{A}(\Theta)\), we call it an \textit{optimal trading strategy}. The meaning of \textit{optimal} thus depends on the choice of the hedging measure.  
 \\\\
 In what follows, we will consider two different choices for \(d\): convex risk-measure and \(L^2\)-distance. We refer to \(H-V_T(\theta)\) as the \textit{hedging error} of the strategy \(\vartheta\) for the liability \(H\).
 \subsection{convex risk measures}
@@ -282,37 +286,97 @@ As our first choice, we consider the hedging measure \(d\) to be a \textit{conve
     We call \(\rho:\mathcal{L}^0(\mathbb{P,\mathcal{F};\mathbb{R}})\to\mathbb{R}\)
 \end{definition} a \textit{convex risk measure} if it is
 \begin{itemize}
-    \item Montone decreasing
-    \item Convex
-    \item Cash-Invariant
+    \item Montone decreasing: If \(Z_1\geq Z_2\) then \(\rho(Z_1)\leq\rho(Z_2)\)
+    \item Convexity: For \(\alpha\in[0,1]\), we have \(\rho(\alpha Z_1+(1-\alpha)Z_2)\leq \alpha\rho(Z_1)+(1-\alpha)\rho(Z_2)\) for any \(Z_1,Z_2\in\mathcal{L}^0(\mathbb{\mathbb{P},\mathcal{F};\mathbb{R}})\) 
+    \item Cash-Invariant: \(\rho(Z+c)=\rho(Z)-c \quad \text{for all } c\in\mathbb{R}\)
 \end{itemize}
+Note that we are not enforcing continuity. Nevertheless, if \(\Omega=\{\omega_1,\dots,\omega_N\}\) is finite, then trivially \(\Omega\cong \mathbb{R}^N\) since any \(X\in\mathcal{L}^0(\Omega,\mathbb{P};\mathbb{R})\) is determined by the tuple \((X(\omega_1),\dots,X(\omega_N))\). Hence, in the finite case we can view \(\rho\) as a convex function over \(\mathbb{R}^N\), thus continuous.
+\\\\
+The above conditions can be translated in practical assmuptions. The monotonicity reflects the fact that a position with a larger payoff has a smaller risk assosciated to it. Convexity formalizes the idea that diversification lowers risk. Cash invariance then models the simple idea that injecting capital lowers the risk of the position by that same amount.
+\\\\
 Furthermore, we call a trading \(X\) \(\rho\)-acceptable if \(\rho(X)\leq 0\), and we call \(X\) to be a \(\rho\)-indifferent trading position if \(\rho(X) = \rho(0)\); i.e., holding the trading position \(X\) is equivalent, from the point of view of the convex risk measure \(\rho\), to not investing at all. We call \(\rho\) normalized if \(\rho(0)=0\).
 \\\\
 Notice that by cash invariance \(\rho(X+\rho(X))=0\). In other words, \(\rho(X)\) is the smallest amount of cash that needs to be added to the trading position \(X\) in order to make it \(\rho\)-acceptable. 
 \bigbreak
-We now consider the following minimization problem. Let \(\rho\) be a convex risk measure
-\begin{equation}
-    \pi(X) = \inf_{\vartheta\in\Theta}\rho\left(X+(\vartheta)\right)
+We now consider the following minimization problem. Let \(\rho\) be a convex risk measure and \(H\in \mathcal{L}^0(\mathbb{\mathbb{P},\mathcal{F};\mathbb{R}})\) a liability. Then
+\begin{equation}\label{eq:risk measure hedging}
+    \pi(H) = \inf_{(V_0,\vartheta)\in\mathcal{A}(\Theta)}\rho\left(H-V_0-(\vartheta\bullet X)_T\right)\;.
 \end{equation}
+We interpret \(\pi(X)\) as the hedging error under optimal hedging, or equivalently, recalling the discussion of \(\rho(X+\rho(X))=0\), the minimal amount of cash, making the position \(H-(\vartheta\bullet X)_T\) \(\rho\)-acceptable. Notice that, if \(\Theta\) is a convex set, \(\pi\) itself is again a convex risk measure. Indeed, cash-invariance and monotonicity follow directly from the corresponding properties of \(\rho\). For convexity, notice that 
+\begin{align*}
+    &\inf_{\vartheta\in\Theta}\rho(\alpha H_1+(1-\alpha) H_2-V_0-(\vartheta\bullet X)_T)
+    \\&=\inf_{\vartheta_1\in\Theta}\rho(\alpha\left( (H_1-V_0-(\vartheta_1\bullet X)_T\right)+(1-\alpha) \left(H_2-V_0-(\vartheta_2\bullet X)_T\right))
+    \\&\leq \alpha\inf_{\vartheta_1\in\Theta}\rho( (H_1-V_0-(\vartheta_1\bullet X)_T)+(1-\alpha)\inf_{\vartheta_2\in\Theta}\rho( (H_2-V_0-(\vartheta_2\bullet X)_T)
+\end{align*}
+Taking \(\inf_{V_0\in\mathbb{R}}\) of the above inequality yields \(\pi(\alpha H_1+(1-\alpha) H_2)\leq \alpha\pi(H_1)+(1-\alpha)\pi(H_2)\), where we used the convexity of \(\Theta\) in the second step and the convexity of \(\rho\) in the third step.
+\\
+Notice an important subtlety about \cref{eq:risk measure hedging}. Due to the cash-invariance property of the convex risk measure \(\rho\) we have 
+\begin{align*}
+    \pi(H) = &\inf_{(V_0,\vartheta)\in\mathcal{A}(\Theta)}\rho\left(H-V_0-(\vartheta\bullet X)_T\right)\\
+    &=\inf_{\vartheta\in \Theta}\inf_{V_0\in\mathbb{R}}\rho\left(H-V_0-(\vartheta\bullet X)_T\right)\\
+    &=\inf_{\vartheta\in \Theta}\inf_{V_0\in\mathbb{R}}\rho\left(H-(\vartheta\bullet X)_T\right)+V_0=-\infty\;,
+\end{align*} 
+as we can take \(V_0\) arbitrarily negative. In this sense, the problem is ill defined. Hence, either we restrict our admissible strategies to those that are lower bounded by some real value \(-b\leq 0\), or we can put additional assumptions on the convex risk measure \(\rho\) (see \parencite{Xu2006RiskMeasurePricingHedging} for a sufficient treatement of this matter).
+Alternatively, we can take a different point of view and consider a fixed and finite \(V_0^*\in\mathbb{R}\) and consider the minimization problem 
+\begin{equation}\label{eq:risk measure heding with fixed initial capital}
+    \inf_{\vartheta\in\Theta}\rho\left(H-V_0^*-(\vartheta\bullet X)_T\right)\;.
+\end{equation}
+This situation can be motivated and related to the realistic scenario where \(V_0^*\) is determined as a result of trading derivatives in the market at competitive prices. The infimum of \cref{eq:risk measure heding with fixed initial capital} might still not be finite.  In the case where \(\Omega\) is finite, it is enough to require \(\pi(0)>-\infty\), as shown in \parencite[Cor.~3.5.]{Buehler2018DeepHedging}, which we recall at this point. 
+\begin{lemma}\label{lemma:Finiteness of inf for finite sample space}
+    Assume \(\Omega = (\omega_1,\dots,\omega_N)\) for \(N\in\mathbb{N}\) and \(\pi(0)>-\infty\). Then \(\pi(Z)>-\infty\) for all \(Z\in\mathcal{L}^0(\Omega,\mathcal{F};\mathbb{R})\)\;.
+\end{lemma}
+\begin{proof}
+    Indeed, as \(\Omega\) is finite, the se \(\sup_{\omega\in\Omega} X(\omega)\equiv\sup X<\infty\). Hence, using the monotonicity of the convex risk measures \(\pi\) and \(\pi(X)\geq\pi(\sup X)=\pi(0)-\sup X>-\infty\).
+\end{proof}
+In the general case one has to restrict to bounded cumulative gains 
+\begin{equation}
+G_T^b(\Theta)=\left\{(\vartheta \bullet X)_T:\vartheta\in \Theta, (\vartheta \bullet X)_T\geq -b\right\}\;,
+\end{equation}for some \(b\geq 0\). Imposing further assumptions on the convex risk measure \(\rho\) one can show the existence of the solution 
+\begin{equation}
+    \pi_b(H) = \inf_{(V_0,\vartheta)\in\mathcal{A}_b(\Theta))}\rho(H-V_0-(\vartheta\bullet X)_T))=\rho(H-V_0^*-(\vartheta^*\bullet X)_T))\;,
+\end{equation}
+where \(\mathcal{A}_b(\Theta)=\mathbb{R}+G_T^b(\Theta)\). For the proof and the exact assumptions, see \parencite[Lemma~2.5]{Xu2006RiskMeasurePricingHedging} and  \parencite[Thm~2.6]{Xu2006RiskMeasurePricingHedging}.
 \subsection{Mean-square hedging}
-In particular, discuss here the projection viewpoint in \(L^2\)
-. This section will be based primarily on \parencite{Schweizer1995VarianceOptimalHedgingDiscreteTime}(general concept and continuous time quadratic hedging) and 
-\parencite{Possamai2025MathFinance}(discrete time hedging)
-
-
+For the second choice of hedging measure \(d\) we take the \(L^2\)-norm that is \(d(X)=\mathbb{E}[|X|^2]\). Notice that this object to make sense (we mean finiteness in this context) we need to restrict the hedging measure to \(d:L^2(\mathbb{\mathbb{P},\mathcal{F};\mathbb{R}})\to\mathbb{R}\) and assume \(H\in L^2(\mathbb{P})\). The corresponding hedging problem then takes the form 
+\begin{equation}\label{eq:mean squared hedging}
+\inf_{(V_0,\vartheta)\in\mathcal{A}(\Theta)}\mathbb{E}[\left(H-V_0-(\vartheta\bullet X)_T)\right)^2]\;,
+\end{equation}
+for some fixed \(V_0\in\mathbb{R}\).
+\\
+Straight away, we notice that if \(G_T(\Theta)=\left\{V_0+(\vartheta \bullet X)_T:(V_0,\vartheta)\in\mathbb{R}\times \Theta\right\}\) is a closed subspace of \(L^2\) then \cref{eq:mean squared hedging} reduces to a \(L^2\) projection problem of the \(L^2\)-random variable \(H\) onto \(G_T(\Theta)\). 
+\\
+Indeed, then \cref{eq:mean squared hedging} asks for the element in the closed subspace \(\mathcal{A}(\Theta)\) that minimizes the \(L^2\)-distance. Recalling that \((L^2(\mathbb{R)},\lVert\cdot\rVert_{L^2})\) is a Hilbert space, we get existence and uniqueness of the minizer of \cref{eq:mean squared hedging} from \parencite[Thm.~12.3]{Rudin1991FunctionalAnalysis}. 
+Furthermore, if \(\Theta\subset \Theta^2\), where \(\Theta^2\coloneqq\left\{\vartheta\in\mathcal{L}(X):(\vartheta\bullet X)_T\in L^2(\mathcal{F},\mathbb{P})\right\}\), then notice that due to continuity of the map, \footnote{it follows as the composition of continuous functions: \(L^2\)-norm and addition in \(\mathbb{R}\). This uses the general fact that for \(f:X\to\mathbb{R}\) continuous for some topological space \(X\), we have for any subset (\(Y\subset X\)) that \(\inf d(Y)=\inf d(\overline{Y})\). For a short proof, see \cref{Appendix:Infima over closure}}.
+\begin{equation}
+\begin{cases}
+    (\mathcal{A}(\Theta),\lVert\cdot\rVert_{L^2})\to(\mathbb{R},|\cdot|_{\mathbb{R}})\\
+    V_T\mapsto\lVert H-V_0-V_T\rVert_{L^2}\;,
+\end{cases}
+\end{equation}
+the minimization problem \cref{eq:mean squared hedging} is equivalent to 
+\begin{equation}\label{eq:mean squared hedging over closure}
+\inf_{V_T\in \overline{G_T(\Theta)}}\mathbb{E}[\left(H-V_T\right)^2]\;,
+\end{equation}
+where \(\overline{G_T(\Theta)}\) denotes the \(L^2\)-closure of \(G_T(\Theta)\). In particular, due to the closedness of \(\overline{G_T(\Theta)}\) in the Hilbert space \(L^2(\mathbb{P})\), and hence by application of the Hilbert projection theorem, \cref{eq:mean squared hedging over closure} admits a unique solution \(V_T^*\in\overline{G_T(\Theta)}\). 
+Hence, we don't get an explicit expression for the optimal value process at time \(T\). Thus, it is useful to study conditions of \(\Theta\) for which \(G_T(\Theta)\) is closed in \(L^2(\mathbb{P})\). Indeed, if this is the case, by the same Hilbert projection argument, we get the existence of a unique \(V_T^*\in G_T(\Theta)\), which, as an element of \(G_T(\Theta)\), takes the form \(V_T^*=\int_0^T\vartheta^*\diff X_s\).
+\textcolor{blue}{We may add a couple of comments about pricing in this case, in particular the indiffirence price introduced in \parencite{Buehler2018DeepHedging}}
 
 \chapter{Deep Hedging in Discrete Time}
 \textcolor{blue}{
 To emphasize the top-down approach we want for this exposition, we will remain general in the presentation of \parencite{Buehler2018DeepHedging} and state the result with respect to an approximation system i.e. some dense set of functions, rather than concretely using neural networks.}
-After establishing a good understanding of the hedging problem in general terms we further discuss deep hedging. We will approach it generally at first and then go into more detail into the set up and treatement of \parencite{Buehler2018DeepHedging}. Recall that discussed that hedgin problem as we treat it in this article is given by \cref{eq:general hedging} as the approximation of a liability \(H\) by the value process of a self-financing strategy \(\vartheta\in\Theta\) for some set of admissible trading strategies \(\Theta\) and some notion of closeness 
+After establishing a good understanding of the hedging problem in general terms we further discuss deep hedging. We will approach it generally at first and then go into more detail into the set up and treatement of \parencite{Buehler2018DeepHedging}. Recall that the hedging problem, as we treat it in this article, is given by \cref{eq:general hedging} as the approximation of a liability \(H\) by the value process of a self-financing strategy \(\vartheta\in\Theta\) for some set of admissible trading strategies \(\Theta\) and some notion of closeness. 
 
 \section{The deep hedging framework of Bühler et al.}
-Clearly present the "goal" of \parencite{Buehler2018DeepHedging} in light of \parencite[Prop.~4.9.]{Buehler2018DeepHedging}
-\\
-Also explain what simplifying assumptions we will use (e.g. self-financing) and show how results simplify in this case. 
-\subsection{Market model and trading strategies}
-Discrete set up with finite sample space \(\Omega\) and finitely generated market filtration
+The basic idea in deep hedging is to approximate the strategies \(\vartheta\in\Theta\) by a \textit{good} set of approximants. By good, we mean that the approximation should be arbitrarily exact and implementation friendly. The limiting exactness of our approximants is central to the theoretical development of \parencite{Buehler2018DeepHedging} as discussed in the following, and the practical importance of neural networks will motivate a specific choice for our approximation system. The specific setup we discuss in this chapter is based on a finite sample space \(\Omega\). 
+\\\\
+What makes \parencite{Buehler2018DeepHedging} particularly powerful is its practical generality, particularly allowing for trading costs. 
+The main problem that is directly addressed theoretically in \parencite{Buehler2018DeepHedging} is convex risk-measure hedging as introduced in \cref{eq:risk measure hedging}. In light of our discussion of the continuous time setup, we will nevertheless consider a frictionless market, that is, without trading costs. In this case, we will show how the theoretical results from \parencite{Buehler2018DeepHedging} apply to mean-variance hedging in the finite setup. This in particular adds to \parencite[Remark.~3.4]{Buehler2018DeepHedging} and conceptually links their work to our discussion of deep mean-variance hedging.
 
+What makes \parencite{Buehler2018DeepHedging} particularly powerful is its practical generality, particularly allowing for trading costs. 
+We will mainly concentrate on the case \(\)
+
+\subsection{Market model and trading strategies}
+The set still follows, for the most part, the general setup described in \cref{sec:hedging}. Some simplifying assumptions are made that make the treatment technically easier compared to the general continuous time treatment, as discussed in \cref{sec:deep mean-square hedging in continuous time}. In particular, the main simplifications follow from the assumptions of a discrete financial market with a finite time horizon \(T\), finitely many trading times \(0=t_0<t_1<\dots<t_n=T\), and a finite sample space \(\Omega=\{\omega_1,\dots,\omega_N\}\). Hence, the market-filtration \(\mathbb{F}=(\mathcal{F})_{k=0}^n\), generated by the market process \(Y=(Y_k)_{k=0}^n\), is also finitely generated in the sense that \(\mathcal{F}_k=\sigma(Y_0,\dots,Y_k)\). If we consider \(\mathcal{F}_k\) the available information up to time \(t_k\), we have, by the Doob-Dynkin lemma \parencite[Lemma.~1.14]{Kallenberg2002FoundationsModernProbability}, that any random quantity whose value can be deduced from the information available at time \(t_k\), that is any \(\mathcal{F}_k\)-measurable random variable, is a function of \(Y_0,\dots,Y_k\).  
 \section{Approximation of trading strategies}
 
 \section{From convex risk measures to quadratic loss}
@@ -323,37 +387,37 @@ At this point, motivate the concrete use of neural networks as the approximation
 \\
 To make the connection with the deep mean variance hedging problem, we show a deep mean variance type proposition in the framework of \parencite{Buehler2018DeepHedging}. The proof is mainly based on the proof of \parencite[Thm.~4.9]{Buehler2018DeepHedging}.
 \\
-For the following part, we do not consider the differentiation between constrained and unconstrained strategies; and also neglect trading costs, i.e., \(C_t=0\quad \forall t\geq 0\). The minimization problem we are we study now takes the form 
+For the following part, we do not consider the differentiation between constrained and unconstrained strategies; and also we still neglect trading costs, i.e., \(C_t=0\quad \forall t\geq 0\). The minimization problem we are we study now takes the form 
 \begin{equation}\label{eq:hedging error}
-    \Delta(Z) = \inf_{\vartheta\in\mathcal{H}^u}\mathbb{E}[\left(Z-\vartheta\bullet X\right)_T)^2]
+    \Delta(H) = \inf_{\vartheta\in\mathcal{H}^u}\mathbb{E}[\left(H-\vartheta\bullet X\right)_T)^2]
 \end{equation}
 and in analogy to \parencite[Thm.~4.9.]{Buehler2018DeepHedging} we introduce
 \begin{equation}\label{eq:M hedging error}
-    \Delta^M(Z) = \inf_{\vartheta\in\mathcal{H}^M}\mathbb{E}[\left(Z-\vartheta\bullet X\right)_T)^2]
+    \Delta^M(H) = \inf_{\vartheta\in\mathcal{H}^M}\mathbb{E}[\left(H-\vartheta\bullet X\right)_T)^2]
 \end{equation}
 for \(\mathcal{H}^M\) as before. Then we want to show the following discrete time deep mean hedging theorem
 \begin{proposition}[Discrete Deep Mean variance Hedging]\label{thm:discrete deep mean variance hedging}
     \begin{equation}
-        \inf_{\vartheta\in\mathcal{H}^u}\mathbb{E}[\left(Z-p_0-(\vartheta\bullet X)_T\right)^2]=\inf_{\vartheta\in\mathcal{NN}_{\infty}}\mathbb{E}[\left(Z-p_0-(\vartheta\bullet X)_T\right)^2].
+        \inf_{\vartheta\in\mathcal{H}^u}\mathbb{E}[\left(H-p_0-(\vartheta\bullet X)_T\right)^2]=\inf_{\vartheta\in\mathcal{NN}_{\infty}}\mathbb{E}[\left(H-p_0-(\vartheta\bullet X)_T\right)^2].
     \end{equation}
 \end{proposition}
 More precisely, we will show the stronger statement
 \begin{theorem}\label{thm:strong discrete deep mean variance hedging}
-Let \(\mathcal{H}^M\) be as in .... and \(\Delta^M(Z)\) as in \cref{eq:M hedging error} and \(\Delta(Z)\) as in \cref{eq:hedging error} respectively. Then, for any \(Z\in\mathcal{L}^0(\mathcal{F},\mathbb{P})\),
+Let \(\mathcal{H}^M\) be as in .... and \(\Delta^M(H)\) as in \cref{eq:M hedging error} and \(\Delta(H)\) as in \cref{eq:hedging error} respectively. Then, for any \(H\in\mathcal{L}^0(\mathcal{F},\mathbb{P})\),
     \begin{equation}
-        \lim_{M\to\infty}\Delta^M(Z)\to\Delta(Z)\;.
+        \lim_{M\to\infty}\Delta^M(H)\to\Delta(H)\;.
     \end{equation}
 \end{theorem}
-Indeed \cref{thm:strong discrete deep mean variance hedging} implies \cref{thm:discrete deep mean variance hedging}. To see this more generally let \(J:\mathcal{H}\to\mathbb{R}\) and assume \(\lim_{M\to\infty}\inf J(\mathcal{H}^M)=\inf J(\mathcal{H}^u)\). Then there exists \((x_n)_{n\in\mathbb{N}}\subset\bigcup_{n\geq 1}\mathcal{H}^M\) such that \(\lim_{n\to\infty}J(x_n)=\inf J(\mathcal{H}^u)\). This then implies \(\inf J(\mathcal{\bigcup_{M\geq 1}\mathcal{H}}^M)=\inf J(\mathcal{H}^u)\). Indeed, because \(\bigcup_{M\geq 1}\mathcal{H}^M\subset \mathcal{H}^u\) hence \(\inf J(\mathcal{H}^u)\) is a lower bound for \(\inf J(\mathcal{\bigcup_{M\geq 1}\mathcal{H}}^M)\). Those it remainse to show that \(\forall \delta>0\) there exists \(x_n\in \bigcup_{M\geq 1}\mathcal{H}^M)\) such that \(\inf J(\mathcal{\bigcup_{M\geq 1}\mathcal{H}}^M)<\inf J(\mathcal{H}^u)+\delta\). This is equivalent to finding a sequence \((x_n)_{n\in\mathbb{N}}\subset \bigcup_{M\geq 1}\mathcal{H}^M\) such that \(\lim_{n\to\infty}J(x_n)=\inf J(\mathcal{H)}\).\footnote{This equivalence is more or less by definition but rigourusly it goes like this. For once if the the property holds for every \(\delta>0\) we can consider the nullsequence \(\delta_n = 1/n\) and get for every \(n\in\mathbb{N}\) an \(x_n\) such that \(J(x_n)\) is \(\delta_n\) close to \(\inf J(\mathcal{H})\). Conversely, if there exists such a sequence then \(\forall \delta>0\quad \exists N\in\mathbb{N}\) for which \(\left|J(x_n)-\inf J(\mathcal{H})\right|<\delta\). But \(J(x_n)\geq \inf J(\mathcal{H}^M)\geq \inf J(\mathcal{H})\) for some \(M\in\mathbb{N}\), so \(J(x_n)<\inf J(\mathcal{H})+\delta\).} For \(J(\vartheta)\coloneqq\mathbb{E}[\left(Z-p_0-(\vartheta\bullet X)_T\right)^2]\) we get the claim.
+Indeed \cref{thm:strong discrete deep mean variance hedging} implies \cref{thm:discrete deep mean variance hedging}. To see this more generally let \(J:\mathcal{H}\to\mathbb{R}\) and assume \(\lim_{M\to\infty}\inf J(\mathcal{H}^M)=\inf J(\mathcal{H}^u)\). Then there exists \((x_n)_{n\in\mathbb{N}}\subset\bigcup_{n\geq 1}\mathcal{H}^M\) such that \(\lim_{n\to\infty}J(x_n)=\inf J(\mathcal{H}^u)\). This then implies \(\inf J(\mathcal{\bigcup_{M\geq 1}\mathcal{H}}^M)=\inf J(\mathcal{H}^u)\). Indeed, because \(\bigcup_{M\geq 1}\mathcal{H}^M\subset \mathcal{H}^u\) hence \(\inf J(\mathcal{H}^u)\) is a lower bound for \(\inf J(\mathcal{\bigcup_{M\geq 1}\mathcal{H}}^M)\). Those it remainse to show that \(\forall \delta>0\) there exists \(x_n\in \bigcup_{M\geq 1}\mathcal{H}^M)\) such that \(\inf J(\mathcal{\bigcup_{M\geq 1}\mathcal{H}}^M)<\inf J(\mathcal{H}^u)+\delta\). This is equivalent to finding a sequence \((x_n)_{n\in\mathbb{N}}\subset \bigcup_{M\geq 1}\mathcal{H}^M\) such that \(\lim_{n\to\infty}J(x_n)=\inf J(\mathcal{H)}\).\footnote{This equivalence is more or less by definition but rigourusly it goes like this. For once if the the property holds for every \(\delta>0\) we can consider the nullsequence \(\delta_n = 1/n\) and get for every \(n\in\mathbb{N}\) an \(x_n\) such that \(J(x_n)\) is \(\delta_n\) close to \(\inf J(\mathcal{H})\). Conversely, if there exists such a sequence then \(\forall \delta>0\quad \exists N\in\mathbb{N}\) for which \(\left|J(x_n)-\inf J(\mathcal{H})\right|<\delta\). But \(J(x_n)\geq \inf J(\mathcal{H}^M)\geq \inf J(\mathcal{H})\) for some \(M\in\mathbb{N}\), so \(J(x_n)<\inf J(\mathcal{H})+\delta\).} For \(J(\vartheta)\coloneqq\mathbb{E}[\left(H-p_0-(\vartheta\bullet X)_T\right)^2]\) we get the claim.
 \\\\
 For the proof of \cref{thm:strong discrete deep mean variance hedging} we proceed very similar to the strategy used in the proof of \parencite[Thm.~4.9.]{Buehler2018DeepHedging} with the simplification as previously meantioned:
 \begin{proof}
-Notice first that by the definition, we have \(\mathcal{NN}_{\infty}=\bigcup_{M\geq 1}\mathcal{H}^M\subset\mathcal{H}^u\) and \(\mathcal{H}^M\subset\mathcal{H}^{M+1}\subset\bigcup_{M\geq 1}\mathcal{H}^M\subset \mathcal{H}^u\) for all \(M\in\mathbb{N}\). Hence \(\Delta^M(Z)\leq\Delta^{M+1}(Z)\leq\Delta(Z)\). So in particular it suffised to show that \(\forall \epsilon>0\quad\exists M\in\mathbb{N}\) such that \(\Delta^M(Z)\leq\Delta(Z)+\epsilon\).
+Notice first that by the definition, we have \(\mathcal{NN}_{\infty}=\bigcup_{M\geq 1}\mathcal{H}^M\subset\mathcal{H}^u\) and \(\mathcal{H}^M\subset\mathcal{H}^{M+1}\subset\bigcup_{M\geq 1}\mathcal{H}^M\subset \mathcal{H}^u\) for all \(M\in\mathbb{N}\). Hence \(\Delta^M(H)\leq\Delta^{M+1}(H)\leq\Delta(H)\). So in particular it suffised to show that \(\forall \epsilon>0\quad\exists M\in\mathbb{N}\) such that \(\Delta^M(H)\leq\Delta(H)+\epsilon\).
 The proof now is exactly the same as in \parencite[Thm.~4.9.]{Buehler2018DeepHedging} just using the fact that the expectations
 \begin{equation}
-    \mathbb{E}[\left(Z-p_0-(\vartheta\bullet X)_T\right)^2]=\sum_{\omega\in\Omega}\left(Z(\omega)-p_0-(\vartheta\bullet X)_T(\omega)\right)^2\;,
+    \mathbb{E}[\left(H-p_0-(\vartheta\bullet X)_T\right)^2]=\sum_{\omega\in\Omega}\left(H(\omega)-p_0-(\vartheta\bullet X)_T(\omega)\right)^2\;,
 \end{equation}
-are finite sums because the sample space \(\Omega = \left\{\omega_1,\dots,\omega_N\right\}\) is finite and the square function is continuous everywhere. As we are dealing with expectations we don't even need the convergence in every \(\omega\in\Omega\) but almost everywhere convergence of the approximation functions \(\vartheta_k^n\coloneqq F_{k,n}(Y_0,\dots,Y_k)\) to \(\vartheta_k\) (where the latter is \(\vartheta\in\mathcal{H}^u\) such that \(\mathbb{E}[\left(Z-p_0-(\vartheta\bullet X)_T\right)^2]\leq\Delta(Z)+\epsilon\)).
+are finite sums because the sample space \(\Omega = \left\{\omega_1,\dots,\omega_N\right\}\) is finite and the square function is continuous everywhere. As we are dealing with expectations we don't even need the convergence in every \(\omega\in\Omega\) but almost everywhere convergence of the approximation functions \(\vartheta_k^n\coloneqq F_{k,n}(Y_0,\dots,Y_k)\) to \(\vartheta_k\) (where the latter is \(\vartheta\in\mathcal{H}^u\) such that \(\mathbb{E}[\left(H-p_0-(\vartheta\bullet X)_T\right)^2]\leq\Delta(H)+\epsilon\)).
 \end{proof}
 This shows that, as alluded to in \parencite[Remark~3.4]{Buehler2018DeepHedging}, the approximate optimal hedging problem, and in particular the mean hedging problem, is subsumed in the framework of \parencite{Buehler2018DeepHedging}. Indeed the proof above for \(l(\cdot)=(\cdot)^2\) goes through for any continuous function \(l:\mathbb{R}\to\mathbb{R}_+\).
 \chapter{Neural Networks and Universal Approximation}
@@ -396,11 +460,11 @@ R\,\mathcal{B}(\mathbb{R})\) that are measurable with respect to market generate
 \subsection{From simple processes to stochastic integral}
 Density of simple processes \parencite[Prop.~5.28.]{Arandjelovic2025} and the respective result for wealth processes / stochastic integrals: \parencite[Thm.~5.29.]{Arandjelovic2025}.
 \begin{theorem}[Approximation of Stochastic Integrals]\label{thm:Approx of stoch. Integrals}
-    Let \(X\) be a càdlàg semimartingale, and \(V\in \mathcal{L}\). Then, there exists a sequence \((V^n)_{n\in\mathbb{N}}\) in \(\mathcal{S}(\psi)\) that converges to \(V\) in \(\mathbb{P}\)-ucp, and such that
+    Let \(X\) be a càdlàg semimartingale, and \(V\in \mathcal{L}\). Then, there exists a sequence \((V^n)_{n\in\mathbb{N}}\) in \(\mathcal{S}(\psi)\) that converges to \(V\) in \(\mathbb{P}\)-\mathbb{P}-ucp, and such that
     \begin{equation}
         \int \vartheta_s^n\diff X_s \to \int \vartheta_s^n\diff X_s,\quad n\to\infty
     \end{equation}
-    where convergence holds in \(\mathbb{P}\)-ucp.
+    where convergence holds in \(\mathbb{P}\)-\mathbb{P}-ucp.
 \end{theorem}
 \subsection{Specializing to martingale case}
 Version for martingale integrators \(M\in\mathcal{H}^p\) and integrands \(\vartheta\in L^p(M)\), \parencite[Thm.~5.32.]{Arandjelovic2025}
@@ -417,7 +481,7 @@ These sections will be based primarily on \parencite{Schweizer2001GuidedTourQuad
 Moreover, state the main results and underlying assumptions for the projection results:
 \parencite[Thm.~46.]{Schweizer2001GuidedTourQuadraticHedging}.
 
-\chapter{Deep Mean-Square Hedging in Continuous Time}
+\chapter{Deep Mean-Square Hedging in Continuous Time}\label{sec:deep mean-square hedging in continuous time}
 \section{Deep mean-square hedging in the martingale case}
 \subsection{Statement and proof of the theorem}
 \begin{theorem}[Continuous deep mean-square hedging in the martingale case]\label{thm:cont-deep-ms-hedging-martingale}
@@ -451,7 +515,7 @@ Where classical mean quadratic hedging is mainly understood as stated in \parenc
     \end{equation}
     Again we can consider the the \(L^2\) closure of \(G_T(\Theta)=\left\{\int_0^T \vartheta_s\diff X_s:\vartheta\in\Theta\right\}\) and use the Hilbert Projection theorem on this closed subspace of \(L^2\).
 \end{remark}
-Then, crucially, notice that from \cref{thm:Approx of stoch. Integrals} we obtain the convergence in probability of the final values of the respective integral processes. Indeed, the \(\mathbb{P}\)-ucp convergence of the integral processes, restricted to a finite time horizon T, reads as:
+Then, crucially, notice that from \cref{thm:Approx of stoch. Integrals} we obtain the convergence in probability of the final values of the respective integral processes. Indeed, the \(\mathbb{P}\)-\mathbb{P}-ucp convergence of the integral processes, restricted to a finite time horizon T, reads as:
 \begin{equation}
     \sup_{0\leq t\leq T}\left|\int_{0}^t\vartheta_s^n\diff X_s-\int_{0}^t\vartheta^*_s\diff X_s\right|\to 0\quad\text{in Probability}
 \end{equation}
@@ -471,9 +535,9 @@ We do NOT want the uniform integrability of \(\left\{\left|\int_{0}^T\vartheta_s
 \\\\
 Hence, if necessary, we shall impose conditions only on the integrator \(X\). Recall that for \(\vartheta_n\in\mathcal{S}(\psi)\) that is \(\vartheta^n_t=\varphi_0\mathbbm{1}_{\{0\}}+\sum_{i=1}^l\varphi_i^n\mathbbm{1}_{\tau_i,\tau_{i+1}}\) and \(\varphi_i^{(n)}=f^{(n)}(Y^{\tau_i}_{t_1},\dots,Y^{\tau_i}_{t_r})\) where \(f\in\mathcal{NN}((\mathbb{R}^{d\times r})^*,\psi)\)\footnote{the parameter \(r\in\mathbb{N}\) is not further specified. It relies to the existence result of \parencite[Thm.~5.23.]{Arandjelovic2025}}, the stochastic integral takes the form \(\int_0^T\vartheta^n_s\diff X_s = \sum_{i=1}^k \varphi^{(n)}_i(X_{\tau_i\wedge T}-X_{\tau_{i+1}\wedge T})\). Note that \(\left|\int_0^T\vartheta^n_s\diff X_s\right|^2 \leq \sum_{i=1}^k \left|\varphi^{(n)}_i\right|^2\left|(X_{\tau_i\wedge T}-X_{\tau_{i+1}\wedge T})\right|^2\). But there can't exist a uniform bound (in n) on \(|\varphi_i^n|\) as this would imply that neural networks can't approximate constants above this bound which is absurd. Also, notice for \(\tau<\sigma\) two stopping times, that \(f_n = c_n\mathbbm{1}_{[\tau,\sigma)}\in\mathcal{S}(\psi)\) for all \(c_n\in\mathbb{R}\). Take \(c_n\to\infty\) as \(n\to\infty\) a real deterministic sequence, then \(\int_0^T(f_n)_s\diff X_s=c_n(X_{\tau\wedge T}-X_{\sigma\wedge T})\), and hence \(\mathbb{E}[\left|\int_0^T(f_n)_s\diff X_s\right|^2]=\mathbb{E}[\left|c_n\right|^2\left|(X_{\tau\wedge T}-X_{\sigma\wedge T})\right|^2]\). If this is to be UI, then in particular, it is bounded in \(L^1\). But \(\sup_{n\in\mathbb{N}}\mathbb{E}[c_n^2(X_{\tau\wedge T}-X_{\sigma\wedge T})^2]=(\sup_{n\in\mathbb{N}}c_n^2)\mathbb{E}[(X_{\tau\wedge T}-X_{\sigma\wedge T})^2]<\infty\) by assumption. But \(\sup_{n\in\mathbb{N}}c_n^2=\infty\) hence we must have \(\mathbb{E}[(X_{\tau\wedge T}-X_{\sigma\wedge T})^2]=0\) which implies \(X_{\tau\wedge T}-X_{\sigma\wedge T}=0\quad\mathbb{P}\)-a.s. As this holds for all \(\mathbb{F}\)-stopping times \(\tau,\sigma\), in particular deterministic ones, we have \(X\equiv 0\) almost surely. Hence, there can't be a (non-trivial) condition on \(X\) making the family \(\left\{\left|\int_{0}^T\vartheta_s^n\diff X_s\right|^2\right\}_{n\in\mathbb{N}}\) UI, as the latter being UI for any sequence \((\vartheta^n)_{n\in\mathbb{N}}\) implies that \(X\equiv 0\).
 \bigbreak
-\textcolor{blue}{As an initial observation, recall that \(\int_{0}^T\vartheta_s^n\diff X_s\xrightarrow{\mathbb{P}}\int_{0}^T\vartheta^*_s\diff X_s\;\) implies that there exists a subsequence \(\left\{\int_{0}^T\vartheta_s^{n(k)}\diff X_s\right\}_{k\in\mathbb{N}}\) that converges \(\mathbb{P}\)-a.s. to \(\int_{0}^T\vartheta_s^{*}\diff X_s\). Hence, on a full measure set, it is (uniformly) bounded as a real converging sequence (assuming that \(\int_{0}^T\vartheta_s^{*}\diff X_s<\infty\) on that full measure set). If it is only \(\mathbb{P}\)-a.s. finite, take the intersection of the respective full measure sets to reach the same conclusion.) Hence, there exists a positive constant \(M\in\mathbb{R}_+\) such that \(\left|\int_{0}^T\vartheta_s^{n(k)}\diff X_s\right|^2<M^2\quad \mathbb{P}\)-a.s. for all \(k\in\mathbb{N}\). But \(M^2\) is integrable; hence, the family \(\left\{\left|\int_{0}^T\vartheta_s^{n(k)}\diff X_s\right|^2\right\}_{k\in\mathbb{N}}\) is uniformly integrable.\footnote{If \(Z\geq |X_n|\) for all \(n\in\mathbb{N}\), we have \(\mathbb{E}[|X|\mathbbm{1}_{|X|\geq K}]\leq\mathbb{E}[Z\mathbbm{1}_{Z\geq K}]\) for any \(K>0\). As the left hand side going to 0 as \(K\to\infty\) it gives us the uniform integrability of \(\{X_n\}_{n\in\mathbb{N}}\)}. Thus, we get }
+\textcolor{blue}{As an initial observation, recall that \(\int_{0}^T\vartheta_s^n\diff X_s\xrightarrow{\mathbb{P}}\int_{0}^T\vartheta^*_s\diff X_s\;\) implies that there exists a subsequence \(\left\{\int_{0}^T\vartheta_s^{n(k)}\diff X_s\right\}_{k\in\mathbb{N}}\) that converges \(\mathbb{P}\)-a.s. to \(\int_{0}^T\vartheta_s^{*}\diff X_s\). Hence, on a full measure set, it is (uniformly) bounded as a real converging sequence (assuming that \(\int_{0}^T\vartheta_s^{*}\diff X_s<\infty\) on that full measure set). If it is only \(\mathbb{P}\)-a.s. finite, take the intersection of the respective full measure sets to reach the same conclusion.) Hence, there exists a positive constant \(M\in\mathbb{R}_+\) such that \(\left|\int_{0}^T\vartheta_s^{n(k)}\diff X_s\right|^2<M^2\quad \mathbb{P}\)-a.s. for all \(k\in\mathbb{N}\). But \(M^2\) is integrable; hence, the family \(\left\{\left|\int_{0}^T\vartheta_s^{n(k)}\diff X_s\right|^2\right\}_{k\in\mathbb{N}}\) is uniformly integrable.\footnote{If \(H\geq |X_n|\) for all \(n\in\mathbb{N}\), we have \(\mathbb{E}[|X|\mathbbm{1}_{|X|\geq K}]\leq\mathbb{E}[H\mathbbm{1}_{H\geq K}]\) for any \(K>0\). As the left hand side going to 0 as \(K\to\infty\) it gives us the uniform integrability of \(\{X_n\}_{n\in\mathbb{N}}\)}. Thus, we get }
 \\\\
-\textcolor{red}{This conclusion is WRONG. Notice that the bound \(M = M(\omega)\) and hence doesn't define a random variable \(Z\in L^2\). Indeed the argument used, goes as follows: For every \(\omega\) the sequence \(\left(\int_{0}^T\vartheta_s^{n(k)}\diff X_s\right)(\omega)\) is bounded as a real converging sequence, hence \(\left|\left(\int_{0}^T\vartheta_s^{n(k)}\diff X_s\right)(\omega)\right|\leq M(\omega)\). From this we can not conclude uniform integrability. We need put assumptions on \(X\).}
+\textcolor{red}{This conclusion is WRONG. Notice that the bound \(M = M(\omega)\) and hence doesn't define a random variable \(H\in L^2\)(at least not because it is constant almost surely). Indeed the argument used, goes as follows: For every \(\omega\) the sequence \(\left(\int_{0}^T\vartheta_s^{n(k)}\diff X_s\right)(\omega)\) is bounded as a real converging sequence, hence \(\left|\left(\int_{0}^T\vartheta_s^{n(k)}\diff X_s\right)(\omega)\right|\leq M(\omega)\).}
 \\\\
 \begin{equation}
 \int_{0}^T\vartheta_s^{n(k)}\diff X_s \xrightarrow{L^2(\mathbb{P})} \int_{0}^T\vartheta^*_s\diff X_s\;\text{ as } k\to\infty
@@ -485,17 +549,75 @@ Hence, restricting ourselves to this subsequence (which obviously still converge
 \end{align*}
 where \(\lVert H-V_0^*-\int_{0}^T\vartheta_s^{*}\diff X_s\rVert_{L^2}=\inf_{\vartheta\in\Theta}\lVert H-V_0^*-\int_{0}^T\vartheta_s\diff X_s\rVert_{L^2}\).
 By \cref{rem:inf and sequences}, the existence of this sequence is equivalent to a more general statement:
-\begin{theorem}[Semimartingale Deep Hedging]
+\begin{theorem}[Semimartingale Deep Hedging]\label{thm:general deep hedging}
     Let \(X\) be a semimartingale and \(\Theta\subset\Theta_2\). Let \((V_0^*,\vartheta^*)\) be the solution to \cref{thm:Hilbert Projection for Mean Sqaure Hedging}. Then there exists \((\vartheta_n)_{n\in\mathbb{N}}\subset\mathcal{S}(\mathcal{\psi})\) such that:
     \begin{equation}
-        \min_{\vartheta\in G_T(\Theta)}\lVert H-V_0^*-\int_{0}^T\vartheta_s\diff X_s\rVert_{L^2}=\inf_{\vartheta\in\mathcal{S}(\psi)}\lVert H-V_0^*-\int_{0}^T\vartheta_s\diff X_s\rVert_{L^2}\;,
+        \min_{\vartheta\in \Theta}\lVert H-V_0^*-\int_{0}^T\vartheta_s\diff X_s\rVert_{L^2}=\inf_{\vartheta\in\mathcal{S}(\psi)}\lVert H-V_0^*-\int_{0}^T\vartheta_s\diff X_s\rVert_{L^2}\;,
     \end{equation}
 \end{theorem}
-where \(\lVert H-V_0^*-\int_{0}^T\vartheta^*_s\diff X_s\rVert_{L^2}=\min_{\vartheta\in G_T(\Theta)}\lVert H-V_0^*-\int_{0}^T\vartheta_s\diff X_s\rVert_{L^2}\).
+where \(\lVert H-V_0^*-\int_{0}^T\vartheta^*_s\diff X_s\rVert_{L^2}=\min_{\vartheta\in \Theta}\lVert H-V_0^*-\int_{0}^T\vartheta_s\diff X_s\rVert_{L^2}\).
 \\\\
+\newpage
 \underline{Possible strategies}:
+In order to get deep-hedging result similar to \cref{thm:general deep hedging} we need 
+\begin{equation}
+    \int_0^T\vartheta^n_s\diff X_s \overset{L^2}{\to} \int_0^T\vartheta_s\diff X_s
+\end{equation}
+For an approximating sequence \((\vartheta_n)_{n\in\mathbb{N}}\subset\mathcal{S}(\psi)\) of \(\vartheta\in\tilde{\Theta}\), where the sense of approximation is to be determinded and the set \(\tilde{\Theta}\) such that \(\mathcal{S}(\psi)\subset\tilde{\Theta}\). Assuming this is done, we have
+\begin{align*}
+  &\inf_{\vartheta\in\mathcal{S}(\psi)}\lVert H-V_0^*-\int_0^T \vartheta_s^n\diff X_s\rVert_{L^2}\\&\leq
+    \inf_{n\in\mathbb{\mathbb{N}}}\lVert H-V_0^*-\int_0^T \vartheta_s^n\diff X_s\rVert_{L^2}\leq \liminf_{n\to\infty}\lVert H-V_0^*-\int_0^T \vartheta_s^n\diff X_s\rVert_{L^2}
+    \\&\leq \liminf_{n\to\infty}\lVert H-V_0^*-\int_0^T \vartheta_s^*\diff X_s\rVert_{L^2}+\lVert \int_0^T \vartheta_s^n\diff X_s-\int_0^T \vartheta_s^*\diff X_s\rVert_{L^2}\\&=\lVert H-V_0^*-\int_0^T \vartheta_s^*\diff X_s\rVert_{L^2}
+\end{align*}
+where \(\lVert H-V_0^*-\int_0^T \vartheta_s^*\diff X_s\rVert_{L^2}=\argmin_{\vartheta\in\Theta}\lVert H-V_0^*-\int_0^T \vartheta_s^*\diff X_s\rVert_{L^2}\) for some set \(\Theta\subset\Theta_2\). We consider two possible strategies.
+\bigbreak
+(1): From \parencite[Thm~5.29.]{Arandjelovic2025} we have \(\mathcal{S}(\psi)\) is dense in \(\mathcal{S}\) which is dense in \(\mathcal{L}\), the space of càglàd processes (see Protter for this). Then for \(\vartheta_n\overset{\mathbb{P}-ucp}{\to}\vartheta\) where \(\vartheta\in \mathcal{L}\), we have 
+\begin{align*}
+    \int \vartheta_s^n\diff X_s\overset{\mathbb{P}-ucp}{\to}\int \vartheta_s\diff X_s\implies\int_0^T \vartheta_s^n\diff X_s\overset{\mathbb{P}}{\to}\int_0^T\vartheta_s\diff X_s
+\end{align*}
+and 
+\begin{align*}
+    &\left(\vartheta_s^n\diff X_s\overset{\mathbb{P}}{\to}\int_0^T\vartheta_s\diff X_s \right) + \left(\left\{\left|\int_{0}^T\vartheta_s^{n}\diff X_s\right|^2\right\}_{n\in\mathbb{N}}\text{uniformly integrable}\right)\\&\implies \left(\int_0^T\vartheta_s^n\diff X_s\overset{L^2}{\to}\int_0^T\vartheta_s\diff X_s \right)
+\end{align*}
+WARNING: Notice that for sequences of the form \(\vartheta_n=c_n\cdot\mathbbm{1}_{[\tau,\sigma)}\in\mathcal{S}(\psi)\) for \(\lim_{n\to\infty}c_n=\infty\), requiring that \(\left\{\left|\int_{0}^T\vartheta_s^{n}\diff X_s\right|^2\right\}_{n\in\mathbb{N}}\) is uniformly integrable implies \(X=0\) as a process. This is a pathological example as it doesn't converge to an interesting limiting process \(\vartheta\), which we assume. This just shows that  \(\left\{\left|\int_{0}^T\vartheta_s^{n}\diff X_s\right|^2\right\}_{n\in\mathbb{N}}\) can't be UI for all \((\vartheta_n)_{n\in\mathbb{N}}\subset\mathcal{S}(\psi)\). 
+\bigbreak
+(2): Notice that \(Y_n\overset{L^2-\mathbb{P}-ucp}{\to}Y\) i.e. \(\lim_{n\to\infty}\mathbb{E}[\sup_{0\leq t\leq T}|Y_t^n-Y_t|^2]=0\) implies \(Y^n_T\overset{L^2}{\to}Y_T\). Hence, we want a version of \parencite[Thm~5.29]{Arandjelovic2025} with \(L^2-\mathbb{P}-ucp\) convergence of the integrals. For this, we might want to use the fact that for \(\Phi(\cdot)=(\cdot)^2\), \parencite[Thm~5.28]{Arandjelovic2025} implies that \(\mathcal{S}(\psi)\) is \(L^2-\mathbb{P}-ucp\) dense in \(\mathcal{S}\) and use some kind of \(L^2-\mathbb{P}-ucp\) continuity of the stochastic integral \(H\to H\bullet X\) for well chosen classes for \(H\) and \(X\). An clearly weaker assumption would be to ask for convergence in \(\mathcal{H}^2\) which is equivalent to \(L^2\) convergence of the end-points (this is still technicall stronger as we require the integral to be a square integrable martingale. Maybe later we can relax this assumption). A well known case where we have the continuity of the integral map w.r.t. to the \(L^2\)-convergence of the end-points is the isometry property (Itô isomtrey) of the map 
+\begin{align}
+    \begin{cases}
+        H\to H\bullet M\\
+        L^2(M)\to\mathcal{H}^2_0
+    \end{cases}
+\end{align}
+for \(M\in\mathcal{H}^2_{0,loc}\)
+Indeed in this case, by \parencite[Thm~5.32]{Arandjelovic2025} we even have that \(\mathcal{E}(\psi)\) is dense in \(L^p(M)\) for \(p\in[1,\infty)\) if \(M\in\mathcal{H}_0^{p+\epsilon}\) for some \(\epsilon>0\). (Then we also have that \(\mathcal{S}(\psi)\) is dense in \(L^p(M)\)). Hence we have 
+\begin{equation}
+    \lVert H\bullet M\rVert_{\mathcal{H}^2}=\lVert H\rVert_{L^2(M)}
+\end{equation}
+Using the sequence \(H_n=\vartheta_n-\vartheta\) and the fact that convergence in \(\mathcal{H}^2\) implies convergence in \(L^2-\mathbb{P}-ucp\) (by Doob's maximal inequality, which is applicable because \(H\bullet M\) is a square integrable martingale in this case) we recover \parencite[Thm~5.35]{Arandjelovic2025}.
 \\\\
-1) Find assumptions on \(X\) and \(\vartheta\) to get a version of \parencite[Thm.~5.29.]{Arandjelovic2025} where we have 2-ucp convergence. If we had that, then due to the trivial inequality \(||M_T||_{L^2}\leq||\sup_{0\leq t\leq T}|M_t|||_^{L^2}\), we get 2-ucp convergence implies \(L^2\)-convergence of the endpoints, and as seen before, we get the theorem from this. In particular look at \parencite[Prop.~5.28.]{Arandjelovic2025} and choose Young function \(\Phi(\cdot)=(\cdot)^2\) to get 2-ucp density. We then still need 2-ucp continuous stochastic integral. Need to look up literature for this.
+To get a slight extension of  \parencite[Thm~5.35]{Arandjelovic2025} we notice that we don't need to full isometry property, rather the boundedness (continuity) of the map \(H\to H \bullet M\). Hence, for a semimartingale 
+\begin{equation}
+    X = X_0 + A + M
+\end{equation}
+for \(A\) a finite-variation process and \(M\in\mathcal{H}^2_{0,loc}\) (the addition of \(A\) destroys the Itô-isometry property) we try to bound 
+\begin{equation}
+     \lVert \left(H\bullet X\right)_T\rVert_{L^2}\leq K_X\lVert H\rVert_{L^2(M)}
+\end{equation}
+for some constant \(K_X = K(X)\). By \(|a+b|^2\leq |a|^2+|b|^2\) it is enough to bound \(\lVert H\bullet A\rVert_{\mathcal{H}^2}\) and \(\lVert H\bullet M\rVert_{\mathcal{H}^2}\) both by \(\lVert H\rVert_{L^2(M)}\) and some multiplicative constant. Notice that for \(M\in\mathcal{H}^2_{0,loc}\) and \( H \in L^2(M)\), \(H\bullet M\) is a square integrable martingale; hence, we can bound \(\lVert H\bullet M\rVert_{\mathcal{H}^2}=\lVert (H\bullet M)_T\rVert_{L^2}\leq 4\lVert H\rVert_{L^2}\) by Doob. For the finite variation part, we might need assumptions on \(A\) (and hence on \(X\)).
+\\
+Based on this oberservations we consider the following approach. Consider a new space \(L^2(X)\) for a semimartingale \(X=X_0+M+A\) where \(A\) is a finite-variation process and \(M\in\mathcal{H}^2_{0,loc}\). Define it by \footnote{Note that in our case \([X]=[M]\) and \(L^2(X)\subset L^2(M)\), so \(\int_0^T\vartheta_s\diff M_s\in\mathcal{H}_0^2\); hence, \(\left(\int \vartheta_s\diff M_s\right)^2-[\int \vartheta_s\diff M_s]\) is a martingale starting at 0, and \([\int\vartheta_s\diff M_s]=\int \vartheta_s^2\diff [M]_s\). Hence, \(\mathbb{E}[\left(\int_0^T \vartheta_s\diff M_s\right)^2]=\mathbb{E}[\int_0^T \vartheta_s^2\diff [M]_s]\)}
+\begin{align*}
+H\in L^2(X) \iff \mathbb{E}[\int_0^T H_s^2\diff [X]_s]^{\frac{1}{2}}+\mathbb{E}[\left(\int_0^T H_s\diff |A|_s\right)^2]^{\frac{1}{2}}=\lVert H\rVert_{L^2(X)}<\infty
+\end{align*}
+where in our case \([X]=M\). Then either show that \(\mathcal{S}(\psi)\) is dense in \(L^2(X)\) or use directly \(\overline{\mathcal{S}(\psi)}\), where the closure is taken in \(L^2(X)\). With this we would have 
+\begin{equation}
+    \lVert\int_0^T\vartheta_s\diff X_s\rVert_{L^2}\leq K_X\lVert \vartheta \rVert_{L^2(X)}
+\end{equation}
+Indeed, \(\mathbb{E}[\left(\int_0^T H_s\diff X_s\right)^2]\leq \mathbb{E}[\left(\int_0^T H_s\diff [X]_s\right)^2]+\mathbb{E}[\left(\int_0^T H_s\diff|A|_s\right)^2]\leq\dots\lVert H\rVert_{L^2(X)}\)
+\begin{align}
+    &\vartheta_n\overset{L^2(X)}{\to}\vartheta\implies\int_0^T\vartheta_s^n\diff X_s \overset{L^2}{\to}\int_0^T\vartheta_s\diff X_s
+\end{align}
+In this approach we need to show that \(\lVert\cdot \rVert_{L^2(X)}\) is indeed a norm (or a semi-norm) and more importantly understand wether \(L^2(X)\) is rich enough to be interesting
 \chapter{Conclusion and Outlook}
 \section{Summary of contributions}
 \section{outlook}
@@ -518,6 +640,19 @@ based on \parencite[Thm.~5]{Hornik1991}, using tools from \parencite{Rudin1990Fo
 \begin{appendices}
 \chapter{Mathematical tools}
 Chebychev inequality, Doob's \(L^p\)-inequality, Burkholder-Davis-Gundy inequality (BDG), functional monotone class theorem, Bitcheler-Dellacherie Thm
+\chapter{Proofs deferred from the main text}
+\section{Equality of Infima under closure and continuous mapping}\label{Appendix:Infima over closure}
+\begin{proof}
+    Because \(Y\subset\overline{Y}\) we have \(\inf d(\overline{Y})\leq\inf d(Y)\). For the other direction we need continuity of \(d:X\to\mathbb{R}\). Let \(y\in\overline{Y}\). There exists \((y_n)_{n\in\mathbb{N}}\subset Y\) such that \(\lim_{n\to\infty}y_n = y\) in \(X\). By continuity of \(d\) we thus have \(\lim_{n\to\infty}d(y_n) = d(y)\). Furthermore, by definition,
+    \begin{equation}
+        d(y)=\lim_{n\to\infty}d(y_n)\geq\inf d(Y)\;.
+    \end{equation}
+    Taking the infimum over \(\overline{Y}\) on both sides we have,
+    \begin{equation}
+        \inf d(\overline{Y}) \geq \inf d(Y);.
+    \end{equation}
+\end{proof}
+Notice that the above proof also works if \(d\) is only upper-semi continuous. Then we have \(d(y)\geq\limsup_{n\to\infty}{d(y_n)}\) and we get the same conclusion.
 \end{appendices}
 
 \end{document}
