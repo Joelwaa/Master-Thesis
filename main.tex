@@ -336,6 +336,8 @@ G_T^b(\Theta)=\left\{(\vartheta \bullet X)_T:\vartheta\in \Theta, (\vartheta \bu
     \pi_b(H) = \inf_{(V_0,\vartheta)\in\mathcal{A}_b(\Theta))}\rho(H-V_0-(\vartheta\bullet X)_T))=\rho(H-V_0^*-(\vartheta^*\bullet X)_T))\;,
 \end{equation}
 where \(\mathcal{A}_b(\Theta)=\mathbb{R}+G_T^b(\Theta)\). For the proof and the exact assumptions, see \parencite[Lemma~2.5]{Xu2006RiskMeasurePricingHedging} and  \parencite[Thm~2.6]{Xu2006RiskMeasurePricingHedging}.
+
+
 \subsection{Mean-square hedging}
 For the second choice of hedging measure \(d\) we take the \(L^2\)-norm that is \(d(X)=\mathbb{E}[|X|^2]\). Notice that this object to make sense (we mean finiteness in this context) we need to restrict the hedging measure to \(d:L^2(\mathbb{\mathbb{P},\mathcal{F};\mathbb{R}})\to\mathbb{R}\) and assume \(H\in L^2(\mathbb{P})\). The corresponding hedging problem then takes the form 
 \begin{equation}\label{eq:mean squared hedging}
@@ -360,6 +362,7 @@ the minimization problem \cref{eq:mean squared hedging} is equivalent to
 where \(\overline{G_T(\Theta)}\) denotes the \(L^2\)-closure of \(G_T(\Theta)\). In particular, due to the closedness of \(\overline{G_T(\Theta)}\) in the Hilbert space \(L^2(\mathbb{P})\), and hence by application of the Hilbert projection theorem, \cref{eq:mean squared hedging over closure} admits a unique solution \(V_T^*\in\overline{G_T(\Theta)}\). 
 Hence, we don't get an explicit expression for the optimal value process at time \(T\). Thus, it is useful to study conditions of \(\Theta\) for which \(G_T(\Theta)\) is closed in \(L^2(\mathbb{P})\). Indeed, if this is the case, by the same Hilbert projection argument, we get the existence of a unique \(V_T^*\in G_T(\Theta)\), which, as an element of \(G_T(\Theta)\), takes the form \(V_T^*=\int_0^T\vartheta^*\diff X_s\).
 \textcolor{blue}{We may add a couple of comments about pricing in this case, in particular the indiffirence price introduced in \parencite{Buehler2018DeepHedging}}
+
 
 \chapter{Deep Hedging in Discrete Time}
 \textcolor{blue}{
@@ -389,16 +392,16 @@ To make the connection with the deep mean variance hedging problem, we show a de
 \\
 For the following part, we do not consider the differentiation between constrained and unconstrained strategies; and also we still neglect trading costs, i.e., \(C_t=0\quad \forall t\geq 0\). The minimization problem we are we study now takes the form 
 \begin{equation}\label{eq:hedging error}
-    \Delta(H) = \inf_{\vartheta\in\mathcal{H}^u}\mathbb{E}[\left(H-\vartheta\bullet X\right)_T)^2]
+    \Delta(H) = \inf_{\vartheta\in\mathcal{H}^u}\mathbb{E}[\left(H-V_0-\vartheta\bullet X\right)_T)^2]
 \end{equation}
 and in analogy to \parencite[Thm.~4.9.]{Buehler2018DeepHedging} we introduce
 \begin{equation}\label{eq:M hedging error}
-    \Delta^M(H) = \inf_{\vartheta\in\mathcal{H}^M}\mathbb{E}[\left(H-\vartheta\bullet X\right)_T)^2]
+    \Delta^M(H) = \inf_{\vartheta\in\mathcal{H}^M}\mathbb{E}[\left(H-V_0-\vartheta\bullet X\right)_T)^2]
 \end{equation}
 for \(\mathcal{H}^M\) as before. Then we want to show the following discrete time deep mean hedging theorem
-\begin{proposition}[Discrete Deep Mean variance Hedging]\label{thm:discrete deep mean variance hedging}
+\begin{proposition}[Discrete Deep Mean variance Hedging]\label{prop:discrete deep mean variance hedging}
     \begin{equation}
-        \inf_{\vartheta\in\mathcal{H}^u}\mathbb{E}[\left(H-p_0-(\vartheta\bullet X)_T\right)^2]=\inf_{\vartheta\in\mathcal{NN}_{\infty}}\mathbb{E}[\left(H-p_0-(\vartheta\bullet X)_T\right)^2].
+        \inf_{\vartheta\in\mathcal{H}^u}\mathbb{E}[\left(H-V_0-(\vartheta\bullet X)_T\right)^2]=\inf_{\vartheta\in\mathcal{NN}_{\infty}}\mathbb{E}[\left(H-V_0-(\vartheta\bullet X)_T\right)^2].
     \end{equation}
 \end{proposition}
 More precisely, we will show the stronger statement
@@ -415,11 +418,37 @@ For the proof of \cref{thm:strong discrete deep mean variance hedging} we procee
 Notice first that by the definition, we have \(\mathcal{NN}_{\infty}=\bigcup_{M\geq 1}\mathcal{H}^M\subset\mathcal{H}^u\) and \(\mathcal{H}^M\subset\mathcal{H}^{M+1}\subset\bigcup_{M\geq 1}\mathcal{H}^M\subset \mathcal{H}^u\) for all \(M\in\mathbb{N}\). Hence \(\Delta^M(H)\leq\Delta^{M+1}(H)\leq\Delta(H)\). So in particular it suffised to show that \(\forall \epsilon>0\quad\exists M\in\mathbb{N}\) such that \(\Delta^M(H)\leq\Delta(H)+\epsilon\).
 The proof now is exactly the same as in \parencite[Thm.~4.9.]{Buehler2018DeepHedging} just using the fact that the expectations
 \begin{equation}
-    \mathbb{E}[\left(H-p_0-(\vartheta\bullet X)_T\right)^2]=\sum_{\omega\in\Omega}\left(H(\omega)-p_0-(\vartheta\bullet X)_T(\omega)\right)^2\;,
+    \mathbb{E}[\left(H-V_0-(\vartheta\bullet X)_T\right)^2]=\sum_{\omega\in\Omega}\left(H(\omega)-V_0-(\vartheta\bullet X)_T(\omega)\right)^2\;,
 \end{equation}
 are finite sums because the sample space \(\Omega = \left\{\omega_1,\dots,\omega_N\right\}\) is finite and the square function is continuous everywhere. As we are dealing with expectations we don't even need the convergence in every \(\omega\in\Omega\) but almost everywhere convergence of the approximation functions \(\vartheta_k^n\coloneqq F_{k,n}(Y_0,\dots,Y_k)\) to \(\vartheta_k\) (where the latter is \(\vartheta\in\mathcal{H}^u\) such that \(\mathbb{E}[\left(H-p_0-(\vartheta\bullet X)_T\right)^2]\leq\Delta(H)+\epsilon\)).
 \end{proof}
 This shows that, as alluded to in \parencite[Remark~3.4]{Buehler2018DeepHedging}, the approximate optimal hedging problem, and in particular the mean hedging problem, is subsumed in the framework of \parencite{Buehler2018DeepHedging}. Indeed the proof above for \(l(\cdot)=(\cdot)^2\) goes through for any continuous function \(l:\mathbb{R}\to\mathbb{R}_+\).
+\\
+We may want to extend the setting to the joint optimization problem of \cref{eq:mean squared hedging}. For this consider the following modified set up.
+\begin{align*}
+ &(\tilde{X}_k^i)_{k=0}^n \text{ for } i=0,\dots,d \text{, where } X_k^0 = k/n, \tilde{X}_k^i = X_k^i\quad i = 1,\dots,d \text{ and } k=0,\dots n.\\
+ &
+    (\tilde{\vartheta}_k^i)_{k=0}^n \text{ for } i=0,\dots,d \text{, where } \tilde{\vartheta}_k^0 = V_0, \delta_k^i = \tilde{\vartheta}_k^i\quad i = 1,\dots,d \text{ and } k=0,\dots n.
+\end{align*}
+Then observe that \(\tilde{X}\) and \(\tilde{\vartheta}\) are still \(\mathbb{F}\)-adapted and 
+\begin{equation}
+    (\tilde{\vartheta}\bullet\tilde{X})_T=V_0+(\vartheta\bullet X)_T\;.
+\end{equation}
+Due to adaptability, we still have the Doob-Dynkin representation of the \(\mathcal{F}_k\)-measurable function \(\tilde{\vartheta}_k=f_k(Y_0,\dots,Y_k)\) for some measurable function \(f_k:\mathbb{R}^{r(k+1)}\to\mathbb{R}^{d+1}\). Becaus \(\Omega\) is finite, \(\tilde{\vartheta}\) is bounded, hence \(f_k\in L^1(\mathbb{R}^{r(k+1),\mu})\), where \(\mu=\mathcal{L}(Y_0,\dots,Y_k)\). Hence we can approximate \(f_k\) by elements of our dense approximants \(\Psi\). Whence we get the same results as in \cref{prop:discrete deep mean variance hedging} and \cref{thm:strong discrete deep mean variance hedging} for the corresponding joint minimization over \((V_0,\vartheta)\in\tilde{\mathcal H}^{u}
+=
+\left\{
+\tilde{\vartheta}
+=
+(\tilde{\vartheta}_k)_{k=0}^{n-1}
+:\;
+\tilde{\vartheta}_k
+=
+(V_0,\vartheta_k),
+\quad
+V_0\in\mathbb R,
+\quad
+\vartheta\in\mathcal H^{u}
+\right\}\). This now gives a full account for the treatment of mean-variance hedging in the setup of \parencite{Buehler2018DeepHedging}.
 \chapter{Neural Networks and Universal Approximation}
 \section{Feedforward neural networks}
 \subsection{Architectures and notation}
