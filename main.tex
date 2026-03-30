@@ -387,7 +387,14 @@ Recall that the optimization problem \cref{eq:risk measure hedging} is ill defin
     \pi(L)=\inf_{\vartheta\in\Theta}\rho(L-(\vartheta\bullet X)_T)\;,
 \end{equation}
 for \(L\in\mathcal{L}^0(\mathbb{P},\mathcal{F},\mathbb{R})\) and where one optimizes over \(\vartheta\in\Theta\). \cref{lemma:Finiteness of inf for finite sample space} still applies to \cref{eq:risk measure hedging from buehler} and ensures finiteness if \(\pi(0)>-\infty\). \cref{eq:risk measure hedging from buehler} is then the hedging problem that is explicitly addressed in \parencite{Buehler2018DeepHedging}.
+\\
+Commenting on the interpretation of \cref{eq:risk measure hedging from buehler} we observe that it corresponds to the optimal hedging error for \(V_0=0\) initial capital, which feels natural. Nevertheless,is due to the observations made earlier regarding the interpretation of the convex risk measure, \(\pi(H)\) of  \cref{eq:risk measure hedging from buehler} is the minimal additional cash that needs to be added to the traders position in order to make it \(\rho\)-acceptable. 
 \section{Approximation of trading strategies}
+Adapting the point of view presented in \parencite{Buehler2018DeepHedging}, we are not so much interested in sufficient conditions for the infimum in \cref{eq:risk measure hedging from buehler} to be attained, but rather in the consistent approximation of \(\pi(L)\) for any \(L\in\mathcal{L}^0(\mathbb{P},\mathcal{F},\mathbb{R})\) through approximating the trading strategies in \(\Theta\). The underlying idea is to leverage the \(\mathbb{F}\)-adaptedness of \(\vartheta\in\Theta\) by approximating its respective Doob-Dynkin functional representation with a suitable set of functions. Mathematically speaking, we want to find a suitable dense subset of the function space that encompasses the Doob-Dynkin representations of the \(\mathcal{F}_k\)-adapted \(\vartheta_k\), that is:
+\begin{equation}
+   \vartheta_k=f_k(Y_0,\dots,Y_k)\;,
+\end{equation}
+where \(f_k:\mathbb{R}^{r(k+1)}\to\mathbb{R}\) is measurable.
 
 \section{From convex risk measures to quadratic loss}
 \textcolor{blue}{Based on \parencite[Remark~3.4.]{Buehler2018DeepHedging}}
@@ -397,7 +404,7 @@ At this point, motivate the concrete use of neural networks as the approximation
 \\
 To make the connection with the deep mean variance hedging problem, we show a deep mean variance type proposition in the framework of \parencite{Buehler2018DeepHedging}. The proof is mainly based on the proof of \parencite[Thm.~4.9]{Buehler2018DeepHedging}.
 \\
-For the following part, we do not consider the differentiation between constrained and unconstrained strategies; and also we still neglect trading costs, i.e., \(C_t=0\quad \forall t\geq 0\). The minimization problem we are we study now takes the form 
+For the following part, we do not consider the differentiation between constrained and unconstrained strategies; we also neglect trading costs, i.e., \(C_t=0\quad \forall t\geq 0\). The minimization problem we are we study now takes the form 
 \begin{equation}\label{eq:hedging error}
     \Delta(H) = \inf_{\vartheta\in\mathcal{H}^u}\mathbb{E}[\left(H-V_0-\vartheta\bullet X\right)_T)^2]
 \end{equation}
@@ -500,7 +507,7 @@ Density of simple processes \parencite[Prop.~5.28.]{Arandjelovic2025} and the re
     \begin{equation}
         \int \vartheta_s^n\diff X_s \to \int \vartheta_s^n\diff X_s,\quad n\to\infty
     \end{equation}
-    where convergence holds in \(\mathbb{P}\)-\mathbb{P}-ucp.
+    where convergence holds in \(\mathbb{P}\)-ucp.
 \end{theorem}
 \subsection{Specializing to martingale case}
 Version for martingale integrators \(M\in\mathcal{H}^p\) and integrands \(\vartheta\in L^p(M)\), \parencite[Thm.~5.32.]{Arandjelovic2025}
@@ -617,7 +624,7 @@ and
 \end{align*}
 WARNING: Notice that for sequences of the form \(\vartheta_n=c_n\cdot\mathbbm{1}_{[\tau,\sigma)}\in\mathcal{S}(\psi)\) for \(\lim_{n\to\infty}c_n=\infty\), requiring that \(\left\{\left|\int_{0}^T\vartheta_s^{n}\diff X_s\right|^2\right\}_{n\in\mathbb{N}}\) is uniformly integrable implies \(X=0\) as a process. This is a pathological example as it doesn't converge to an interesting limiting process \(\vartheta\), which we assume. This just shows that  \(\left\{\left|\int_{0}^T\vartheta_s^{n}\diff X_s\right|^2\right\}_{n\in\mathbb{N}}\) can't be UI for all \((\vartheta_n)_{n\in\mathbb{N}}\subset\mathcal{S}(\psi)\). 
 \bigbreak
-(2): Notice that \(Y_n\overset{L^2-\mathbb{P}-ucp}{\to}Y\) i.e. \(\lim_{n\to\infty}\mathbb{E}[\sup_{0\leq t\leq T}|Y_t^n-Y_t|^2]=0\) implies \(Y^n_T\overset{L^2}{\to}Y_T\). Hence, we want a version of \parencite[Thm~5.29]{Arandjelovic2025} with \(L^2-\mathbb{P}-ucp\) convergence of the integrals. For this, we might want to use the fact that for \(\Phi(\cdot)=(\cdot)^2\), \parencite[Thm~5.28]{Arandjelovic2025} implies that \(\mathcal{S}(\psi)\) is \(L^2-\mathbb{P}-ucp\) dense in \(\mathcal{S}\) and use some kind of \(L^2-\mathbb{P}-ucp\) continuity of the stochastic integral \(H\to H\bullet X\) for well chosen classes for \(H\) and \(X\). An clearly weaker assumption would be to ask for convergence in \(\mathcal{H}^2\) which is equivalent to \(L^2\) convergence of the end-points (this is still technicall stronger as we require the integral to be a square integrable martingale. Maybe later we can relax this assumption). A well known case where we have the continuity of the integral map w.r.t. to the \(L^2\)-convergence of the end-points is the isometry property (Itô isomtrey) of the map 
+(2): Notice that \(Y_n\overset{L^2-ucp}{\to}Y\) i.e. \(\lim_{n\to\infty}\mathbb{E}[\sup_{0\leq t\leq T}|Y_t^n-Y_t|^2]=0\) implies \(Y^n_T\overset{L^2}{\to}Y_T\). Hence, we want a version of \parencite[Thm~5.29]{Arandjelovic2025} with \(L^2-ucp\) convergence of the integrals. For this, we might want to use the fact that for \(\Phi(\cdot)=(\cdot)^2\), \parencite[Thm~5.28]{Arandjelovic2025} implies that \(\mathcal{S}(\psi)\) is \(L^2-ucp\) dense in \(\mathcal{S}\) and use some kind of \(L^2-ucp\) continuity of the stochastic integral \(H\to H\bullet X\) for well chosen classes for \(H\) and \(X\). An clearly weaker assumption would be to ask for convergence in \(\mathcal{H}^2\) which implies the \(L^2\) convergence of the end-points (Doob). A well known case where we have the continuity of the integral map w.r.t. to the \(L^2\)-convergence of the end-points is the isometry property (Itô isomtrey) of the map 
 \begin{align}
     \begin{cases}
         H\to H\bullet M\\
@@ -629,9 +636,9 @@ Indeed in this case, by \parencite[Thm~5.32]{Arandjelovic2025} we even have that
 \begin{equation}
     \lVert H\bullet M\rVert_{\mathcal{H}^2}=\lVert H\rVert_{L^2(M)}
 \end{equation}
-Using the sequence \(H_n=\vartheta_n-\vartheta\) and the fact that convergence in \(\mathcal{H}^2\) implies convergence in \(L^2-\mathbb{P}-ucp\) (by Doob's maximal inequality, which is applicable because \(H\bullet M\) is a square integrable martingale in this case) we recover \parencite[Thm~5.35]{Arandjelovic2025}.
+Using the sequence \(H_n=\vartheta_n-\vartheta\) and the fact that convergence in \(\mathcal{H}^2\) implies convergence in \(L^2-ucp\) (by Doob's maximal inequality, which is applicable because \(H\bullet M\) is a square integrable martingale in this case) we recover \parencite[Thm~5.35]{Arandjelovic2025}.
 \\\\
-To get a slight extension of  \parencite[Thm~5.35]{Arandjelovic2025} we notice that we don't need to full isometry property, rather the boundedness (continuity) of the map \(H\to H \bullet M\). Hence, for a semimartingale 
+To get a slight extension of \parencite[Thm~5.35]{Arandjelovic2025}, we notice that we don't need the full isometry property; rather, we need the boundedness (continuity) of the map \(H\to H \bullet M\) and the corresponding density of \(\mathcal{S}(\psi)\). Hence, for a semimartingale 
 \begin{equation}
     X = X_0 + A + M
 \end{equation}
@@ -639,21 +646,104 @@ for \(A\) a finite-variation process and \(M\in\mathcal{H}^2_{0,loc}\) (the addi
 \begin{equation}
      \lVert \left(H\bullet X\right)_T\rVert_{L^2}\leq K_X\lVert H\rVert_{L^2(M)}
 \end{equation}
-for some constant \(K_X = K(X)\). By \(|a+b|^2\leq |a|^2+|b|^2\) it is enough to bound \(\lVert H\bullet A\rVert_{\mathcal{H}^2}\) and \(\lVert H\bullet M\rVert_{\mathcal{H}^2}\) both by \(\lVert H\rVert_{L^2(M)}\) and some multiplicative constant. Notice that for \(M\in\mathcal{H}^2_{0,loc}\) and \( H \in L^2(M)\), \(H\bullet M\) is a square integrable martingale; hence, we can bound \(\lVert H\bullet M\rVert_{\mathcal{H}^2}=\lVert (H\bullet M)_T\rVert_{L^2}\leq 4\lVert H\rVert_{L^2}\) by Doob. For the finite variation part, we might need assumptions on \(A\) (and hence on \(X\)).
+for some constant \(K_X = K(X)\). By \(|a+b|^2\leq 2|a|^2+2|b|^2\) it is enough to bound \(\lVert H\bullet A\rVert_{\mathcal{H}^2}\) and \(\lVert H\bullet M\rVert_{\mathcal{H}^2}\) both by \(\lVert H\rVert_{L^2(M)}\) and some multiplicative constant. Notice that for \(M\in\mathcal{H}^2_{0,loc}\) and \( H \in L^2(M)\), \(H\bullet M\) is a square integrable martingale; hence, we can bound \(\lVert H\bullet M\rVert_{\mathcal{H}^2}=\lVert (H\bullet M)_T\rVert_{L^2}\leq 4\lVert H\rVert_{L^2}\) by Doob. For the finite variation part, we might need assumptions on \(A\) (and hence on \(X\)).
 \\
 Based on this oberservations we consider the following approach. Consider a new space \(L^2(X)\) for a semimartingale \(X=X_0+M+A\) where \(A\) is a finite-variation process and \(M\in\mathcal{H}^2_{0,loc}\). Define it by \footnote{Note that in our case \([X]=[M]\) and \(L^2(X)\subset L^2(M)\), so \(\int_0^T\vartheta_s\diff M_s\in\mathcal{H}_0^2\); hence, \(\left(\int \vartheta_s\diff M_s\right)^2-[\int \vartheta_s\diff M_s]\) is a martingale starting at 0, and \([\int\vartheta_s\diff M_s]=\int \vartheta_s^2\diff [M]_s\). Hence, \(\mathbb{E}[\left(\int_0^T \vartheta_s\diff M_s\right)^2]=\mathbb{E}[\int_0^T \vartheta_s^2\diff [M]_s]\)}
 \begin{align*}
-H\in L^2(X) \iff \mathbb{E}[\int_0^T H_s^2\diff [X]_s]^{\frac{1}{2}}+\mathbb{E}[\left(\int_0^T H_s\diff |A|_s\right)^2]^{\frac{1}{2}}=\lVert H\rVert_{L^2(X)}<\infty
-\end{align*}
-where in our case \([X]=M\). Then either show that \(\mathcal{S}(\psi)\) is dense in \(L^2(X)\) or use directly \(\overline{\mathcal{S}(\psi)}\), where the closure is taken in \(L^2(X)\). With this we would have 
+H\in L^2(X) \iff \left(\mathbb{E}[\int_0^T H_s^2\diff [X]_s]+\mathbb{E}[\left(\int_0^T |H|_s\diff |A|_s\right)^2]\right)^{\frac{1}{2}}\coloneqq\lVert H\rVert_{L^2(X)}<\infty
+\end{align*}\footnote{Inspired by the fact that for \(\int H_s\diff X_s = \int H_s\diff M_s+\int H_s\diff A_s\) and \(\mathbb{E}[\left(\int H_s\diff M_s+\int H_s\diff A_s\right)^2]\leq 2\mathbb{E}[\left(\int H_s \diff M_s\right)^2]+2\mathbb{E}[\left(\int H_s \diff A_s\right)^2]\leq2\cdot 4\mathbb{E}[\left(\int (H_s)^2 \diff [M]_s\right)^2]+2\mathbb{E}[\left(\int H_s \diff A_s\right)^2]\) from \(|a+b|^2\leq 2|a|^2+2|b|^2\) and BDG with \(C_2 = 4\).}
+where in our case \([X_0 + A + M]=[M]\). With this we have 
 \begin{equation}
     \lVert\int_0^T\vartheta_s\diff X_s\rVert_{L^2}\leq K_X\lVert \vartheta \rVert_{L^2(X)}
 \end{equation}
-Indeed, \(\mathbb{E}[\left(\int_0^T H_s\diff X_s\right)^2]\leq \mathbb{E}[\left(\int_0^T H_s\diff [X]_s\right)^2]+\mathbb{E}[\left(\int_0^T H_s\diff|A|_s\right)^2]\leq\dots\lVert H\rVert_{L^2(X)}\)
+Indeed,
+\begin{align*}\label{eq:bounding the L^2 norm of the stochastic integral}
+    &\mathbb{E}[\left(\int_0^T H_s\diff X_s\right)^2]=\mathbb{E}[\left(\int_0^T H_s\diff M_s+\int_0^T H_s\diff A_s\right)^2]
+    \\&
+    \leq 2\mathbb{E}[\left(\int_0^T H_s \diff M_s\right)^2]+2\mathbb{E}[\left(\int_0^T H_s \diff A_s\right)^2]
+    \\&
+    \leq2\cdot 4\mathbb{E}[\int_0^T (H_s)^2 \diff [M]_s]+2\mathbb{E}[\left(\int_0^T H_s \diff A_s\right)^2]\leq
+    \\&
+     \leq2\cdot 4\mathbb{E}[\int_0^T (H_s)^2 \diff [M]_s]+2\mathbb{E}[\left(\int_0^T |H|_s \diff |A|_s\right)^2]\leq
+    \lVert H\rVert_{L^2(X)}
+\end{align*}
+from \(|a+b|^2\leq 2|a|^2+2|b|^2\) and BDG with \(C_2 = 4\)\footnote{\(\mathbb{E}[\left(\int_0^TH_s\diff M_s\right)^2]\leq\mathbb{E}[\sup_{0\leq t\leq T}\left(\int_0^t H_s\diff M_s\right)^2]\leq C_2\mathbb{E}[\int_0^T(H_s)^2\diff [M]_s]\)}. Then we have
 \begin{align}
     &\vartheta_n\overset{L^2(X)}{\to}\vartheta\implies\int_0^T\vartheta_s^n\diff X_s \overset{L^2}{\to}\int_0^T\vartheta_s\diff X_s
 \end{align}
-In this approach we need to show that \(\lVert\cdot \rVert_{L^2(X)}\) is indeed a norm (or a semi-norm) and more importantly understand wether \(L^2(X)\) is rich enough to be interesting
+In this approach, we need to show that \(\lVert\cdot \rVert_{L^2(X)}\) is indeed a norm (or a semi-norm), that \(\mathcal{S}(\psi)\) is dense in \(L^2(X)\), and whether \(L^2(X)\) is rich enough to be interesting.
+\section{Proof Attempt}
+We present the first version of a generalization of \parencite[Thm~5.35]{Arandjelovic2025}. From \parencite[Thm.~5.32.]{Arandjelovic2025} we know that \(\mathcal{E}(\psi)\) is dense in \(L^p(M)\) for \(p\in[1,\infty)\) and \(M\in\mathcal{H}_0^{p+\epsilon}\) for some \(\epsilon>0\). 
+Now consider a semimartingale \(X=X_0+M+A\), where \(M\in\mathcal{H}_0^{p+\epsilon}\) and \(A\) are adapted processes with RCLL trajectories, \(A_.(\omega)\) of finite variation and \(A_0=0\). Additionally, assume the following:
+\begin{itemize}
+    \item \(A<<\langle M\rangle\) path-wise (i.e. for every \(\omega\) as Lebesgue Stieltjes measures, with density process \(\lambda\).
+    \item \(\operatorname*{ess\sup}\left(\langle M\rangle_{\infty}(\lambda^2+1)^*_{\infty}\right)<\infty\) where \((\lambda^2+1)^*_{\infty}=\sup_{t\geq 0}(\lambda^2+1)\).\footnote{Replace \(\infty\) by \(T\) in the finite horizon setting.}
+\end{itemize}
+Then we have, by density, of \(\mathcal{E}(\psi)\) in \(L^2(M)\) that
+\begin{equation}
+    \forall H\in L^2(M), \exists (H_n)_{n\in\mathbb{N}}\subset\mathcal{E}(\psi):\lim_{n\to\infty}\lVert H-H_n\rVert_{L^2(M)}=0\;.
+\end{equation}
+We can bound the \(L^2\) difference of the integrals by 
+\begin{align}
+    &\mathbb{E}[(H\bullet X)_{\infty}^2]\leq 2\left((\mathbb{E}[(H\bullet \langle M\rangle)_{\infty}^2]+\mathbb{E}[(H\bullet A)_{\infty}^2]\right)\\
+    &\leq 2\left((\mathbb{E}[\langle M\rangle_{\infty}(H^2\bullet \langle M\rangle)_{\infty}]+\mathbb{E}[(H\lambda\bullet \langle M\rangle)_{\infty}^2]\right)\\
+    &\leq2\left((\mathbb{E}[\langle M\rangle_{\infty}(H^2\bullet \langle M\rangle)_{\infty}]+\mathbb{E}[\langle M\rangle_{\infty}(H^2\lambda^2\bullet \langle M\rangle)_{\infty}]\right)\\
+    &=2\mathbb{E}[\langle M\rangle_{\infty}(H^2(1+\lambda^2)\bullet\langle M\rangle)_{\infty}]\\
+    &\leq 2\mathbb{E}[\langle M\rangle_{\infty}(1+\lambda^2)^{*}_{\infty}(H^2\bullet\langle M\rangle)_{\infty}]\\
+    &\leq2\operatorname*{ess\sup}(\langle M\rangle_{\infty}(1+\lambda^2)^{*}_{\infty})\cdot\mathbb{E}[H^2\bullet \langle M\rangle]\\
+    &=C(X)\lVert H\rVert_{L^2(M)}^2\;.
+\end{align}
+We used Cauchy Schwarz in step 2 and 3, along with the absolute continuity of \(A<<\langle M\rangle\). In step 5, we used the Hölder inequality with \(p=1,q=\infty\).\\
+By assumption \(C(X)<\infty\), hence substituting for \(H\), \(Z^n=H-H^n\), we get that 
+\begin{equation}
+    \lim_{n\to\infty}\mathbb{E}[(Z^n\bullet X)_{\infty}^2]\leq\lim_{n\to\infty}C(X)\lVert H\rVert_{L^2(M)}^2=0
+\end{equation}
+By the argument given earlier, this allows for a deep mean-variance hedging result for a subclass of semimartingales.
+\section{Different Approach}
+We present a slightly different approach based on the observation \cref{eq:bounding the L^2 norm of the stochastic integral}. Notice that under the assumption that \(A<<\langle M\rangle\) path-wise (i.e. for every \(\omega\) as Lebesgue Stieltjes measures, with density process \(\lambda\) we have:
+\begin{align*}
+&\lVert H\rVert_{L^2(X)}^2\leq\mathbb{E}[\int_0^\infty (H_s)^2\diff [M]_s]+\mathbb{E}[\left(\int_0^\infty |H_s||\lambda_s|\diff[M]_s\right)^2]\\&\leq\mathbb{E}[\int_0^{\infty}(H_s)^2\diff [M]_s\cdot\int_0^{\infty}(\lambda_s)^2\diff [M]_s]
+\\&
+\leq\mathbb{E}[\left(\int_0^{\infty}(H_s)^2\diff [M]_s\right)^{p}]^{1/p}\cdot\mathbb{E}[\left(\int_0^{\infty}(\lambda_s)^2\diff [M]_s\right)^{q}]^{1/q}
+\;,
+\end{align*}
+where we used the fact that if \(A<<[M]\) with density \(\lambda\) then \(|A|<<[M]\) with density \(|\lambda|\). Furthermore we used the Kunita-Watanabe inequality in the second step and Hölder's inequality in the third step. In the case \(p=1,q=\infty\) the above reads
+\begin{equation}
+    \lVert H\rVert_{L^2(X)}\leq\lVert H\rVert_{L^2(X)}\operatorname*{ess\sup}\left(\int_0^{\infty}(\lambda_s)^2\diff [M]_s\right)\;.
+\end{equation}
+Notice \(\int_0^{\infty}(\lambda_s)^2\diff [M]_s=\int_0^{\infty}|\lambda_s|\diff |A|_s\). We impose the additional assumption
+\begin{equation}
+    \operatorname*{ess\sup}\int_0^{\infty}|\lambda_s|\diff |A|_s<\infty\;.
+\end{equation}
+Then, because we have the trivial inequality
+\begin{align}\label{eq:essential boundedness assumption}
+    \mathbb{E}[\int_0^{\infty}H_s^2\diff[M]_s]\leq  \mathbb{E}[\int_0^{\infty}H_s^2\diff[M]_s]+  \mathbb{E}[\int_0^{\infty}|H_s||\lambda_s|\diff[M]_s]
+\end{align}
+we have that the norms on \(L^2(M)\) and \(L^2(X)\),under the condition that \(X = X_0+M+A\) with \([A<<[M]\) and \(M\in\mathcal{H}^{p+\epsilon}_0\) for some \(p\in[0,\infty)\) and \(\epsilon>0\), along with the additional assumption \cref{eq:essential boundedness assumption}, are equivalent. Because both spaces \(L^2(M)\) and \(L^2(X)\) are subspaces of the space of \(\mathcal
+P\)-measurable functions in, where \(\mathcal{P}\) is the predictable \(\sigma\)-algebra on \(\Omega\times[0,\infty)\), they are defined through their norms; the spaces are equal:
+\begin{equation}
+    L^2(M) =L^2(X)\;.
+\end{equation}
+Hence, density of \(\mathcal{E}(\psi)\) in \(L^2(M)\) is obviously equivalent to density of \(\mathcal{E}(\psi)\) in \(L^2(X)\) under the stated assumptions on \(M\) and \(X\). Hence, for every \(H\in L^2(X)\) there exists \((H_n)_{n\in\mathbb{N}}\subset \mathcal{E}(\psi)\) such that \(\lim_{n\to\infty}\lVert H-H_n\rVert_{L^2(X)}=0\). Then we have, by the observation \cref{eq:bounding the L^2 norm of the stochastic integral}, with \(T=\infty\) and \(H_s\coloneqq (H-H_n)_s\)
+\begin{equation}
+    \lVert (H-H^n)\bullet X\rVert_{L^2}
+    \lesssim\lVert H-H^n\rVert_{L^2(X)}\;,
+\end{equation}
+thus
+\begin{equation}
+    \lim_{n\to\infty}\lVert (H-H^n)\bullet X\rVert_{L^2}=0
+\end{equation}
+\bigbreak
+The two approaches differ in their additional assumption
+\begin{enumerate}
+    \item \(\operatorname*{ess\sup}(\langle M\rangle_{\infty}(1+\lambda^2)^{*}_{\infty})<\infty\)
+    \item  \(\operatorname*{ess\sup}\int_0^{\infty}|\lambda_s|\diff |A|_s<\infty\)
+\end{enumerate}
+Notice that
+\begin{equation}
+    \int_0^\infty(\lambda_s)^2\diff [M]_s\leq\int_0^{\infty}(1+\lambda_s^2)\diff[M]_s\leq(1+\lambda_s^2)_{\infty}^*[M]_{\infty}\,
+\end{equation}
+where we used the non-negativity and monotonicity of the process \([M]\). Hence, (2.) is a weaker assumption than (1.).
 \chapter{Conclusion and Outlook}
 \section{Summary of contributions}
 \section{outlook}
