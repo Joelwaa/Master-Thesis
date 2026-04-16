@@ -592,17 +592,47 @@ Lastly, notice the same conditions on the cost process \(C\) (upper semi-continu
 \subsection{Cybenko's theorem:\((C(K),||\cdot||_{\infty})\)and \((L^p(\mu),||\cdot||_{p})\)-density}
 \subsection{Discriminatory activation functions}
 Based on \parencite[Thm.~1,2]{Hornik1991}
-
+\subsection{Generalization of discriminatory property to locally convex spaces}
+Assumption on activation function and \parencite[Assumptions~5.13.]{Hornik1991}. Then {Hornik1991}\parencite[Prop.~5.15.]{Hornik1991}\\
+Show that the generalized neural network, with an activation function obeying the same assumptions as in \parencite{Cybenko1989}, is still discriminatory; hence, the density results still follow.
+\subsection{Neural approximation on locally convex spaces}
+\parencite[Thm~5.16.]{Hornik1991}
+Emphasize the role of Hornik's and Cybenko's arguments, and in particular, remark that we will only use the case \(X = \mathbb{R}^{k}\) (e.g. \(k = n\cdot d\)) in what follows.
 
 \chapter{Continuous-time Mean-Square Hedging}
 Explain and motivate why we restrict ourselves to the quadratic risk criterion for the continuous time setup. In particular, explain the \(L^2\) projection viewpoint again.
 \section{Self financing strategies in continuous times}\label{sec:Self financing strategies in continuous times}
+\textcolor{blue}{
 Explain briefly its definition and provide a short discussion about stochastic integration. For the square integrable case, briefly discuss the space \(\mathcal{M}^2,L^2(X)\) and the construction of the stochastic integral via Itô-Isometry. \\
-For the general semimartingale case, give only most important result (similar to Rheinländer and Sexton) and give the ucp continuity thoerem. Maybe give some motivation why it is crucial to consider predictable processes as integrands.
+For the general semimartingale case, give only most important result (similar to Rheinländer and Sexton) and give the ucp continuity thoerem. Maybe give some motivation why it is crucial to consider predictable processes as integrands.}
+\bigbreak
+We briefly introduce the self financing strategies introduced in \cref{eq:self financing strategy} with more details in the context of continuous-time mathematical finance. We concentrate on the objects introduced, namely the stochastic integrals, and only briefly allude to the conceptually important restriction leading to the subset of integrable processes called admissible strategies. For the latter, we follow \parencite{RheinlaenderSexton2011HedgingDerivatives} in that we define a baseline notion of an admissible trading strategy and specify modified notions of admissibility for particular settings, although always explicitly. 
+In order to prevent weird scenarios such as the "suicide strategy" (see \parencite[Example 3.3]{RheinlaenderSexton2011HedgingDerivatives}), where one is almost guaranteed positive gains but potentially requires infinite resources to sustain the strategy, we require that, for price processes that are local martingales the value process for all admissible strategies shall be super-martingales. The property of being a (super-)martingale depends on the underlying probability measure. Hence, to prevent ill behaved scenarios like the suicide strategy, we shall require that the value process of an admissible strategy is a super-martingale under all equivalent measures for which the price process is itself a local martingale. We denote the set of equivalent probability measures for which the price process is a local martingale by \(\mathcal{M_e}\), and call it \textit{equivalent martingale measures}. We can now state our "baseline" definition for an admissible strategy
+\begin{definition}\label{def:admissible trading strategy}
+    Assume \(\mathcal{M}_e\neq\emptyset\). A strategy \(\vartheta\) is an \textit{admissible strategy} if the associated values process \(V\) is a \(\mathbb{Q}\)-super-martingale for every measure \(\mathbb{Q}\in\mathcal{M}_e\)\;. 
+\end{definition}
+In the continuous case, the gains process of a self-financing strategy \cref{eq:self financing strategy} is given by the stochastic integral
+\begin{equation}
+    V_t = V_0 + \int_0^t \vartheta_s\diff X_s\;,
+\end{equation}
+Hence, we additionally require in this case that \(\vartheta\) is \(X\)-integrable. We shall provide a sufficient condition for integrability in different cases. Without going into further detail on arbitrage theory, recall that the condition \(\mathcal{M}_e\neq\emptyset\) implies that there are no arbitrage opportunities with admissible strategies. We will now go into more detail about the construction of the stochastic integral \(\int\vartheta_s\diff X_s\) for different integrands \(\vartheta\) and integrators \(X\). 
 \section{Square integrable martingale case}
-Via Kunita Watanabe. Especially follow Rheinländer-Sexton. Also explain heuristically the construction of the stochastic integral via Itô's Isometry in this case.
+\textcolor{blue}{
+In this section, we will solve the mean-variance problem (...) in the Itô-isometry setting, which is assumed. that the price process \(X\) is a locally square integrable martingale and that the integrands are in \(L^2(X)\). One might oppose to this approach in the sense that it is very restrictive. Nevertheless, from a theoretical point of view the solution will be short and insightfull and even from a practical view one can make sense of the integrability condition of the price process as remarkes in \parencite[Section~3.1.]{RheinlaenderSexton2011HedgingDerivatives}. Indeed this amounts to solving the mean-vairance problem under a risk-free measure \(\mathbb{Q}\) instead of the real-world statistical measure \(\mathbb{P}\).\footnote{We assume an incomplete market without arbitrage hence there exist multiple equivalent martingale measures}}
+In this section, we sketch the construction of the stochastic integral for square integrable price processes and apropriate integrands. For this we define the space \(\mathcal{H}^p\) and call elements in \(\mathcal{H}^p\) p-integrable processes.
+\begin{definition}
+    Let \(p\in[1,\infty)\), and write
+    \begin{equation}
+        \lVert M\rVert_{\mathcal{H}^p}\coloneqq \lVert M\rVert_{p}=\mathbb{E}[\sup_t|M_t|^p]^{1/p}\;,
+    \end{equation}
+    where \(\lVert\cdot\rVert_p\) denotes the \(L^p\)-norm. The \(\mathcal{H}^p\) is the space of martingales such that 
+    \begin{equation}
+         \lVert M\rVert_{\mathcal{H}^p}<\infty\;.
+    \end{equation}
+\end{definition}
+Notice 
 \section{General case}
-These sections will be based primarily on \parencite{Schweizer2001GuidedTourQuadraticHedging}. 
+These sections will be based primarily on \parencite{Schweizer2001GuidedTourQuadraticHedging} and the helpful, short overview in \parencite{RheinlaenderSexton2011HedgingDerivatives}. 
 \\
 Moreover, state the main results and underlying assumptions for the projection results:
 \parencite[Thm.~46.]{Schweizer2001GuidedTourQuadraticHedging}. 
@@ -721,7 +751,7 @@ Then \(\sigma(Y)=\left\{(\omega,t):Y_t(\omega)\in A,\; A\in\mathcal{B}(\mathbb{R
 As mentioned, we will be especially interested in the case where \(I=\mathbb{R}_+\) and where the collection of \(\sigma\)-algebras \((\mathcal{F}_i)_{i\in I }\) forms an increasing sequence \(\mathcal{F}_t=\{Y_s:0\leq s\leq t\}\) for some stochastic process \(Y\). Then \(\mathbb{F}=\{\mathcal{F}_t\}_{t\in\mathbb{R}_+}\) defines a filtration on \((\Omega,\mathcal{F},\mathbb{P})\). It is usual and advantageous to require that the filtration satisfies the usual assumption; that is, that it is right-continuous and complete. The completion can be done canonically by defining \(\mathcal{\overline{F}}_t=\sigma(\mathcal{F}_t\cup\mathcal{N}_{\mathbb{P}})\), where \(\mathcal{N}_{\mathbb{P}}\) is as in \cref{eq:nullsets}. We denote \(\overline{\mathbb{F}}=(\overline{\mathcal{F_t}})_{t\in\mathbb{R}_+}\)\textcolor{blue}{As for right continuity....}. \\
 As motivated in the introduction of the current chapter, our goal is to develop an approximation theory for \(\mathcal{F_{\tau}}\)-measurable, bounded random variables, where \(\tau\) is an \(\overline{\mathbb{F}}\)-stopping time (truly random or deterministic) and \(\overline{\mathbb{F}}\) is the completed filtration generated by a Lévy process \(Y\), hence satisfying the usual assumptions. 
 Thanks to \cref{prop:reduction to countable measurability}, we now have the machinery to do so. The following corollary is essentially a special case of \cref{prop:reduction to countable measurability}. 
-\begin{proposition}
+\begin{proposition}\label{prop:reduction to countable measurability with filtration}
     In the setup of \cref{prop:reduction to countable measurability} with \(Y\) a stochastic process and filtrations \(\mathbb{F}=(\mathcal{F}_t)_{t\in\mathbb{R}_+}\) and \(\overline{\mathbb{F}}=(\overline{\mathcal{F}_t})_{t\in\mathbb{R}_+}\) where \(\mathcal{F}_t=\sigma(Y_s:0\leq s\leq t)\) and \(\overline{\mathcal{F}}_t=\sigma(Y_s:0\leq s\leq t)\vee\mathcal{N}_{\mathbb{P}}\) respectively. Then
     \begin{enumerate}[label=(\alph*)]
         \item For fixed \(t\in\mathbb{R}_+\), let \(X:\Omega\to\mathbb{R}\) be \(\mathcal{F}_t\)-measurable. Then, there exists a \textit{countable} set \(J\subset [0,t]\) such that \(X\) is \(\mathcal{F}_J\)-measurable, where \(\mathcal{F}_J = \sigma(Y_t:t\in J)\). 
@@ -729,26 +759,30 @@ Thanks to \cref{prop:reduction to countable measurability}, we now have the mach
     \end{enumerate}
 \end{proposition}
 \begin{proof}
-    The proof is an application of \cref{prop:reduction to countable measurability} with different choices of \(I\) and \(\mathcal{F}_i\). For (a) take \(I=\mathbb{R}_+\) and \(\mathcal{F}_i=\sigma(Y_i)\) for \(i\in I\). For (b) by .... we have \(\mathcal{F}_{\tau}=\sigma(\tau)\vee\sigma(Y_t^{\tau}:t\in J)\vee \mathcal{N}_{\mathbb{P}}\) take \(I=\mathbb{R}_+\cup\left\{a,b\right\}\) and \(\mathcal{F}_i=\sigma(Y_i^{\tau})\) for \(i\in \mathbb{R}_+\) and \(\mathcal{F}_a=\sigma(\tau)\) and \(\mathcal{F}_b=\sigma(\mathcal{N}_{\mathbb{P}})\).
+    The proof is an application of \cref{prop:reduction to countable measurability} with different choices of \(I\) and \(\mathcal{F}_i\). For (a) take \(I=\mathbb{R}_+\) and \(\mathcal{F}_i=\sigma(Y_i)\) for \(i\in I\). For (b) by \parencite[Thm.~13.45]{HeWangYan1992} (recalling that \(\overline{\mathcal{F}}_t=\mathcal{F}_t\vee \mathcal{N}_{\mathbb{P}}\)) we have \(\mathcal{F}_{\tau}=\sigma(\tau)\vee\sigma(Y_t^{\tau}:t\in J)\vee \mathcal{N}_{\mathbb{P}}\) take \(I=\mathbb{R}_+\cup\left\{a,b\right\}\) and \(\mathcal{F}_i=\sigma(Y_i^{\tau})\) for \(i\in \mathbb{R}_+\) and \(\mathcal{F}_a=\sigma(\tau)\) and \(\mathcal{F}_b=\sigma(\mathcal{N}_{\mathbb{P}})\). 
 \end{proof}
+\cref{prop:reduction to countable measurability with filtration} now motivates the following definition, which will be the building block for our approximation theory of simple bounded predictable processes based on neural networks. 
+\begin{definition}\label{def:algorithmic strategies}
+    \begin{itemize}
+        \item For \(t\in[0,\infty)\), we call an \(\overline{\mathcal{F}_t}\)-measurable, real-valued random variable \(\vartheta\) \textit{algorithmically generated} if there exist deterministic times 
+        \(t_1,\dots,t_n\) in \([0,t]\) for \(n\in\mathbb{N}\) and a neural network \(f\in\mathcal{NN}((\mathbb{R}^{dn})^*,\psi)\), such that
+        \begin{equation}
+            \vartheta = f(Y_{t_1},\dots,Y_{t_n})\;.
+        \end{equation}
+        \item
+        For \(Y\), a Lévy process, and \(\tau\) an \(\overline{\mathbb{F}}\) stopping time, we call a \(\mathcal{F}_{\tau}\)-measurable, real-valued random variable \(\vartheta\), \textit{algorithmically generated}, if there exist deterministic times 
+        \(t_1,\dots,t_n\) in \([0,t]\) for \(n\in\mathbb{N}\) and a neural network \(f\in\mathcal{NN}((\mathbb{R}^{(1+d)n})^*,\psi)\), such that
+        \begin{equation}
+            \vartheta = f(\tau,Y_{t_1},\dots,Y_{t_n})\;.
+        \end{equation}
+    \end{itemize}
+\end{definition}
+We now turn to the main approximation theoretic result, upon which the rest will be based. We will show that the algorithmically generated random variables are dense in \(\mathcal{L}^p(\Omega,\overline{\mathcal{F}},\mathbb{P})\) for \(p\in[0,\infty)\), where \(\overline{\mathcal{F}}=\sigma(Y_s:0\leq s\leq t)\). As expected from the finite setting \parencite{Buehler2018DeepHedging} the proof will consist of applying the Doob-Dynkin representation theorem
 \subsection{Young functions and Orlicz spaces}
 Based on \parencite{Arandjelovic2025} and \parencite{Rao1991OrliczSpaces}
 \subsection{Theorem 5.12: Dual of Orlicz spaces}
 Characterizing the topological dual of Orlicz spaces.
 
-\section{Density results for generalized neural networks in Orlitz Spaces}
-Brief remark on neural networks in locally convex Spaces
-\subsection{Generalization of discriminatory property to locally convex spaces}
-Assumption on activation function and \parencite[Assumptions~5.13.]{Hornik1991}. Then {Hornik1991}\parencite[Prop.~5.15.]{Hornik1991}\\
-Show that the generalized neural network, with an activation function obeying the same assumptions as in \parencite{Cybenko1989}, is still discriminatory; hence, the density results still follow.
-\subsection{Neural approximation in Orlicz spaces}
-\parencite[Thm~5.16.]{Hornik1991}
-Emphasize the role of Hornik's and Cybenko's arguments, and in particular, remark that we will only use the case \(X = \mathbb{R}^{k}\) (e.g. \(k = n\cdot d\)) in what follows.
-
-\section{Measurability reduction and algorithmically generated random variables}
-
-\subsection{Simple and elementary strategies}
- \parencite[Def.~5.27.]{Arandjelovic2025}.
 \subsection{From simple processes to stochastic integral}
 Density of simple processes \parencite[Prop.~5.28.]{Arandjelovic2025} and the respective result for wealth processes / stochastic integrals: \parencite[Thm.~5.29.]{Arandjelovic2025}.
 \begin{theorem}[Approximation of Stochastic Integrals]\label{thm:Approx of stoch. Integrals}
@@ -890,7 +924,7 @@ for some constant \(K_X = K(X)\). By \(|a+b|^2\leq 2|a|^2+2|b|^2\) it is enough 
 Based on this oberservations we consider the following approach. Consider a new space \(L^2(M,A)\) for a semimartingale \(X=X_0+M+A\) where \(A\) is a finite-variation process and \(M\in\mathcal{H}^2_{0,loc}\). Define it by \footnote{Note that in our case \([X]=[M]\) and \(L^2(M,A)\subset L^2(M)\), so \(\int_0^T\vartheta_s\diff M_s\in\mathcal{H}_0^2\); hence, \(\left(\int \vartheta_s\diff M_s\right)^2-[\int \vartheta_s\diff M_s]\) is a martingale starting at 0, and \([\int\vartheta_s\diff M_s]=\int \vartheta_s^2\diff [M]_s\). Hence, \(\mathbb{E}[\left(\int_0^T \vartheta_s\diff M_s\right)^2]=\mathbb{E}[\int_0^T \vartheta_s^2\diff [M]_s]\)}
 \begin{align*}
 H\in L^2(M,A) \iff \left(\mathbb{E}[\int_0^T H_s^2\diff [X]_s]+\mathbb{E}[\left(\int_0^T |H|_s\diff |A|_s\right)^2]\right)^{\frac{1}{2}}\coloneqq\lVert H\rVert_{L^2(M,A)}<\infty
-\end{align*}\footnote{Inspired by the fact that for \(\int H_s\diff X_s = \int H_s\diff M_s+\int H_s\diff A_s\) and \(\mathbb{E}[\left(\int H_s\diff M_s+\int H_s\diff A_s\right)^2]\leq 2\mathbb{E}[\left(\int H_s \diff M_s\right)^2]+2\mathbb{E}[\left(\int H_s \diff A_s\right)^2]\leq2\cdot 4\mathbb{E}[\left(\int (H_s)^2 \diff [M]_s\right)^2]+2\mathbb{E}[\left(\int H_s \diff A_s\right)^2]\) from \(|a+b|^2\leq 2|a|^2+2|b|^2\) and BDG with \(C_2 = 4\).}
+\end{align*}\footnote{Inspired by the fact that for \(\int H_s\diff X_s = \int H_s\diff M_s+\int H_s\diff A_s\) and \(\mathbb{E}[\left(\int H_s\diff M_s+\int H_s\diff A_s\right)^2]\leq 2\mathbb{E}[\left(\int H_s \diff M_s\right)^2]+2\mathbb{E}[\left(\int H_s \diff A_s\right)^2]\leq2\cdot 4\mathbb{E}[\left(\int (H_s)^2 \diff [M]_s\right)^2]+2\mathbb{E}[\left(\int H_s \diff A_s\right)^2]\) from \(|a+b|^2\leq 2|a|^2+2|b|^2\) and BDG with \(C_2 = 4\).}\textcolor{blue}{One would still need to check that \(\lVert H\rVert_{L^2(M,A)}\) defines a norm}
 where in our case \([X_0 + A + M]=[M]\). With this we have 
 \begin{equation}
     \lVert\int_0^T\vartheta_s\diff X_s\rVert_{L^2}\leq K_X\lVert \vartheta \rVert_{L^2(M,A)}
@@ -941,14 +975,14 @@ By the argument given earlier, this allows for a deep mean-variance hedging resu
 \section{Different Approach}
 We present a slightly different approach based on the observation \cref{eq:bounding the L^2 norm of the stochastic integral}. Notice that under the assumption that \(A<<\langle M\rangle\) path-wise (i.e. for every \(\omega\) as Lebesgue Stieltjes measures, with density process \(\lambda\) we have:
 \begin{align*}
-&\lVert H\rVert_{L^2(M,A)}^2\leq\mathbb{E}[\int_0^\infty (H_s)^2\diff [M]_s]+\mathbb{E}[\left(\int_0^\infty |H_s||\lambda_s|\diff[M]_s\right)^2]\\&\leq\mathbb{E}[\int_0^{\infty}(H_s)^2\diff [M]_s\cdot\int_0^{\infty}(\lambda_s)^2\diff [M]_s]
+&\lVert H\rVert_{L^2(M,A)}^2=\mathbb{E}[\int_0^\infty (H_s)^2\diff [M]_s]+\mathbb{E}[\left(\int_0^\infty |H_s||\lambda_s|\diff[M]_s\right)^2]\\&\leq\mathbb{E}[\int_0^\infty (H_s)^2\diff [M]_s+\mathbb{E}[\int_0^{\infty}(H_s)^2\diff [M]_s\cdot\int_0^{\infty}(\lambda_s)^2\diff [M]_s]
 \\&
-\leq\mathbb{E}[\left(\int_0^{\infty}(H_s)^2\diff [M]_s\right)^{p}]^{1/p}\cdot\mathbb{E}[\left(\int_0^{\infty}(\lambda_s)^2\diff [M]_s\right)^{q}]^{1/q}
+\leq\mathbb{E}[\int_0^\infty (H_s)^2\diff [M]_s+\mathbb{E}[\left(\int_0^{\infty}(H_s)^2\diff [M]_s\right)^{p}]^{1/p}\cdot\mathbb{E}[\left(\int_0^{\infty}(\lambda_s)^2\diff [M]_s\right)^{q}]^{1/q}
 \;,
 \end{align*}
 where we used the fact that if \(A<<[M]\) with density \(\lambda\) then \(|A|<<[M]\) with density \(|\lambda|\). Furthermore we used the Kunita-Watanabe inequality in the second step and Hölder's inequality in the third step. In the case \(p=1,q=\infty\) the above reads
 \begin{equation}
-    \lVert H\rVert_{L^2(M,A)}\leq\lVert H\rVert_{L^2(M,A)}\operatorname*{ess\sup}\left(\int_0^{\infty}(\lambda_s)^2\diff [M]_s\right)\;.
+    \lVert H\rVert_{L^2(M,A)}\leq\lVert H\rVert_{L^2(M)}\left(1+\operatorname*{ess\sup}\left(\int_0^{\infty}(\lambda_s)^2\diff [M]_s\right)\right)\;.
 \end{equation}
 Notice \(\int_0^{\infty}(\lambda_s)^2\diff [M]_s=\int_0^{\infty}|\lambda_s|\diff A_s\leq \int_0^{\infty}|\lambda_s|\diff |A|_s\). We impose the additional assumption
 \begin{equation}
@@ -956,9 +990,9 @@ Notice \(\int_0^{\infty}(\lambda_s)^2\diff [M]_s=\int_0^{\infty}|\lambda_s|\diff
 \end{equation}
 Then, because we have the trivial inequality
 \begin{align}\label{eq:essential boundedness assumption}
-    \mathbb{E}[\int_0^{\infty}H_s^2\diff[M]_s]\leq  \mathbb{E}[\int_0^{\infty}H_s^2\diff[M]_s]+  \mathbb{E}[\int_0^{\infty}|H_s||\lambda_s|\diff[M]_s]
+    \mathbb{E}[\int_0^{\infty}H_s^2\diff[M]_s]\leq  \mathbb{E}[\int_0^{\infty}H_s^2\diff[M]_s]+  \mathbb{E}[\left(\int_0^{\infty}|H_s||\lambda_s|\diff[M]_s\right)^2]=\lVert H\rVert_{L^2(M,A)}
 \end{align}
-we have that the norms on \(L^2(M)\) and \(L^2(M,A)\),under the condition that \(X = X_0+M+A\) with \([A<<[M]\) and \(M\in\mathcal{H}^{p+\epsilon}_0\) for some \(p\in[0,\infty)\) and \(\epsilon>0\), along with the additional assumption \cref{eq:essential boundedness assumption}, are equivalent. Because both spaces \(L^2(M)\) and \(L^2(M,A)\) are subspaces of the space of \(\mathcal
+we have that the norms on \(L^2(M)\) and \(L^2(M,A)\),under the condition that \(X = X_0+M+A\) with \(A<<[M]\) and \(M\in\mathcal{H}^{p+\epsilon}_0\) for some \(p\in[0,\infty)\) and \(\epsilon>0\), along with the additional assumption \cref{eq:essential boundedness assumption}, are equivalent. Because both spaces \(L^2(M)\) and \(L^2(M,A)\) are subspaces of the space of \(\mathcal
 P\)-measurable functions in, where \(\mathcal{P}\) is the predictable \(\sigma\)-algebra on \(\Omega\times[0,\infty)\), they are defined through their norms; the spaces are equal:
 \begin{equation}
     L^2(M) =L^2(M,A)\;.
@@ -983,6 +1017,28 @@ Notice that
     \int_0^\infty(\lambda_s)^2\diff [M]_s\leq\int_0^{\infty}(1+\lambda_s^2)\diff[M]_s\leq(1+\lambda_s^2)_{\infty}^*[M]_{\infty}\,
 \end{equation}
 where we used the non-negativity and monotonicity of the process \([M]\). Hence, (2.) is a weaker assumption than (1.).
+\textcolor{blue}{potential problem with this approach. The norms are equivalent but not really norms. First one needs to check that \(\lVert \cdot\rVert_{L^2(M,A)}\) defines at least a subadditiv, homogenous map and then that the process which are identified by \(\lVert X-Y\rVert_{L^2(M,A)}=0\) are also identified in \(L^2(M)\), that is \(\lVert X-Y\rVert_{L^2(M)}=0\). So that the norms are norms on the same quotient space under some equivalence relation identifying processes}
+First, notice that \(\lVert H\rVert_{L^2(M,A)}=0\) is subadditive
+Under the assumption that \(A<<[M]\) has density \(\lambda\), we have that \(\lVert X-Y\rVert_{L^2(M)}=0\implies\lVert X-Y\rVert_{L^2(M,A)}=0\). This follows from the fact that \(c\lVert X\rVert_{L^2(M)}\leq\lVert X\rVert_{L^2(M,A)}\leq C\lVert X\rVert_{L^2(M)}\) for \(c=1,C=(1+\operatorname*{ess\sup}\int_0^{\infty}|\lambda_s|\diff |A|_s)\). By assumption, \(c,C\) are finite. This implies that under the equivalence relation \(X\sim Y\) for \(X\sim Y\) for \(\lVert X-Y\rVert_{L^2(M,A)}=0\). Hence, they are norms on the same space \(L^2(\Omega\times [0,T],\mathcal{P})/\sim\), and in particular, it makes sense to say that they are equivalent. 
+\bigbreak
+This proves the following result:
+\begin{theorem}[Semimartingale Deep Hedging]\label{thm:general deep hedging}
+    Let \(X=X_0+M+A\) be a semimartingale with \(M\in \mathcal{H}_{0}^{2+\epsilon}\) for some \(\epsilon>0\), \(A<<[M]\) with density \(\lambda=(\lambda_s)_{s\in\mathbb{R}_+}\) and with \(\operatorname*{ess\sup}\int_0^{\infty}|\lambda_s|\diff |A|_s<\infty\) \. Let \(H\in L^2(\mathbb{P})\) and \((V_0^*,\vartheta^*)\) be the solution to \cref{thm:Hilbert Projection for Mean Sqaure Hedging}. Then there exists \((\vartheta_n)_{n\in\mathbb{N}}\subset\mathcal{E}(\mathcal{\psi})\) such that:
+    \begin{equation}
+        \min_{\vartheta\in \Theta}\lVert H-V_0^*-\int_{0}^T\vartheta_s\diff X_s\rVert_{L^2}=\inf_{\vartheta\in\mathcal{E}(\psi)}\lVert H-V_0^*-\int_{0}^T\vartheta_s\diff X_s\rVert_{L^2}\;,
+    \end{equation}
+\end{theorem}
+where \(\lVert H-V_0^*-\int_{0}^T\vartheta^*_s\diff X_s\rVert_{L^2}=\min_{\vartheta\in \Theta}\lVert H-V_0^*-\int_{0}^T\vartheta_s\diff X_s\rVert_{L^2}\).
+\begin{proof}
+    The proof is given above and relies on the fact that in this case \(L^2(M)=L^2(M,A)\). By \parencite[Thm.~5.32]{Arandjelovic2025} \(\mathcal{E}(\psi)\) is dense in \(L^2(M)\) and hence also trivially in \(L^2(M,A)\) as well. The only difference is that the optimal \(V_0^*,H^*\) are for the more general problem with \(X= X_0+M+A\). The proof is the same as in \parencite[THm.~5.35]{Arandjelovic2025} as for any \(\delta>0\) there exists \(U\in\mathcal{E}(\psi)\) such that \(\lVert(U^*\bullet X)_{\infty}-(U\bullet X)_{\infty}\rVert_{L^2}\leq \lVert U^*-U\rVert_{L^2(M,A)}<\delta\) by the calculation in \cref{eq:bounding the L^2 norm of the stochastic integral}.
+\end{proof}
+One should give examples, if they exist, of finite variation processes \(A\) satisfying the assmuptions:
+\begin{itemize}
+    \item \(A<<[M]\) with density \(\lambda\)
+    \item \(\operatorname*{ess\sup}\int_0^{\infty}|\lambda_s|\diff |A|_s<\infty\)
+\end{itemize}
+
+Furthermore we will think of a more general approach generalizing \parencite[Thm.~5.35]{Arandjelovic2025} again with \(X\) a semimartingale and approximants from \(\mathcal{S}(\psi)\). For this we might think again about strategy (1) and if there are sensible conditions on \(\vartheta\) that transfer to conditions on \(\vartheta_n\) such that the respective family of stochastic integrals (more precisely the square processes) become a uniformly integrable family. 
 \chapter{Conclusion and Outlook}
 \section{Summary of contributions}
 \section{outlook}
