@@ -600,13 +600,13 @@ Show that the generalized neural network, with an activation function obeying th
 Emphasize the role of Hornik's and Cybenko's arguments, and in particular, remark that we will only use the case \(X = \mathbb{R}^{k}\) (e.g. \(k = n\cdot d\)) in what follows.
 
 \chapter{Continuous-time Mean-Square Hedging}
-Explain and motivate why we restrict ourselves to the quadratic risk criterion for the continuous time setup. In particular, explain the \(L^2\) projection viewpoint again.
+In this section, we discuss in more detail hedging, more precisely mean-variance hedging, in the continuous time setup and the related notions required for this generalization. In particular, we shall assume a filtered probability space \((\Omega,\mathcal{F},\mathbb{F},\mathbb{P})\) with filtration \(\mathbb{F}=(\mathcal{F_t})_{t\in\mathbb{R}_+}\) satisfying the usual conditions. In particular, when we speak of martingales, we shall take its càdlàg version.
 \section{Self financing strategies in continuous times}\label{sec:Self financing strategies in continuous times}
 \textcolor{blue}{
 Explain briefly its definition and provide a short discussion about stochastic integration. For the square integrable case, briefly discuss the space \(\mathcal{M}^2,L^2(X)\) and the construction of the stochastic integral via Itô-Isometry. \\
 For the general semimartingale case, give only most important result (similar to Rheinländer and Sexton) and give the ucp continuity thoerem. Maybe give some motivation why it is crucial to consider predictable processes as integrands.}
 \bigbreak
-We briefly introduce the self financing strategies introduced in \cref{eq:self financing strategy} with more details in the context of continuous-time mathematical finance. We concentrate on the objects introduced, namely the stochastic integrals, and only briefly allude to the conceptually important restriction leading to the subset of integrable processes called admissible strategies. For the latter, we follow \parencite{RheinlaenderSexton2011HedgingDerivatives} in that we define a baseline notion of an admissible trading strategy and specify modified notions of admissibility for particular settings, although always explicitly. 
+We briefly introduce the self financing strategies discussed in \cref{eq:self financing strategy} with more details in the context of continuous-time mathematical finance. We concentrate on the objects introduced, namely the stochastic integrals, and only briefly allude to the conceptually important restriction leading to the subset of integrable processes called admissible strategies. For the latter, we follow \parencite{RheinlaenderSexton2011HedgingDerivatives} in that we define a baseline notion of an admissible trading strategy and specify modified notions of admissibility for particular settings, although always explicitly. 
 In order to prevent weird scenarios such as the "suicide strategy" (see \parencite[Example 3.3]{RheinlaenderSexton2011HedgingDerivatives}), where one is almost guaranteed positive gains but potentially requires infinite resources to sustain the strategy, we require that, for price processes that are local martingales the value process for all admissible strategies shall be super-martingales. The property of being a (super-)martingale depends on the underlying probability measure. Hence, to prevent ill behaved scenarios like the suicide strategy, we shall require that the value process of an admissible strategy is a super-martingale under all equivalent measures for which the price process is itself a local martingale. We denote the set of equivalent probability measures for which the price process is a local martingale by \(\mathcal{M_e}\), and call it \textit{equivalent martingale measures}. We can now state our "baseline" definition for an admissible strategy
 \begin{definition}\label{def:admissible trading strategy}
     Assume \(\mathcal{M}_e\neq\emptyset\). A strategy \(\vartheta\) is an \textit{admissible strategy} if the associated values process \(V\) is a \(\mathbb{Q}\)-super-martingale for every measure \(\mathbb{Q}\in\mathcal{M}_e\)\;. 
@@ -620,17 +620,58 @@ Hence, we additionally require in this case that \(\vartheta\) is \(X\)-integrab
 \textcolor{blue}{
 In this section, we will solve the mean-variance problem (...) in the Itô-isometry setting, which is assumed. that the price process \(X\) is a locally square integrable martingale and that the integrands are in \(L^2(X)\). One might oppose to this approach in the sense that it is very restrictive. Nevertheless, from a theoretical point of view the solution will be short and insightfull and even from a practical view one can make sense of the integrability condition of the price process as remarkes in \parencite[Section~3.1.]{RheinlaenderSexton2011HedgingDerivatives}. Indeed this amounts to solving the mean-vairance problem under a risk-free measure \(\mathbb{Q}\) instead of the real-world statistical measure \(\mathbb{P}\).\footnote{We assume an incomplete market without arbitrage hence there exist multiple equivalent martingale measures}}
 In this section, we sketch the construction of the stochastic integral for square integrable price processes and apropriate integrands. For this we define the space \(\mathcal{H}^p\) and call elements in \(\mathcal{H}^p\) p-integrable processes.
-\begin{definition}
+\begin{definition}\label{def:H^p}
     Let \(p\in[1,\infty)\), and write
     \begin{equation}
-        \lVert M\rVert_{\mathcal{H}^p}\coloneqq \lVert M\rVert_{p}=\mathbb{E}[\sup_t|M_t|^p]^{1/p}\;,
+        \lVert M\rVert_{\mathcal{H}^p}\coloneqq \lVert M_{\infty}^*\rVert_{p}=\mathbb{E}[\sup_t|M_t|^p]^{1/p}\;,
     \end{equation}
-    where \(\lVert\cdot\rVert_p\) denotes the \(L^p\)-norm. The \(\mathcal{H}^p\) is the space of martingales such that 
+    where we use the notation \(M^*_{\infty}\coloneqq\sup_{t\geq 0}|M_t|\) and \(\lVert\cdot\rVert_p\) denotes the \(L^p\)-norm. The \(\mathcal{H}^p\) is the space of martingales such that 
     \begin{equation}
          \lVert M\rVert_{\mathcal{H}^p}<\infty\;.
     \end{equation}
 \end{definition}
-Notice 
+We shall denote \(\mathcal{H}^p_0\) processes \(X\) in \(\mathcal{H}^p\) with \(X_0=0\). The following lemma will be crucial in characterizing the space \(\mathcal{H}^p\).
+\begin{lemma}\label{lemma:order of H^p spaces}
+ Let \(\mathcal{H}^p\) be as in \cref{def:H^p}. Then \(\mathcal{H}^p\) has the following property
+    \begin{enumerate}
+        \item For \(q\leq p\), then \(\lVert M\rVert_{\mathcal{H}^q}\leq\lVert X\rVert_{\mathcal{H}^p}\) thus \(\mathcal{H}^p\subset\mathcal{H}^q\). In particular, \(\mathcal{H}^p\subset\mathcal{H}^1\) for all \(p\in[1,\infty)\)\;.
+        \item If \(p\in(1,\infty)\) and \(M\) are uniformly integrable, then 
+        \begin{equation}
+            \lVert M_{\infty}\rVert_p\leq\lVert M_{\infty}^*\rVert_p\leq q\lVert M_{\infty}\rVert_p
+        \end{equation}
+        for \(p,q\) Hölder-conjugates, that is \(\frac{1}{p}+\frac{1}{q}=1\)\;.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    (1) is the usual inclusion of \(L^p(\mu)\) spaces for finite measure \(\mu\) and follows by Jensen's inequality (...). For (2), first notice that by the Martingale convergence theorem (...) \(M_{\infty}\coloneqq\lim_{n\to\infty}M_n\) is well defined as an almost sure limit. The first inequality is obvious, and the second follows by Doob's \(L^p\) inequality. 
+\end{proof}
+For the following lemma, we need an easy criterion for which a local martingale is actually a true martingale. Furthermore, it gives sufficient conditions for a local martingale to be a uniformly integrable martingale
+\begin{lemma}
+    Let \(X\) be a local martingale such that \(\mathbb{E}[X_t^*]<\infty\) for all \(t\in\mathbb{R}_+\). Then \(X\) is a martingale. If \(E[X_\infty^*]<\infty\), then \(X\) is a uniformly integrable martingale. 
+\end{lemma}
+For a proof, see \parencite[Thm.~5.1, II]{Protter2005StochasticIntegration}.
+\begin{lemma}
+    For all \(p\in[1,\infty)\), we have that \(X\in\mathcal{H}^p\) is uniformly integrable and \(|M_t|^p\to|M_{\infty}|^p\)in \(L^1\).
+\end{lemma}
+\begin{proof}
+    For the first part, it suffices to notice that \(X\in\mathcal{H}^p\) for \(p\in[1,\infty)\) implies  \(E[X_\infty^*]<\infty\), by point (1) of \cref{lemma:order of H^p spaces}. Thus \(M\) is uniformly integrable and \(M_{\infty}\) exists as an almost sure limit \(\lim_{n\to \infty}M_t=M_{\infty}\). Now, because \(|M_t|^p\leq (M_{\infty}^*)^p\) and \((M_{\infty}^*)^p\) are integrable, the family \((|M_t|^p)_{t\in\mathbb{R}_+}\) is uniformly integrable by \parencite[Example.~2.5.3.]{CohenElliott2015StochasticCalculusApplications} for \(\phi(\cdot)=||^p\). Hence, the almost sure convergence of \(|M_t|^p\) to \(|M_{\infty}|^p\) implies the respective \(L^1\) convergence of the latter.
+\end{proof}
+Now, without proof, we state the following Theorem. A proof is given in \parencite[Lemma~10.1.5.]{CohenElliott2015StochasticCalculusApplications}.
+\begin{theorem}\label{thm:H^p is a Banach space}
+    Identifying indistinguishable martingales, \(\mathcal{H}^p\) is a Banach space under its norm for all \(p\in[1,\infty)\)\;.
+\end{theorem}
+We can use our general insight from \cref{lemma:order of H^p spaces} and \cref{thm:H^p is a Banach space} to identify \(\mathcal{H}^p\) with the Banach space \(L^p(\Omega,\mathcal{F},\mathbb{P})\). Indeed, the identification is explicitly provided by the following bijective mapping
+\begin{align}\label{eq:H^p identification}
+    &\mathcal{H}^p\to L^p(\Omega,\mathcal{F}_{\infty},\mathbb{P})\\
+    &M\mapsto M_{\infty}
+\end{align}
+First of all, because the processes in \(\mathcal{H}^p\) are uniformly integrable, the map is well defined. Injectivity is clear, and surjectivity follows by setting \(M_t = \mathbb{E}[X|\mathcal{F}_t]\) for \(X\in L^p(\Omega,\mathcal{F}_{\infty},\mathbb{P})\). Moreover, \cref{lemma:order of H^p spaces} (2) states that the norm on \(\mathcal{H}^p\) is equivalent to the norm on \(L^p\) under the stated identification. In particular, this implies that the dual of \(\mathcal{H}^p\) can be \(\mathcal{H}^q\) where \(p,q\) are Hölder conjugates. More explicitly, any continuous linear form \(\phi\in(\mathcal{H}^p)^*\) can be identified with some \(N\in\mathcal{H}^q\) and written as \(\phi(M)=\mapsto\mathbb{E}[M_{\infty}N_{\infty}]\). 
+\\\\
+As usual for \(L^p\) spaces, the case \(p=2\) is particularly interesting as it yields a Hilbert space structure and a rich geometry. According to the identification \cref{eq:H^p identification}, \(\mathcal{H}^2\) can be identified with the Hilbert space \(L^2(\Omega,\mathcal{F}_{\infty},\mathbb{P})\). Explicitly, we can define an inner product on \(\mathcal{H}^2\) that is given by 
+\begin{equation}
+    (M,N)_{\mathcal{H}^2}=\mathbb{E}[M_{\infty}N_{\infty}]\;.
+\end{equation}
+\textcolor{blue}{Explain weak and strong orthogonaility, need to understand K.W. Watanabe decomposition which will be used to understnad the mean variance hedging solutino in the square integrable case}
 \section{General case}
 These sections will be based primarily on \parencite{Schweizer2001GuidedTourQuadraticHedging} and the helpful, short overview in \parencite{RheinlaenderSexton2011HedgingDerivatives}. 
 \\
