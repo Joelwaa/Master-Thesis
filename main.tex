@@ -668,9 +668,162 @@ We can use our general insight from \cref{lemma:order of H^p spaces} and \cref{t
 First of all, because the processes in \(\mathcal{H}^p\) are uniformly integrable, the map is well defined. Injectivity is clear, and surjectivity follows by setting \(M_t = \mathbb{E}[X|\mathcal{F}_t]\) for \(X\in L^p(\Omega,\mathcal{F}_{\infty},\mathbb{P})\). Moreover, \cref{lemma:order of H^p spaces} (2) states that the norm on \(\mathcal{H}^p\) is equivalent to the norm on \(L^p\) under the stated identification. In particular, this implies that the dual of \(\mathcal{H}^p\) can be \(\mathcal{H}^q\) where \(p,q\) are Hölder conjugates. More explicitly, any continuous linear form \(\phi\in(\mathcal{H}^p)^*\) can be identified with some \(N\in\mathcal{H}^q\) and written as \(\phi(M)=\mapsto\mathbb{E}[M_{\infty}N_{\infty}]\). 
 \\\\
 As usual for \(L^p\) spaces, the case \(p=2\) is particularly interesting as it yields a Hilbert space structure and a rich geometry. According to the identification \cref{eq:H^p identification}, \(\mathcal{H}^2\) can be identified with the Hilbert space \(L^2(\Omega,\mathcal{F}_{\infty},\mathbb{P})\). Explicitly, we can define an inner product on \(\mathcal{H}^2\) that is given by 
-\begin{equation}
+\begin{equation}\label{eq:scalar product on H^2}
     (M,N)_{\mathcal{H}^2}=\mathbb{E}[M_{\infty}N_{\infty}]\;.
 \end{equation}
+This inner-product structure on \(\mathcal{H}^2\) induces a natural notion of orthogonality. We call \(X,Y\in\mathcal{H}^2\) weakly orthogonal if \((X,Y)_{\mathcal{H}^2}=0\). The geometry of \(\mathcal{H}^2_0\) being a space of martingales is even richer. More precisely, denoting the subspace \(\mathcal{H}_0^2=\left\{X\in\mathcal{H}^2:X_0=0\right\}\), we can define a stronger notion of orthogonality:
+\begin{definition}
+    Let \(X,Y\in\mathcal{H}_0^2\). We say that \(X\) is strongly orthogonal to \(Y\) and vise versa if their product \(XY\) is a martingale. In this case, we denote \(X\perp Y\).
+\end{definition}
+In particular, for \(X\perp Y\),
+\begin{equation}
+    (X,Y)_{\mathcal{H}_0^2}=\mathbb{E}[X_{\infty}Y_{\infty}]=\mathbb{E}[X_0Y_0]=0\;.
+\end{equation}
+Hence, strong orthogonality implies the weak orthogonality of \(X,Y\in\mathcal{H}_0^2\). For simplicity, we will call elements in \(\in\mathcal{H}^2\) square integrable martingales. This will be of independent interest in mean variance hedging and is also the core development for stochastic integration of locally bounded predictable processes with respect to general semimartingales \parencite[Remark.~4, Chapter VII]{DellacherieMeyer1982ProbabilitiesPotentialB}. 
+\subsection{Stochastic Integration for square integrable Martingales}
+The strategy will be as follows: it will mimic classic Lebesgue integration theory but with a few important caveats. In particular, we will define the stochastic integral for a set of simple functions and extend it to a more general case by an isometric embedding. The construction itself will yield some important properties of the resulting integral.
+\\\\
+As announced, we first define a suitable class of simple integrands for which we can define the stochastic integral with respect to \(X\in\mathcal{H}^2\) naturally. 
+\begin{definition}\label{def:elementary predictable process}
+    We call \(H\) an \textit{elementary predictable process} if there exists a finite, increasing sequence of deterministic times, \(0=t_0<\dots<t_{n+1}<\infty\) and a sequence of bounded random variables \((H^i)_{i=0}^n\subset\mathcal{L}^{\infty}(\mathcal{F}_{t_i},\mathbb{P})\) such that 
+    \begin{equation}
+        H = H^01_{\left\{0\right\}}+\sum_{i=1}^nH^i1_{(t_i,t_{i+1}]}\;.
+    \end{equation}
+\end{definition}
+In particular, we have that \(H^i\) is \(\mathcal{F}_{t_i}\)-measurable. We denote the set of elementary predictable processes by \(\mathcal{E}\). Notice that we define the elementary predictable processes as having left-continuous paths.
+For later use, we denote by \(\mathcal{E}^{\infty}\) the set of processes as in \cref{def:elementary predictable process} but for infinite sets \((t_k)_{k\in\mathbb{N}}\) where \(0=t_0<\dots,t_n<\infty\) and \(\lim_{n\to\infty}t_n=\infty\). Hence processes of the form 
+\begin{equation}
+      H = H^01_{\left\{0\right\}}+\sum_{i\geq 1}^nH^i1_{(t_i,t_{i+1}]}\;.
+\end{equation}
+We identify a process in \(\mathcal{E}\) associated with the sequence \((t_k)_{k=0}^n\), with the process in \(\mathcal{E}^{\infty}\), the sequence \(\tilde{t}_t=t_k\quad k=0,\dots,n\), and \(t_k = t_n\) for \(k>n\), following the convention \(1_{(t,t]}=1_{\emptyset}=0\), thus identifying \(\mathcal{E}\) as a subset of \(\mathcal{E}^{\infty}\).
+\bigbreak
+Given a process \(X\in\mathcal{H}^2\) we define the stochastic integral \(I:\mathcal{E}\to\mathcal{H}^2\)
+as the stochastic process
+\begin{equation}
+   \int H_s\diff X_s =\left(\int_0^t H_s\diff X_s\right)_{t\in\mathbb{R}_+}
+\end{equation}
+where
+\begin{equation}\label{eq:integral of simple processes}
+    \int_0^t H_s\diff\coloneqq\sum_{i=1}^nH^i(X_{t_{i+1}\wedge t}-X_{t_i\wedge t})  
+\end{equation}
+For \(X\in\mathcal{H}^2\) one can define its quadratic variation process \(\langle X\rangle\) (see \parencite[Def.11.1.1.]{CohenElliott2015StochasticCalculusApplications}. The crucial observation is the following.
+\begin{proposition}\label{prop:Ito isometry for simple processes}
+    For \(H\in\mathcal{E}\) and \(X\in\mathcal{H}_0^2\), we have that \(\int H\diff X\in\mathcal{H}^2\) and the property
+    \begin{equation}\label{eq:Ito isometry for simple processes}
+        \mathbb{E}[\left(\int_0^{\infty} H_s\diff X_s\right)^2]=\mathbb{E}[\int_0^{\infty}H_s^2\diff\langle M\rangle_s]\;,
+    \end{equation}
+    where \(\int_0^{\infty}H_s^2\diff\langle M\rangle_s\) denotes the Lebesgue-Stieltjes integral for the finite variation process \(\langle M\rangle\).
+\end{proposition}
+The statement involves two things. First, it postulates the equality \cref{eq:Ito isometry for simple processes}, and secondly, it assumes that the terms in \cref{eq:Ito isometry for simple processes} are finite. 
+The proof of the martingale property, as well as the final equality \cref{eq:Ito isometry for simple processes}, is proven by direct calculation (see \parencite[Lemma.~12.1.4]{CohenElliott2015StochasticCalculusApplications}).
+The main idea is that one wants to elevate \cref{prop:Ito isometry for simple processes} to an isometry statement. Recall that, knowing in the setting of \cref{prop:Ito isometry for simple processes}, we have \(\int_0^{\infty} H_s\diff X_s\in\mathcal{H}_0^2\). From our identification, \cref{eq:scalar product on H^2} we have
+\begin{equation}
+    \mathbb{E}[\left(\int_0^{\infty} H_s\diff X_s\right)^2]=\lVert\int H_s\diff X_s\rVert_{\mathcal{H}^2}\;.
+\end{equation}
+Thus we want to understand \cref{prop:Ito isometry for simple processes} as the statement that the map 
+\begin{align}\label{eq:integral map as isometry}
+     I:&H\mapsto \int H\diff X\\
+     &\mathcal{L}\to\mathcal{H}_0^2\;,
+\end{align}
+is an linear isometry between \(\mathcal{L}\) and \(\mathcal{H}_0^2\) for some appropriate space normed vector \(\mathcal{L}\). From \cref{eq:Ito isometry for simple processes} the natural candidate is the following space:
+\begin{definition}\label{def:L^2(M)}
+    Let \(X\in\mathcal{H}^2\). We denote \(L^2(X)\) as the space of predictable processes \(H\) such that 
+    \begin{equation}
+        \lVert H\rVert_{L^2(M)}=\mathbb{E}[\int_0^{\infty}H_s^2\diff\langle M\rangle_s]<\infty\;.
+    \end{equation}
+\end{definition}
+Hence \cref{prop:Ito isometry for simple processes} reads exactly as the statement that the map \(I:L^2(X)\cap\mathcal{E}\to\mathcal{H}^2_0\) given by \(H\mapsto \int H\diff X\) as defined in \cref{eq:integral of simple processes} is an isometry of normed vector spaces. This important structural insight will enable us to extend the stochastic integral to all of \(L^2(X)\). Indeed we will show that \(\mathcal{E}\) is a dense subset of \(L^2(X)\), hence we define the stochastic integral of processs in \(L^2(X)\) for \(X\in\mathcal{H}_0^2\) as the unique continuous extension of the linear, bounded map \cref{eq:integral map as isometry} for \(\mathcal{L}=L^2(X)\).
+\bigbreak
+We first make a crucial observation, justifying the choice of notation \(L^2(X)\). Defining the measure \(\mathbb{P}_M\coloneqq\mathbb{P}\otimes \langle M\rangle\) on the product space \(\Omega\times [0,\infty)\) we have by definition \cref{def:L^2(M)}:
+\begin{equation}\label{eq:L^2(X) as Hilbert space}
+    L^2(M) = L^2(\Omega\times [0,\infty),\mathcal{P},\mathbb{P}_M)\;,
+\end{equation}
+where \(\mathcal{P}\) is the sub-\(\sigma\)-algebra of \(\mathcal{F}\otimes\mathcal{B}[0,\infty)\) generatey by adapted, left-continuous processes. As usual \cref{eq:L^2(X) as Hilbert space} is to be understood as the quotient space \(\mathcal{L}^2(\mathcal{P},\mathbb{P}_M)/\sim\) with \(X\sim Y\iff \lVert X-Y\rVert_{L^2(M)}=0\), making \(\lVert \cdot\rVert_{L^2(M)}\) a well real norm on \(L^2(M)\). In particular this implies \(L^2(M)\) is a Hilbert space with inner product \(\langle X,Y\rangle_{L^2(M)}=\mathbb{E}[\int_0^{\infty}X Y\diff\langle M\rangle_s]\) and in particular \(L^2(M)\) is complete. 
+Consider the following usefull lemma, assuring that for \(M\in\mathcal{H}_0^2\) the measure \(\mathbb{P}_M\) is finite.
+\begin{lemma}\label{eq:P_M is finite measure}
+    Suppose \(M\) is a local martingale starting at \(0\). Then \(M\in\mathcal{H}^2_0\) if and only if \(\mathbb{E}[[M]_{\infty}]<\infty\)
+\end{lemma}
+\begin{proof}
+    See \parencite[]{}
+\end{proof}
+One can show that for the process \(\langle M\rangle\) exists if and only if \(M\in\mathcal{H}_{0,loc}^2\), hence the above statement can be formulated for the quadratic variation process instead.
+\bigbreak
+Now we can proof the processes in \(L^2(M)\) are approximated by elementary predictable process. The proof will be based on an application of the functional version of the monotone class theorem (\parencite[Thm.~7.4.1.]{CohenElliott2015StochasticCalculusApplications}) which exploits the fact that \(\sigma(\mathcal{E})=\mathcal{P}\). We formulate this statement in a lemma
+\begin{lemma}\label{lemma:elementary processes generated predictable sigma algebra}
+    For \(\mathcal{E}\) as in \cref{def:elementary predictable process} and \(\mathcal{P}\) the predictable \(\sigma\)-alebgra, we have that 
+    \begin{equation}
+        \sigma(\mathcal{E})=\mathcal{P}\;.
+    \end{equation}
+    \begin{proof}
+        By definition, \(\mathcal{P}\) is generated by the family of adapted, left-continuous processes. Every element of \(\mathcal{E}\) is clearly adapted and left-continuous hence \(\sigma(\mathcal{E})\subset\mathcal{P}\) is clear. Hence it remainse to show that \(\mathcal{P}\subset\sigma(\mathcal{E})\). For this we  first show that any adapted left-continuous process is the limit of elements of \(\mathcal{E}^{\infty}\). Let \(X\) be an adapted left-continuous process. Then define
+        \begin{equation}
+            X^n= X_01_{\left\{0\right\}}+\sum_{k\geq 1}X_{k/n}1_{(k/n,(k+1)/n]}
+        \end{equation}
+        As \(X\) is adapted, \(X_{k/n}\) is \(\mathcal{F}_{k/n}\)-measurable, hence indeed \(X^n\in\mathcal{E}^{\infty}\). Then for every fixed \(t\in[0,\infty)\) there exists a unique \(k(n)\in\mathbb{N}\) such that \(\frac{k(n)}{n}<t\leq \frac{k(n)+1}{n}\). Hence \(X_t^n=X_{k(n)/n}\), thus \(X_t^n\) is \(\mathcal{F}_{k/n}\subset\mathcal{F}_t\)-measurable, hence adapted. Furthermore, notice that \(\lim_{n\to\infty}\frac{k(n)}{n}\leq\lim_{n\to\infty}|\frac{k(n)}{n}-t|+t\leq\lim_{n\to\infty}\frac{1}{n}+t=t\) and \(\frac{k(n)}{n}<t\) hence \(k(n)\nearrow t\), hence for every \(t\in[0,\infty),\;X^n_t\to X_t\) as \(n\to\infty\) by left-continuity of \(X\). This implies 
+        \begin{equation}
+            \mathcal{P}\subset\sigma(\mathcal{E}^{\infty})\;.
+        \end{equation}
+        Indeed, every adapted, left-continuous process \(X\) is \(\sigma(\mathcal{E}^{\infty})\) as the point-wise limit of elements in \(\mathcal{E}^{\infty}\). But \(\mathcal{P}\) is the smalles such \(\sigma\)-algebra.\\\\
+        Furthermore every \(H\in\mathcal{E}^{\infty}\) is trivially the pointwise limit of processes
+        \begin{equation}
+            H^{m}=H^01_{\left\{0\right\}}+\sum_{k=1}^mH^{i}1_{(t_k,t_{\frac{k+1}{n}}]}\in\mathcal{E}\;,
+        \end{equation}
+        for \(m\to\infty\).
+        By the same argument as before we have
+        \begin{equation}
+            \mathcal{P}\subset\mathcal{E}^{\infty}\subset\mathcal{E}\;.
+        \end{equation}
+        \end{proof}
+\end{lemma}
+For the application of the monotone class theorem, the following observation will be useful.
+\begin{lemma}\label{lemma:sigma algebra of bounded functions}
+    Let \(\mathcal{M}\) be a class of real-valued functions on \(\Omega\). We denote by \(b\mathcal{M}\) the class of bounded functions in \(\mathcal{M}\). Then
+    \begin{equation}
+        \sigma(b\mathcal{M})=\sigma(\mathcal{M})\;.
+    \end{equation}
+\end{lemma}
+\begin{proof}
+    The inclusion \(\sigma(b\mathcal{M})\subset\sigma(\mathcal{M})\) is clear. For the converse let consdier \(X\in\mathcal{M}\) and define
+    \begin{equation}
+        X^n = -n\vee X\wedge n\in b \mathcal{M}\;.
+    \end{equation}
+    Then it is clear that \(X^n\to X\) pointwise as \(n\to \infty\), hence the claim follows. 
+\end{proof}
+We denote \(b\mathcal{P}\) bounded predictable processes. We can finally state and proof the density of elementary processes in \(L^2(M)\).
+\begin{proposition}
+    Let \(M\in\mathcal{H}^2_0\) and \(\mathcal{E}\) as defined in \cref{def:elementary predictable process}. Then \(\mathcal{E}\) is dense in \(L^2(M)\)\;.
+\end{proposition}
+\begin{proof}
+    The proof uses essentially the functional version of the monotone class theorem and dominated convergence. By \cref{lemma:sigma algebra of bounded functions} and \cref{lemma:elementary processes generated predictable sigma algebra} we have 
+    \begin{equation}
+        \sigma(b\mathcal{E})=\mathcal{P}\;.
+    \end{equation}
+    Let 
+    \begin{equation}
+        \mathcal{H}=\left\{ H\in b\mathcal{P}:H\in L^2(M)\;,\forall \epsilon>0\;, \exists H_{\epsilon}\in b\mathcal{E}\text{ with }\lVert H_{\epsilon}-H\rVert_{L^2(M)}<\epsilon\right\}\;.
+    \end{equation}
+    Suppose we where able to show that \(\mathcal{H}\) was a monotone class containing the algebra of functions \(b\mathcal{E}\). We would conclude by the monotone class theorem (\parencite[Thm.~7.4.1.]{CohenElliott2015StochasticCalculusApplications}) that \(\mathcal{H}\) containes all bounded \(\sigma(b\mathcal{E})=\mathcal{P}\)-measurable maps, which would show that \(b\mathcal{E}\) is dense in \(L^2(b\mathcal{P},\mathbb{P}_M)\). To get density in \(L^2(\mathcal{P},\mathbb{P}_M)\) we observe that \(L^2(b\mathcal{P},\mathbb{P}_M)\)  is dense in \(L^2(\mathcal{P},\mathbb{P}_M)\). Indeed for every \(H\in L^2(b\mathcal{P},\mathbb{P}_M)\) we have that by dominated convergence that \(H^n=-n\vee H\wedge n\in L^2(b\mathcal{P},\mathbb{P}_M)\) converges to \(H\) in \(L^2(M)\). 
+    We proceed by showing that we can rightfully apply the montone class theorem. \\\\
+    First, by \cref{eq:P_M is finite measure}, \(\mathbb{P}_M\) is a finite measure, hence \(\mathcal{H}\) contains \(b\mathcal{E}\) and hence also \(1_{\Omega\times[0,T]}\). and forms a vector space uf functions. Indeed if \(H_1,H_2\in\mathcal{H}\), for every \(\epsilon>0\) there exist \(H^1_{\frac{\epsilon}{2}},H^2_{\frac{\epsilon}{2|\alpha|}}\) such that, for all \(\alpha\in\mathbb{R}\):
+    \begin{equation}
+        \lVert H^1_{\frac{\epsilon}{2}}+\alpha H^2_{\frac{\epsilon}{2|\alpha|}} \rVert_{L^2(M)}\leq \epsilon.
+    \end{equation}
+    It remainse to show that \(\mathcal{H}\) is closed under bounded monotone limits. Hence let \(0<H_0<H_1<\dots\) with \(H_j\in\mathcal{H}\) and  uniformly bounded in \(j\) with \(\lim_{n\to\infty}H_n = H\) pointwise. Fix \(\epsilon>0\). Then due to dominated convergence 
+    \begin{equation}
+        \lim_{n\to\infty}\lVert H-H_n\rVert_{L^2(M)}=0\;.
+    \end{equation}
+    Hence there exists \(n\in\mathbb{N}\) large enough such that \(\lVert H-H_n\rVert_{L^2(M)}<\epsilon/2\). Now \(H_n\in\mathcal{H}\), hence there exists \(H^n_{\epsilon/2}\in b\mathcal{E}\) such that \(\lVert H_n-H^n_{\epsilon/2}\rVert_{L^2(M)}<\epsilon/2\). By the triangle inequality we have
+    \begin{equation}
+        \lVert H-H^n_{\epsilon/2}\rVert_{L^2(M)}\leq\lVert H-H_n\rVert_{L^2(M)}+\lVert H_n-H^n_{\epsilon/2}\rVert_{L^2(M)}<\epsilon
+    \end{equation}
+    Hence we conclude by the monotone class theorem. 
+\end{proof}
+Finally, having proven that the elementary processes are dense in \(L^2(M)\) we can use the isometry property for the map \cref{eq:integral map as isometry} to extend the integral to a bounded linear operator, by the standard extension theorem (see for instance ......).
+We get the following theorem
+\begin{theorem}\label{thm:square integrable stochastic integral}
+    The linear map \(H\mapsto \int H\diff M\) fo \(\mathcal{E}\) into \(\mathcal{H}_0^2\) extends uniquely to an isometric linear map \(L^2(M)\mapsto\mathcal{H}_0^2\)
+\end{theorem}
+
 \textcolor{blue}{Explain weak and strong orthogonaility, need to understand K.W. Watanabe decomposition which will be used to understnad the mean variance hedging solutino in the square integrable case}
 \section{General case}
 These sections will be based primarily on \parencite{Schweizer2001GuidedTourQuadraticHedging} and the helpful, short overview in \parencite{RheinlaenderSexton2011HedgingDerivatives}. 
