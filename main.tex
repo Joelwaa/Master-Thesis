@@ -661,7 +661,7 @@ For a proof, see \parencite[Thm.~5.1, II]{Protter2005StochasticIntegration}.
     For all \(p\in[1,\infty)\), we have that \(X\in\mathcal{H}^p\) is uniformly integrable and \(|M_t|^p\to|M_{\infty}|^p\)in \(L^1\).
 \end{lemma}
 \begin{proof}
-    For the first part, it suffices to notice that \(X\in\mathcal{H}^p\) for \(p\in[1,\infty)\) implies  \(E[X_\infty^*]<\infty\), by point (1) of \cref{lemma:order of H^p spaces}. Thus \(M\) is uniformly integrable and \(M_{\infty}\) exists as an almost sure limit \(\lim_{n\to \infty}M_t=M_{\infty}\). Now, because \(|M_t|^p\leq (M_{\infty}^*)^p\) and \((M_{\infty}^*)^p\) are integrable, the family \((|M_t|^p)_{t\in\mathbb{R}_+}\) is uniformly integrable by \parencite[Example.~2.5.3.]{CohenElliott2015StochasticCalculusApplications} for \(\phi(\cdot)=||^p\). Hence, the almost sure convergence of \(|M_t|^p\) to \(|M_{\infty}|^p\) implies the respective \(L^1\) convergence of the latter.
+    For the first part, it suffices to notice that \(X\in\mathcal{H}^p\) for \(p\in[1,\infty)\) implies  \(E[X_\infty^*]<\infty\), by point (1) of \cref{lemma:order of H^p spaces}. Thus \(M\) is uniformly integrable and \(M_{\infty}\) exists as an almost sure limit \(\lim_{n\to \infty}M_t=M_{\infty}\). Now, because \(|M_t|^p\leq (M_{\infty}^*)^p\) and \((M_{\infty}^*)^p\) are integrable, the family \((|M_t|^p)_{t\in\mathbb{R}_+}\) is uniformly integrable by \parencite[Example.~2.5.3.]{CohenElliott2015StochasticCalculusApplications} for \(\phi(\cdot)=|\cdot|^p\). Hence, the almost sure convergence of \(|M_t|^p\) to \(|M_{\infty}|^p\) implies the respective \(L^1\) convergence of the latter.
 \end{proof}
 Now, without proof, we state the following Theorem. A proof is given in \parencite[Lemma~10.1.5.]{CohenElliott2015StochasticCalculusApplications}.
 \begin{theorem}\label{thm:H^p is a Banach space}
@@ -672,7 +672,7 @@ We can use our general insight from \cref{lemma:order of H^p spaces} and \cref{t
     &\mathcal{H}^p\to L^p(\Omega,\mathcal{F}_{\infty},\mathbb{P})\\
     &M\mapsto M_{\infty}
 \end{align}
-First of all, because the processes in \(\mathcal{H}^p\) are uniformly integrable, the map is well defined. Injectivity is clear, and surjectivity follows by setting \(M_t = \mathbb{E}[X|\mathcal{F}_t]\) for \(X\in L^p(\Omega,\mathcal{F}_{\infty},\mathbb{P})\). Moreover, \cref{lemma:order of H^p spaces} (2) states that the norm on \(\mathcal{H}^p\) is equivalent to the norm on \(L^p\) under the stated identification. In particular, this implies that the dual of \(\mathcal{H}^p\) can be \(\mathcal{H}^q\) where \(p,q\) are Hölder conjugates. More explicitly, any continuous linear form \(\phi\in(\mathcal{H}^p)^*\) can be identified with some \(N\in\mathcal{H}^q\) and written as \(\phi(M)=\mapsto\mathbb{E}[M_{\infty}N_{\infty}]\). 
+First of all, because the processes in \(\mathcal{H}^p\) are uniformly integrable, the map is well defined. Injectivity follows from the fact that \(M\in\mathcal{H}^p\) is uniformly integrable, and hence by (....) the limit \(M_{\infty}=\lim_{n\to\infty} M_t\) exists and \(M_t = \mathbb{E}[M_{\infty}|\mathcal{F}_t]\). Surjectivity follows by setting \(M_t = \mathbb{E}[X|\mathcal{F}_t]\in\mathcal{H}^p\) for \(X\in L^p(\Omega,\mathcal{F}_{\infty},\mathbb{P})\). Moreover, \cref{lemma:order of H^p spaces} (2) states that the norm on \(\mathcal{H}^p\) is equivalent to the norm on \(L^p\) under the stated identification. In particular, this implies that the dual of \(\mathcal{H}^p\) can be \(\mathcal{H}^q\) where \(p,q\) are Hölder conjugates. More explicitly, any continuous linear form \(\phi\in(\mathcal{H}^p)^*\) can be identified with some \(N\in\mathcal{H}^q\) and written as \(\phi(M)=\mathbb{E}[M_{\infty}N_{\infty}]\). 
 \\\\
 As usual for \(L^p\) spaces, the case \(p=2\) is particularly interesting as it yields a Hilbert space structure and a rich geometry. According to the identification \cref{eq:H^p identification}, \(\mathcal{H}^2\) can be identified with the Hilbert space \(L^2(\Omega,\mathcal{F}_{\infty},\mathbb{P})\). Explicitly, we can define an inner product on \(\mathcal{H}^2\) that is given by 
 \begin{equation}\label{eq:scalar product on H^2}
@@ -680,7 +680,7 @@ As usual for \(L^p\) spaces, the case \(p=2\) is particularly interesting as it 
 \end{equation}
 This inner-product structure on \(\mathcal{H}^2\) induces a natural notion of orthogonality. We call \(X,Y\in\mathcal{H}^2\) \texit{weakly orthogonal} if \((X,Y)_{\mathcal{H}^2}=0\). Why we refer to this notion of orthogonality as "weak" is due to the fact that we will later encounter a stronger notion of orhtogonality on the subspace \(\mathcal{H}_0^2=\left\{X\in\mathcal{H}^2:X_0=0\right\}\) which will imply the latter. We finish this subsection with the following standard convetion: For simplicity, we will call elements in \(\in\mathcal{H}^2\) square integrable martingales.
 
-\subsection{Stochastic Integration for square integrable Martingales}
+\subsection{Stochastic Integration for square integrable Martingales}\label{sec:Stochastic Integration for square integrable Martingales}
 The strategy will be as follows: it will mimic classic Lebesgue integration theory but with a few important caveats. In particular, we will define the stochastic integral for a set of simple functions on the product space \(\Omega\times [0,\infty)\). This is possible for general semimartingale integrators \(X\). Due to the representation of the semimartingales \(X\), we observe that the main caveat is the definition of the stochastic integral for square integrable martingales. Hence, we study the latter in more detail. The crucial idea to notice is that for simple integrands and square integrable integrators, we find that the integral map defines an isometric embedding. The latter is the key property enabling us to extend the stochastic integral to a larger class of integrands in a way that preserves the isometry property.
 \\\\
 Consider a general semimartingale \(X\). By definition a semimartingale can decomposed as 
@@ -856,8 +856,15 @@ We denote \(b\mathcal{P}\) bounded predictable processes. We can finally state a
     \end{equation}
     Hence we conclude by the monotone class theorem. 
 \end{proof}
+Notice that in this proof goes through analogously. Indeed for \(p\in[1,\infty)\) and \(\mathcal{H}^p\) we define the according seminorm
+\begin{equation}
+    \lVert H\rVert_{L^p(M)}=\mathbb{E}[\left(\int_0^\infty |H_s|^p\diff \langle M\rangle_s\right)^{p/2}]
+\end{equation}. The truncation argument works by two succesive applications of dominated convergence showing that \(V^n=-n\vee V\wedge n\to V\) in \(L^p(M)\) we , hence we get the following proposition 
+\begin{proposition}\label{prop:density of E in Lp(M) via monotone class}
+    Let \(M\in\mathcal{H}^p_0\) for \(p\in[1,\infty)\) and \(\mathcal{E}\) as defined in \cref{def:elementary predictable process}. Then \(\mathcal{E}\) is dense in \(L^p(M)\)\;.
+\end{proposition}
 Finally, having proven that the elementary processes are dense in \(L^2(M)\) we can use the isometry property for the map \cref{eq:integral map as isometry} to extend the integral to a bounded linear operator, by the standard extension theorem (see for instance ......).
-We get the following theorem. 
+We get the following theorem.
 \begin{theorem}\label{thm:square integrable stochastic integral}
     The linear map \(H\mapsto \int H\diff M\) fo \(\mathcal{E}\) into \(\mathcal{H}_0^2\) extends uniquely to an isometric linear map \(L^2(M)\mapsto\mathcal{H}_0^2\). We call the this extension, the integral of \(H\) with respect to \(M\).
 \end{theorem}
@@ -870,7 +877,29 @@ Furthermore, the isometry property is generally know as Itô's isometry. We stat
         \lVert H\rVert_{L^2(M)}=\mathbb{E}[\int_0^{\infty}H_s^2\diff \langle M\rangle_s]=\mathbb{E}[\left(\int_0^{\infty}H_s^2\diff M_s\right)^2]=\lVert \int H_s\diff M_s\rVert_{\mathcal{H}^2}
     \end{equation}
 \end{theorem}
-We will refer to the setting in \cref{thm:square integrable stochastic integral} as the \textit{square integrable setting}. We remark that a slightly more general version of \cref{thm:square integrable stochastic integral} can be stated, which follows from \cref{thm:square integrable stochastic integral} from localisation arguments. One can extend the the class of integrators and integrands to the localised spaces \(\mathcal{H}_{0,loc}^2\) and \(L_{loc}^2(M)\) respectively (for more details see \parencite[Prop.~2.20]{Schweizer2025BrownianMotionStochasticCalculus}). We shall hence define the class of integrable processes for \(M\in\mathcal{H}_{0,loc}^2\) by 
+We will refer to the setting in \cref{thm:square integrable stochastic integral} as the \textit{square integrable setting}. From here one can start and broaden the space of integrands and integrators. \textcolor{blue}{We will only generlize to \(\mathcal{H}_{0,loc}^2\) integrators as this is all we need. The step from intgrands \(L^2(M)\) to \(L_{loc}^2(M)\) will be scipped as it follows a simple localization argument as well. For the step from \(X\in\mathcal{H}^2\toX\in\mathcal{H}_{loc}^2\) we will need to understand how the stopped integral process looks like. For this we give a characterisation which is independently useful
+\begin{proposition}\label{prop:characterisation of stochastic integral}
+    Let \(M\in\mathcal{H}_0^2\) and \(H\in L^2(M)\). The stochastic integral \(H\bullet M\) is the unique process in \(\mathcal{H}^2_0\) such that, for every \(N\in\mathcal{H}^2\),
+    \begin{equation}
+        \mathbb{E}[L_{\infty}N_{\infty}]=\mathbb{E}[\int_0^\infty H_s\diff\langle M,N\rangle_s]\;.
+    \end{equation}
+\end{proposition}
+For the proof we refer to \parencite[Thm.~2.5.]{Schweizer2025BrownianMotionStochasticCalculus}. Conceptually not that the right-hand side is a linear form on in \(N\) that is on \(\mathcal{H}^2\), which has been identified with a Hilbertspace. By the Kunita-Watanabe inequality \cref(...) it is also continuous. Then \(L\) is the unique Riesz-Fischer vector in \(\mathcal{H}^2\) such that the continuous linear form can be written as an inner product. The latter characterises the continous linear form on a Hilbertspace uniquely. 
+From \cref{prop:characterisation of stochastic integral} it is now easy to proof the following
+\begin{corollary}\label{cor:stopped integral}
+    For \(M\in \mathcal{H}^2_0\), \(H\in L^2(M)\) and \(\tau\) a stopping time, we have 
+    \begin{equation}
+        (H\bullet M)^{\tau}=H\bullet(M)^{\tau}=(H1_{(0,\tau]})\bullet M\;.
+    \end{equation}
+\end{corollary}
+\begin{proof}
+    ...
+\end{proof}
+It is now straight forward to define the stochatic integral for \(M\in\mathcal{H}^2_{0,loc}\) and \(H\in L^2(M)\) (notice that in the definition of \(L^2(M)\) we only need the existence of the process \(\langle M\rangle\). The latter exists if and only if \(M\in\mathcal{H}^2_{0,loc}\). Given a localizing sequence \((\tau_n)_{n\in\mathbb{N}}\) of \(M\) we define 
+\begin{align}
+    \int H\diff M\coloneqq\lim_{n\to\infty}(\int H\diff M^{\tau_n})\;.
+\end{align}}
+One can further extend the the class of integrands to the localised space \(L_{loc}^2(M)\) (for more details see \parencite[Prop.~2.20]{Schweizer2025BrownianMotionStochasticCalculus}) when properly defining \(L_{loc}^2(M)\). We shall hence define the class of integrable processes for \(M\in\mathcal{H}_{0,loc}^2\) by 
 \begin{equation}
     \mathcal{L}(M)=L_{loc}^2(M)\;.
 \end{equation}
@@ -993,17 +1022,17 @@ This allows to define
     \end{align*}
     as the unique continuous extension of the map in \cref{thm:ucp continuity of general stochastic integral} from \(\mathcal{S}\) to \(\overline{S}^{ucp}=\mathbb{L}_{ucp}\).  
 \end{definition}
-\subsection{Mean Variance Hedging in square integrable setting}
-Finally we return to the main our main goal, the study of the mean-variance hedging problem outlined in \cref{eq:mean squared hedging}. We consider it in the square-integrable setting an show that in this setup it solution neetly reduces to an observation and interpretation of of the Kunita-Watanabe decomposition for the situation at hand. We restat the mean sqaured hedging problem for the square integrable setting
+\subsection{Mean Variance Hedging in square integrable setting}\label{sec:Mean Variance Hedging in square integrable setting}
+Finally we return to the main our main goal, the study of the mean-variance hedging problem outlined in \cref{eq:mean squared hedging}. We consider it in the square-integrable setting an show that in this setup it solution neetly reduces to an observation and interpretation of of the Kunita-Watanabe decomposition for the situation at hand. We restate the mean variance hedging problem for the square integrable setting
 \begin{proposition}\label{prop:square integrable mean variance via KW}
-    Let \(H\in L^2(\mathbb{P},\mathcal{F}_{\infty})\), \(X\in\mathcal{H}_{0,loc}^2\) and \(L^2(X)\) defined as in \cref{def:L^2(M)}.
+    Let \(H\in L^2(\mathbb{P},\mathcal{F}_{\infty})\), \(X\in\mathcal{H}_{0,loc}^2\) and \(L^2(X)\) defined as in \cref{def:L^2(M)}. Furthermore assume \(\mathcal{F}_0\) to be trivial.
     Consider the following minimization problem
     \begin{equation}\label{eq:square integrable mean square hedging}
         \inf_{(\vartheta,V_0)\in L^2(X)\times\mathbb{R}}\lVert H-V_0-\int_{0}^{\infty}\vartheta_s\diff X_s\rVert_{L^2}
     \end{equation}
     Then the infimum is attained in \(L^2(X)\times\mathbb{R}\) and the optimal stratgey \((V_0^*,\vartheta^*)\) is given by \((\mathbb{E}[H|\mathcal{F}_0],\vartheta^H)\), where the latter are given by the Kunita Watanabe decomposition of the process \(V^H_t\coloneqq \mathbb{E}[H|\mathcal{F}_t]\) for \(t\in[0,\infty)\):
     \begin{equation}\label{eq:KW of V}
-        V^H = \mathbb{E}[H|\mathcal{F}_{0}]+\int\vartheta^H\diff X+L\;.
+        V^H = \mathbb{E}[H]+\int\vartheta^H\diff X+L\;.
     \end{equation}
 \end{proposition}
 \begin{proof}
@@ -1025,17 +1054,17 @@ Finally we return to the main our main goal, the study of the mean-variance hedg
 \\\\
 It remains to show that the solution is given by the Kunita Watanabe decomposition. For this consider the Kunita-Watanabe decomposition of \(V\)
 \begin{equation}\label{eq:KW of H}
-    V = \mathbb{E}[F|\mathcal{F}_0]+\int H_s\diff M_s + L\;,
+    V = \mathbb{E}[F]+\int H_s\diff M_s + L\;,
 \end{equation}
-with \(H\in L^2(X)\) and \(L\in\mathcal{H}_0^2\) with \(L\perp X\). In particular, recall from the proof of \cref{thm:KW} that \(L\) is constructed to be in the orthogonal complement of \(\mathcal{I}(X)\) and in particular an element of \(\mathcal{H}_0^2\). We show that \(\mathbb{E}[H|\mathcal{F}_0]+\int \vartheta^H\diff X\) is the (weak) orthogonal projection of \(H\) onto the closed subspace \(\mathbb{R}+\mathcal{I}(M)\)\footnote{\(\mathcal{I}(M)\subset \mathcal{H}_0^2\) is closed by \cref{...} and hence \(\mathbb{R}+\mathcal{I}(X)\) is also close in \(\mathcal{H}^2\)}. Indeed as \(L=V-\mathbb{E}[H|\mathcal{F}_0]+\int \vartheta^H\diff X\) we have
+with \(H\in L^2(X)\) and \(L\in\mathcal{H}_0^2\) with \(L\perp X\). In particular, recall from the proof of \cref{thm:KW} that \(L\) is constructed to be in the orthogonal complement of \(\mathcal{I}(X)\) and in particular an element of \(\mathcal{H}_0^2\). We show that \(\mathbb{E}[H|\mathcal{F}_0]+\int \vartheta^H\diff X\) is the (weak) orthogonal projection of \(H\) onto the closed subspace \(\mathbb{R}+\mathcal{I}(M)\subset\mathcal{H}^2\)\footnote{\(\mathcal{I}(M)\subset \mathcal{H}_0^2\) is closed by \cref{...} and hence \(\mathbb{R}+\mathcal{I}(X)\) is also close in \(\mathcal{H}^2\)}. Indeed as \(L=V-\mathbb{E}[H|\mathcal{F}_0]+\int \vartheta^H\diff X\) we have
 \begin{align*}
     &(L,Y_0+\int \vartheta^Z\diff X)_{\mathcal{H}^2}= (L,Y_0)_{\mathcal{H}^2}+ (L,\int \vartheta^Z\diff X)_{\mathcal{H}^2}=Y_0\lVert L_{\infty}\rVert_{L^2}=0\\&\forall Z_0+\int\vartheta^Z\diff X\in\mathbb{R}+\mathcal{I}(X)\;,
 \end{align*}
 because \(L\in\mathcal{H}_0^2\), in particular \(L_{\infty}\) exists and \(\mathbb{E}[L_{\infty}]=\mathbb{E}[L_0]=0\). Hence \cref{eq:KW of V} is the orthogonal decomposition of \(V^H\) onto \(\mathbb{R}+\mathcal{I}(X)\subset \mathcal{H}^2\) and the claim follows by pythagoras
 \begin{equation}
-    \lVert H-Z_0+\int\vartheta^Z\diff X\rVert_{\mathcal{H}^2}\geq\lVert H-\mathbb{E}[H|\mathcal{F}_0]+\int \vartheta^H\diff X\rVert_{\mathcal{H}^2}
+    \lVert H-Z_0+\int\vartheta^Z\diff X\rVert_{\mathcal{H}^2}\geq\lVert H-\mathbb{E}[H]+\int \vartheta^H\diff X\rVert_{\mathcal{H}^2}
 \end{equation}
-for all \(Z_0+\int\vartheta^Z\diff X\in\mathbb{R}+\mathcal{I}(X)\). This shows that \(\mathbb{E}[H|\mathcal{F}_0]+\int \vartheta^H\diff X\) is the minizer in \(\mathbb{R}+\mathcal{I}(X)\). Retranslating into the random variable form we get that \(\mathbb{E}[H|\mathcal{F}_0]+\int_0^{\infty} \vartheta^H_s\diff X_s\) minizies \cref{eq:square integrable mean square hedging} and hence the claim. 
+for all \(Z_0+\int\vartheta^Z\diff X\in\mathbb{R}+\mathcal{I}(X)\). This shows that \(\mathbb{E}[H]+\int \vartheta^H\diff X\) is the minizer in \(\mathbb{R}+\mathcal{I}(X)\). Retranslating into the random variable form we get that \(\mathbb{E}[H|\mathcal{F}_0]+\int_0^{\infty} \vartheta^H_s\diff X_s\) minizies \cref{eq:square integrable mean square hedging} and hence the claim. 
 \end{proof}
 \section{General case}
 These sections will be based primarily on \parencite{Schweizer2001GuidedTourQuadraticHedging} and the helpful, short overview in \parencite{RheinlaenderSexton2011HedgingDerivatives}. 
@@ -1310,7 +1339,7 @@ Hence, by the monotonicity of the \(L^p\) norm and the triangle inequality
 \end{equation}
 But by construction, the right hand side converges to \(0\) as a finite sum of terms, each converging to \(0\). This shows density, as for every \(\epsilon>0\) we can find \(m\) big enough such that \(\lVert (H-H^m)_{\infty}^*\rVert_{p}<\epsilon\). 
 \end{proof}
-\begin{corollary}\label{cor:ucp density of S}
+\begin{corollary}\label{cor:p-ucp density of S}
     \(S(\psi)\) is dense in \(\mathcal{S}\) for the \(\mathbb{P}-ucp\) topology.
 \end{corollary}
 \begin{proof}
@@ -1322,9 +1351,9 @@ By the continuity of the function \(x\mapsto x^{1/p}\), for any \(p\in[1,\infty)
 \end{proof}
 \
 Notice that \cref{cor:ucp density of S} we can substitute the stopping times \(\tau_i\) with deterministic times \(t_i\) everywhere, and the proof goes through unchanged. Thus we get the immediate result for \(\mathcal{E}\) and \(\mathcal{E}(\psi)\) respectively.
-\begin{proposition}\label{prop:p-ucp and ucp density of E}
+\begin{corollary}\label{cor:ucp and p-ucp density of E}
     \(\mathcal{E}(\psi)\) is dense in \(\mathcal{E}\) for the \(\mathbb{P}-ucp\)-topology as well as the \(p-ucp\)-topology for \(p\in[1,\infty)\).
-\end{proposition}
+\end{corollary}
 Following the results of \cref{thm:ucp continuity of general stochastic integral}, the simple processes are the basic building blocks of stochastic integration càdlàg processes with respect to semimartingales in the sense that the integral extends from simple integrands to càglàd integrands by continuity. By \cref{cor:ucp density of S}, the integral of \(S(\psi)\)-integrands also extends to càglàd integrands by continuity. Indeed this is the content of the following theorem
 \begin{theorem}[Approximation of Stochastic Integrals]\label{thm:Approx of stoch. Integrals}
     Let \(X\) be a semimartingale, and \(\vartheta\in \mathbb{L}\). Then, there exists a sequence \((\vartheta^n)_{n\in\mathbb{N}}\) in \(\mathcal{S}(\psi)\) that converges to \(\vartheta\) in ucp, such that
@@ -1344,28 +1373,89 @@ Following the results of \cref{thm:ucp continuity of general stochastic integral
     \end{equation}
     Hence the contradiction. 
 \end{proof}
-Version for martingale integrators \(M\in\mathcal{H}^p\) and integrands \(\vartheta\in L^p(M)\), \parencite[Thm.~5.32.]{Arandjelovic2025}
-
-
-\chapter{Deep Mean-Square Hedging in Continuous Time}\label{sec:deep mean-square hedging in continuous time}
-\section{Deep mean-square hedging in the martingale case}
-\subsection{Statement and proof of the theorem}
-\begin{theorem}[Continuous deep mean-square hedging in the martingale case]\label{thm:cont-deep-ms-hedging-martingale}
-Let \(p=2\) and \(M\in\mathcal{H}_0^{2+\epsilon}\) be defined for some \(\epsilon>0\), and let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_T\)-measurable contingent claim. Assume \(\mathcal{F}_0\) is trivial. Then :
+We goal is to formulate a deep mean-variance hedging result in our continuous time set up. We will formulate in in the square integrable setup where the theory is not too technical and the relevant objects have been discussed in \cref{sec:Stochastic Integration for square integrable Martingales}. In this context the relevant contuinity of the integral map is given by the Itô-isometry which asserts that for some \(X\in\mathcal{H}_0^2\) the linear operator
+\begin{align*}
+    I_X:& H\mapsto H\bullet X\\
+    &\mathcal{H}^2\to L^2(X)
+\end{align*}
+is bounded; hence, it is (uniformly) continuous. We still need a similar density result of elementary or simple algorithmic strategies in \(L^2(X)\). Note however that this is a funadmentally different kind of density as the \(ucp\) density discussed in \cref{cor:ucp density of S} and \cref{cor:ucp denstiy of E} as convergence in \(L^2(X)\) is with respect to the integral norm 
 \begin{equation}
-    \min_{c\in\mathbb{R},\,\vartheta\in L^2(M)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff M_t\bigr)^2\Bigr]
-    \,=\,\inf_{c\in\mathbb{R},\,\vartheta\in \mathcal{E}(\psi)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff M_t\bigr)^2\Bigr].
+    \lVert H\rVert_{L^2(M)}^2=\mathbb{E}[\int_0^\infty H_s^2\diff \langle M\rangle_s]
 \end{equation}
-In particular, these are two statements. First, the existence of the minimum for the left hand side of the equation, and second, the equality of both infima. 
-\end{theorem}
-For the proof the following remark characterising the second claim of the theorem will be useful. 
-\begin{remark}\label{rem:inf and sequences}
-Assume the first claim has been shown. Then as the minimum is achieved, there exist \(c^*\in\mathbb{R}\) and \(\vartheta^*\in L^2(M)\) such that \( \mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T\vartheta_t^*\diff M_t\bigr)^2\Bigr] = \min_{c\in\mathbb{R},\,\vartheta\in L^2(M)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff M_t\bigr)^2\Bigr]\). Furthermore, it is clear that \( \min_{c\in\mathbb{R},\,\vartheta\in L^2(M)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff M_t\bigr)^2\Bigr]\) is a lower bound for the real subset \(\left\{\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff M_t\bigr)^2\Bigr]\;:\; c\in\mathbb{R},\vartheta\in \mathcal{E}(\psi)\right\}\). Indeed, \(\mathcal{E}(\psi)\subset L^2(M)\); hence, the first infimum is over a larger set. Hence, the second claim of \cref{thm:cont-deep-ms-hedging-martingale} reduces to showing that for every \(\delta>0\) there exists \(\vartheta\in\mathcal{E}(\psi)\) such that \(\mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T\vartheta_t^*\diff M_t\bigr)^2\Bigr]+\delta>\mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T\vartheta_t\diff M_t\bigr)^2\Bigr]\), or equivalently, there exists \((\vartheta^n)_{n\in\mathbb{N}}\subset\mathcal{E}(\psi)\) such that \(\lim_{n\to\infty}\mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T\vartheta^n_t\diff M_t\bigr)^2\Bigr]=\mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T\vartheta_t^*\diff M_t\bigr)^2\Bigr]\)\footnote{If this \(\delta\)-property holds, the sequence can be constructed by first choosing a null sequence \((\delta_n)_{n\geq 1}\), and for every \(n\in\mathbb{N}\), taking the corresponding \(\delta_n\)-close \(\vartheta^n\in\mathcal{E}(\psi)\). Conversely, assume there is such a sequence \((\vartheta^n)_{n\in\mathbb{N}}\subset\mathcal{E}(\psi)\); then \(\mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T\vartheta^n_t\diff M_t\bigr)^2\Bigr]\) approximates \(\mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T\vartheta_t^*\diff M_t\bigr)^2\Bigr]\) from above, as the latter is always smaller than \(\mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T(\vartheta)_t\diff M_t\bigr)^2\Bigr]\) for any \(\vartheta\in\mathcal{E}(\psi)\). Hence, for every \(\delta\), there exists an \(N\in\mathbb{N}\) for which the delta property holds for all \(\vartheta^n\) with \(n\geq N\)} as a real sequence.
-\end{remark}
-\subsection{Relation to classical quadratic hedging in the martingale case}
-Where classical mean quadratic hedging is mainly understood as stated in \parencite{Schweizer2001GuidedTourQuadraticHedging}, and in particular, its relation to the Kunita-Watanabe decomposition.
+Hence we need a different argument for density, which is reflected in the proof strategy of the following proposition
+\begin{proposition}\label{prop:Lp(M) density of E(psi)}
+    Assume there exists \(\epsilon>0\) such that \(M\in\mathcal{H}_0^{p+\epsilon}\). The the set \(\mathcal{E}(\psi)\) is dense in \(L^p(M)\) with respect to the seminorm on \(\lVert\cdot\rVert_{L^p(M)}\). Moreover, for every \(U\in L^p(M)\), there exists a sequence \((U_n)_{n\in\mathbb{N}}\subset\mathcal{E}(\psi)\), such that
+    \begin{equation}
+        \lim_{n\to\infty}\int U^n\diff M=\int U\diff M\;,
+    \end{equation}
+    where convergence holds i \(\mathcal{H}^p\). 
+\end{proposition}
+\begin{proof}
+    First notice that we can assume without loss of generality that \(V\in L^p(M)\) is bounded. Indeed if not, use \(V^n=-n\vee V\wedge n\) instead. If we are able to prove the result for \(V^n\) the result follows for \(V\) by dominated convergence. \\
+    Furthermore, recall from \cref{prop:density of E in Lp(M) via monotone class} that \(\mathcal{E}\) is dense in \(L^p(M)\) by monotone class, using  dominated convergence and the fact that \(\sigma(\mathcal{E})=\mathcal{P}\). Thus, for the frist claim suffices to show that \(\mathcal{E}(\psi)\) is dense in \(\mathcal{E}\) for the \(L^p(M)\) seminorm (again, we draw attention to the fact that we have shown the density of \(\mathcal{E}(\psi)\) in \(\mathcal{E}\) for the \(ucp\) topology, which is not the task at hand.) \\\\
+    For this we will make use of the fact that \(M\in\mathcal{H}^p\), thus we have Doob's \(L^p\)-inequality and the Burkohlder-Davis-Gundy (BDG) inequality at hand.\\
+    Fix \(\epsilon>0\).
+    Recall from \cref{cor:ucp and ucp density of E} that for for every \(\epsilon>0\) and any \(q\in[1,\infty)\)there is a \(U\in\mathcal{E}(\psi)\) such that \(\lVert (V-U)^*_{\infty}\rVert_{q}<\epsilon\). For the convenience of the proof, we choose \(\lVert (V-U)^*_{\infty}\rVert_{q}<\epsilon^{1/p}\) where we take \(q=\frac{p(p+\epsilon)}{\epsilon}\). We use the trivial bound \((V_s(\omega)-U_s(\omega))\leq(V(\omega)-U(\omega))_{\infty}^*\quad\forall\omega\in\Omega\), to get 
+    \begin{equation}
+        \rVert V-U\lVert_{L^p(M)}^p=\mathbb{E}[\left(\int_{0}^{\infty}(V_s-U_s)^2\diff\langle M\rangle\right)^{p/2}]\leq\mathbb{E}[(V-U_{\infty}^*)^p\langle M\rangle_{\infty}^p/2]
+    \end{equation}
+    By Hölder for the Hölder conjugate pair \(\tilde{p}=\frac{p+\epsilon}{\epsilon}\) and \(\tilde{q}=\frac{p+\epsilon}{p}\), we further get the bound
+    \begin{equation}
+        \mathbb{E}[(V-U_{\infty}^*)^p\langle M\rangle_{\infty}^p/2]\leq\lVert(V-U_{\infty}^*)^p\rVert_{\tilde{p}}\lVert\langle M\rangle_{\infty}^p/2 \rVert_{\tilde{q}}\;.
+    \end{equation}
+    We now use first BDG and then Doob's \(L^p\)-inequality to finally get
+    \begin{equation}
+        \lVert(V-U_{\infty}^*)^p\rVert_{\tilde{p}}\lVert\langle M\rangle_{\infty}^{p/2} \rVert_{\tilde{q}}\lesssim \lVert(V-U)_{\infty}^*)\rVert_{q}^p\lVert M^*_{\infty}\rVert_{p+\epsilon}^p\leq\epsilon\lVert M\rVert_{\mathcal{H}^{p+\epsilon}}\;,
+    \end{equation}
+    where we don't care about the exact BDG constants as they only depend on \(p\) and not on the process. 
+    As \(\mathcal{H}^{p+\epsilon}\) is finite by assumption, the latter can be made arbitrarily small, hence showing the claim. \\\\
+    For the last claim, we use the fact that for every \(H\in L^p(M)\) we have \(H\bullet M\in\mathcal{H}^p\) by \parencite[Corollary.~12.3.6.]{CohenElliott2015StochasticCalculusApplications}. Furthermore, by the first part, for every \(V\in L^p(M)\) we can find a sequence \((U_n)_{n\in\mathbb{N}}\subset\mathcal{E}(\psi)\) that converges to \(U\) in \(L^p(M)\). Furthermore, we have \([\vartheta\bullet M]=H^2\bullet[M]\) (again by \parencite[Corollary.~12.3.6.]{CohenElliott2015StochasticCalculusApplications}). Hence by the BDG inequality we get 
+    \begin{align*}
+        \lVert \int U\diff M-\int U^n\diff M\rVert_{\mathcal{H}^p}=&\mathbb{E}[\left(\left(U-U^n)\bullet M\right)^*_{\infty}\right)^p]^{1/p}\lesssim \mathbb{E}[[\left(U-U^n)\bullet M\right)_{\infty}]^{p/2}]^{1/p}\\&=\mathbb{E}[\left(U-U^n)^2\bullet [M]\right)_{\infty}]^{p/2}]^{1/p}
+        =\lVert U-U^n\rVert_{L^p(M)}\;,
+    \end{align*}
+    which concludes the proof. 
+\end{proof}
+As one of our main goals is to discuss the deep mean-variance hedging result in continuous time, we only really need \(p=2\). Nevertheless, we gave the statement for general \(p\in[1,\infty)\) as we want to show the correct choices for the Hölder exponents. 
+\chapter{Deep Mean-Variance Hedging in Continuous Time}\label{sec:deep mean-square hedging in continuous time}
 
-\section{Extension to semi-martingale case}
+\section{Deep mean-square hedging in the martingale case}
+We finally state one of the main results we were building up to: deep mean-variance hedging. It is formulated in the square integrable setup and thus should be seen complementary to the the mean-variance discussion of \cref{sec:Mean Variance Hedging in square integrable setting}. In particular the claim is that instead of looking among all of strategies \(V_0,\vartheta)\in\mathbb{R}\times L^2(M)\) we can restrict our search to \(\mathbb{R}\times\mathcal{E}(\psi)\). The error will make by only looking in that subset is aribtrarily small. The exact mathematical statement is as follows. 
+\begin{theorem}[Continuous deep mean-square hedging in the martingale case]\label{thm:martingale setup, continuous deep variance hedging}
+Assume there exists \(\epsilon>0\) such that \(M\in\mathcal{H}_0^{2+\epsilon}\), and let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_{\infty}\)-measurable random variable. Furthermore assume \(\mathcal{F}_0\) to be trivial.  Then :
+\begin{equation}\label{eq:martingale setup, continuous deep variance hedging}
+    \min_{c\in\mathbb{R},\,\vartheta\in L^2(M)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff M_t\bigr)^2\Bigr]
+    \,=\,\inf_{c\in\mathbb{R},\,\vartheta\in \mathcal{E}(\psi)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff M_t\bigr)^2\Bigr]\;,
+\end{equation}
+where the minimum on the left-hand side is unique. 
+In particular, there are two statements. First, the existence and uniqueness of the minimum for the left hand side of the equation, and second, the equality both expression. 
+\end{theorem}
+For the second claim, observe the following
+\begin{remark}\label{rem:inf and sequences}
+Assume the first claim has been shown. Then, as the minimum is achieved, there exist \(c^*\in\mathbb{R}\) and \(\vartheta^*\in L^2(M)\) such that \( \mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T\vartheta_t^*\diff M_t\bigr)^2\Bigr] = \min_{c\in\mathbb{R},\,\vartheta\in L^2(M)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff M_t\bigr)^2\Bigr]\). Furthermore, it is clear that \( \min_{c\in\mathbb{R},\,\vartheta\in L^2(M)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff M_t\bigr)^2\Bigr]\) is a lower bound for the real subset \(\left\{\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff M_t\bigr)^2\Bigr]\;:\; c\in\mathbb{R},\vartheta\in \mathcal{E}(\psi)\right\}\). Indeed, \(\mathcal{E}(\psi)\subset L^2(M)\); hence, the first infimum is over a larger set. Hence, the second claim of \cref{thm:cont-deep-ms-hedging-martingale} reduces to showing that for every \(\delta>0\) there exists \(\vartheta\in\mathcal{E}(\psi)\) such that \(\mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T\vartheta_t^*\diff M_t\bigr)^2\Bigr]+\delta>\mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T\vartheta_t\diff M_t\bigr)^2\Bigr]\), or equivalently, there exists \((\vartheta^n)_{n\in\mathbb{N}}\subset\mathcal{E}(\psi)\) such that \(\lim_{n\to\infty}\mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T\vartheta^n_t\diff M_t\bigr)^2\Bigr]=\mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T\vartheta_t^*\diff M_t\bigr)^2\Bigr]\)\footnote{If this \(\delta\)-property holds, the sequence can be constructed by first choosing a null sequence \((\delta_n)_{n\geq 1}\), and for every \(n\in\mathbb{N}\), taking the corresponding \(\delta_n\)-close \(\vartheta^n\in\mathcal{E}(\psi)\). Conversely, assume there is such a sequence \((\vartheta^n)_{n\in\mathbb{N}}\subset\mathcal{E}(\psi)\); then \(\mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T\vartheta^n_t\diff M_t\bigr)^2\Bigr]\) approximates \(\mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T\vartheta_t^*\diff M_t\bigr)^2\Bigr]\) from above, as the latter is always smaller than \(\mathbb{E}\Bigl[\bigl(H-c^*-\int_{0}^T(\vartheta)_t\diff M_t\bigr)^2\Bigr]\) for any \(\vartheta\in\mathcal{E}(\psi)\). Hence, for every \(\delta\), there exists an \(N\in\mathbb{N}\) for which the delta property holds for all \(\vartheta^n\) with \(n\geq N\)} as a real sequence.
+\end{remark}
+Moreover, recall that the first claim has been shown in \cref{sec:Mean Variance Hedging in square integrable setting}. It remains to show the second part. 
+\begin{proof}
+    The first part of the claim has been shown in \cref{sec:Mean Variance Hedging in square integrable setting} and is a consequence of the Hilbert projection theorem. Denote by \((c^*,\vartheta^*)\in\mathbb{R}\times L^2(M)\) the unique strategy that achieves the minimum in \cref{eq:martingale setup, continuous deep variance hedging}. It remains to show the second part. \\\\
+    By \cref{prop:Lp(M) density of E(psi)} for every \(\delta>0\) there exists \(U\in\mathcal{E}(\psi)\) such that \(\lVert \vartheta
+    ^*\bullet M-\vartheta\bullet M\rVert_{\mathcal{H}^2}<\delta\). Hence
+    \begin{align}
+        \lVert H-c^*-(\vartheta\bullet M)_{\infty}\rVert_{2}&\leq\lVert H-c^*-(\vartheta^*\bullet M)_{\infty}\rVert_{2}+\lVert (\vartheta^*\bullet M)_{\infty}-(\vartheta\bullet M)_{\infty}\rVert_{2}\\
+        &\leq\lVert H-c^*-(\vartheta^*\bullet M)_{\infty}\rVert_{2}+\lVert (\vartheta^*\bullet M)-(\vartheta\bullet M)\rVert_{\mathcal{H}^2}
+        \\&\leq\lVert H-c^*-(\vartheta^*\bullet M)_{\infty}\rVert_{2}+\delta\;.
+    \end{align}
+    By \cref{rem:inf and sequences} this concludes the proof. 
+\end{proof}
+Notice that what made the proof of the second part work was essentially the continuity of the map \(\vartheta\mapsto(\vartheta\bullet M)_{\infty}\) is a continuous linear operator from \(L^2(M)\to  L^2(\mathcal{F}_{\infty},\mathbb{P})\).
+\section{Extension for semimartingales}
+Regarding \cref{thm:martingale setup, continuous deep variance hedging}, one is led to the natural question of whether one can obtain the claim for a more general setup. In this section, we will investigate a first approach to this. In particular, we want to allow for more general integrands. More precisely, we will allow a subclass of semimartingales as price processes \(M\). For this, we will have to adapt the space of integrable processes in a way that density results of the type \cref{cor:p-ucp density of S} and \cref{cor:ucp and p-ucp density of E}. We will first outline the general idea before giving concrete conditions and the corresponding extension.
+\bigbreak
+Consider the decomposition of a semimartingale
+\begin{equation}
+    X=X_0+M+A\;,
+\end{equation}
+where \(M\in\mathcal{H}^2_{0,loc}\): local martingale starting at \(0\) and \(A\in FV_{0}\): finite variation process starting at \(0\).
+\subsection{Proof Attempts and Notes}
 \cref{thm:cont-deep-ms-hedging-martingale} was in the realm of classical martingale stochastic calculus, with integrators \(M\in\mathcal{H}^{2}\)(even \(\mathcal{H}^{2+\epsilon}\) and integrands \(\vartheta\in L^2(M)\). In light of \cref{thm:Approx of stoch. Integrals}, we aim to prove a similar result as in \cref{thm:cont-deep-ms-hedging-martingale} for the more general case where \(M\) is a semimartingale. Following \parencite{Schweizer2001GuidedTourQuadraticHedging} we restrict the class of possible strategies to \(\vartheta_{GLP}\) such that \(G_T(\vartheta_{GLP})\) is a closed subspace in \(L^2(\mathbb{P})\). In this case, we know that the minimization problem has a solution, as \(\mathcal{A}=\mathbb{R}+G_T(\Theta_{GLP})\) is a closed subspace in \(L^2(\mathbb{P})\).; this means there exists an optimal trading strategy \((V_0^*,\vartheta^*)\in\mathcal{A}=\mathbb{R}+G_T(\Theta_{GLP})\) (\textcolor{blue}{I guess we don't even need strong conditions to get \(\mathcal{A}\) closed as we don't need explicit expression of the optimal trading strategy at first, hence we can directly project on \(\bar{\mathcal{A}}\) which is closed in \(L^2(\mathbb{P})\). In that line of thought, any \(\Theta\subset\Theta_2\) is sufficient for the existence of a solution in \(\bar{\mathcal{A}}\)}.) Then we have the following consequence of the Hilbert Projection theorem
 \begin{theorem}[Hilbert Projection for Mean Sqaure Hedging]\label{thm:Hilbert Projection for Mean Sqaure Hedging}
     Let \(\Theta\subset\Theta_2\) and \(\mathcal{A}=\mathbb{R}+G_T(\Theta)\subset L^2(\mathbb{P})\). Then the \(L^2\)-closure \(\bar{\mathcal{A}}\) is a closed subspace of \(L^2(\mathbb{P})\). Hence, there exists \((V_0^*,\vartheta^*)\) such that 
