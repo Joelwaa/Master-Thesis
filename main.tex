@@ -877,7 +877,7 @@ Furthermore, the isometry property is generally know as Itô's isometry. We stat
         \lVert H\rVert_{L^2(M)}=\mathbb{E}[\int_0^{\infty}H_s^2\diff \langle M\rangle_s]=\mathbb{E}[\left(\int_0^{\infty}H_s^2\diff M_s\right)^2]=\lVert \int H_s\diff M_s\rVert_{\mathcal{H}^2}
     \end{equation}
 \end{theorem}
-We will refer to the setting in \cref{thm:square integrable stochastic integral} as the \textit{square integrable setting}. From here one can start and broaden the space of integrands and integrators. \textcolor{blue}{We will only generlize to \(\mathcal{H}_{0,loc}^2\) integrators as this is all we need. The step from intgrands \(L^2(M)\) to \(L_{loc}^2(M)\) will be scipped as it follows a simple localization argument as well. For the step from \(X\in\mathcal{H}^2\toX\in\mathcal{H}_{loc}^2\) we will need to understand how the stopped integral process looks like. For this we give a characterisation which is independently useful
+We will refer to the setting in \cref{thm:square integrable stochastic integral} as the \textit{square integrable setting}. From here one can start and broaden the space of integrands and integrators. We give a useful characterisatio of the interal in \cref{thm:square integrable stochastic integral}
 \begin{proposition}\label{prop:characterisation of stochastic integral}
     Let \(M\in\mathcal{H}_0^2\) and \(H\in L^2(M)\). The stochastic integral \(H\bullet M\) is the unique process in \(\mathcal{H}^2_0\) such that, for every \(N\in\mathcal{H}^2\),
     \begin{equation}
@@ -885,24 +885,7 @@ We will refer to the setting in \cref{thm:square integrable stochastic integral}
     \end{equation}
 \end{proposition}
 For the proof we refer to \parencite[Thm.~2.5.]{Schweizer2025BrownianMotionStochasticCalculus}. Conceptually not that the right-hand side is a linear form on in \(N\) that is on \(\mathcal{H}^2\), which has been identified with a Hilbertspace. By the Kunita-Watanabe inequality \cref(...) it is also continuous. Then \(L\) is the unique Riesz-Fischer vector in \(\mathcal{H}^2\) such that the continuous linear form can be written as an inner product. The latter characterises the continous linear form on a Hilbertspace uniquely. 
-From \cref{prop:characterisation of stochastic integral} it is now easy to proof the following
-\begin{corollary}\label{cor:stopped integral}
-    For \(M\in \mathcal{H}^2_0\), \(H\in L^2(M)\) and \(\tau\) a stopping time, we have 
-    \begin{equation}
-        (H\bullet M)^{\tau}=H\bullet(M)^{\tau}=(H1_{(0,\tau]})\bullet M\;.
-    \end{equation}
-\end{corollary}
-\begin{proof}
-    ...
-\end{proof}
-It is now straight forward to define the stochatic integral for \(M\in\mathcal{H}^2_{0,loc}\) and \(H\in L^2(M)\) (notice that in the definition of \(L^2(M)\) we only need the existence of the process \(\langle M\rangle\). The latter exists if and only if \(M\in\mathcal{H}^2_{0,loc}\). Given a localizing sequence \((\tau_n)_{n\in\mathbb{N}}\) of \(M\) we define 
-\begin{align}
-    \int H\diff M\coloneqq\lim_{n\to\infty}(\int H\diff M^{\tau_n})\;.
-\end{align}}
-One can further extend the the class of integrands to the localised space \(L_{loc}^2(M)\) (for more details see \parencite[Prop.~2.20]{Schweizer2025BrownianMotionStochasticCalculus}) when properly defining \(L_{loc}^2(M)\). We shall hence define the class of integrable processes for \(M\in\mathcal{H}_{0,loc}^2\) by 
-\begin{equation}
-    \mathcal{L}(M)=L_{loc}^2(M)\;.
-\end{equation}
+One can further extend the integral of \cref{thm:square integrable stochastic integral} to integrators in \(M\in\mathcal{H}^2_{0,loc}\) and integrands in \(H\inL^2_{loc}(M)\), where the latter is defined to be the class of predictable processes \(H\) such that there exists a localizing sequence \((\tau_n)_{n\in\mathbb{N}}\) for which \(H1_{(0,\tau_n]}\) is in \(L^2(M)\). 
 We give the definition of \(L_{loc}^2(M)\).
 \begin{definition}\label{def:L^2(M)_loc}
     For \(M\in\mathcal{H}^2_{0,loc}\) the space \(L_{loc}^2(M)\) consists of predictable processes \(H\) for which there is  a sequence of stopping times \(\tau_n\nearrow\infty\) almost surely, such that 
@@ -917,7 +900,23 @@ Notice that we are saying that for \(M\in\mathcal{H}_{0,loc}^2\), \(H\in L^2(M)\
         \int_0^t H_s^2\diff\langle M\rangle_s<\infty \quad\mathbb{P}\text{-a.s.}\;,\forall t\geq 0
     \end{equation}
 \end{lemma}
-We meantioned that the stochastic integral of processes in \(L^2_{0,loc}(M)\) with respect to processes in \(\mathcal{H}_{0,loc}^2\) is defined through localisation of the integral defined in \cref{thm:square integrable stochastic integral}. From this it is clear that by construction the stochsatic integral in the local case is a local martingale. Notice that in general it is not more than that.
+The extension of \cref{thm:square integrable stochastic integral} is then done by setting 
+\begin{equation}\label{eq:local stochastic integral}
+    I_M(H)^{(k)}\coloneqq H1_{(0,\tau_k]}\bullet X^{\tau_k}\quad \text{ on } (0,\tau_k] \text{ and } I_M(H)_0=0. \;,
+\end{equation}
+where \((\tau_k)_{k\in\mathbb{N}}\) is a common localizing sequence of \(H\) and \(M\). First notice that the left-hand side is well defined as \(H1_{(0,\tau]\in L^2(M)}\iff H1_{(0,\tau]\in L^2_{loc}(M)}\) by definition\footnote{For this note that for the integral of \cref{thm:square integrable stochastic integral} and a stopping time \(\tau\) we have \((H\bullet M)^{\tau}=H\bullet(M^{\tau})=(H1_{(0,\tau]})\bullet M\) (see \parencite[Prop.~2.14]{Schweizer2025BrownianMotionStochasticCalculus}). Furthermore if \((\tau_k)_{k\in\mathbb{N}}\) is the localizing sequence for \(H\in\mathcal{H}_{0,loc}^2\) and \((\sigma_k)_{k\in\mathbb{N}}\) is the localizing sequence for \(H\in L_{loc}^2(M)\) then we can always choose a common localizing sequence \((s_k)_{k\in\mathbb{N}}\) with \(s_k=\tau_k\wedge \sigma_k\). Then \(H1_{(0,\tau]\in L^2(M)}\iff H1_{(0,\tau]\in L^2_{loc}(M)}\) really just follows from definition of the \(L^2(M)\)} One needs to check that first this is well-defined that is for \(k\to\infty\) that this defines \(I_M(H)_t\) for all of \(\Omega\times[0,\infty)\) and that it is consistent, that is \(I_M(H)^{(k)}_t=I_M(H)^{(k-1)}_t\) for \(t<\tau_{k-1}\). For the first part this follows from the definition of a localizing sequence as \(\tau_k\nearrow\infty\). The latter follows from the fact that \((I_M(H)^{(k)}_t)^{\tau_{k-1}}=I_M(H)^{(k-1)}_t\). The integral can then be defined by "gluing" the pieces together 
+\begin{align}
+    I_M(H)_t(\omega)=
+    \begin{cases}
+        \sum_{k\geq 1}I_M(H)^{(k)}_t(\omega)1_{(\tau_k(\omega)<t\leq\tau_{k+1}(\omega)]}\text{ for } t\in(0,\infty)\\
+        0 \text{ for } t=0
+    \end{cases}
+\end{align}
+This localized version again admits a characterisation as in \cref{prop:characterisation of stochastic integral}. For details we refer to \parencite[Prop.~2.20]{Schweizer2025BrownianMotionStochasticCalculus}. In the setting  \(M\in\mathcal{H}_{0,loc}^2\) we thus set the class of integrable processes by 
+\begin{equation}
+    \mathcal{L}(M)=L_{loc}^2(M)\;,
+\end{equation}
+where \(L^2_{loc}(M)\) as in \cref{def:L^2(M)_loc}.
 \subsection{Kunita-Watanabe Decomposition}
 Before turning towards stochastic integration with respect to general semimartingales we profit from the current familiarity of the reader with the square integrable setup to introduce and and state the celebrated Kunita Watanabe decomposition. For this we will need a stronger notion of orthonogality on \(\mathcal{H}^2_0\) then the one induced by the inner product structure. The fact that \(\mathcal{H}^2_0\) is a space of uniformly integrable martingales leeds to a richer geometry than the Hilbertspace structure discussed in \cref{eq:H^p identification}. 
 \begin{definition}
@@ -1446,7 +1445,7 @@ Moreover, recall that the first claim has been shown in \cref{sec:Mean Variance 
     \end{align}
     By \cref{rem:inf and sequences} this concludes the proof. 
 \end{proof}
-Notice that what made the proof of the second part work was essentially the continuity of the map \(\vartheta\mapsto(\vartheta\bullet M)_{\infty}\) is a continuous linear operator from \(L^2(M)\to  L^2(\mathcal{F}_{\infty},\mathbb{P})\).
+Notice that what made the proof of the second part work was essentially the continuity of the map \(\vartheta\mapsto(\vartheta\bullet M)_{\infty}\) is a continuous linear operator from \(L^2(M)\to  L^2(\mathcal{F}_{\infty},\mathbb{P})\). This is the essential idea that is going to lead us to extend \cref{thm:martingale setup, continuous deep variance hedging} to some particular semimartingales.
 \section{Extension for semimartingales}
 Regarding \cref{thm:martingale setup, continuous deep variance hedging}, one is led to the natural question of whether one can obtain the claim for a more general setup. In this section, we will investigate a first approach to this. In particular, we want to allow for more general integrands. More precisely, we will allow a subclass of semimartingales as price processes \(M\). For this, we will have to adapt the space of integrable processes in a way that density results of the type \cref{cor:p-ucp density of S} and \cref{cor:ucp and p-ucp density of E}. We will first outline the general idea before giving concrete conditions and the corresponding extension.
 \bigbreak
