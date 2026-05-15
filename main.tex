@@ -1219,7 +1219,7 @@ The following example of a stable subspace instantly underlines the importance o
     The closedness of \( \mathcal{I}^2(M)\) in \(\mathcal{H}^2_0\) follows directly from \cref{thm:Ito Isometry} as \( \mathcal{I}^2(M)\) is the isometric image under the map \(H\to H\bullet M\) of the Hilbert space \(L^2(M)\). Stopping follows from properties of the Itô-integral under stopping and the fact that \(H\in L^2(M)\implies H1_{(0,\tau]}\) for a stopping-time \(\tau\). The latter follows because \(M\in \mathcal{H}_0^2\) if and only if \(\mathbb{E}[[M]_{\infty}]<\infty\).
 \end{proof}
 Furthermore, we have that 
-\begin{equation}\label{eq:closedness of vartheta\bullet X_T in L^2}
+\begin{equation}\label{eq:closedness of vartheta bullet X_T in L^2}
      \mathcal{I}_{\infty}^2(M)=\left\{\int_0^{\infty} H\diff M:H\in L^2(M)\right\}
 \end{equation}
 is a closed subspace of \(L^2(\mathcal{F}_{\infty})\). Indeed, notice that under the identification \(\mathcal{H}^2\simeq L^2(\mathcal{F}_{\infty})\) we have that \cref{thm:Ito Isometry} reads as an isometry of Hilbert-spaces \(L^2(M)\to L^2(\mathcal{F}_{\infty})\).
@@ -1989,90 +1989,101 @@ Moreover, recall that the first claim has been shown in \cref{sec:Mean Variance 
 \section{Extension for semimartingales}
 Regarding \cref{thm:martingale setup, continuous deep variance hedging}, one is led to the natural question of whether one can obtain the claim for a more general setup. In this section, we will investigate a first approach to this. In particular, we want to allow for more general integrands. More precisely, we will allow a subclass of semimartingales as price processes \(M\). For this, we will have to adapt the space of integrable processes in a way that density results of the type \cref{cor:p-ucp density of S} and \cref{cor:ucp and p-ucp density of E}. We will first outline the general idea before giving concrete conditions and the corresponding extension. For what is to follow we consider real-valued processes (in particular one-dimensional).
 \bigbreak
-Consider the decomposition of a semimartingale
-\begin{equation}\label{eq:semimartingale decomposition}
+Let \(X\in\mathcal{S}_{loc}^2\) be a locally square integrable, local martingale. In particular such a semimartingale is a special semimartingale, thus admits the decomposition
+\begin{equation}\label{eq:canonical decomposition}
     X=X_0+M+A\;,
 \end{equation}
-where \(M\in\mathcal{H}^2_{0,loc}\): local martingale starting at \(0\) and \(A\in FV_{0}\): finite variation process starting at \(0\). The existence of a solution to the mean variance hedging problem is a separate, very deep issue that we will rely on but won't discuss in detail (see \parencite{Schweizer2001GuidedTourQuadraticHedging} for a good overview and \parencite{Schweizer1994ApproximatingRandomVariablesStochasticIntegrals} for the exhaustive treatment). By \cref{rem:sufficient condition for extension} we are naturally led to consider the following space
-\begin{definition}
-Let \(X\) be a semimartingale with representation \cref{eq:semimartingale decomposition}. Then we define the following
-\begin{align*}
-     \mathcal{L}(M,A)\coloneqq\left\{H \text{ predictable}:\mathbb{E}[\int_0^\infty H_s^2\diff [M]_s]+\mathbb{E}[\left(\int_0^\infty |H|_s\diff |A|_s\right)^2]\coloneqq\lVert H\rVert_{L^2(M,A)}^2<\infty\right\}\;,
-\end{align*}
-    where \(|A|\) denotes the total variation process of the finite variation process \(A\).
-\end{definition}
-Then, as usual we define 
-    \begin{equation}
-        L(M,A)=\mathcal{L}(M,A)/\sim\;,
-    \end{equation}
-    where \(X\sim Y\) if \(\lVert X-Y\rVert_{L^2(M,A)}^2=0\).
-Clearly, \(\mathcal{L}(X,A)\subset \mathcal{L}(X)\). The definition of \(\mathcal{L}(X,A)\) appears naturally when one tries to bound \(\lVert H\bullet X\rVert_{L^2}\), which is useful for our purpose by \cref{rem:sufficient condition for extension}. Indeed
+where \(M\in\mathcal{H}^2_{0,loc}\) is local martingale starting at \(0\) and \(A\in FV_{0}\) is a predictable, finite variation process starting at \(0\). For a special martingale the decomposition \cref{eq:canonical decomposition} is unique and refered to as the canonical decomposition of the special semimartingale \(X\). The existence of a solution to the mean variance hedging problem is a separate, very deep issue that we will rely on but won't discuss in detail (see \parencite{Schweizer2001GuidedTourQuadraticHedging} for a good overview and \parencite{Schweizer1994ApproximatingRandomVariablesStochasticIntegrals} for the exhaustive treatment). By \cref{rem:sufficient condition for extension} we are intersted in bounding the \(L^2(P)\)-norm of \((\vartheta\bullet X)_{\infty}\). The following bounds motivate the further definitions. Let \(H\in L^2(M)\):
 \begin{align*}\label{eq:bounding the L^2 norm of the stochastic integral}
     &\mathbb{E}[\left(\int_0^\infty H_s\diff X_s\right)^2]=\mathbb{E}[\left(\int_0^\infty H_s\diff M_s+\int_0^\infty H_s\diff A_s\right)^2]
     \\&
     \leq 2\mathbb{E}[\left(\int_0^\infty H_s \diff M_s\right)^2]+2\mathbb{E}[\left(\int_0^\infty H_s \diff A_s\right)^2]
     \\&
-    \leq2\cdot 4\mathbb{E}[\int_0^\infty (H_s)^2 \diff [M]_s]+2\mathbb{E}[\left(\int_0^\infty H_s \diff A_s\right)^2]\leq
-    \\&
-     \leq2\cdot 4\mathbb{E}[\int_0^\infty (H_s)^2 \diff [M]_s]+2\mathbb{E}[\left(\int_0^\infty |H|_s \diff |A|_s\right)^2]\leq
-    \lVert H\rVert_{L^2(M,A)}
+     \leq2\cdot 4\mathbb{E}[\int_0^\infty (H_s)^2 \diff [M]_s]+2\mathbb{E}[\left(\int_0^\infty |H|_s \diff |A|_s\right)^2]
+     \\&
+     \leq\mathbb{E}[\int_0^\infty (H_s)^2 \diff [M]_s]+\mathbb{E}[\left(\int_0^\infty |H|_s \diff |A|_s\right)^2]
+    \;.
 \end{align*}
-from \(|a+b|^2\leq 2|a|^2+2|b|^2\) and BDG with \(C_2 = 4\)\footnote{\(\mathbb{E}[\left(\int_0^\infty H_s\diff M_s\right)^2]\leq\mathbb{E}[\sup_{0\leq t\leq \infty}\left(\int_0^t H_s\diff M_s\right)^2]\leq C_2\mathbb{E}[\int_0^\infty(H_s)^2\diff [M]_s]\)}. Hence, for processes \(H\in L^2(A,M)\), we have that the map \(H\mapsto (H\bullet X)_{\infty},\quad L^2(M,A)\to L^2(P,\mathcal{F}_{\infty})\) is continuous; hence, an approximating sequence of \(H\in L(M,A)\) would yield an approximating sequence of the integral \((H\bullet X)_{\infty}\) in \(L^2\). We have seen in \cref{prop:density of E in Lp(M) via monotone class} that we approximate \(H\in L^2(M)\) for \(M\in\mathcal{H}_0^{2+\epsilon}\) for some \(\epsilon>0\) in \(\mathcal{E}(\psi)\). We thus need to argue under what assumptions we can approximate \(H\in L^2(M,A)\) by elements of \(\mathcal{E}(\psi)\). The root we will follow is based on the easy observations that both \(L^2(M)\) and  \(L^2(M,A)\) are defined through their norm on the space of predictable processes. Hence, if we find conditions on the semimartingale \(X\) such that both norms are equivalent, then the space \(\mathcal{L}^2(X)\) and \(\mathcal{L}^2(M,A)\) contain the same processes and, furthermore, \(L^2(M)=L^2(M,A)\). In particular, if \(\mathcal{E}(\psi)\) is dense in \(L^2(M)\) it is so trivially in \(L^2(M,A)\) as well. Thus, we get a deep mean variance result for appropriate semimartingales \(X\). \\\\
+where we used \(|a+b|^2\leq 2|a|^2+2|b|^2\) in the first step and BDG with \(C_2 = 4\) in the second step. \footnote{\(\mathbb{E}[\left(\int_0^\infty H_s\diff M_s\right)^2]\leq\mathbb{E}[\sup_{0\leq t\leq \infty}\left(\int_0^t H_s\diff M_s\right)^2]\leq C_2\mathbb{E}[\int_0^\infty(H_s)^2\diff [M]_s]\).} We want to read the latter as a continuity statement for the linear operator \(H\to (H\bullet X)_{\infty}\) between normed spaces \(L^2(P,\mathcal{F}_{\infty}),\lVert\cdot\rVert_{L^2}\to L^2(M,A),\left\lvert\!\left\lvert\!\left\lvert \cdot\right\rvert\!\right\rvert\!\right\rvert\), that is
+\begin{equation}
+    \lVert (H\bullet X)_{\infty}\rVert_{L^2(P)}\leq \left\lvert\!\left\lvert\!\left\lvert H\right\rvert\!\right\rvert\!\right\rvert
+\end{equation}
+for some norm \(\left\lvert\!\left\lvert\!\left\lvert \cdot\right\rvert\!\right\rvert\!\right\rvert\). By the above, the natural space to consider is the following
+\begin{definition}
+Let \(X\) be a semimartingale with representation \cref{eq:semimartingale decomposition}. Then we define the following
+\begin{align*}\label{def:L^2(M,A)}
+     \mathcal{L}^2(M,A)\coloneqq\left\{H \text{ predictable}:\mathbb{E}[\int_0^\infty H_s^2\diff [M]_s]+\mathbb{E}[\left(\int_0^\infty |H|_s\diff |A|_s\right)^2]\coloneqq\lVert H\rVert_{L^2(M,A)}^2<\infty\right\}\;,
+\end{align*}
+    where \(|A|\) denotes the total variation process of the finite variation process \(A\). 
+    Then, as usual we define 
+    \begin{equation}
+        L^2(M,A)=\mathcal{L}^2(M,A)/\sim\;,
+    \end{equation}
+    where \(X\sim Y\) if \(X=Y\quad\mathbb{P}\)-a.s.
+    Further denoting
+ \begin{equation}
+        \mathcal{L}^2(A)=\left\{H \text{ predictable }:\lVert\int_{0}^{\infty}|H_s|\diff |A|_s\rVert_{L^2(P)}\right\}<\infty
+    \end{equation}
+    Notice that according to the definition on page 165 \parencite{Protter2005StochasticIntegration} processes in \(\mathcal{L}(X,A)\) are \(X\)-integrable. 
+\end{definition}
+and the corresponding quotient space \(L^2(A)\), we have
+\begin{equation}
+    L^2(M,A)=L^2(A)\cap L^2(M)
+\end{equation}
+ Hence, for processes \(H\in L^2(A,M)\), we have that the map \(H\mapsto (H\bullet X)_{\infty},\quad L^2(M,A)\to L^2(P,\mathcal{F}_{\infty})\) is continuous; hence, an approximating sequence of \(H\in L(M,A)\) would yield an approximating sequence of the integral \((H\bullet X)_{\infty}\) in \(L^2\). We have seen in \cref{prop:density of E in Lp(M) via monotone class} that we approximate \(H\in L^2(M)\) for \(M\in\mathcal{H}_0^{2+\epsilon}\) for some \(\epsilon>0\) in \(\mathcal{E}(\psi)\). We thus need to argue under what assumptions we can approximate \(H\in L^2(M,A)\) by elements of \(\mathcal{E}(\psi)\). The root we will follow is based on the easy observations that both \(L^2(M)\) and  \(L^2(M,A)\) are defined through their norm on the space of predictable processes. Hence, if we find conditions on the semimartingale \(X\) such that both norms are equivalent, then the space \(\mathcal{L}^2(X)\) and \(\mathcal{L}^2(M,A)\) contain the same processes and, furthermore, \(L^2(M)=L^2(M,A)\). In particular, if \(\mathcal{E}(\psi)\) is dense in \(L^2(M)\) it is so trivially in \(L^2(M,A)\) as well. Thus, we get a deep mean variance result for an appropriate class of semimartingales \(X\). \\\\
 This motivates further investigation of conditions for which the norm \(\lVert\cdot\rVert_{L^2(M)}\) and \(\lVert\cdot\rVert_{L^2(M,A)}\) are equivalent. First notice that for all integrable processes \(\vartheta\) we have clearly
 \begin{equation}
     \lVert \vartheta\rVert_{L^2(M)}\leq\lVert \vartheta\rVert_{L^2(M,A)}\;.
 \end{equation}
 Hence, we want to understand under which assumptions there exists \(C>0\) such that 
-\begin{equation}
-    \lVert \vartheta\rVert_{L^2(M,A)}\leq C \lVert \vartheta\rVert_{L^2(M)}\,.
+\begin{equation}\label{condition_D_2(P)}
+    \lVert \vartheta\rVert_{L^2(M,A)}\leq C \lVert \vartheta\rVert_{L^2(M)}\quad \forall \theta \in L^2(M)\cap L^2(A)\,.
 \end{equation}
-A natural sufficient condition is given by the assumption that 
+For notational consistency with \parencite{DelbaenMonatSchachermayerSchweizerStricker1997WeightedNormInequalities} we denote the above condition by \(D_2(P)\). Notice that \cref{condition_D_2(P)} is equivalent to the condition 
 \begin{equation}
-    A<<\langle M\rangle\;.
+    L^2(M)\subset L^2(A)\;.
+\end{equation}, hence if \cref{condition_D_2(P)} holds for \(\vartheta\in L^2(M)\cap L^2(A)\), it thus hold for \(\vartheta\in L^2(M)\) automatically. We first give sufficient conditions for \cref{condition_D_2(P)} by using simple bounds. After this we give necessary conditions. We will then finish by stating the necessary and sufficient conditions proposed in \parencite[Thm.~3.3]{DelbaenMonatSchachermayerSchweizerStricker1997WeightedNormInequalities}. For the sufficient conditions assume
+\begin{equation}
+    \diff A<<\langle M\rangle\;.
 \end{equation}
-wit predictable density \(\lambda\). We formulate it as a condition
-\begin{definition}
-    Let \(A\) and \(M\) be the finite variation part and the locally square integrable part respectively of the canonical decomposition of the semimartingale \(X\). The \(X\) satisfies the condition \(NA\) if there exists a predictable process \(\lambda_s\) such that
-    \begin{equation}
-        \diff As= \lambda_s\diff\langle X\rangle_s\quad\mathbb{P}-a.s.\forall t\in[0,\infty)\;.
-    \end{equation}
-\end{definition} 
-If \(X\) satisfies \(NA\) then we have 
+wit predictable density \(\lambda\). That is 
+\begin{equation}
+    \exists \lambda \text{ predictable}:\; \diff A_s=\lambda_s \diff \langle M\rangle_s\quad\forall s\in[0,\infty)
+\end{equation}
+If this holds, we have  \(\diff |A|=|\lambda|\diff \langle M\rangle\). In particular
 \begin{align*}\label{eq:bounding L^2(M,A) norm under necessary assumption}
 &\lVert H\rVert_{L^2(M,A)}^2=\mathbb{E}[\int_0^\infty (H_s)^2\diff [M]_s]+\mathbb{E}[\left(\int_0^\infty |H_s||\lambda_s|\diff[M]_s\right)^2]\\&\leq\mathbb{E}[\int_0^\infty (H_s)^2\diff [M]_s+\mathbb{E}[\int_0^{\infty}(H_s)^2\diff [M]_s\cdot\int_0^{\infty}(\lambda_s)^2\diff [M]_s]
 \\&
 \leq\mathbb{E}[\int_0^\infty (H_s)^2\diff [M]_s+\mathbb{E}[\left(\int_0^{\infty}(H_s)^2\diff [M]_s\right)^{p}]^{1/p}\cdot\mathbb{E}[\left(\int_0^{\infty}(\lambda_s)^2\diff [M]_s\right)^{q}]^{1/q}
 \;,
 \end{align*}
-where we used the fact that if \(A<<[M]\) with density \(\lambda\) then \(|A|<<[M]\) with density \(|\lambda|\). Furthermore, we used the Kunita-Watanabe inequality in the second step and Hölder's inequality in the third step. In the case \(p=1,q=\infty\) the above reads
+where we used the fact that if \(A<<[M]\) with density \(\lambda\) then \(|A|<<[M]\) with density \(|\lambda|\). 
+Furthermore, we used the Kunita-Watanabe inequality in the second step and Hölder's inequality in the third step. In the case \(p=1,q=\infty\) the above reads
 \begin{equation}
-    \lVert H\rVert_{L^2(M,A)}\leq\lVert H\rVert_{L^2(M)}\left(1+\operatorname*{ess\sup}\left(\int_0^{\infty}(\lambda_s)^2\diff [M]_s\right)\right)\;.
+    \lVert H\rVert_{L^2(M,A)}\leq\lVert H\rVert_{L^2(M)}\left(1+\lVert\int_0^{\infty}(\lambda_s)^2\diff [M]_s\rVert_{\infty}\right)\;.
 \end{equation}
-Notice \(\int_0^{\infty}(\lambda_s)^2\diff [M]_s=\int_0^{\infty}|\lambda_s|\diff A_s\leq \int_0^{\infty}|\lambda_s|\diff |A|_s\). Imposing the additional assumption
+Notice \(\int_0^{\infty}(\lambda_s)^2\diff [M]_s=\int_0^{\infty}|\lambda_s|\diff |A|_s\). Thus, imposing the additional assumption
 \begin{equation}
-    \lVert \int_0^{\infty}|\lambda_s|\diff |A|_s\rVert_{\infty}=\operatorname*{ess\sup}\int_0^{\infty}|\lambda_s|\diff |A|_s<\infty\;.
+    \lVert\int_0^{\infty}|\lambda_s|\diff |A|_s\rVert_{\infty}<\infty\;,
 \end{equation}
-We have the equivalence of norms on \(L^2(M)\) and \(L^2(M,A)\).
-Thus, we have found one sufficient condition under which we get a generalization of the deep mean-variance hedging result \cref{thm:martingale setup, continuous deep variance hedging}. 
-\begin{definition}\label{def:condition NA_strong}
-    Assume \(X\) is a semimartingale with canonical decomposition \(X=X_0+M+A\). Then we say that \(X\) satisfies condition \(NA_{strong}\) if
+where \(\lVert\int_0^{\infty}|\lambda_s|\diff |A|_s\rVert_{\infty} = \operatorname*{ess\sup}\int_0^{\infty}|\lambda_s|\diff |A|_s\)
+We thus find that condition \(D_2(P)\) holds for \(C = \lVert\int_0^{\infty}|\lambda_s|\diff |A|_s\rVert_{\infty}\) if the latter is finite. 
+Thus, the following conditions are sufficient for \(D_2(P)\).
+\begin{definition}\label{def:condition SC_stro}
+    Assume \(X\) is a semimartingale with canonical decomposition \(X=X_0+M+A\). Then we say that \(X\) satisfies the strong structure condition \(SSC\) if
     \begin{itemize}
-        \item \(X\) satisfies condition \(NA\)\;,
-        \item \(\operatorname*{ess\sup}\int_0^{\infty}|\lambda_s|\diff |A|_s<\infty\).
+        \item \(\diff A=\lambda\diff\langle M\rangle\)\;,
+        \item \(\lVert\int_0^{\infty}|\lambda_s|\diff |A|_s\rVert_{\infty}<\infty\).
     \end{itemize}
 \end{definition}
-Furthermore, we define
-\begin{definition}
-Let \(A\) be a process of finite variation and \(|A|\) its total variation process. Then \(\vartheta\in L^2(A)\) if 
-\begin{equation}
-    \int_0^\infty |\vartheta_s|\diff |A|_s\in\mathcal{L}^2(\mathbb{P})\;.
-\end{equation}
-\end{definition}
-In particular, notice that under conditions \cref{def:condition NA_strong} we have \(L^2(A)\subset L^2(M)\). 
-\\\\
+
+One can give a nice conceptual motivation to condition \(SC\). Indeed, according to \parencite[Thm.~3.5.]{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM}, for locally bounded \(X\) satisfying a no-arbitrage condition \parencite[Def.~1.2]{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM}, there exists a predictable density \(\lambda\). In other words, we can motivate semimartingales \(X\) satisfying 
+the \textit{NA} conditions by a no arbitrage condition. 
+\bigbreak 
+Due to the sufficiency of the \(SSC\) condition we have the following intermediary result
 We have the following proposition:
 \begin{proposition}
-    Assume the \(X=X_0+M+A\) such that \(\exists \epsilon>0\) for which \(M\in\mathcal{H}^{2+\epsilon}\) and assume \(X\) satisfies condition \(NA_{strong}\). Let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_{\infty}\)-measurable random variable. Furthermore, assume \(\mathcal{F}_0\) to be trivial. Then:
+    Assume the \(X=X_0+M+A\) such that \(\exists \epsilon>0\) for which \(M\in\mathcal{H}^{2+\epsilon}\) and assume \(X\) satisfies condition \(SSC\). Let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_{\infty}\)-measurable random variable. Furthermore, assume \(\mathcal{F}_0\) to be trivial. Then:
 \begin{equation}\label{eq:martingale setup, continuous deep variance hedging}
     \min_{c\in\mathbb{R},\,\vartheta\in L^2(M,A)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]
     \,=\,\inf_{c\in\mathbb{R},\,\vartheta\in \mathcal{E}(\psi)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]\;,
@@ -2085,8 +2096,42 @@ We have the following proposition:
     \end{equation}
     By remark \cref{rem:sufficient condition for extension} and density of \(\mathcal{E}(\psi)\) in \(L^2(M)=L^2(M,A)\) the claim follows. 
 \end{proof}
-We will now take a step back and study necessary and sufficient conditions for the equivalence of the norms on \(L^2(M)\) and \(L^2(M,A)\). For this we follow \parencite{DelbaenMonatSchachermayerSchweizerStricker1997WeightedNormInequalities}.
-\textblue{I may have to redefine the norm on \(L^2(A)\) as it should match the one given in the Schweizer paper for the necessary and sufficient condition. In particular they differ in the multidimensional case}
+Next we present necessary conditions. For this, we restate \parencite[Lemma.~3.1]{DelbaenMonatSchachermayerSchweizerStricker1997WeightedNormInequalities}.\begin{definition}\label{def:condition SC_stro}
+    Assume \(X\) is a semimartingale with canonical decomposition \(X=X_0+M+A\). Then we say that \(X\) satisfies the strong structure condition \(SSC\) if
+    \begin{itemize}
+        \item \(\diff A=\lambda\diff\langle M\rangle\)\;,
+        \item \(K_t=\int_0^t \lambda_s^2\diff \langle M\rangle_s<\infty\) for \(P\)-almost all \(\omega\in\Omega\) and all \(t\in[0,\infty)\).
+    \end{itemize}
+\end{definition}
+Then \begin{lemma}
+    If condition \(D_2(P)\) holds, then \(\lambda\) as in \(SSC\) or \(SC\) exists and \(K_t\) of \(SC\) is square integrable.
+\end{lemma}
+For the proof we refer to \parencite[Lemma 3.1.]{DelbaenMonatSchachermayerSchweizerStricker1997WeightedNormInequalities}.
+To state necessary and sufficient condition it we need to introduce the space of \(bmo_2\) local-martingales
+\begin{definition}
+    Let \(X\) be a locally-square integrable local martingale. Then \(X\in bmo_2\) if there is \(C>0\) such that 
+    \begin{equation}
+        \mathbb{E}[\langle X\rangle_{\infty}-\langle X\rangle_\tau|\mathcal{F}_\tau]\leq C\quad P\text{-a.s.}
+    \end{equation}
+    for every stopping time \(\tau\).
+\end{definition}
+Then 
+\begin{theorem}\label{thm:iff D_2(P)}
+    The inequality \(D_2(P)\) holds if and only if \(\lambda\) of \(SSC\) or \(SC\) exists and the process \(\lambda\bullet M\) is in \(bmo_2\).
+\end{theorem}
+The conditions in \cref{thm:iff D_2(P)} are hence optimal in the sense that they are the weakest possible conditions on for \(D_2(P)\) to hold.
+\begin{proposition}
+    Assume the \(X=X_0+M+A\) is a semimartingale, such that \(\mathbb{P}^2_e(X)\neq \emptyset\) and  \(\exists \epsilon>0\) for which \(M\in\mathcal{H}^{2+\epsilon}\) and assume there exists a predictable process \(\lambda\) such that \(\diff A=\lambda\diff \langle M\rangle\) and \(X\in bmo_2\). Let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_{\infty}\)-measurable random variable. Furthermore, assume \(\mathcal{F}_0\) to be trivial. Then:
+\begin{equation}\label{eq:martingale setup, continuous deep variance hedging}
+    \min_{c\in\mathbb{R},\,\vartheta\in L^2(M,A)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]
+    \,=\,\inf_{c\in\mathbb{R},\,\vartheta\in \mathcal{E}(\psi)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]\;,
+\end{equation}
+\end{proposition}
+\begin{proof}
+The existence of the solution follows from the fact that if \(X\in bmo_2\) then \(L^2(M,A)=L^2(M)\cap L^2(A)=L^2(M)\) which is closed in \(L^2(P)\) by \cref{eq:closedness of vartheta bullet X_T in L^2}. This shows existence of the mean variance solution. The equality follows from density of \(\mathcal{E}(\psi)\) in \(L^2(M)=L^2(M,A)\).
+\end{proof}
+
+\textcolor{blue}{The idea is that the condition in \cref{def:condition SC_strong} are sufficient conditions but not necessary (it would be nice if I could show this with a counter example) for \(D_2(P)\). The structure condition from \parencite{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM} are necessary conditions. If one now looks for necessary and sufficient conditions and has to conider \textit{bmo}. Also in the continuous case, one has the implication that if \(G_T(\Theta)\subset L^2(P)\) is closed, then \(D_2(P)\) holds. This implication is not true if \(X\) is not continuous. On the other hand if \(D_2(P)\) holds, \(G_T(\Theta)\) is obviously closed because then \(\Theta = L^2(M)\) and it is well known that \(G_T(L^2(M))\subset L^2(P)\) is closed.}
 
 
 \chapter{Conclusion and Outlook}
