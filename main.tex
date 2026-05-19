@@ -1131,10 +1131,10 @@ We denote \(b\mathcal{P}\) bounded predictable processes. We can finally state a
     \end{equation}
     Hence we conclude by the monotone class theorem. 
 \end{proof}
-Notice that in this proof goes through analogously. Indeed for \(p\in[1,\infty)\) and \(\mathcal{H}^p\) we define the according seminorm
+Notice that in this proof goes through analogously. Indeed, for \(p\in[1,\infty)\) and \(\mathcal{H}^p\), we define the corresponding seminorm
 \begin{equation}
-    \lVert H\rVert_{L^p(M)}=\mathbb{E}[\left(\int_0^\infty |H_s|^p\diff \langle M\rangle_s\right)^{p/2}]
-\end{equation}. The truncation argument works by two succesive applications of dominated convergence showing that \(V^n=-n\vee V\wedge n\to V\) in \(L^p(M)\) we , hence we get the following proposition 
+    \lVert H\rVert_{L^p(M)}=\mathbb{E}[\left(\int_0^\infty |H_s|^p\diff \langle M\rangle_s\right)^{p/2}]\;.
+\end{equation} The truncation argument works by two successive applications of dominated convergence, showing that \(V^n=-n\vee V\wedge n\to V\) in \(L^p(M)\). Hence, we get the following proposition:
 \begin{proposition}\label{prop:density of E in Lp(M) via monotone class}
     Let \(M\in\mathcal{H}^p_0\) for \(p\in[1,\infty)\) and \(\mathcal{E}\) as defined in \cref{def:elementary predictable process}. Then \(\mathcal{E}\) is dense in \(L^p(M)\)\;.
 \end{proposition}
@@ -1770,7 +1770,7 @@ The claim is generally wrong if \(\mu\) is not a finite measure.
     \begin{equation}
         \overline{\mathcal{F}_I}=\mathcal{N}^\mathbb{P}\vee\sigma(Z_i:i\in I)
     \end{equation}
-    and \(X\in\mathcal{L}^p(\mathbb{P})\) for \(p\in[1,\infty)\), \(\overline{\mathcal{F}_I}\)-measurable. Then for every \(\epsilon>0\), there exists \(n\in\mathbb{N}\) and a \textbf{finite} set \(J=\left\{j_1,\dots,j_n\right\}\subset I\), and a neural network \(f\in\mathcal{NN}(\mathbb{R}^{dn})^*,\psi\), such that 
+    and \(X\in\mathcal{L}^p(\mathbb{P})\) for \(p\in[1,\infty)\), \(\overline{\mathcal{F}_I}\)-measurable. Then for every \(\epsilon>0\), there exists \(n\in\mathbb{N}\) and a \textbf{finite} set \(J=\left\{j_1,\dots,j_n\right\}\subset I\), and a neural network \(f\in\mathcal{NN}((\mathbb{R}^{dn})^*,\psi)\), such that 
     \begin{equation}
         \lVert X-f(Z_{j_1},\dots, Z_{j_n})\rVert_{p}<\epsilon\;.
     \end{equation}
@@ -1832,7 +1832,7 @@ Let us make an interesting observation, phrased as an proposition, which should 
     \end{equation}
     Setting \(F=F_n\) concludes the proof.
 \end{proof}
-One might take \(E=C([0,\infty))\) with topology induced by the countable family of semi-norms \(\rVert f\lVert_{n}=\sup_{x\in[0,n]}|f(x)|\), or the in the case where \(I\subset\mathbb{R}_+\) is compact, the Banach space \(C([0,\infty)),\lVert\cdot\rVert_{\infty}\). \\\\
+One might take \(E=C([0,\infty))\) with topology induced by the countable family of semi-norms \(\rVert f\lVert_{n}=\sup_{x\in[0,n]}|f(x)|\), or the in the case where \(I\subset\mathbb{R}_+\) is compact, the Banach space \((C([0,\infty)),\lVert\cdot\rVert_{\infty})\). \\\\
 
 Hence, under the additional assumption that the path-space of the market information process \(Y\) is locally convex, we don't need the reduction to measurability with respect to a countably measurable sub-\(\sigma\)-algebra approximate \(X\) with a \textit{neural} random variable. In light of \cref{Remark:locally convex not fundamental} this condition is not fundamental either. It is in this sense that we say the use of \cref{prop:reduction to countable measurability} is not of fundamental importance in approximating random variables in \(L^p\). 
 \bigbreak
@@ -1932,7 +1932,7 @@ Hence we need a different argument for density, which is reflected in the proof 
     Fix \(\epsilon>0\).
     Recall from \cref{cor:ucp and ucp density of E} that for for every \(\epsilon>0\) and any \(q\in[1,\infty)\)there is a \(U\in\mathcal{E}(\psi)\) such that \(\lVert (V-U)^*_{\infty}\rVert_{q}<\epsilon\). For the convenience of the proof, we choose \(\lVert (V-U)^*_{\infty}\rVert_{q}<\epsilon^{1/p}\) where we take \(q=\frac{p(p+\epsilon)}{\epsilon}\). We use the trivial bound \((V_s(\omega)-U_s(\omega))\leq(V(\omega)-U(\omega))_{\infty}^*\quad\forall\omega\in\Omega\), to get 
     \begin{equation}
-        \rVert V-U\lVert_{L^p(M)}^p=\mathbb{E}[\left(\int_{0}^{\infty}(V_s-U_s)^2\diff\langle M\rangle\right)^{p/2}]\leq\mathbb{E}[(V-U_{\infty}^*)^p\langle M\rangle_{\infty}^p/2]
+        \rVert V-U\lVert_{L^p(M)}^p=\mathbb{E}[\left(\int_{0}^{\infty}(V_s-U_s)^2\diff\langle M\rangle\right)^{p/2}]\leq\mathbb{E}[(V-U_{\infty}^*)^p\langle M\rangle_{\infty}^{p/2}]
     \end{equation}
     By Hölder for the Hölder conjugate pair \(\tilde{p}=\frac{p+\epsilon}{\epsilon}\) and \(\tilde{q}=\frac{p+\epsilon}{p}\), we further get the bound
     \begin{equation}
@@ -1952,12 +1952,126 @@ Hence we need a different argument for density, which is reflected in the proof 
     which concludes the proof. 
 \end{proof}
 As one of our main goals is to discuss the deep mean-variance hedging result in continuous time, we only really need \(p=2\). Nevertheless, we gave the statement for general \(p\in[1,\infty)\) as we want to show the correct choices for the Hölder exponents. 
+
+\bigbreak
+One might find the \(\epsilon\) in the integrability condition of \(M\) in \cref{prop:Lp(M) density of E(psi)} not very elegant. First notice that fundamentally it appears due to the application of the Hölder inequality. Indeed in the proof of  \cref{prop:Lp(M) density of E(psi)} one wants to bound the \(L^p(M)\)-norm of \((U-V)\) for fixed \(U\in L^p(M)\) and the \(L^p\)-ucp close element \(V\) in \(\mathcal{E}(\psi)\). We obtain, repeating the first part of the proof, 
+ \begin{equation}
+        \rVert V-U\lVert_{L^p(M)}^p=\mathbb{E}[\left(\int_{0}^{\infty}(V_s-U_s)^2\diff\langle M\rangle\right)^{p/2}]\leq\mathbb{E}[(V-U_{\infty}^*)^p\langle M\rangle_{\infty}^{p/2}]\;.
+\end{equation}\;
+Applying Hölder with conjugate exponents \(a,b\geq 1\) we get 
+\begin{equation}
+    \mathbb{E}[((V-U)_{\infty}^*)^p\langle M\rangle_{\infty}^{p/2}]\leq \mathbb{E}[((V-U)_{\infty}^*)^{pa}]^{\frac{1}{a}}\mathbb{E}[\langle M\rangle_{\infty}^{\frac{pb}{2}}]^{\frac{1}{b}}
+\end{equation}
+Recall that \(U\) was chosen to be the \(\epsilon\)-close element of \(\mathcal{E}(\psi)\) in the \(L^p\)-ucp topology. We can find such a \(U\) for any \(p\in[1,\infty)\) according to \cref{prop:approximation of measurable maps by algorithmic strategies}. On the other hand we want to have the least restrictive integrability assumption on \cref{M}. In other words we want to take the smallest possible \(b\). The optimal choice \(b=1\) is not sensible as it entails \(a=\infty\), for which \cref{prop:approximation of measurable maps by algorithmic strategies} does not apply. Hence any \(b>1\) will do the job and due to BDG and Doob
+\begin{equation}
+    \mathbb{E}[\langle M\rangle_T^{pb/2}]\leq\mathbb{E}[(\langle M\rangle_T^*)^{pb}]\lesssim  \mathbb{E}[\langle M\rangle_T^{pb}]=\lVert M\rVert_{\mathcal{H}^{pb}}^{pb}
+\end{equation}
+Requiring \(b>1\) is equivalent to requiring \(\tilde{\epsilon}>0\) such that \(b=1+\tilde{\epsilon}\) or \(pb=p+\epsilon\) with \(\epsilon=\tilde{\epsilon}p\). Thus, the argument in \cref{prop:Lp(M) density of E(psi)} is optimal in that sense. Taking a step back, one might ask why one should not just conduct a similar monotone class argument directly on \(\mathcal{E}(\psi)\) to show its density in \(L^p(M)\), as is done for \(\mathcal{E}\). The fundamental objection to this approach is that \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) is not closed under pointwise multiplication, and hence neither is \(\mathcal{E}(\psi)\). We show that, under stricter assumptions on the information process \(Y\), one can eliminate the \(\epsilon\) by directly applying the monotone class on \(\mathcal{E}(\psi)\) for a well chosen \(\psi\) and then arguing for the general case by approximation. 
+\bigbreak
+The following idea is based on the observation made by \parencite{HornikStinchcombeWhite1989UniversalApproximators} and sketched in \cref{rem:NN don't form algebra}. We further use that according to \parencite[Thm.~2]{Hornik1991} the activation function 
+\begin{equation}
+    \psi=\cos:\mathbb{R}\to\mathbb{R}\;,
+\end{equation}
+is discriminatory, as a Borel-measurable, non-constant, and bounded function. Recall the trigonometric identity.
+\begin{align}
+    \cos(x)\cos(y)=\cos(x+y)-\cos(x-y)
+\end{align}
+In particular \(\mathcal{NN}_{\cos}(\mathbb{R}^k)\) forms an algebra of functions; hence, so does \(\mathcal{E}(\cos)\). The monotone class argument of \cref{prop:density of E in L2(M) via monotone class} and \cref{prop:density of E in Lp(M) via monotone class} respectively are totally analogous for \(\mathcal{E}(\cos)\) instead of \(\mathcal{E}\), provided we argue that 
+\begin{equation}
+    \sigma(\mathcal{E}(\cos))=\mathcal{P}\;.
+\end{equation}
+We show more generally that  \(\sigma(\mathcal{E}(\psi))=\mathcal{P}\) for any activation function \(\psi\) satisfying the standing assumptions \cref{def:standing assumptions}. 
+\begin{proposition}\label{prop:E(psi) generated P}
+    Let \(\psi\) as in \cref{def:standing assumptions}. Assume that the joined measure space \((\Omega\times[0,\infty),\mathcal{F}\otimes\mathcal{B}([0,\infty)),\mathbb{P}\otimes\diff t)\) is complete. Then 
+    \begin{equation}
+        \sigma(\mathcal{E}(\psi))=\mathcal{P}\;,
+    \end{equation}
+    where \(\mathcal{P}\) denotes the predictable \(\sigma\)-algebra. 
+\end{proposition}
+\begin{proof}
+    We show that any process of the form 
+    \begin{equation}
+        V_t = V_01_{\left\{ 0\right\}}+\sum_{i=1}^n V_i1_{(t_i,t_{i+1}]}\;,
+    \end{equation}
+    for \(V_i\in\mathcal{L}^{\infty}(\mathcal{F}_{t_i},\mathbb{P})\) 
+    is the \(\mathbb{P}\)-almost sure limit of elements in \(\mathcal{E}(\psi)\). Under the completeness assumptions, it then follows that \(V\) is measurable with respect to \(\sigma(\mathcal{E}(\psi))\). As seen in the proof of \cref{lemma:elementary processes generated predictable sigma algebra}, every left-continuous process is approximated by such processes as \(V\) (or pointwise limits of the latter). But the predictable \(\sigma\)-algebra is generated by left-continuous and adapted processes, hence the claim. As \(\mathcal{L}^{\infty}(\mathcal{F}_{t_i},\mathbb{P})\subset \mathcal{L}^p(\mathcal{F}_{t_i},\mathbb{P})\) for any \(p\in[1,\infty]\) as \((\Omega,\mathbb{P})\) is a finite measure space, we have by \cref{prop:approximation of measurable maps by algorithmic strategies}(2.) that there exists a sequence \((V_i^n)_{n\in\mathbb{N}}\subset\Theta_{\mathcal{NN}}(t_i,\psi)\) approximating \(V_i\) in \(L^p\) for any \(p\in[1,\infty)\). We fix such a \(p\) and start with \(i=1\). We extract a subsequence such that \((V_1^{n(k)})_{k\in\mathbb{N}}\) converges to \(V_1\) almost surely. Along this subsequence, we still have that \((V_{2}^{n(k)})_{k}\) converges in \(L^p\) to \(V_2\), hence we can extract a subsubsequence such that \((V_{2}^{n(k(s))})_s\) converges to \(V_2\) almost. We can iterate this procedure up to \(i=n\) to get a subsequence, again denoted by \(n(k)\), such that
+   \begin{equation}\label{eq:neural simple processes}
+        \widetilde{V}_t^{n(k)} = \widetilde{V}^{n(k)}_01_{\left\{ 0\right\}}+\sum_{i=1}^n \widetilde{V}_i^{n(k)}1_{(t_i,t_{i+1}]}\;,
+    \end{equation}
+    where \((\widetilde{V}_i^{n(k)})_{k}\subset\Theta_{\mathcal{NN}}(t_i,\psi)\quad i=1,\dots,n\), converges almost surely to \(V_t\) as \(k\to\infty\), for almost all \((\omega,t)\in\Omega\times[0,\infty)\). Clearly such \(\widetilde{V}^{n(k)}\in\mathcal{E}(\psi)\) Assuming that the measure space \((\Omega\times[0,\infty),\mathcal{F}\otimes\mathcal{B}([0,\infty)),\mathbb{P}\otimes\diff t)\) is complete, this implies the measurability of \(V\) with respect to the \(\sigma\)-algebra generated by elements in \cref{eq:neural simple processes} hence in particular by elements in \(\mathcal{E}(\psi)\). 
+\end{proof}
+The assumption that the joined measure space is standard. Thus via montone class we get the following statement.
+The idea is to finally show that 
+\begin{lemma}\cref{lemma:density of E(cos) in Lp(M)}
+Assume conditions of \cref{prop:E(psi) generated P}. Then 
+\begin{equation}
+    \overline{\mathcal{E}(\cos)}^{L^p(M)}=L^p(M)\;.
+\end{equation}
+\begin{proof}
+    The proof is the same as \cref{prop:density of E in Lp(M) via monotone class} with \(\mathcal{E}\) replaced by \(\mathcal{E}(\psi)\) and using the fact that \(\sigma(\mathcal{E}(\psi))=\mathcal{P}\) as well, from \cref{prop:E(psi) generated P}. 
+\end{proof}
+\end{lemma}
+\begin{equation}
+    \mathcal{E}(\cos)\subset \overline{\mathcal{E}(\psi)}^{L^p(M)}
+\end{equation}
+for any activation function \(\psi\) and \(p\in[1,\infty)\). Indeed, if this holds, together with \cref{prop:density of E(cos) in Lp(M)} we get 
+\begin{equation}
+    \overline{\mathcal{E}(\psi)}^{L^p(M)}=L^p(M)\;.
+\end{equation}
+for \(M\in\mathcal{H}^p\), without further infinitesimal integrability conditions. We show the latter as a proposition
+\begin{proposition}
+    Assume \(Y_t\) takes values in a compact subspace \(K^t\in\mathbb{R}\) for every \(t\in[0,\infty)\). Then under the assumptions of \cref{prop:E(psi) generated P} we have for \(M\in\mathcal{H}^p\)
+    \begin{equation}
+        \overline{\mathcal{E}(\psi)}^{L^p(M)}=L^p(M)\,.
+    \end{equation}
+    for any \(\psi\) satisfying the standing assumption \cref{def:standing assumptions}.
+\end{proposition}
+\begin{proof}
+As explained we it remainse to show that 
+    \begin{equation}
+    \mathcal{E}(\cos)\subset \overline{\mathcal{E}(\psi)}^{L^p(M)}
+\end{equation}
+Let \(U\in\mathcal{E}(\psi)\):
+\begin{equation}
+    U = U_01_{\left\{0\right\}}+\sum_{i=1}^n \varphi_i(Y_{t_1}^i,\dots,Y_{t_{k(i)}}^i)1_{(t_i,t_{i+1}]}
+\end{equation}
+with \(\varphi_i\in\mathcal{NN}_{\cos}(\mathbb{R}^{k(i)})\). Note that for every \(i=0,\dots,n\) \((Y_{t_1}^i,\dots,Y_{t_{k(i)}}^i)\) takes values in \(K^{t_1}\times\dots\times K^{t_{k(i)}}\) which is a compact subset of \(\mathbb{R}^{k(i)}\). Hence 
+\begin{equation}
+    \varphi_i=\sum_{j=0}^m\alpha_{ij}\cos(A_{ij})\;,
+\end{equation}
+where \(A_{ji}:\mathbb{R}^{k(i)}\to\mathbb{R}\) is affine linear. 
+By \parencite[Thm.~2]{Hornik1991} with the compact set \(K=K^{t_1}\times\dots\times K^{t_{k(i)}}\), for every \(\epsilon>0\) there exists \(H_{ij}^{\epsilon}\in\mathcal{NN}_{\psi}(K)\) such that 
+\begin{equation}
+    \sup_{x\in K}|\cos(A_{ij}(x))-H_{ij}^{\epsilon}(x)|<\epsilon
+\end{equation}
+where \(H_{ij}^{\epsilon}=\sum_{k=1}^l\beta_{ijk}\psi(B_{ijk})\) for some affine linear \(B_{ijk}\). Setting
+\begin{equation}
+    V = \widetilde{\varphi}_i(Y_{t_1},\dots,Y_{t_{k(0)}})1_{\left\{ 0\right\}}+\sum_{i=1}^n\widetilde{\varphi}_i(Y_{t_1},\dots,Y_{t_{k(i)}})1_{(t_i,t_{i+1}]}
+\end{equation}
+with \(\widetilde{\varphi}_i(Y_{t_1},\dots,Y_{t_{k(i)}})=\sum_{j=0}^m\alpha_{ij}H_{ij}^{\epsilon(ij)}\). We choose \(\epsilon(ij)=\left(\frac{\epsilon}{(n+1)(m+1)|\alpha_{ij}|}\right)^{\frac{1}{p}}\)
+we get 
+\begin{align*}
+    \sup_{t\in[0,\infty)]}|U_t-V_t|\leq \sum_{i=0}^{n}|\widetilde{\varphi}_i(Y_{t_1},\dots,Y_{t_{k(i)}})-\varphi_i(Y_{t_1},\dots,Y_{t_{k(i)}})|\leq \sum_{i=0}^{n}\sum_{j=0}^m|\alpha_{ij}||\cos(A_{ij}(x))-H_{ij}^{\epsilon}(x)|
+\end{align*}
+with
+\begin{equation}
+    \sup_{x\in K}(U-V)_{\infty}^*\leq \sum_{i=0}^{n}\sum_{j=0}^m|\alpha_{ij}|\sup_{x\in K}|\cos(A_{ij}(x))-H_{ij}^{\epsilon}(x)|< \epsilon
+\end{equation}
+Finally we can bound the \(L^p(M)\) norm as follows
+\begin{align*}
+    \mathbb{E}[\left(\int_{0}^{\infty}(V_s-U_s)^2\diff \langle M\rangle_s\right)^{\frac{p}{2}}]\leq \mathbb{E}[((V-U)_{\infty}^*)^p\langle M\rangle_{\infty}^{\frac{p}{2}}]\leq\epsilon\mathbb{E}[\langle M\rangle_{\infty}^{\frac{p}{2}}]\;.
+\end{align*}
+By assumption \(\mathbb{E}[\langle M\rangle_{\infty}^{\frac{p}{2}}]<\infty\) hence the claim follows. 
+\end{proof}
+\textcolor{blue}{is the assumption absurd?}
+
 \chapter{Deep Mean-Variance Hedging in Continuous Time}\label{sec:deep mean-square hedging in continuous time}
 
+
 \section{Deep mean-square hedging in the martingale case}
-We finally state one of the main results we were building up to: deep mean-variance hedging. It is formulated in the square integrable setup and thus should be seen complementary to the the mean-variance discussion of \cref{sec:Mean Variance Hedging in square integrable setting}. In particular the claim is that instead of looking among all of strategies \(V_0,\vartheta)\in\mathbb{R}\times L^2(M)\) we can restrict our search to \(\mathbb{R}\times\mathcal{E}(\psi)\). The error will make by only looking in that subset is aribtrarily small. The exact mathematical statement is as follows. 
+We finally state one of the main results we were building up to: deep mean-variance hedging. It is formulated in the square integrable setup and thus should be seen as complementary to the mean-variance discussion of \cref{sec:Mean Variance Hedging in square integrable setting}. In particular, the claim is that instead of looking among all of the strategies \(V_0,\vartheta)\in\mathbb{R}\times L^2(M)\), we can restrict our search to \(\mathbb{R}\times\mathcal{E}(\psi)\). The error made by only looking in that subset is arbitrarily small. The exact mathematical statement is as follows. 
 \begin{theorem}[Continuous deep mean-square hedging in the martingale case]\label{thm:martingale setup, continuous deep variance hedging}
-Assume there exists \(\epsilon>0\) such that \(M\in\mathcal{H}_0^{2+\epsilon}\), and let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_{\infty}\)-measurable random variable. Furthermore assume \(\mathcal{F}_0\) to be trivial.  Then :
+Assume there exists \(\epsilon>0\) such that \(M\in\mathcal{H}_0^{2+\epsilon}\), and let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_{\infty}\)-measurable random variable. Furthermore, assume \(\mathcal{F}_0\) to be trivial.  Then:
 \begin{equation}\label{eq:martingale setup, continuous deep variance hedging}
     \min_{c\in\mathbb{R},\,\vartheta\in L^2(M)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff M_t\bigr)^2\Bigr]
     \,=\,\inf_{c\in\mathbb{R},\,\vartheta\in \mathcal{E}(\psi)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff M_t\bigr)^2\Bigr]\;,
