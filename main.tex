@@ -964,6 +964,7 @@ As usual for \(L^p\) spaces, the case \(p=2\) is particularly interesting as it 
     (M,N)_{\mathcal{H}^2}=\mathbb{E}[M_{\infty}N_{\infty}]\;.
 \end{equation}
 This inner-product structure on \(\mathcal{H}^2\) induces a natural notion of orthogonality. We call \(X,Y\in\mathcal{H}^2\) \texit{weakly orthogonal} if \((X,Y)_{\mathcal{H}^2}=0\). Why we refer to this notion of orthogonality as "weak" is due to the fact that we will later encounter a stronger notion of orhtogonality on the subspace \(\mathcal{H}_0^2=\left\{X\in\mathcal{H}^2:X_0=0\right\}\) which will imply the latter. We finish this subsection with the following standard convetion: For simplicity, we will call elements in \(\in\mathcal{H}^2\) square integrable martingales.
+\textcolor{blue}{maybe present corollary 3 of chapter II Protter.}
 
 \subsection{Stochastic Integration for square integrable Martingales}\label{sec:Stochastic Integration for square integrable Martingales}
 The strategy will be as follows: it will mimic classic Lebesgue integration theory but with a few important caveats. In particular, we will define the stochastic integral for a set of simple functions on the product space \(\Omega\times [0,\infty)\). This is possible for general semimartingale integrators \(X\). Due to the representation of the semimartingales \(X\), we observe that the main caveat is the definition of the stochastic integral for square integrable martingales. Hence, we study the latter in more detail. The crucial idea to notice is that for simple integrands and square integrable integrators, we find that the integral map defines an isometric embedding. The latter is the key property enabling us to extend the stochastic integral to a larger class of integrands in a way that preserves the isometry property.
@@ -1294,15 +1295,77 @@ is continuous with respect to the \(ucp\)-topology. Furthermore one shows that \
 \begin{equation}
     \tilde{I}_X:\mathbb{L}_{ucp}\to\mathbb{D}_{ucp}
 \end{equation}
-follows as usual from (....). For the proof of continuity of the map \cref{eq:ucp continuity of integral map} we refer to \parencite[Thm.~11]{Protter2005StochasticIntegration}. For the density of \(\mathcal{S}_{ucp}\) in \(\mathbb{L}\) we give some details as it forms an interesting contrast to the monotone class argument used in \cref{prop:density of E in L2(M) via monotone class}. 
+follows as usual from (....). For the proof of continuity of the map \cref{eq:ucp continuity of integral map} we refer to \parencite[Thm.~11]{Protter2005StochasticIntegration}. For the density of \(\mathcal{S}_{ucp}\) in \(\mathbb{L}\) we reproduce the proof given in \parencite[Thm.~10,Ch.II]{Protter2005StochasticIntegration} some details as it forms an interesting contrast to the monotone class argument used in \cref{prop:density of E in L2(M) via monotone class}. 
 \begin{proposition}\label{prop:ucp density of simple process in cadlag processes}
     The space \(\mathcal{S}\) is dense in \(\mathbb{L}\) for the \(ucp\)-topology
 \end{proposition}
 As often, before going into the details, we give some conceptual idea of the proof strategy. Given some \(Y\) We want to approximate it by elements of \(\mathcal{S}\) in the \(ucp\)-sense. After arguing that we can take \(Y\in b\mathbb{L}\) w.l.o.g. the idea is to approximate every path of \(Y\) by step functions that are uniformly \(\epsilon\)-close. As we want to do this for every path and we don't know in know how every path looks like as they are randome, we have to contruct this step functions by cutting up \(Y\) by stopping times in a way that the so obtained step functions are \(\epsilon\) close in every \((\omega,t)\). Notabene this yields an approximating sequence in \(\mathcal{S}\) and not in \(\mathcal{E}\) in general. It then remainse to check that the apprimating sequence in \(\mathcal{S}\) indeed approximates \(Y\) in \(ucp\). The main technical difficulties come from the fact that the random times we will define need not be stopping times for arbitary processes so we will have to choose apropriate version with the right path properties. 
 \begin{proof}
-    First notice that for \(Y\in\mathbb{L}\), we can stop \(Y\) with the stopping times \(F_n=\inf\)
+    First notice that for \(Y\in\mathbb{L}\), we can stop \(Y\) with the stopping times 
+    \begin{equation}
+        T_n=\inf\left\{t:|Y_t|>n]\right\}
+    \end{equation}
+    Because \(Y\) is left-continuous by assumption, \(Y^{T_n}1_{T_n>0}\) is bounded by \(n\), in particular \(Y^n\coloneqq Y^{T_n}1_{T_n>0}\in b\mathbb{L}\).\footnote{The mulitplication by \(1_{T_n>0}\) is necessary as we might have \(Y_0(\omega)=n+1\), then \(T_n=0\) and \(Y^{T_n}=Y_0>n\).} Now 
+    \begin{equation}
+        Y_n\overset{ucp}{\to}Y
+    \end{equation}
+    Indeed 
+    \begin{equation}
+        \left\{\sup_{0\leq s\leq t}|Y_s^n-Y_s|>\epsilon\right\}\subset \left\{T_n\leq t\right\}
+    \end{equation}
+    for every \(\epsilon>0\) and
+    \begin{equation}
+        \mathbb{P}(T_n\leq t)\leq\mathbb{P}(Y_t^*>n)
+    \end{equation}
+    and the right-hand side tends to \(0\) for every \(t\in[0,\infty)\). Hence \(b\mathbb{L}\) is dense in \(\mathbb{L}\) for the \(ucp\)-topology. Hence without loss of generality  assume \(Y\in b\mathbb{L}\). The idea is to approximate \(Z\) by a step-wise constent process in an uniform \(\epsilon\)-tube for every random path. We do this as follows. Let 
+    \(Z_t\coloneqq Y_t^{+}=\lim_{s\to t, s>t}Y_s\). Define the following stopping times for fixed \(\epsilon>0\)
+    \begin{align*}
+        &T_0^{\epsilon}=0\\
+        &T_{n+1}^{\epsilon}=\inf\left\{t:t>T_{n}^{\epsilon},\;|Z _{T_{n}^{\epsilon}}-Z_t|>\epsilon\right\}
+    \end{align*}
+    Since \(Z\) is càdlàg, the \(T_n^{\epsilon}\) are stopping times striclty increasing to \(\infty\) \footnote{It is crucial to define the random times \(T_n^{\epsilon}\) for a right-continuous process \(Z\). Indeed, if \(Z\) was not right-continuous, \(T_n\) are typically thes equal to \(T_1\) for all \(n\geq 1\). Hence, conisder the cadlag process \(Z=Y^{-}\) instead of the caglad process \(Y\) is crucial.}.
+    Hence we can build the uniform \(\epsilon\)-approximants
+    \begin{equation}
+        Z^{\epsilon}=\sum_{n\geq 0} Z_{T_n^{\epsilon}}1_{[T_{n}^{\epsilon},T_{n+1}^{\epsilon})}
+    \end{equation}
+    By constuction \(Z^{\epsilon}\) tend uniformly to \(Z\) as \(\epsilon\) tends to \(0\). Indeed for all \(\omega,t\in\Omega\times\mathbb{R}_+\) we have 
+    \begin{equation}\label{eq:epsilon approximants of cadlag Z}
+        |Z_t(\omega)-Z_t^{\epsilon}(\omega)|\leq\sum_{n\geq 0}|Z_{t}(\omega)-Z_{T_n^{\epsilon}((\omega))}(\omega)|1_{[T_{n}^{\epsilon}(\omega),T_{n+1}^{\epsilon}(\omega))}(t)\leq\epsilon
+    \end{equation}
+    because 
+    \begin{equation}
+        |Z_{t}(\omega)-Z_{T_n^{\epsilon}((\omega))}(\omega)|\leq\epsilon,\quad t\in[T_{n}^{\epsilon}(\omega),T_{n+1}^{\epsilon}(\omega))\;.
+    \end{equation}
+    Indedd for \(t<T_{n+1}^{\epsilon}\) this is true, because if not, and assuming w.l.o.g. that \(t>T_{n}^{\epsilon}\) this \(t\) is such that \(|Z_{t}(\omega)-Z_{T_n^{\epsilon}((\omega))}(\omega)|>\epsilon\) and \(T_{n}^{\epsilon}<t<T_{n+1}^{\epsilon}\) contradicting the definition of \(T_{n+1}^{\epsilon}\). Note that this is not true for the interval \((T_{n}^{\epsilon}(\omega),T_{n+1}^{\epsilon}(\omega)]\) as 
+     \begin{equation}
+        |Z_{T_{n+1}^{\epsilon}}-Z_{T_n^{\epsilon}}|
+    \end{equation}
+    is generally not  bounded from above. Indeed, we have the upper-bound\(|X_{T_{n+1}^{\epsilon}}-X_{T_n^{\epsilon}}|\leq\epsilon+\Delta |X_{T_{n+1}^{\epsilon}}|\) but \(|\Delta X_{T_{n+1}^{\epsilon}}|\) can take any finite value. 
+    But what is true is that 
+  \begin{equation}
+        |Z_{t-}(\omega)-Z_{T_n^{\epsilon}((\omega))}(\omega)|\leq\epsilon,\quad t\in(T_{n}^{\epsilon}(\omega),T_{n+1}^{\epsilon}(\omega)]\;.
+    \end{equation}
+    where \(Z_{t-}\) denotes the left-limit process of \(Z\) at \(t\). Indeed 
+    \begin{equation}
+      |Z_{T_{n+1}^{\epsilon}((\omega))-}(\omega)-Z_{T_n^{\epsilon}((\omega))}(\omega)|  \leq \epsilon
+    \end{equation}
+    because \(\Delta Z_{T_{n+1}^{\epsilon}((\omega))-}=0\). Hence, let 
+    \begin{equation}
+        U^{\epsilon}=1_{\left\{0\right\}}Y_0+\sum_{n\geq 1} Z_{T_n^{\epsilon}}1_{(T_{n}^{\epsilon},T_{n+1}^{\epsilon}]} 
+    \end{equation}
+    By our previous consideration it is clear that \(U_\epsilon\) converges uniformly to \(1_{\left\{0\right\}}Y_0+Z_{-}=Y\) as \(\epsilon\to 0\). It is clear \(U^{\epsilon}\in b\mathbb{L}\). Finally, define 
+    \begin{equation}
+        Y^{n,\epsilon}=1_{\left\{0\right\}}Y_0+\sum_{k\geq 0}Z_{T_k^{\epsilon}}1_{(T_{k}^{\epsilon},T_{k+1}^{\epsilon}]}
+    \end{equation}
+    By taking \(\epsilon\) small enough and \(n\) large enough, \(Y_{n,\epsilon}\) can be made abritraly close to \(Y\) (i.e. as a function on \(\Omega\times [0,\infty)\)). Hence, by a diagonla argument, there exists a common sequence such that \(Y^{n,\epsilon(n)}\) converges to \(Y\) uniformly on compacts.  Clearly \(Y^{n,\epsilon}\in\mathcal{S}\) for every \(\epsilon>0\) and \(n\in\mathbb{N}\).
 \end{proof}
-\textcolor{blue}{Notice that an monotone class argument as in \cref{prop:density of E in L2(M) via monotone class} would not be well adapted as it deeply relies on a class closed under bounded, monotone, pointwise convergence, which is ill conditioned to make statements about convergenc in \(ucp\). More precisely \(ucp\) convergence is to strong in the sense that it generally not implied by uniformly bounded monotone convergence, hence a class \(\mathcal{H}=\left\{ U \in \mathcal{A}:\forall \epsilon\exists H\in\mathcal{S}:\sup_{0\leq s<\infty}|H_t-U_t|<\epsilon \mathbb{P}-a.s. \forall t\in\mathbb{R}+\right\}\) is not closed under bounded montone limit, as this is a pointwise property and doens't converserve a uniform bound (not in probability or almost surely).}
+\begin{remark}
+Observe two things. A monotone class argument as in \cref{prop:density of E in L2(M) via monotone class} would not be well adapted as it deeply relies on a class closed under bounded, monotone, pointwise convergence, which is ill conditioned to make statements about convergenc in \(ucp\). More precisely \(ucp\) convergence is to strong in the sense that it generally not implied by uniformly bounded monotone convergence, hence a class \begin{equation}
+    \mathcal{H}_{ucp}=\left\{ U \in \mathcal{A}:\forall \epsilon\exists H\in\mathcal{S}:\sup_{0\leq s<\infty}|H_t-U_t|<\epsilon \mathbb{P}-a.s. \forall t\in\mathbb{R}+\right\}
+\end{equation} 
+is not closed under bounded montone limit, as this is a pointwise property and doens't converserve a uniform bound (not in probability or almost surely). \\\\
+Secondly, the proof idea above crucially relies on partitioning the positive real line in random intervals \((\cdot]\) or \([\cdot)\) in a way that we can approximate \(Y,Y_+,Y_-\) uniformly on such a random subinterval. We have \(\bigcup_{n\in\mathbb{N}} (T_n^{\epsilon},T_{n+1}^{\epsilon}]=\Omega\times\mathbb{R}_+\). Partioning \(\Omega\times\mathbb{R}_+\) in this ways can only be done by stopping times, thus the above argument can not be reduced to a proof for \(\mathcal{E}\) instead of \(\mathcal{S}\).
+\end{remark}
 \begin{theorem}\label{thm:ucp continuity of general stochastic integral}
     Let \(X\) be a semimartingale. Then the mapping 
     \begin{equation}
@@ -1363,27 +1426,26 @@ because \(L\in\mathcal{H}_0^2\), in particular, \(L_{\infty}\) exists and \(\mat
 \end{equation}
 for all \(Z_0+\int\vartheta^Z\diff X\in\mathbb{R}+\mathcal{I}(X)\). This shows that \(\mathbb{E}[H]+\int \vartheta^H\diff X\) is the minimizer in \(\mathbb{R}+\mathcal{I}(X)\). Retranslating into the random variable form, we get that \(\mathbb{E}[H|\mathcal{F}_0]+\int_0^{\infty} \vartheta^H_s\diff X_s\) minimizes \cref{eq:square integrable mean square hedging} and hence the claim. 
 \end{proof}
-\section{Mean-variance Hedging with continuous price process}
+\section{Mean-variance Hedging with continuous price process}\label{sec:Mean-variance Hedging with continuous price process}
 
 We now leave the martingale setting and consider the mean-variance hedging problem when
 the discounted price process \(X\) is only assumed to be a continuous semimartingale. This is
 the natural situation under the real-world measure \(P\) under which discounted asset prices need not be
 martingales. Consequently, the Hilbert space argument from
 the previous section no longer applies directly.
- For the following, we essentially follow \parencite{Schweizer2001GuidedTourQuadraticHedging}. We will not give proofs for the following results. They can all be found in \parencite[Chapter.~4]{Schweizer2001GuidedTourQuadraticHedging}.
+ For the following, we essentially follow \parencite{Schweizer2001GuidedTourQuadraticHedging}. We will not give proofs for the following results as they are all nicely presented in \parencite[Chapter.~4]{Schweizer2001GuidedTourQuadraticHedging}.
  \bigbreak
 We recall the problem at hand. 
 Let \(H \in L^2(P)\) be a contingent claim. For a suitable class \(\Theta\subset\Theta^2\) of 
 square integrable strategies, the mean-variance hedging problem is
-\[
+\begin{equation}\label{eq:MV hedging restatement}
         \inf_{v_0 \in \mathbb R,\ \vartheta \in \Theta}
         E_P\left[
         \left(
         H - v_0 - \int_0^T \vartheta_s\,dX_s
         \right)^2
         \right].
-        \tag{5.60}
-\]
+\end{equation}
 Thus, one wants to approximate \(H\) in \(L^2(P)\) by terminal values of self-financing
 strategies,
 \[
@@ -1401,10 +1463,41 @@ Equivalently, the problem is to project \(H\) onto the affine space
         \int_0^T \vartheta_s\,dX_s : \vartheta \in \Theta
         \right\}.
 \]
-In the martingale case, the corresponding space of stochastic integrals is closed because they form a stable subspace, as we have seen in \cref{...}. 
-We would like to proceed similarly to the martingale case by reducing the projection problem to a projection problem in \(L^2\). As observed in \cref{rem:if G_T closed then mean variance hedging is projection onto closed hilbert subspace} we can do so, if \(G_T(\Theta)\) is closed in \(L^2(P)\). Thus, we will study  sufficient conditions under which \(G_T(\Theta)\subset L^2(\mathbb{P})\) is closed.
-These questions are intimately
-connected to the variance-optimal martingale measure. The following developments will be formulated for a general linear subspace \(\mathcal{G}\subset L^2(P)\) and accordingly define \(\mathcal{A}=\mathbb{R}+\mathcal{G}\). The reader might think of \(\mathcal{G}=G_T(\Theta)\) for \(\Theta\subset\Theta_2\).
+In the square integrable martingale case, it followed from the Itô-isometry that the space \(G_T(\Theta)\subset L^2(\mathcal{F}_T,P)\) is closed, showing existence of the the mean-variance hedging problem. Even more, the Kunita-Watanabe deccomposition, relying on the geometric properties of \(\mathcal{H}^2\) and the that \(G_T(\Theta)\) is not only closedin \(L^2\) but even a stable subspace of the latter, one can characterise the solution to the mean-variance hedging problem explicitely. Fundamentally the results rely on the property of the stochastic integral that 
+\begin{equation}
+    X\in\mathcal{H}_{0,loc}^2,H\in L^2(M):\int H\diff X\in\mathcal{H}_{0}^2\;.
+\end{equation}
+This is not true in general (for local martingales X and locally bounded integrands \(H\) the integral is a local martingale \parencite[Ch. IV, Thm.~29]{Protter2005StochasticIntegration}. In the most general case, i.e. semimartingale \(X\) and predictable integrand \(H\) the resulting stochastic integral need to even be a lokal martingale (see Emery's exmaple after \parencite[Thm.~34]{Protter2005StochasticIntegration}). Hence the study of the mean-variance problem for more general semimartingale price processes is more involved. The following discussion scetches the approach. First we introduce the relevant objects and respective spaces. 
+\bigbreak
+First recall that we call \(X\) a semimartingale, or a general semimartingale if it can be written as 
+\begin{equation}\label{def:semimartingale}
+    X = X_0+M+A\;
+\end{equation}
+with \(M\in\mathcal{M}_{0,loc}\) and \(A\in FV\). We call \(X\) special if we can choose \(A\) in \cref{def:semimartingale} to be predictable. In that case the decomposition \(X=X_0+M+A\) is unique and refered to as the canonical decomposition of \(X\). In particular we will restrict to the following space of semimartingales.
+\begin{definition}
+    We denote by \(\mathcal{S}^2\) (\(\mathcal{S}_{loc}^2\)) the class of special semimartingales such that \(M\in\mathcal{H}_{0}^2\) (\(\mathcal{H}_{0,loc}^2\)) and \(A\) has (locally) square-integrable variation. 
+\end{definition}
+Note that due to the following necessary and sufficient condition for a semimartingale \(X\) to be special from \parencite{Protter2005StochasticIntegration} we don't need to additionally require \(X\in\mathcal{S}^2\) to be special
+\begin{lemma}
+    Let \(X\) be a semimartingale. \(X\) is special if and only if if the process \(X^*_t=\sup_{s\leq t}|X_s|\) is locally integrable.
+\end{lemma}
+The following will be a standing assumption for all semimartingales discussed in this article. 
+\begin{align*}
+    \text{If not stated otherwise every semimartingale is asssumed to be in \(\mathcal{S}^2_{loc}\)}\;.
+\end{align*}
+
+In the current semimartingale case we would like to proceed similarly to the martingale case by reducing the projection problem to a projection problem in \(L^2\). As observed in \cref{rem:if G_T closed then mean variance hedging is projection onto closed hilbert subspace} we can do so, if \(G_T(\Theta)\) is closed in \(L^2(P)\). Thus, we will study  sufficient conditions under which \(G_T(\Theta)\subset L^2(\mathbb{P})\) is closed.
+Broadly speeking we have the following tradeoff: If we are content with optimal strategies in 
+\begin{equation}
+\overline{\mathcal{A}}^{L^2}=\overline{\mathbb{R}+G_T(\Theta)}^{L^2}
+\end{equation}
+the existence of solution to \cref{eq:MV hedging restatement} follows by projection on the \(L^2\)-closed subspace \(\overline{\mathcal{A}}^{L^2}\). On the other hand the explicit form of such a solution is very unclear if we are not able to further characterise \(\overline{\mathcal{A}}^{L^2}\). Indeed we know that there exists a sequence 
+\begin{equation}
+    V^n = V_0^n+\int_0^T\vartheta^n\diff X \in \mathbb{R}+\mathcal{A}
+\end{equation}
+converging to the otpimal solution \(V^*\in\overline{\mathcal{A}}^{L^2}\) in \(L^2\). At this point we don't have any other insights into how \(V^*\) looks like. We shall see in the following that if it is not possible to approximate the risk-less payoff 1 by a self-financning strategy with inital wealth, i.e. \(1\notin \overline{G_T(\Theta)}^{L^2}\) then we can at least hope to characterise the mean-variance optimal price. The latter will be given as expectation of \(H\) with respect to a particular measure. 
+\bigbreak
+In accordance to \parencite{Schweizer2001GuidedTourQuadraticHedging} the following developments will be formulated for a general linear subspace \(\mathcal{G}\subset L^2(P)\) and accordingly define \(\mathcal{A}=\mathbb{R}+\mathcal{G}\). The reader might think of \(\mathcal{G}=G_T(\Theta)\) for \(\Theta\subset\Theta_2\).
 \begin{definition}
     We say that \(\mathcal{G}\) admits \textit{no approximate profits} in \(L^2\) if \(\overline{\mathcal{G}}\) does \textbf{not} contain the constant \(1\). The closure is taken in \(L^2\).
 \end{definition}
@@ -1451,7 +1544,7 @@ exists, is unique, and satisfies
 \end{enumerate}
 \end{lemma}
 Part (1.) yields a necessary condition for a mean-variance solution, as we shall see.
-Part (2.) is the sufficient condition announced in \cref{rem...} for which the mean-variance hedging problem admits a solution over \(\bar{\mathcal{A}}\) of the form \(V_0^*+g^*\) with \(V_0^*\in\mathbb{R}\) as the mean-variance price and \(g^*\in\overline{\mathcal{G}}\). Part (3.) yields the existence and uniqueness of the measure, which results in the mean-variance price \(V_0^*\), as the following proposition shows. 
+Part (2.) is the sufficient condition announced in introductory discussion. Indeed the projection for which the mean-variance hedging problem admits a solution over \(\bar{\mathcal{A}}\) of the form \(V_0^*+g^*\) with \(V_0^*\in\mathbb{R}\) as the mean-variance price and \(g^*\in\overline{\mathcal{G}}\). Part (3.) yields the existence and uniqueness of the measure, which results in the mean-variance price \(V_0^*\), as the following proposition shows. 
 The following observation further suggests that finding the variance-optimal \(\mathcal{G}\)-measure is in some sense dual to the problem of approximating risk-less profits in \(\mathcal{G}\):
 \bigbreak
 For any $g\in\mathcal{G}$ and any $Q\in\mathbb{P}^2_s(\mathcal{G})$, we have
@@ -1540,15 +1633,19 @@ Consider the set of equivalent local martingale measures (ELMM) for \(X\) with a
     \end{equation}
     hence the claim follows from the assumption.
     \end{proof}
-    We denote the set of probability measures in \cref{lemma:ELMM and P_e^2(X)} by \(\mathbb{P}^2_e(X)\). 
     \begin{definition}
         The \textit{variance optimal signed martingale measure} \(\widetilde{P}\) for \(X\) is defined as the variance-optimal signed \(G_T(\Theta_{simple})\)-martingale measure.
     \end{definition}
-    \(\widetilde{P}\) is generally a signed measure, but if \(X\) is continuous, it is in \(\mathbb{P}^2_e(X)\); hence, it is particularly a probability measure. This is where we need the condition that \(X\) is continuous. We consider two a particular choie for \(\Theta\):
+    \(\widetilde{P}\) is generally a signed measure, but if \(X\) is continuous, it is in \(\mathbb{P}^2_e(X)\); hence, it is particularly a probability measure. This is where we need the condition that \(X\) is continuous. \begin{lemma}\label{lemma:variance optimal signed measure in P_e^2(X)}
+        If \(X\) is continuous semimartingale and \(\mathbb{P}^2_e(X)\), then \(\widetilde{P}\in\mathbb{P}_e^2(X)\).
+    \end{lemma}We consider two a particular choices for \(\Theta\):
     \begin{definition}
         We denote \(\Theta_{GLP}\) the class of \(X\)-integrable processes sucht that \((\vartheta\bullet X)_T\in L^2(P)\) and \(\vartheta\bullet X\) is a uniformly integrable process under every \(Q\in\mathbb{P}_e^2(X)\).
     \end{definition}
-    The following results justifies the former definition
+      \begin{definition}
+        We denote \(\Theta_{S}\) the class of \(X\)-integrable processes sucht that \(\vartheta\bullet X\in\mathcal{S}^2\)
+    \end{definition}
+    As well shall see in \cref{sec:} \(\Theta_S\) is the obvious generalization of \(L^2(M)\) to the semimartingale case. Nevertheless, the study of the closedness of \(G_T(\Theta_S)\) in \(L^2(P)\) is more involved and yields its most general results only in the case where \(X\) is a continuous semimartingale. We will touch on some aspects of it naturally in \cref{sec:}. Thus, for the case \(\Theta_S\), we refer to that section and for more details to \parencite{Schweizer1994ApproximatingRandomVariablesStochasticIntegrals} and \parencite{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM}. We will concentrate on \(\Theta_{GLP}\) for the remainder of this section.
         \begin{theorem}\label{thm:closure_GLP}
         Let $X$ be an $\mathbb{R}^d$-valued semimartingale which is locally in $L^2(\mathbb{P})$ and assume that $\mathbb{P}_e^2(X)\neq\emptyset$. Then $G_T(\Theta_{\mathrm{GLP}})$ is closed in $L^2(\mathbb{P})$. If $X$ is continuous, we have in addition that
         \[
@@ -1556,7 +1653,7 @@ Consider the set of equivalent local martingale measures (ELMM) for \(X\) with a
         \]
         where the closure is taken in $L^2(\mathbb{P})$; this implies, in particular, that $\widetilde{P}=\widetilde{P}_{G_T(\Theta_{\mathrm{GLP}})}$.
     \end{theorem}
-    This yields one instance of an examplary \(\Theta\subset\Theta^2\) for which the space \(G_T(\Theta)\) is closed in \(L^2(P)\). Hence, for this choice of \(\Theta\) we hope to find a more explicite form for the mean-variance strategy. Indeed the following theorem yield exactly this
+    This yields one instance of an examplary \(\Theta\subset\Theta^2\) for which the space \(G_T(\Theta)\) is closed in \(L^2(P)\). Hence, for this choice of \(\Theta\) we hope to find a more explicite form for the mean-variance strategy. If we assume \(X\) to be continuous we know by \cref{lemma:variance optimal signed measure in P_e^2(X)} that the variance optimal martingale measure exists and is equivalent to \(P\). In particular it is a measure itself. The following proposition then yields the explicite formuly for the optimal mean-variance strategy and price in the continuous semimartingale setting for \(\Theta_{GLP}\)
 
     \begin{theorem}\label{thm:mean-variance-optimal-GLP-strategy}
 Suppose that $X$ is a continuous process such that $\mathbb{P}_e^2(X)\neq\emptyset$. Let $H\in L^2(P)$ be a contingent claim and write the Galtchouk--Kunita--Watanabe decomposition of $H$ under $\widetilde{P}$ with respect to $X$ as
@@ -1582,7 +1679,7 @@ and
 \end{align}
 \end{theorem}
     For the proof we refer to \parencite[Thm.~4.6.]{Schweizer2001GuidedTourQuadraticHedging}, while for multidimensional generalization of \cref{eq:GKW-under-Ptilde}: the Galtchouk-Kunita-Watanabe, we refer to \parencite[Thm.~2.33]{RheinlaenderSexton2011HedgingDerivatives}.
-\chapter{Approximation by Algorithmic Strategies in Continuous Time}
+    For \(\Theta_S\) there is a similarly explicit characeterisation of the mean-variance optimal solution although with more involved assumptions. For this we refer to \parencite[Thm.~3]{Schweizer1994ApproximatingRandomVariablesStochasticIntegrals}.
 \section{The naïv approach and what goes wrong}\label{sec:The naïv approach and what goes wrong}
 \parencite[Chapter~5]{Arandjelovic2025} should be understood as an extension of the setup in \parencite{Buehler2018DeepHedging} in the sense that it leverages similar ideas developed in the latter, such as the Doob-Dynkin representation of measurable functions and the density of neural networks, but in the context of continuous time stochastic calculus. One has to deal with measurability and regularity issues not present in the finite setup; nevertheless, the core ideas remain similar. In this section, we guide the reader through this extension with the goal of arriving at a neural approximation theory for wealth processes of self-financing strategies and thus a continuous time version of \cref{prop:finite deep mean variance hedging}. Along the way, we highlight the conceptual proximity needed to the development of \parencite{Buehler2018DeepHedging} as described in \cref{ch:Deep Hedging in Discrete Time}.
 \bigbreak
@@ -2151,7 +2248,7 @@ This version does not require the additional infinitesimal integrability of \(M\
 
 
 \section{Deep mean-square hedging in the martingale case}
-We finally state one of the main results we were building up to: deep mean-variance hedging. It is formulated in the square integrable setup and thus should be seen as complementary to the mean-variance discussion of \cref{sec:Mean Variance Hedging in square integrable setting}. In particular, the claim is that instead of looking among all of the strategies \(V_0,\vartheta)\in\mathbb{R}\times L^2(M)\), we can restrict our search to \(\mathbb{R}\times\mathcal{E}(\psi)\). The error made by only looking in that subset is arbitrarily small. The exact mathematical statement is as follows. 
+We finally state one of the main results we were building up to: deep mean-variance hedging. It is formulated in the square integrable setup and thus should be seen as complementary to the mean-variance discussion of \cref{sec:Mean Variance Hedging in square integrable setting}. In particular, the claim is that instead of looking among all of the strategies \((V_0,\vartheta)\in\mathbb{R}\times L^2(M)\), we can restrict our search to \(\mathbb{R}\times\mathcal{E}(\psi)\). The error made by only looking in that subset is arbitrarily small. The exact mathematical statement is as follows. 
 \begin{theorem}[Continuous deep mean-square hedging in the martingale case]\label{thm:martingale setup, continuous deep variance hedging}
 Assume there exists \(\epsilon>0\) such that \(M\in\mathcal{H}_0^{2+\epsilon}\), and let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_{\infty}\)-measurable random variable. Furthermore, assume \(\mathcal{F}_0\) to be trivial.  Then:
 \begin{equation}\label{eq:martingale setup, continuous deep variance hedging}
@@ -2225,15 +2322,16 @@ Let \(X\) be a semimartingale with representation \cref{eq:semimartingale decomp
         \mathcal{L}^2(A)=\left\{H \text{ predictable }:\lVert\int_{0}^{\infty}|H_s|\diff |A|_s\rVert_{L^2(P)}\coloneqq\lVert H\rVert_{L^2(A)}<\infty\right\}
     \end{equation}
     and the corresponding quotient space \(L^2(A)\).
-    Notice that according to the definition on page 165 \parencite{Protter2005StochasticIntegration} processes in \(\mathcal{L}(X,A)\) are \(X\)-integrable. 
 \end{definition}
 We have
 \begin{equation}
     L^2(M,A)=L^2(A)\cap L^2(M)
 \end{equation}
-and \(\lVert H\rVert_{L^2(M,A)}^2=\lVert H\rVert_{L^2(A)}+\lVert H\rVert_{L^2(M)}\). Also it is clear by construction that 
-\(\Theta=L^2(M,A)\subset \Theta^2\).
- Hence, for processes \(H\in L^2(A,M)\), we have that the map
+and \(\lVert H\rVert_{L^2(M,A)}^2=\lVert H\rVert_{L^2(A)}+\lVert H\rVert_{L^2(M)}\). As usual we will abuse notation in talking about elements in \(L^2(M,A)\) as processes although, strictly speaking, it containes equivalence classes of processes. 
+ Furthermore, according to the definition on page 165 \parencite{Protter2005StochasticIntegration} processes in \(L(M,A)\) are \(X\)-integrable. Also, it is clear by construction that 
+\(\Theta=L^2(M,A)\subset \Theta^2\). Notice that \(L^2(M,A)=\Theta_S\) in the notation of \cref{sec:Mean-variance Hedging with continuous price process}. Furthermore, it is clear that \(L^2(M,A)\) is the natural extension to the \(L^2(M)\) case discussed in \cref{sec:Mean Variance Hedging in square integrable setting}. 
+\bigbreak
+ By construction, or more precisely by \cref{eq:bounding the L^2 norm of the stochastic integral} we have  for processes \(H\in L^2(A,M)\), we have that the map
  \begin{align*}\label{eq:final integral map}
     I_{\infty}:\;&H\mapsto (H\bullet X)_{\infty},
      \\&L^2(M,A)\to L^2(P,\mathcal{F}_{\infty})
@@ -2299,7 +2397,9 @@ The sufficient conditions for \(D_2(P)\) allow to extend the density result \cre
 \begin{equation}
     G_T(L^2(M,A))=\left\{\int_0^T\vartheta_s\diff X:\vartheta\in L^2(M,A)\right\}\subset L^2(P)\;.
 \end{equation}
-For this, let's take a step back to our general considerations. Recall that we were naturally led to consider the map \cref{eq:final integral map} 
+For this, let's take a step back to our general considerations. For the following we help yourselfes generously with the developpements in \parencite{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM}.
+\bigbreak 
+Recall that we were naturally led to consider the map \cref{eq:final integral map} 
 \begin{equation}
     H\mapsto (H\bullet X)_{\infty}\;.
 \end{equation}
@@ -2324,23 +2424,77 @@ Observe that \((L^2(M,A),\lVert\cdot\rVert_{L^2(M,A)})\) is a Banach space. What
     \(Z\) defines a uniformly integrable \(P\)-martingale.
     Because \(Q\sim P\), \(\frac{\diff Q}{\diff P}>0\) hence \(Z_t>0\) for all \(t\). More over \(\mathbb{E}[\left(\mathbb{E}[\frac{\diff Q}{\diff P}|\mathcal{F}_t]\right)^2]\leq\mathbb{E}[\mathbb{E}[\left(\frac{\diff Q}{\diff P}\right)^2|\mathcal{F}_t]=\mathbb{E}[\left(\frac{\diff Q}{\diff P}\right)^2]<\infty\), hence \(Z_t\in \mathcal{L}^2(P)\) for all \(t\). Moreover, \(G(\theta)\) is a local \(Q\)-martingale. Thus we have that  \(P\sim Q\) if and only if \(G(\theta)Z\) is a local \(P\)-martingale. Furthermore it is clear that \(Z^*\) is square integrable by Doob and easily check that the same is true for \(G(\vartheta)\) by Doob for the martingal part and the fact \(|\vartheta|\bullet |A|\) is an increasing, sqaure integrable process, by assumption. Hence \((G(\vartheta)Z)^*\) is \(P\)-integrable by Cauchy-Schwarz. Thus \(G(\vartheta)Z\) is a true \(P\)-martingale with \((G(\vartheta)Z)_T=0\), thus \(G(\vartheta)Z)_t=0\) \(P\)-almost surely for all \(t\). Thus the claim.
 \end{proof}
-Hence \(I_{\infty}\) is a continuous bijective map from the Banach space \(L^2(M,A)\) to \(G_T(L^2(M,A))\subset L^2(\mathcal{F}_{\infty},P)\). The crucial observation is that \(I_{\infty}\) is a homeomorphism if and only if \(G_T(L^2(M,A))\) is a Banach space, that is in particular a closed subsapce of \(L^2(P)\). In otherwords
-\begin{proposition}
-    \(G_T(L^2(M,A))\subset L
-\mathcal{L}^2(\mathcal{F}_{\infty},P)\) if and only if there exists \(C>0\) such that 
-\begin{equation}
+Hence \(I_{\infty}\) is a continuous bijective map from the Banach space \(L^2(M,A)\) to \(G_T(L^2(M,A))\subset L^2(\mathcal{F}_{\infty},P)\). The key observation is the following:
+\bigbreak
+\(I_{\infty}\) is a homeomorphism if and only if \(G_T(L^2(M,A))\) is a Banach space, that is in particular a closed subsapce of \(L^2(P)\). In otherwords
+\begin{proposition}\label{prop:closedness of G_T in L^2 functional analytic iff condition}
+    \(G_T(L^2(M,A))\subset 
+\mathcal{L}^2(\mathcal{F}_{\infty},P)\) closed if and only if there exists \(C>0\) such that 
+\begin{equation}\label{eq:homeo condition}
     \forall\vartheta\in L^2(M,A), \quad \lVert \vartheta\rVert_{L^2(M,A)}\leq C\lVert G_T(\theta)\rVert_{\mathcal{L}^2(P)}\,.
 \end{equation}
 \end{proposition}
 \begin{proof}
-    This follows directly from the Inverse Operator Theorem, (see ....) that states that every bijective bounded linear operator \(T:X\to Y\) between two Banach spaces \(X,Y\) is a homeomorphism, which means that the inverse map is also continuous. As the inverse of a linear map is necessarily linear, the claim that the inverse is continuous is equivalent to the claim that the inverse is bounded. 
+    This follows directly from the Inverse Operator Theorem, (see ....) that states that every bijective bounded linear operator \(T:X\to Y\) between two Banach spaces \(X,Y\) is a homeomorphism, in particular asserting that the inverse map is continuous as well. As the inverse of a linear map is necessarily linear, the claim that the inverse is continuous is equivalent to the claim that the inverse is bounded. 
+    \\\\
+   Hence, the 'if' part is a direct application of the inverse operator Theorem. Conversely, we know that \(L^2(M,A)\) is Banach, and by the previous Lemma, \(I_{\infty}\) is a continuous, bijective, linear map. If condition \cref{eq:homeo condition} holds, it is a homeomorphsim and in particular a closed map. That is \(I_{\infty}(L^2(M,A))=G_T(L^2(M,A))\) is closed as the image of a closed space under a closed map. 
 \end{proof}
-This yields a functinal analytic, sufficient and necessary condition for the closedenss of \(G_T(L^2(M,A))\) and hence the existence of the mean-variance hedging solution.  Interestingly the this will lead us to discovering a connection betweent the clodeness of \(G_T(L^2(M,A))\) and the condition \(D_2(P)\). 
+This yields a functional analytic, sufficient and necessary condition for the closedness of \(G_T(L^2(M,A))\) and hence the existence of the mean-variance hedging solution. Surprisingly, the following theorem shows a close connection between the closedness of \(G_T(L^2(M,A))\) and the condition \(D_2(P)\). 
+\begin{theorem}\label{thm:G_T closed implies D_2(P)}
+    Let \(X\) be a semimartingale in \(\mathcal{S}^2_{loc}\) such that the predictable, finite variation part \(A\) is continuous. If \(I_{\infty}\) is bijective and if its image \(G_T(L^2(M,A))\) is closed in \(\mathcal{L}^2(P)\) then the inequality \(D_2(P)\) is satisfied. 
+\end{theorem}
+The proof will use the following auxiliary result
+
+\begin{lemma}\label{lemma:predictable epsilon}
+Suppose that $A$ is a continuous process of finite variation . Let $\theta \in \Theta$ and $\eta>0$. Then there exists a predictable process $\varepsilon$ with values in $\{-1,+1\}$ such that
+\[
+\forall t\in[0,T],\quad \left|\int_0^t \varepsilon_s\,\theta_s\,dA_s\right|\le \eta.
+\]
+\end{lemma}
+
+\begin{proof}
+Without loss of generality we can assume that $\theta\cdot A$ is increasing. For the argument why this is w.l.o.g. see \cref{Appendix:w.l.o.g.}.
+Then, we define a sequence $(\tau_n)_{n\ge 0}$ of stopping times by setting
+\[
+\tau_0=0
+\quad\text{and}\quad
+\tau_{n+1}=\inf\left\{t\ge \tau_n \ \middle|\  \int_0^T \mathbf{1}_{]\tau_n,t]}(s)\,\theta'_s\,dA_s \ge \eta\right\}.
+\]
+Since $A$ is a finite variation process, the sequence $(\tau_n)_{n\ge 0}$ is finite.
+Finally, we set $\varepsilon=1$ on $]\tau_{2n},\tau_{2n+1}]$ and $\varepsilon=-1$ elsewhere. \(\epsilon\) is predictable as sum of indicators of predictable sets and their union. Because \(\theta\bullet A\) is increasing, the process \(\theta\cdot\epsilon\bullet A\) is always smaller or equal to \(\eta\).
+This completes the proof.
+\end{proof}
+We can now give the proof of \cref{thm:G_T closed implies D_2(P)}.
+\begin{proof}
+    Let \(\vartheta\in L^2(M,A)\) and \(\epsilon\) the predictable process of \cref{lemma:predictable epsilon}. Then 
+    \begin{align*}
+        \lVert G_T(\epsilon\vartheta)\rVert_{\mathcal{L}^2}&\leq \lVert \epsilon\vartheta\rVert_{L^2(M)}+\lVert \epsilon\vartheta\rVert_{L^2(A)}\\
+        &\leq \lVert \vartheta\rVert_{L^2(M)}+\lVert \vartheta\rVert_{L^2(A)}
+        \\&= \lVert \vartheta\rVert_{L^2(M)}+\eta\;,
+    \end{align*}
+    by the same reasoning as in \cref{eq:bounding the L^2 norm of the stochastic integral} and \cref{lemma:predictable epsilon}. By \cref{prop:closedness of G_T in L^2 functional analytic iff condition}, under the assumption that \(G_T(\Theta)\subset\mathcal{L}^2(P)\) is closed, we have
+    \begin{align*}
+        \lVert \vartheta\rVert_{L^2(M)}+\lVert \vartheta\rVert_{L^2(A)}&=\lVert \epsilon\vartheta\rVert_{L^2(M)}+\lVert \epsilon\vartheta\rVert_{L^2(A)}\\&
+        \leq C\lVert{G_T(\epsilon\vartheta)}\rVert_{\mathcal{L}^2}
+        \\&\leq C(\lVert\vartheta\rVert_{L^2(M)}+\eta)\;.
+    \end{align*}
+    This holds for any \(\eta>0\); hence, \(D_2(P)\) is satisfied.
+\end{proof}
+Note that, in particular, a sufficient condition for \(A\) to be continuous is to consider continuous \(X\in\mathcal{S}_{loc}^2\) (see Corollary after Theorem 35 of \parencite{Protter2005StochasticIntegration}). 
+\bigbreak
+Recall that in light of the mean-variance hedging problem, closedness of \(G_T(\Theta)\subset\mathcal{L}^2(P)\) implies the existence of the solution to the mean-variance hedging problem as the latter reduces to a \(L^2\)-projection problem of the liability \(H\in L^2(\mathcal{F}_T)\) onto the closed subspace \(G_T(\Theta)+\mathbb{R}\). On the other hand, as previously discussed, condition \(D_2(P)\) implies that \(\Theta=L^2(M,A)=L^2(M)\). We have a density of \(\mathcal{E}(\psi)\) in \(L^2(M)\), which allows for an extension of the deep mean variance hedging result \cref{thm:martingale setup, continuous deep variance hedging}. We need both, existence and approximation. \cref{thm:G_T closed implies D_2(P)} shows that studying the closedness of \(G_T(\Theta)\) solves both, existence of an mean-variance optimal strategy and approximation by algorithmic strategies at once, if we assume the prices process \(X\) to be continuous, or at least its finite variation part. Converly one might ask, wether there is a converse relation from \(D_2(P)\) to the closedness of \(G_T(\Theta)\). In general \(D_2(P)\) is neither sufficient nor necessary for closedness of \(G_T(\Theta)\) as is shown by the counter-examples in 3.9-3.12. in \parencite{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM}. Nevertheless, it is interesting that for the continuous predictable part of \(X\), we have that \(G_T(\Theta)\) in \(\mathcal{R}^2(P)\) if and only if \(D_2(P)\) holds, where 
+\begin{equation}
+    \mathcal{R}^2(P)=(\Theta,\lVert\cdot\rVert_{\mathcal{R}^2(P)})
+\end{equation}
+with 
+\begin{equation}
+    \lVert\vartheta\rVert_{\mathcal{R}^2(P)}=\lVert\vartheta^*\rVert_{\mathcal{L}^2(P)}\;.
+\end{equation}
+We will not further investigate this route as we are interested in closedness of \(G_T(\Theta)\) in \(\mathcal{L}^2\). The latter is completely characterised by \parencite[Thm.~4.1]{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM} under the requirement that \(X\) is continuous semimartingale. 
 \bigbreak
 \textcolor{blue}{discuss Theorem 3.7. Then either cite or proof the D2(P) iff bmo2 statement. Finally cite the R2(P) condition and according necessary and sufficient conditions}
 \bigbreak
-In particular, \(L^2(M,A),\lVert\cdot\rVert_{L^2(M,A)})\) is a Banach space. We want to show that the image of \(L^2(M,A)\) under \((I_{\infty}\) is closed. 
-We find a sufficient answer to this in \parencite[Thm.4.1]{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM}. We restate the relevant part for convenience. But to understand the statement we need to following definition.
+The key additional ingredient as far as we are concerned in this article is the reversed Hölder inequality. 
 \begin{definition}\label{def:reverse Hölder}
 If $L$ is a uniformly integrable martingale such that $L_0=1$ and $L_T>0$ $P$-a.s., then we say that
 $L$ \emph{satisfies the reverse H\"older inequality under $P$}, denoted by $R_p(P)$, where
@@ -2348,13 +2502,15 @@ $1<p\le +\infty$, if and only if there is a constant $C$ such that for every $t$
 \[
 \mathbb{E}\!\left[\left(\frac{L_T}{L_t}\right)^p \,\middle|\, \mathcal{F}_t\right]\le C.
 \]
-For \(p=+\infty\) we require that \(\frac{L_T}{L_t}\) is bounded by \(C\). We say that an ELMM \(Q\) satisfies \(\mathcal{R}_p(P)\) if the respective density process 
+For \(p=+\infty\) we require that \(\frac{L_T}{L_t}\) is bounded by \(C\). 
+\end{definition}
+We say that an ELMM \(Q\) satisfies \(\mathcal{R}_p(P)\) if the respective density process 
 \begin{equation}
     Z_t=\mathbb{E}[\frac{\diff Q}{\diff P}|\mathcal{F}_t]
 \end{equation}
 satisfies \(\mathcal{R}_p(P)\).\\\\
 
-The relevant part of  \parencite[Thm.4.1]{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM} is as follows:
+The relevant part of  \parencite[Thm.4.1]{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM} goes as follows:
 \begin{theorem}\label{thm:closedness of G_T(Theta)}
 Let $X$ denote a continuous semimartingale. Then the following are equivalent:
 \begin{enumerate}
@@ -2362,12 +2518,36 @@ Let $X$ denote a continuous semimartingale. Then the following are equivalent:
       $G_T(\Theta)$ is closed in $L^2(P)$.
 \item There is a square integrable local martingale measure $Q$ that satisfies the inequality
       $R_2(P)$.
+\item The variance optimal measure \(\widetilde{Q}\) is in \(\mathbb{P}_e^2(X)\) and satisfies the \(\mathcal{R}^2(P)\)-inequality.
 \end{enumerate}
 \end{theorem}
-\end{definition}
-For a proof, discussion and the complete statement we refer to \parencite{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM}.
+For a proof, discussion, and the complete statement, we refer to \parencite{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM}.
+The third equivalent statement in \cref{thm:closedness of G_T(Theta)} links the general discussion of mean-variance hedging in \cref{sec:Mean-variance Hedging with continuous price process}.
 
-Thus, to have an existence claim about the mean-variance hedging solution we require \(X\) to be continuous. We can finally state an extension of \cref{thm:martingale setup, continuous deep variance hedging} to price processes in \(L^2(M,A)\) 
+Thus, to have an existence claim about the mean-variance hedging solution, we require \(X\) to be continuous. We can finally state an extension of 
+\cref{thm:martingale setup, continuous deep variance hedging} to price processes in \(L^2(M,A)\). Recall the notation \(\mathbb{P}_e^2(X)\) for the set of equivalent local martingale measure \(Q\sim P\) such that \(\frac{\diff Q}{\diff P}\in L^2(P)\).
+\begin{proposition}\label{prop:continuous time deep mean variance hedging for semimartingales under compactness}
+    Assume the \(X=X_0+M+A\) is a continuous semimartingale in \(\mathcal{S}_{loc}^2\) with \(\mathbb{P}_e^2(X)\neq\emptyset\). Assume that there exists \(\epsilon>0\) for which \(M\in\mathcal{H}^{2+\epsilon}\). Furthermore, assume that some \(Q\in\mathbb{P}^2_e(X)\) satisfies the \(\mathcal{R}_2(P)\) inequality. Let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_{\infty}\)-measurable random variable. Furthermore, assume \(\mathcal{F}_0\) to be trivial. Then:
+\begin{equation}\label{eq:martingale setup, continuous deep variance hedging}
+    \min_{c\in\mathbb{R},\,\vartheta\in L^2(M,A)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]
+    \,=\,\inf_{c\in\mathbb{R},\,\vartheta\in \widetilde{\mathcal{E}}(\psi)}
+    \mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]\;,
+\end{equation}
+\end{proposition}
+\begin{proof}
+   The assumption imply by \cref{thm:closedness of G_T(Theta)} that \(G_T(\Theta)\) is closed in  \(\mathcal{L}^2(P)\). Hence the minimum on the left-hand side exists. Furthermore, according to \cref{thm:G_T closed implies D_2(P)} the conditions imply that \(D_2(P)\) holds, hence \(\mathcal{E}(\psi)\) is dense in \(L^2(M,A)=L^2(M)\).
+\end{proof}
+According to \cref{prop:Lp(M) density of E(psi) under compacteness}, considering the market information process \(\widetilde{Y}=\tanh(Y)\) instead of \(Y\), effectively replacing \(\mathcal{E}(\psi)\) by \(\widetilde{\mathcal{E}}(\psi)\) we can let go of the additional \(\epsilon\)-integrability condition on \(M\). Furthermore, according to \parencite[Thm.~3.7]{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM} the assumptions in \cref{prop:continuous time deep mean variance hedging for semimartingales} already imply the \(bmo_2\)-condition, which can be dropped. We get the following version. 
+
+
+\begin{proposition}\label{prop:continuous time deep mean variance hedging for semimartingales under compactness}
+    Assume the \(X=X_0+M+A\) is a continuous semimartingale in \(\mathcal{S}_{loc}^2\), with \(\mathbb{P}_e^2(X)\neq\emptyset\). Furthermore, assume that some \(Q\in\mathbb{P}^2_e(X)\) satisfies the \(\mathcal{R}_2(P)\) inequality. Let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_{\infty}\)-measurable random variable. Furthermore, assume \(\mathcal{F}_0\) to be trivial. Then:
+\begin{equation}\label{eq:martingale setup, continuous deep variance hedging}
+    \min_{c\in\mathbb{R},\,\vartheta\in L^2(M,A)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]
+    \,=\,\inf_{c\in\mathbb{R},\,\vartheta\in \widetilde{\mathcal{E}}(\psi)}
+    \mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]\;,
+\end{equation}
+\end{proposition}
 \begin{proposition}\label{prop:deep mean variance for continuous semimartingales}
     Assume the \(X=X_0+M+A\), continuous such that \(\exists \epsilon>0\) for which \(M\in\mathcal{H}^{2+\epsilon}\), and assume \(X\) satisfies the structure condition with bounded MVP. Furthermore, assum the existence of a square integrable local martingale measure \(Q\) that satisfies \(\mathcal{R}_2(P)\). Let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_{\infty}\)-measurable random variable. Furthermore, assume \(\mathcal{F}_0\) to be trivial. Then:
 \begin{equation}\label{eq:martingale setup, continuous deep variance hedging}
@@ -2379,8 +2559,8 @@ Thus, to have an existence claim about the mean-variance hedging solution we req
     The existence follows from \cref{thm:closedness of G_T(Theta)}. Indeed the assumptions imply that \(G_T(L^2(M,A))\) is closed in \(L^2(P)\) hence so is \(\mathbb{R}+G_T(L^2(M,A))\). Thus existence follows from projection as discussed multiple times.
     By remark \cref{rem:sufficient condition for extension} and density of \(\mathcal{E}(\psi)\) in \(L^2(M)=L^2(M,A)\) the claim follows. 
 \end{proof}
-
-To state necessary and sufficient conditions for \(D_2(P)\) we need to introduce the space of \(bmo_2\) local-martingales
+\textcolor{blue}{
+We finish by mentioning necessary and sufficient conditions for \(D_2(P)\). For this we need the notion of \(bmo_2\) local-martingales. 
 \begin{definition}
     Let \(X\) be a locally-square integrable local martingale. Then \(X\in bmo_2\) if there is \(C>0\) such that 
     \begin{equation}
@@ -2393,33 +2573,7 @@ Then
     The inequality \(D_2(P)\) holds if and only if \(\lambda\) of \(SSC\) or \(SC\) exists and the process \(\lambda\bullet M\) is in \(bmo_2\).
 \end{theorem}
 The conditions in \cref{thm:iff D_2(P)} are hence optimal in the sense that they are the weakest possible conditions on for \(D_2(P)\) to hold.
-\begin{proposition}\label{prop:continuous time deep mean variance hedging for semimartingales}
-    Assume the \(X=X_0+M+A\) is a continuous semimartingale in \(\mathcal{S}_{loc}^2\), such that \(\mathbb{P}^2_e(X)\neq \emptyset\) and  \(\exists \epsilon>0\) for which \(M\in\mathcal{H}^{2+\epsilon}\) and assume there exists a predictable process \(\lambda\) such that \(\diff A=\lambda\diff \langle M\rangle\) and \(\lambda\bullet X\in bmo_2\). Furthermore assume that there is at least one \(Q\in\mathbb{P}^2_e(X)\) that satisfies \(\mathcal{R}_2(P)\). Let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_{\infty}\)-measurable random variable. Furthermore, assume \(\mathcal{F}_0\) to be trivial. Then:
-\begin{equation}\label{eq:martingale setup, continuous deep variance hedging}
-    \min_{c\in\mathbb{R},\,\vartheta\in L^2(M,A)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]
-    \,=\,\inf_{c\in\mathbb{R},\,\vartheta\in \mathcal{E}(\psi)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]\;,
-\end{equation}
-\end{proposition}
-\begin{proof}
-The existence follows as in \cref{prop:deep mean variance for continuous semimartingales}. The equality follows from density of \(\mathcal{E}(\psi)\) in \(L^2(M)=L^2(M,A)\) due to \(X\in bmo_2\).
-\end{proof}
-According to \cref{prop:Lp(M) density of E(psi) under compacteness}, considering the market information process \(\widetilde{Y}=\tanh(Y)\) instead of \(Y\), effectively replacing \(\mathcal{E}(\psi)\) by \(\widetilde{\mathcal{E}}(\psi)\) we can let go of the additional \(\epsilon\)-integrability condition on \(M\). Furthermore, according to \parencite[Thm.~3.7]{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM} the assumptions in \cref{prop:continuous time deep mean variance hedging for semimartingales} already imply the \(bmo_2\)-condition, which can be dropped. We get the following version. 
-
-
-\begin{proposition}\label{prop:continuous time deep mean variance hedging for semimartingales under compactness}
-    Assume the \(X=X_0+M+A\) is a continuous semimartingale in \(\mathcal{S}_{loc}^2\), such that \(\mathbb{P}^2_e(X)\neq \emptyset\). Furthermore, assume that some \(Q\in\mathbb{P}^2_e(X)\) satisfies the \(\mathcal{R}_2(P)\) inequality. Let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_{\infty}\)-measurable random variable. Furthermore, assume \(\mathcal{F}_0\) to be trivial. Then:
-\begin{equation}\label{eq:martingale setup, continuous deep variance hedging}
-    \min_{c\in\mathbb{R},\,\vartheta\in L^2(M,A)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]
-    \,=\,\inf_{c\in\mathbb{R},\,\vartheta\in \widetilde{\mathcal{E}}(\psi)}
-    \mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]\;,
-\end{equation}
-\end{proposition}
-\begin{proof}
-    This version uses that according to \parencite[Thm.~3.7]{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM}, if \(G_T(\Theta)\) is closed in  \(\mathcal{L}^2(P)\), \(A\) is continuous and \(Q\in\mathbb{P}^2_e(X)\), then \(D_2(P)\) holds. Hence, \(L^2(M,A)=L^2(M)\) and the mean-variance solutions exists. 
-\end{proof}
-Recall that \(D_2(P)\) holds if and only if \(\exists\lambda\) and \(\lambda\bullet X\in bmo_2\). Thus the \(bmo_2\)-condition from the previous version still holds. 
-\bigbreak
-\textcolor{blue}{The idea is that the condition in \cref{def:condition SC_strong} are sufficient conditions but not necessary (it would be nice if I could show this with a counter example) for \(D_2(P)\). The structure condition from \parencite{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM} are necessary conditions. If one now looks for necessary and sufficient conditions and has to conider \textit{bmo}. Also in the continuous case, one has the implication that if \(G_T(\Theta)\subset L^2(P)\) is closed, then \(D_2(P)\) holds. This implication is not true if \(X\) is not continuous. On the other hand if \(D_2(P)\) holds, \(G_T(\Theta)\) is obviously closed because then \(\Theta = L^2(M)\) and it is well known that \(G_T(L^2(M))\subset L^2(P)\) is closed.}
+}
 
 
 \chapter{Conclusion and Outlook}
@@ -2516,6 +2670,58 @@ Denoting \(Z\coloneqq H-V_0\) for some fixed \(H,V_0\), we find
     &C(X)\left(1+2n\right)\lVert \vartheta-\vartheta'\rVert\;.
 \end{align*}
 Hence the map \(J\) is 1-Lipschitz and thus (uniformly) continuous.
+
+
+\section{With loss of generality argument }\label{Appendix:w.l.o.g.}
+We give some details on why we can assume \(\theta\bullet A\) to be increasing w.l.o.g. For this we need the following result from \parencite{AnselStricker1992LoisMartingale} in particular \parencite[Thm.~7]{AnselStricker1992LoisMartingale}. 
+\begin{theorem}
+Let \(D\) be an increasing, predictable, right-continuous process, and let
+\(A\) be a predictable, right-continuous process of finite variation. Let
+\(p\in(1,\infty)\), and let \(q\) be its conjugate exponent, i.e. \(\frac{1}{p}+\frac{1}{q}=1.\)
+If the set
+\[
+    \mathcal{P}(A,D)=\left\{
+        \int_0^1K_s\diff A_s :
+        K \text{ predictable and bounded, and }
+        \int_0^1 |K_s|^p\,dD_s \leq 1
+    \right\}
+\]
+is bounded in \(L^0\), then there exists a predictable process \(\alpha\)
+such that
+\[
+    \diff A_s = \alpha_s\diff D_s
+\]
+and
+\[
+    \int_0^1 |\alpha_s|^q\,dD_s < \infty.
+\]
+\end{theorem}
+We check that we can apply this theorem to with \(D=|A|\). By assumption \(A\) is continuous hence \(|A|\) continuous as well and hence preditable, as a left-continuous adapted process. Clearly \(|A|\) is increasing. Then due to Hölder applied pathwise
+\begin{equation}
+    \int_0^1|K_s|\diff |A|_s\leq \left(\int_0^1|K_s|^p\diff |A|_s\right)^{1/p}|A|_1^{1/q}\leq|A|_1^{1/q}\;,
+\end{equation}
+as \(\int_0^1|K_s|^p\diff |A|_s\leq 1\) by assumption. But \(A\) has finite variation hence
+\(\forall \epsilon>0\) there exists an \(M>0\) such that
+\begin{equation}
+    \mathbb{P}(|A|_1^{1/q}>M)<\epsilon\;.
+\end{equation}
+Hence \(\mathcal{P}(A,|A|)\) is bounded in \(L^0\) and thus there exists a predictable density \(\alpha_s\). Furthermore 
+\begin{equation}
+    dA_s = \alpha_s\diff D_s
+\end{equation}
+implies that \(|\alpha_s|=1\). Hence
+\begin{equation}
+    \alpha_s\epsilon_s
+\end{equation}
+is predictable and takes values in \(\left\{-1,1\right\}\). Finally let
+\begin{equation}
+    sgn(\alpha\theta)_s\coloneqq signum(\alpha_s\theta_s)=1_{\alpha_s\theta_s>0}-1_{\alpha_s\theta_s\leq 0}\;.
+\end{equation}
+Note that \(sgn(\alpha_s\theta_s)\) is predictable as linear combination of indicators of predictable sets  (because \(\alpha\) is predictable and \(\vartheta\in L^2(M)\cap L^2(A)\) as well). Hence 
+\begin{equation}
+    \theta\bullet A=sgn(\theta_s\alpha_s)\theta_s\alpha_s\bullet |A|
+\end{equation}
+is non-decreasing. Does if \(\theta\bullet A\) is not non-decreasing, apply the theorem to \(\theta\alpha\bullet A\). The conclusion remainse the same for the predictable process \(\widetilde{\epsilon}=\epsilon\alpha\) which takes values in \(\left\{-1,1\right\}\).
 \end{appendices}
 \end{document}
 
