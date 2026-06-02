@@ -21,6 +21,7 @@
 \usepackage{graphicx}
 \usepackage{booktabs}               % professional tables
 \usepackage{array}
+\usepackage{tabularx}               % tables with automatic line-wrapping columns (good for symbol lists)
 \usepackage{multirow}
 \usepackage{caption}
 \usepackage{subcaption}
@@ -144,11 +145,13 @@
 \usepackage{pdfpages}
 
 % -------------------------------------------------
-% Nomenclature / symbols list (optional but common in math finance)
+% Notation / symbols list
 % -------------------------------------------------
-\usepackage[intoc]{nomencl}
-\makenomenclature
-% Example: \nomenclature{$W_t$}{Standard Brownian motion}
+% We keep the notation list local (defined and typeset in one place) using a table in the front matter.
+% (So we do NOT use the nomencl index-based workflow here.)
+% \usepackage[intoc]{nomencl}
+% \makenomenclature
+% Example (if you ever switch back): \nomenclature{$W_t$}{Standard Brownian motion}
 
 % -------------------------------------------------
 % Header / footer (simple, thesis-friendly)
@@ -213,9 +216,25 @@
 \textit{Placeholder acknowledgements.}
 
 \tableofcontents
+\cleardoublepage
 
+\chapter*{Notation}
+\addcontentsline{toc}{chapter}{Notation}
+\noindent
+This thesis uses standard notation. The main symbols used throughout are collected here for quick reference.
 
-\printnomenclature
+\vspace{0.75\baselineskip}
+\noindent\begin{tabularx}{\textwidth}{@{}>{$}l<{$} X@{}}
+\toprule
+\text{Symbol} & \text{Meaning}\\
+\midrule
+\mathcal{L}^0(\Omega,\mathcal{F};\mathbb{R}) & Set of $\mathcal{F}$-measurable real-valued maps, that is set of real-valued random variables.\\
+\mathcal{L}^p(\Omega,\mathcal{F},\mu;\mathbb{R}),\ p\in[1,\infty) & Set of $\mathcal{F}$-measurable real-valued maps $f$ such that $\lVert f\rVert_{L^p}^p=\int_{\Omega}|f|^p\diff \mu<\infty$ is $\mathbb{P}$-integrable.\\
+\mathcal{L}^{\infty}(\Omega,\mathcal{F},\mu;\mathbb{R}), & Set of $\mathcal{F}$-measurable real-valued maps $f$ such that $\lVert f\rVert_{\infty}=\underset{\mathbb{P}}{\operatorname*{ess\sup}}|f|<\infty$ is $\mathbb{P}$-integrable.\\
+L^p(\Omega, \mathcal{F},\mu;\mathbb{R}),\quad p\in [0,\infty] & quotient space of \(\mathcal{L}^p\) with respect to the equivalence relation \(f\sim g\iff \lVert f-g\rVert_{L^p}=0\)
+\bottomrule
+\end{tabularx}
+
 \cleardoublepage
 
 % =================================================
@@ -238,16 +257,18 @@ We formulate hedging from the perspective of a seller of a European call option.
 \begin{align}
     H = \max(X_T-K,0)\;.
 \end{align}
-Note that the price \(S\) at maturity of the underlying asset is modeled to be stochastic whereas the strike price is deterministic. Hence, for a given state of the world \(\omega\), the random payoff of the European call option is \(H(\omega)=\max(X_T(\omega)-K,0)\).
+Here \(T<\infty\) is the strike time, that the what we mean by maturity.
+\\\\
+Note that the price \(S\) at maturity of the underlying asset is modeled to be stochastic, whereas the strike price is deterministic. Hence, for a given state of the world \(\omega\), the random payoff of the European call option is \(H(\omega)=\max(X_T(\omega)-K,0)\).
 \bigbreak
 From the perspective of the seller of the European call option, the gain of the buyer of the European call option is the amount of money he is obliged to pay. We call this a \textit{liability}. Intuitively, the seller will ask for a price for the option equal to the expected payoff of the option. In order for the seller to be able to pay out the payoff of the call option, he might be interested in investing in the stock market himself and hoping to make at least a profit that enables him to compensate for his liability. This is what we call \textit{Hedging}. The questions arising are hence: Is there a trading strategy that will give me, almost surely, a gain at least equal to the payoff of the liability? If not, how close can I get? What does it mean to be close? What is the right price I should ask for the option? In order to give satisfactory answers, we will introduce a more technical framework, allowing us to give a precise definition of the problem at hand.
 \section{Self-financing strategies and trading gains}
-In order to model the stochastic nature of the hedging problem, we naturally want to start with a filtered probability space \((\Omega,\mathcal{F},\mathbb{F},\mathbb{P})\) with a filtration \(\mathbb{F}=(\mathcal{F}_t)_{t\in I}\), for \(I=[0,T]\) subset of \(\mathbb{R}_+=[0,\infty)\) with \(T\in\mathbb{R}_+\) or a subset of \(\mathbb{N}\) with \(T\in\mathbb{N}\). If it makes sense, we might take, \(T=\{\infty\}\), in which case \(I=\overline{\mathbb{R}}=\mathbb{R}_+\cup\{\infty\}\) or \(\overline{\mathbb{N}}=\mathbb{N}\cup\{\infty\}\). In either case, we call \(T\) the final time.\\
-Hence, \(\mathcal{F}_t\subset\mathcal{F}\) is non-decreasing in \(t\in I\) as a sequence of sub-\(\sigma\) fields. \(\mathcal{F}_t\) models the knowledge available at time \(t\); hence, the filtration \(\mathbb{F}\) models the flow of available information through time. More precisely, \(\mathbb{F}\) shall not be any filtration but one generated by market information. The latter is modeled as a \(\mathbb{R}^{r}\)-valued random process \(Y=(Y_t)_{t\in I}\), where \(r\) is a natural number. Hence, we define the raw filtration generated by the information process \(Y\) as \(\mathcal{F}_t^0=\sigma(Y_s:0\leq s\leq t)\). For the canonical completion of the latter, we denote \begin{equation}
+In order to model the stochastic nature of the hedging problem, we naturally want to start with a filtered probability space \((\Omega,\mathcal{F},\mathbb{F},\mathbb{P})\) with a filtration \(\mathbb{F}=(\mathcal{F}_t)_{t\in I}\), for \(I=[0,T]\) subset of \(\mathbb{R}_+=[0,\infty)\) with \(T\in\mathbb{R}_+,\mathbb{N}\) or \(T=\infty\) if it makes sense. Note that for theoretical purposes, a formulation with \(T=\{\infty\}\) is more general; nevertheless, in a practical finance context, a finite \(T\) makes more sense. If \(T=\infty\) we take \(I=\overline{\mathbb{R}}=\mathbb{R}_+\cup\{\infty\}\) respectively \(\overline{\mathbb{N}}=\mathbb{N}\cup\{\infty\}\). In either case, we call \(T\) the final time.\\
+Hence, \(\mathcal{F}_t\subset\mathcal{F}\) is non-decreasing in \(t\in I\) as a sequence of sub-\(\sigma\) fields. \(\mathcal{F}_t\) models the knowledge available at time \(t\); hence, the filtration \(\mathbb{F}\) models the flow of available information through time. To make this point clearer, \(\mathbb{F}\) shall not be any general filtration, but one generated by a stochastic process encoding the information available in the market. This process is modeled as a \(\mathbb{R}^{r}\)-valued random process \(Y=(Y_t)_{t\in I}\), where \(r\) is a natural number. Hence, we define the raw filtration generated by the information process \(Y\) as \(\mathcal{F}_t=\sigma(Y_s:0\leq s\leq t)\). For the canonical completion of the latter, we denote \begin{equation}
     \overline{\mathcal{F}}_t=\sigma(Y_s:0\leq s\leq t)\vee \mathcal{N}_{\mathbb{P}}\;,
 \end{equation} where 
 \begin{equation}\label{eq:nullsets}
-    \mathcal{N}_{\mathbb{P}}=\left\{A\in2^{\Omega}:\exists B\in\mathcal{F}, A\subset B, \mathbb{P(B)}=0\right\}\;.
+    \mathcal{N}_{\mathbb{P}}=\left\{A\in2^{\Omega}:\exists B\in\mathcal{F}, A\subset B, \mathbb{P}(B)=0\right\}\;.
 \end{equation} 
 Then \(\mathbb{F}^0\) and  \(\mathbb{F}\) denote the raw and completed filtration respectively generated by the market information \(Y\). We give a useful charaterisation of the completed \(\sigma\)-algebra as stated in \parencite[Thm.~1.9]{Folland1999RealAnalysis}
 \begin{lemma}\label{lemma:characterisation of completed sigma-algebra}
@@ -257,44 +278,50 @@ Then \(\mathbb{F}^0\) and  \(\mathbb{F}\) denote the raw and completed filtratio
 \begin{proof}
     The fact that \(\mathcal{C}\) is a \(\sigma\)-algebra can be found in \parencite[Thm.~1.9]{Folland1999RealAnalysis}. The equality follows from \(\overline{\mathcal{F}}=\sigma(\mathcal{C})\) by definition and the fact that \(\mathcal{C}\) is a \(\sigma\)-algebra.
 \end{proof}
-The price of \(d+1\) tradable assets will be modeled by a \(\mathbb{R}_+^{d+1}\)-valued random process \(S = (S_t)_{t\in\mathbb{R}_+}\), with \(S_t(\omega) = (S_t^0(\omega),\dots,S_t^d(\omega))\in \mathbb{R}_+^d\) for every \(t\in I\). Naturally, the stochastic process \(S\) is assumed to be \(\mathbb{F}\)-adapted, i.e., the random variable \(S_t\) is \(\mathcal{F}_t\)-measurable. In other words, the price of the asset \(S\) at time \(t\) is supposed to be known at time \(t\) (and not in advance). We interpret \(S^0\) as the bank account or any other risk free asset. To fix the units of the asset prices once and for all, we define \(X_t^{i}=S_t^{i}/S_t^0\). Hence, \(S_t^0 = 1\) for all times, and we call \(X\) the \textit{discounted} price process.
+The price of \(d+1\) tradable assets will be modeled by a \(\mathbb{R}_+^{d+1}\)-valued random process \(S = (S_t)_{t\in\mathbb{R}_+}\), with \(S_t(\omega) = (S_t^0(\omega),\dots,S_t^d(\omega))\in \mathbb{R}_+^d\) for every \(t\in I\). We call \(S\) the price process. Naturally, the stochastic process \(S\) is assumed to be \(\mathbb{F}\)-adapted, i.e., the random variable \(S_t\) is \(\mathcal{F}_t\)-measurable. In other words, the price of the assets modeled by \(S\) at time \(t\) is supposed to be known at time \(t\) (and not in advance). We interpret \(S^0\) as the bank account or any other risk free asset. To fix the units of the asset prices once and for all, we define \(X_t^{i}=S_t^{i}/S_t^0\). Hence, \(S_t^0 = 1\) for all times, and we call \(X\) the \textit{discounted} price process. We will still refer to the discounted price process \(X\) as the price process, as we shall always refer to the discounted version. Thus, there is no risk of confusion.
 \\\\
-We may want to trade in these \(d+1\) assets by holding a certain number \(\vartheta_t\) of risky assets \(X_t^i,\;i=1,\dots,d\) and a number \(\eta\) of risk-free assets \(X_t^0\equiv 1\). We call the process \((\vartheta,\eta)\) a \textit{trading position} or a \textit{portfolio}. This trading position can be adjusted dynamically and generally evolves stochastically over time. We don't want to allow insider trading, i.e., knowing the price at time \(f\) of a risky asset before time \(t\), hence giving the possibility to adjust the prices in a way that makes a profit with probability 1. In order to enforce this requirement, we require strategies to \textit{predictable} that measurable with respect to the predictable \(\sigma\)-algebra \(\mathbb{P}\).
+We may want to trade in these \(d+1\) assets by holding a certain number \(\vartheta_t\) of risky assets \(X_t^i,\;i=1,\dots,d\) and a number \(\eta\) of risk-free assets \(X_t^0\equiv 1\). We refer to \(\vartheta\) as the \textit{trading strategy} and call the process \((\vartheta,\eta)\) a \textit{portfolio}. It can be adjusted dynamically and generally evolves stochastically over time. We don't want to allow insider trading, i.e., knowing the price at time \(f\) of a risky asset before time \(t\), hence giving the possibility to adjust the prices in a way that makes a profit with probability 1. In order to enforce this requirement, we require strategies to \textit{be predictable} or \(\mathbb{F}\)-\textit{predictable}; that is, we require that the value of \(\vartheta_t\) is known just before time \(t\) (the trader cannot look at what happens at time \(t\) in the market and decide accordingly). 
 The discounted \textit{wealth process} is then defined as 
 \begin{equation}
     V_t = \vartheta^{tr}X_t+\eta_t1\;.
 \end{equation}
-By trading the assets \(X\), the accumulated gains and losses up to time \(t\) amount to \(G_t(\vartheta) = (\vartheta \bullet X)_t\).
-\\ In the case \(I=\mathbb{N},\;\overline{\mathbb{N}}\) we have: 
+By trading the assets \(X\), we denote the accumulated gains and losses up to time \(t\), amounting to \(G_t(\vartheta) = (\vartheta \bullet X)_t\). 
+\\ In the case \(I=\overline{\mathbb{N}}\cap [0,T]\) we have: 
 \begin{equation}\label{eq:discrete accumulated gains}
     (\vartheta \bullet X)_t=\sum_{k=1}^{n}\vartheta_k(X_{k}-X_{k-1})
 \end{equation}
-and for \(I=\mathbb{R},\;\overline{\mathbb{R}}\):
+and for \(I=\overline{\mathbb{R}}\cap [0,T]\):
 \begin{equation}\label{eq:continuous accumulated gains}
     (\vartheta \bullet X)_t=\int_0^t\vartheta_s\diff X_s\;,
 \end{equation} 
-where the right hand side denotes the stochastic integral of \(\vartheta\) with respect to \(X\). We deliberately use the generic notation \((\vartheta \bullet X)_t\), referring to both as stochastic integrals and will only use the explicit definition if needed. Nevertheless, the representation \cref{eq:discrete accumulated gains} explains why the adaptiveness of \(\vartheta\) suffices to prohibit insider trading and the theory of stochastic integration (see \parencite{Protter2005StochasticIntegration}).
+where the right hand side denotes the stochastic integral of \(\vartheta\) with respect to \(X\). While \cref{eq:discrete accumulated gains} needs no further justification, we refer to \parencite{Protter2005StochasticIntegration} for the construction and properties of the stochastic integral \cref{eq:continuous accumulated gains}. For a sketch of its construction, we also refer to \cref{sec:Stochastic Integration for square integrable Martingales} and \cref{sec:Stochastic Integration for square integrable Martingales}.
 \\
-We denote \(\mathcal{L}(X)\) the set of \(X\)-integrable processes \(\vartheta\), that is the set,depending on \(X\), of \(\vartheta\) for which \(\vartheta\bullet X\) is well-defined.
-\\\\
-Up to this point, we allow for external cash flow or costs. The cumulative amount of cash injected or taken out is given by the cumulative cost process \(C_t = V_t - (\vartheta \bullet X)_t\). Requiring that there is no external cash flow for \(t\in I\) makes the portfolio \textit{self-financed} and the cumulative cost process constant, equal to the initial value of the  portfolio \(C_t=V_0\quad\forall t\in I\). Hence, for a self-financing strategy, the value process \(V\) takes the form
+We denote by \(\mathcal{L}(X)\) the set of \(X\)-integrable processes \(\vartheta\), that is the set, depending on \(X\), of \(\vartheta\) for which \(\vartheta\bullet X\) is well-defined. As stated this depends on properties of the integrator \(X\) and will be made explicite in the respective cases through-out this article. 
+\bigbreak
+Up to this point, we allow for external cash flow or costs. The cumulative amount of cash injected or taken out is given by the cumulative cost process 
+\begin{equation}
+    C_t = V_t - (\vartheta \bullet X)_t\;. 
+\end{equation}
+Requiring that there is no external cash flow for \(t\in I\) makes the portfolio \textit{self-financed} and the cumulative cost process constant, equal to the initial value of the  portfolio \(C_t=V_0\quad\forall t\in I\). Hence, for a self-financing strategy, the value process \(V\) takes the form
 \begin{equation}\label{eq:self financing strategy}
     V_t(\vartheta) = V_0 + (\vartheta\bullet X)_t=V_0+G_t(\vartheta)\;.
 \end{equation}
 Notice that \cref{eq:self financing strategy} is fully determined by \(V_0\) and the process \(\vartheta\). Indeed, \(\vartheta\) and \(V_0\) determine \(V_t\) by  \cref{eq:self financing strategy}. Finally, \(\eta\) is then determined by \(V_t = \vartheta^TX_t+\eta_t\). Hence, we denote a self-financing strategy by \((V_0,\vartheta)\). For the clarity of exposition, we introduce the notation. In the spirit of the distinction made for Let \(\Theta\) be a subset of \(\mathbb{F}\)-predictable, real-valued stochastic processes:
-\begin{equation}
-    \Theta\subset\left\{\vartheta=(\vartheta_{t\in I}):\vartheta \text{ is }\mathcal{P}\text{-measurable}\right\}\cap\mathcal{L}(X)\;
+\begin{equation}\label{eq:Theta}
+    \Theta\subset\left\{\vartheta=(\vartheta_{t\in I}):\vartheta \text{ is }\mathcal{P}\text{-measurable}\right\}\cap\mathcal{L}(X)\;\footnotemark
 \end{equation}
+\footnotetext{From \parencite{Protter2005StochasticIntegration} the most general class of integrable processes, if \(X\) is a semimartingale, are predictable processes. First we don't assume that the reader is familiar with this, secondly \cref{eq:Theta} conceptually says that elements in \(\Theta\) should be predictable to forbid insider trading and integrable so that the gains process is well-defined. In any case \cref{eq:Theta} might be overly complicted but nevertheless correct}
 where \(\mathcal{P}\) is the \(\sigma\)-algebra on \(\Omega\times I\) generated by the \(\mathbb{F}\)-adapted, left-continuous processes.
 Then 
 \begin{equation}
     \mathcal{A}(\Theta)\coloneqq \mathbb{R}+G_T(\Theta)=\left\{V_0+(\vartheta \bullet X)_T:(V_0,\vartheta)\in\mathbb{R}\times \Theta\right\}\;,
 \end{equation}
-where \(T\in I\) is the final time in \(I\) and \(G_T(\Theta)=\left\{(\vartheta \bullet X)_T:\vartheta\in \Theta\right\}\).\\
-Hence, \(\mathcal{A}(\Theta)\) defines the space of value processes for self-financing strategies \((V_0,\vartheta)\in\mathbb{R}\times \Theta\) We fix \(X=(X_0,\dots,X_d)\) once and for all and won't make the dependency of \(\mathcal{A}(\Theta))\) in \(X\) explicit. Furthermore, we will abuse notation and write \((V_0,\vartheta)\in\mathcal{A}(\Theta)\) meaning that \( 
+where \(T\) is the final time and \(G_T(\Theta)=\left\{(\vartheta \bullet X)_T:\vartheta\in \Theta\right\}\).\\
+Hence, \(\mathcal{A}(\Theta)\) defines the space of terminal values of portfolios \((V_0,\vartheta)\in\mathbb{R}\times \Theta\). We fix \(X=(X_0,\dots,X_d)\) once and for all and won't make the dependency of \(\mathcal{A}(\Theta)\) on \(X\) explicit. Furthermore, we will abuse notation and write \((V_0,\vartheta)\in\mathcal{A}(\Theta)\) meaning that \( 
 V_0+\vartheta\in\mathcal{A}(\Theta)\).
+
 \section{General idea of hedging}
-For the sake of a simple exposition of the underlying concepts, we introduce a finite horizon \(T\in\mathbb{R}_+\); i.e., we consider all the processes up to here (S,X,V,C,\(\vartheta\),\(\eta\)) as processes indexed by \(t\in[0,T]\). We call \(T\) the final time or a fixed time of maturity. Then \(V_T = V_0 + \int_{0}^T\vartheta_s \diff X_s\) is the final time value of the self-financing strategy \((V_0,\vartheta)\). As explained in the \cref{sec:hedging} we want to hedge a liablity \(H\) which we model to be a real-valued random variable whose value is known at a time \(T\geq 0\), i.e. \(H\in\mathcal{L}^0(\Omega,\mathcal{F}_T;\mathbb{R})\). For an concrete example, one might think of \(H\) as a europian call option and \(T\) the strike time of that option.
+As explained in the \cref{sec:hedging} we want to hedge a liablity \(H\) which we model to be a real-valued random variable whose value is known at the final time \(T\geq 0\), i.e. \(H\in\mathcal{L}^0(\Omega,\mathcal{F}_T;\mathbb{R})\). For an concrete example, one might think of \(H\) as a europian call option and \(T\) the strike time of that option.
 \\
 We call a contingent claim \textit{attainable} if there exists a self-financing strategy \((\vartheta,\eta)\) such that
 \begin{equation}\label{eq:atteinable strategy}
@@ -324,9 +351,9 @@ Note that we are not enforcing continuity. Nevertheless, if \(\Omega=\{\omega_1,
 \\\\
 The above conditions can be translated in practical assmuptions. The monotonicity reflects the fact that a position with a larger payoff has a smaller risk assosciated to it. Convexity formalizes the idea that diversification lowers risk. Cash invariance then models the simple idea that injecting capital lowers the risk of the position by that same amount.
 \\\\
-Furthermore, we call a trading \(X\) \(\rho\)-acceptable if \(\rho(X)\leq 0\), and we call \(X\) to be a \(\rho\)-indifferent trading position if \(\rho(X) = \rho(0)\); i.e., holding the trading position \(X\) is equivalent, from the point of view of the convex risk measure \(\rho\), to not investing at all. We call \(\rho\) normalized if \(\rho(0)=0\).
+Furthermore, we call a trading \(X\) \(\rho\)-acceptable if \(\rho(X)\leq 0\), and we call \(X\) to be a \(\rho\)-indifferent portfolio if \(\rho(X) = \rho(0)\); i.e., holding the portfolio \(X\) is equivalent, from the point of view of the convex risk measure \(\rho\), to not investing at all. We call \(\rho\) normalized if \(\rho(0)=0\).
 \\\\
-Notice that by cash invariance \(\rho(X+\rho(X))=0\). In other words, \(\rho(X)\) is the smallest amount of cash that needs to be added to the trading position \(X\) in order to make it \(\rho\)-acceptable. 
+Notice that by cash invariance \(\rho(X+\rho(X))=0\). In other words, \(\rho(X)\) is the smallest amount of cash that needs to be added to the portfolio \(X\) in order to make it \(\rho\)-acceptable. 
 \bigbreak
 We now consider the following minimization problem. Let \(\rho\) be a convex risk measure and \(H\in \mathcal{L}^0(\mathcal{F}_T,\mathbb{P};\mathbb{R})\) a liability. Then
 \begin{equation}\label{eq:risk measure hedging}
@@ -339,7 +366,7 @@ We interpret \(\pi(X)\) as the hedging error under optimal hedging, or equivalen
     \\&\leq \alpha\inf_{\vartheta_1\in\Theta}\rho( (H_1-V_0-(\vartheta_1\bullet X)_T)+(1-\alpha)\inf_{\vartheta_2\in\Theta}\rho( (H_2-V_0-(\vartheta_2\bullet X)_T)
 \end{align*}
 Taking \(\inf_{V_0\in\mathbb{R}}\) of the above inequality yields \(\pi(\alpha H_1+(1-\alpha) H_2)\leq \alpha\pi(H_1)+(1-\alpha)\pi(H_2)\), where we used the convexity of \(\Theta\) in the second step and the convexity of \(\rho\) in the third step.
-\\
+\\\\
 Notice an important subtlety about \cref{eq:risk measure hedging}. Due to the cash-invariance property of the convex risk measure \(\rho\) we have 
 \begin{align*}
     \pi(H) = &\inf_{(V_0,\vartheta)\in\mathcal{A}(\Theta)}\rho\left(H-V_0-(\vartheta\bullet X)_T\right)\\
@@ -348,13 +375,13 @@ Notice an important subtlety about \cref{eq:risk measure hedging}. Due to the ca
 \end{align*}
 if \(\rho\left(H-(\vartheta\bullet X)_T\right)\) is finite,
  we can take \(V_0\) arbitrarily negative.\footnote{ If \(\rho\left(H-(\vartheta\bullet X)_T\right)=+\infty\) the problem is again ill defined.} In this sense, the problem is ill defined. Hence, either we restrict our admissible strategies to those that are lower bounded by some real value \(-b\leq 0\), or we can put additional assumptions on the convex risk measure \(\rho\) (see \parencite{Xu2006RiskMeasurePricingHedging} for a sufficient treatment of this matter). 
-Alternatively, we can take a different point of view and consider a fixed and finite \(V_0^*\in\mathbb{R}\) and analyze the minimization problem 
+Alternatively, we can take a different point of view and consider a fixed, finite and deterministic \(V_0^*\in\mathbb{R}\) and analyze the minimization problem 
 \begin{equation}\label{eq:risk measure heding with fixed initial capital}
     \inf_{\vartheta\in\Theta}\rho\left(H-V_0^*-(\vartheta\bullet X)_T\right)\;.
 \end{equation}
 This situation can be motivated and related to the realistic scenario where \(V_0^*\) is determined as a result of trading derivatives in the market at competitive prices. The infimum of \cref{eq:risk measure heding with fixed initial capital} might still not be finite.  In the case where \(\Omega\) is finite, it is enough to require \(\pi(0)>-\infty\), as shown in \parencite[Cor.~3.5.]{Buehler2018DeepHedging}, which we recall at this point. 
 \begin{lemma}\label{lemma:Finiteness of inf for finite sample space}
-    Assume \(\Omega = (\omega_1,\dots,\omega_N)\) for \(N\in\mathbb{N}\) and \(\pi(0)>-\infty\). Then \(\pi(Z)>-\infty\) for all \(Z\in\mathcal{L}^0(\mathcal{F}_T,\mathbb{P};\mathbb{R})\)\;.
+    Assume \(\Omega = \left\{\omega_1,\dots,\omega_N\right\}\) for \(N\in\mathbb{N}\) and \(\pi(0)>-\infty\). Then \(\pi(Z)>-\infty\) for all \(Z\in\mathcal{L}^0(\mathcal{F}_T,\mathbb{P};\mathbb{R})\)\;.
 \end{lemma}
 \begin{proof}
     Indeed, as \(\Omega\) is finite, the se \(\sup_{\omega\in\Omega} X(\omega)\equiv\sup X<\infty\). Hence, using the monotonicity of the convex risk measures \(\pi\) and \(\pi(X)\geq\pi(\sup X)=\pi(0)-\sup X>-\infty\).
@@ -375,14 +402,17 @@ For the second choice of hedging measure \(d\) we take the \(L^2\)-norm that is 
 \inf_{(V_0,\vartheta)\in\mathcal{A}(\Theta)}\mathbb{E}[\left(H-V_0-(\vartheta\bullet X)_T)\right)^2]\;,
 \end{equation}
 for some fixed \(V_0\in\mathbb{R}\).
-In this context, if a solution of the form \((V_0^*,\vartheta^*)\in\mathcal{A}(\Theta)\) exists, we call \(V_0^*\) the \(\Theta\)-mean-variance price and \(\vartheta^*\) the \(\Theta\)-mean-variance strategy. We mgiht not always make the dependency on \(\Theta\) explicit, if it clear from the context.
+In this context, if a solution of the form \((V_0^*,\vartheta^*)\in\mathcal{A}(\Theta)\) exists, we call \(V_0^*\) the \(\Theta\)-mean-variance price and \(\vartheta^*\) the \(\Theta\)-mean-variance strategy. We might not always make the dependency on \(\Theta\) explicit if it is is clear from the context.
 \begin{remark}\label{rem:if G_T closed then mean variance hedging is projection onto closed hilbert subspace}
     Observe that \cref{eq:mean squared hedging} doesn't suffer from the same ill posedness issue as \cref{eq:risk measure hedging} as \(V_0\) enters quadratically.
-Furthermore, notice that if \(G_T(\Theta)\) is a closed subspace of \(L^2\), then \cref{eq:mean squared hedging} reduces to a \(L^2\) projection problem of the \(L^2\)-random variable \(H\) onto \(G_T(\Theta)\). 
+Furthermore, notice that if \(G_T(\Theta)\) is a closed subspace of \(L^2\), then so is \(\mathcal{A}(\Theta)\) and \cref{eq:mean squared hedging} reduces to a \(L^2\) projection problem of the \(L^2\)-random variable \(H\) onto \(\mathcal{A}(\Theta)\). 
 Indeed, then \cref{eq:mean squared hedging} asks for the element in the closed subspace \(\mathcal{A}(\Theta)\) that minimizes the \(L^2\)-distance. Recalling that \((L^2(\mathbb{R)},\lVert\cdot\rVert_{L^2})\) is a Hilbert space, we get existence and uniqueness of the minizer of \cref{eq:mean squared hedging} from \parencite[Thm.~12.3]{Rudin1991FunctionalAnalysis}. 
 \end{remark}
 In particular, we are interested in the case where \(\mathcal{A}(\Theta)\) is a subspace of \(L^2(P)\). 
-Hence, from here on, in the context of mean-variance hedging, well shall assume \(\Theta\subset\Theta^2\coloneqq\left\{\vartheta\in\mathcal{L}(X)\text{, predictable}:(\vartheta\bullet X)_T\in L^2(\mathcal{F},\mathbb{P})\right\}\).
+Hence, from here on, in the context of mean-variance hedging, well shall assume 
+\begin{equation}
+    \Theta\subset\Theta^2\coloneqq\left\{\vartheta\in\mathcal{L}(X)\text{, predictable}:(\vartheta\bullet X)_T\in L^2(\mathcal{F},\mathbb{P})\right\}\;.
+\end{equation}
 Notice that due to the continuity of the map, \footnote{It follows as the composition of continuous functions: \(L^2\)-norm and addition in \(\mathbb{R}\). This uses the general fact that for \(f:X\to\mathbb{R}\) continuous for some topological space \(X\), we have for any subset (\(Y\subset X\)) that \(\inf d(Y)=\inf d(\overline{Y})\). For a short proof, see \cref{Appendix:Infima over closure}}.
 \begin{equation}
 \begin{cases}
@@ -394,12 +424,12 @@ the minimization problem \cref{eq:mean squared hedging} is equivalent to
 \begin{equation}\label{eq:mean squared hedging over closure}
 \inf_{V_T\in \overline{\mathcal{A}(\Theta)}}\mathbb{E}[\left(H-V_T\right)^2]\;,
 \end{equation}
-where the closure \(\overline{\mathcal{A}(\Theta)}=\overline{G_T(\Theta)+\mathbb{R}}\) is taken in \(L^2\). In particular, \(\overline{\mathcal{A}(\Theta)}\) is clearly closed in \(L^2(\mathbb{P})\), and hence, by the application of the Hilbert projection theorem, \cref{eq:mean squared hedging over closure} admits a unique solution in  \(\overline{\mathcal{A}(\Theta)}\). Nevertheless,, we can't infer an explicit expression for this solution other than that it is an \(L^2\) limit of portfolios \((V_0,\vartheta)\in\mathcal{A}(\Theta)\). In section \cref{...} we will see sufficient conditions such that \(\overline{\mathcal{A}(\Theta)}=\mathbb{R}+\overline{G_T(\Theta)}\). Then we can at least infer the mean-variance price, while still note revealing the structure of the mean-variance strategy. This makes sense if pricing is the major concern.\\\\
-If, however, we want to infer more explicitly regarding the mean-variance strategy, we will need to study conditions on \(\Theta\) for which \(G_T(\Theta)\) is closed in \(L^2(\mathbb{P})\). Indeed, if this is the case, by the same Hilbert projection argument, we get the existence of a unique \(V_T^*\in G_T(\Theta)\), which, as an element of \(G_T(\Theta)\), takes the form \(V_T^*=\int_0^T\vartheta^*\diff X_s\). We will see in \cref{...} that under the assumption that the price process \(X\) is continuous, we will even get more. 
+where the closure \(\overline{\mathcal{A}(\Theta)}=\overline{G_T(\Theta)+\mathbb{R}}\) is taken in \(L^2\). In particular, \(\overline{\mathcal{A}(\Theta)}\) is clearly closed in \(L^2(\mathbb{P})\), and hence, by the application of the Hilbert projection theorem, \cref{eq:mean squared hedging over closure} admits a unique solution in  \(\overline{\mathcal{A}(\Theta)}\). Nevertheless,, we can't infer an explicit expression for this solution other than that it is an \(L^2\)-limit of portfolios \((V_0,\vartheta)\in\mathcal{A}(\Theta)\). In section \cref{...} we will see sufficient conditions such that \(\overline{\mathcal{A}(\Theta)}=\mathbb{R}+\overline{G_T(\Theta)}\). Then we can at least infer the mean-variance price, while still not revealing the structure of the mean-variance strategy.  If pricing is the major concern, this might be satisfactory.  \\\\
+If, however, we want to infer more explicitly regarding the mean-variance strategy, we will need to study conditions on \(\Theta\) for which \(G_T(\Theta)\) is closed in \(L^2(\mathbb{P})\) depending on the properties of the price process \(X\). Indeed, if this is the case, by the same Hilbert projection argument, we get the existence of a unique \(V_T^*\in G_T(\Theta)\), which, as an element of \(G_T(\Theta)\), takes the form \(V_T^*=\int_0^T\vartheta^*\diff X_s\). We touch upon this question in \cref{sec:deep mean-square hedging in continuous time} and \cref{sec:extension of deep mean squared hedging to semimartingales}. In this case one might study explicit expressions of the mean-variance portfolio.
 
 
 \chapter{Deep Hedging in Discrete Time}\label{ch:Deep Hedging in Discrete Time}
-After establishing a good understanding of the hedging problem in general terms we further discuss deep hedging. We will approach it generally at first and then go into more detail into the set up and treatement of \parencite{Buehler2018DeepHedging}. Recall that the hedging problem, as we treat it in this article, is given by \cref{eq:general hedging} as the approximation of a liability \(H\) by the value process of a self-financing strategy \(\vartheta\in\Theta\) for some set of admissible trading strategies \(\Theta\) and some notion of closeness. 
+After establishing a good understanding of the hedging problem in general terms we further discuss deep hedging. We will approach it generally at first and then go into more detail into the set up and treatement of \parencite{Buehler2018DeepHedging}. Recall that the hedging problem, as we treat it in this article, is given by \cref{eq:general hedging} as the approximation of a liability \(H\) by the value process of a self-financing strategy \(\vartheta\in\Theta\) for some set of admissible trading strategies \(\Theta\) and some notion of closeness. In this section we shall require \(T<\infty\). 
 
 \section{The deep hedging framework of Bühler et al.}\label{sec:The deep hedging framework of Bühler et al.}
 The basic idea in deep hedging is to approximate the strategies \(\vartheta\in\Theta\) by a \textit{good} set of approximants. By good, we mean that the approximation should be arbitrarily exact and implementation friendly. The limiting exactness of our approximants is central to the theoretical development of \parencite{Buehler2018DeepHedging} as discussed in the following, and the practical importance of neural networks will motivate a specific choice for our approximation system. The specific setup we discuss in this chapter is based on a finite sample space \(\Omega\). 
@@ -407,7 +437,7 @@ The basic idea in deep hedging is to approximate the strategies \(\vartheta\in\T
 What makes \parencite{Buehler2018DeepHedging} particularly powerful is its practical generality, particularly allowing for trading costs. 
 The main problem that is directly addressed theoretically in \parencite{Buehler2018DeepHedging} is convex risk-measure hedging as introduced in \cref{eq:risk measure hedging}. In light of our discussion of the continuous time setup, we will nevertheless consider a frictionless market, that is, without trading costs. In this case, we will show how the theoretical results from \parencite{Buehler2018DeepHedging} apply to mean-variance hedging in the finite setup. This in particular adds to \parencite[Remark.~3.4]{Buehler2018DeepHedging} and conceptually links their work to our discussion of deep mean-variance hedging.
 
-What makes \parencite{Buehler2018DeepHedging} particularly powerful is its practical generality, especially in allowing for trading costs: \(C_t(\vartheta)\) and modeling of constrained strategies denoted by \(\mathcal{H}\subset\mathcal{H}û\), where the latter denotes the unconstrained strategies.
+What makes \parencite{Buehler2018DeepHedging} particularly powerful is its practical generality, especially in allowing for trading costs: \(C_t(\vartheta)\) and modeling of constrained strategies denoted by \(\mathcal{H}\subset\mathcal{H}^u\), where the latter denotes the unconstrained strategies.
 \\
 As the purpose of this exposition is to understand deep hedging and, in particular, its relation to deep mean-variance hedging, we won't assume unnecessary generality and will specialize in this case. 
 \begin{align}\label{eq:simplifying assumptions}
@@ -416,7 +446,7 @@ As the purpose of this exposition is to understand deep hedging and, in particul
 \end{align}
 where \(\Theta\) denotes the set of \(\mathbb{F}\)-predictable processes.
 \subsection{Market model and trading strategies}
-The current setup still follows, for the most part, the general setup described in \cref{sec:hedging}. Some simplifying assumptions are made that make the treatment technically easier compared to the general continuous time treatment, as discussed in \cref{sec:deep mean-square hedging in continuous time}. In particular, the main simplifications follow from the assumptions of a discrete financial market with a finite time horizon \(T\), finitely many trading times \(0=t_0<t_1<\dots<t_n=T\), and a finite sample space \(\Omega=\{\omega_1,\dots,\omega_N\}\). Hence, the market-filtration \(\mathbb{F}=(\mathcal{F})_{k=0}^n\), generated by the \(\mathbb{R}^r\)-valued market process \(Y=(Y_k)_{k=0}^n\), is also finitely generated in the sense that \(\mathcal{F}_k=\sigma(Y_0,\dots,Y_k)\). If we consider \(\mathcal{F}_k\) the available information up to time \(t_k\), we have, by the Doob-Dynkin lemma \parencite[Lemma.~1.14]{Kallenberg2002FoundationsModernProbability}, that any random quantity whose value can be deduced from the information available at time \(t_k\), that is any \(\mathcal{F}_k\)-measurable random variable, is a function of \(Y_0,\dots,Y_k\).  
+The current setup still follows, for the most part, the general setup described in \cref{sec:hedging}. Some simplifying assumptions are made that make the treatment technically easier compared to the general continuous time treatment, as discussed in \cref{sec:deep mean-square hedging in continuous time}. In particular, the main simplifications follow from the assumptions of a discrete financial market with a finite time horizon \(T\), finitely many trading times \(0=t_0<t_1<\dots<t_n=T<\infty\), and a finite sample space \(\Omega=\{\omega_1,\dots,\omega_N\}\) such that \(\mathbb{P}(\left\{\omega_i\right\})>0\) for all \(i=1,\dots,N\). Hence, the market-filtration \(\mathbb{F}=(\mathcal{F})_{k=0}^n\), generated by the \(\mathbb{R}^r\)-valued market process \(Y=(Y_k)_{k=0}^n\), is also finitely generated in the sense that \(\mathcal{F}_k=\sigma(Y_0,\dots,Y_k)\). If we consider \(\mathcal{F}_k\) the available information up to time \(t_k\), we have, by the Doob-Dynkin lemma \parencite[Lemma.~1.14]{Kallenberg2002FoundationsModernProbability}, that any random quantity whose value can be deduced from the information available at time \(t_k\), that is any \(\mathcal{F}_k\)-measurable random variable, is a function of \(Y_0,\dots,Y_k\).  
 \bigbreak
 Recall that the optimization problem \cref{eq:risk measure hedging} is ill defined in the sense that \(\pi(H)=-\infty\) for all \(H\in\mathcal{L}^0(\mathbb{P},\mathcal{F}_T;\mathbb{R})\) if we don't put additional assumptions on \(\mathcal{A}(\Theta)\) and \(\rho\). An alternative, related problem, which doesn't suffer this degenerate behavior, is to consider 
 \begin{equation}\label{eq:risk measure hedging from buehler}
@@ -506,7 +536,7 @@ As we have argued previously in \cref{eq:f is in L1 for finite Omega} we have \(
  \begin{equation}
      \vartheta_k=f_k(Y_0,\dots,Y_{k-1})\;,
  \end{equation}
- for all \(k=0,\dots,n-1\). As argued in \cref{eq:f is in L1 for finite Omega} \(f_k\in L^1(\mathbb{R}^{rk},\mathcal{L}(Y_0,\dots,Y_{k-1}))\) because \(\Omega\) is finite. Let's denote \(\mu\coloneqq\mathcal{L}(Y_0,\dots,Y_{k-1})\). By the density of \(\Psi\) in \(L^1\), there exists a sequence of functions \(F_k^n\) converging to \(f_k\) in \(L^1(\mathbb{R}^{rk},\mu;\mathbb{R}^d)\) or, equivalently, \(\vartheta_k^n\coloneqq F_k^n(Y_0,\dots,Y_{k-1})\) converges to \(f_k(Y_0,\dots,Y_{k-1})\) in \(L^1(\Omega,\mathbb{P};\mathbb{R}^d)\) as \(n\to\infty\)\footnote{in the sense that \(\int_{\mathbb{R}^{r(k+1)}}\lVert f_k-F_k^n\rVert_{d}\diff \mu\to 0\) as \(n\to\infty\), where \(\lVert\cdot\lVert_d\) denotes the Euclidean norm on \(\mathbb{R}^d\)}. Passing to a subsequence and by a diagonal argument, we get \(\mathbb{P}\)-almost sure convergence for all \(k\) simultaneously. Morally speaking, we want to pass the limit \(n\to\infty\) inside \(\rho\). Even if \(\rho\) has sufficient regularity, \(\mathbb{P}\)-a.s. convergence is not enough to get the claim. Lukely we are in the finite setting, hence \(\mathbb{P}(\{\omega\})>0\) for all \(\omega\in\Omega\), hence \(\mathbb{P}\)-almost sure convergence is equivalent to convergence everywhere. Thus
+ for all \(k=0,\dots,n-1\). As argued in \cref{eq:f is in L1 for finite Omega} \(f_k\in L^1(\mathbb{R}^{rk},\mathcal{L}(Y_0,\dots,Y_{k-1}))\) because \(\Omega\) is finite. Let's denote \(\mu\coloneqq\mathcal{L}(Y_0,\dots,Y_{k-1})\). By the density of \(\Psi\) in \(L^1\), there exists a sequence of functions \(F_k^n\) converging to \(f_k\) in \(L^1(\mathbb{R}^{rk},\mu;\mathbb{R}^d)\) or, equivalently, \(\vartheta_k^n\coloneqq F_k^n(Y_0,\dots,Y_{k-1})\) converges to \(f_k(Y_0,\dots,Y_{k-1})\) in \(L^1(\Omega,\mathbb{P};\mathbb{R}^d)\) as \(n\to\infty\)\footnote{in the sense that \(\int_{\mathbb{R}^{r(k+1)}}\lVert f_k-F_k^n\rVert_{d}\diff \mu\to 0\) as \(n\to\infty\), where \(\lVert\cdot\lVert_d\) denotes the Euclidean norm on \(\mathbb{R}^d\)}. Passing to a subsequence and by a diagonal argument, we get \(\mathbb{P}\)-almost sure convergence for all \(k\) simultaneously. Morally speaking, we want to pass the limit \(n\to\infty\) inside \(\rho\). Even if \(\rho\) has sufficient regularity, \(\mathbb{P}\)-a.s. convergence is not enough to get the claim. Recall that we assumed, in the current finite setting, that \(\mathbb{P}(\{\omega\})>0\) for all \(\omega\in\Omega\), hence \(\mathbb{P}\)-almost sure convergence is equivalent to convergence everywhere. Thus
  \begin{equation}
      \lim_{n\to\infty}\vartheta_k^n(\omega)=\vartheta_k(\omega)\quad\forall\omega\in\Omega\;,k=0,\dots,n-1\;.
  \end{equation}
@@ -592,7 +622,7 @@ V_0\in\mathbb R,
 \vartheta\in\Theta
 \right\}\). This now gives a full account for the treatment of mean-variance hedging in the setup of \parencite{Buehler2018DeepHedging}.
 \bigbreak
-We remark that in the current setting, \cref{prop:finite deep mean variance hedging} can also be proved directly by observing that \(\overline{\Theta_{\infty}}^{\lVert\cdot\rVert}=\Theta\) and that the map \(\vartheta\lVert H-V_0-(\vartheta\bullet X)_T\rVert_{L^2}\) is continuous with respect to the norm induced by \(\lVert\cdot\lVert\). For details, we refer to the appendix \cref{Appendix:Direct proof of Finite Deep mean variance Hedging}
+We remark that in the current setting, \cref{prop:finite deep mean variance hedging} can also be proved directly by observing that \(\overline{\Theta_{\infty}}^{\lVert\cdot\rVert}=\Theta\) and that the map \(\vartheta\mapsto\lVert H-V_0-(\vartheta\bullet X)_T\rVert_{L^2}\) is continuous with respect to the norm induced by \(\lVert\cdot\lVert\). For details, we refer to the appendix \cref{Appendix:Direct proof of Finite Deep mean variance Hedging}
 \bigbreak
 The latter sets up the mean-variance hedging problem as a mathematically well-posed optimization problem. On the other hand, one might raise a valid concern that the quadratic criterion introduced symmetrically punished gains and losses. This is usually inappropriate as losses are modeled to be punished more severely than gains \textcolor{blue}{maybe find a paper on utility pricing that makes this precise as an economical assumption and put this as a reference.} To relieve this tension, we might formulate \cref{eq:mean squared hedging} under the martingale measure. Seen under the real world measure, the symmetry is then broken in general (see \cref{...}). \\\\
 This corresponds to taking the price-process \(X\) to be a locally square integrable martingale. The locally square integrable martingale case will be treated in \cref{sec:Mean Variance Hedging in square integrable setting}. One can still treat \cref{eq:mean squared hedging} as originally stated, under the real-world measure, and study its mathematical properties. The treatment then becomes more technical. We sketch it in \cref{sec:continuous hedging}, following \parencite{Schweizer2001GuidedTourQuadraticHedging} and \parencite{Schweizer1994ApproximatingRandomVariablesStochasticIntegrals}.
@@ -807,13 +837,13 @@ Note that the proof given for \cref{thm:density if NN in L^p} doesn't require an
     where \(\psi\) is continuous by assumption, and \(F\in X^*\) is hence in particular continuous. Hence \(G:X\to\mathbb{R}\) is continuous as a composition of continuous maps. The rest of the proof is completely analogous to \cref{thm:density if NN in C(K)}.
 \end{proof}
 \begin{theorem}\label{thm:density if NN in L^p(K,X)}
-    Let \(\psi\) be a discriminatory map, and \(K\subset X\) a compact subset and \(p\in[1,\infty)\). Then
+    Let \(\psi\) be a discriminatory map, and \(p\in[1,\infty)\). Then
     \begin{equation}
-         \overline{\mathcal{NN}_{\psi}(K)}^{\lVert\cdot\rVert_{L^p}}=L^p(X,\mu)\;.
+         \overline{\mathcal{NN}_{\psi}(X)}^{\lVert\cdot\rVert_{L^p}}=L^p(X,\mu)\;.
     \end{equation}
 \end{theorem} 
 \begin{proof}
-    Notice that \(\psi\), being discriminatory, it is in particular bounded. So is \(F\in X^*\) hence \(\mathcal{NN}_{\psi}(K)\subset L^p(X,\mu)\) because \(\mu\) is finite by assumption. The rest of the proof is completely analogous to \cref{thm:density if NN in C(K)}.
+    Notice that \(\psi\), being discriminatory, it is in particular bounded. Hence \(\mathcal{NN}_{\psi}(K)\subset L^p(X,\mu)\) because \(\mu\) is finite by assumption. The rest of the proof is completely analogous to \cref{thm:density if NN in C(K)}.
 \end{proof}
 What is non-trivial and requires a more involved proof is the generalization of \cref{lemma:discriminatory}. 
 \begin{proposition}\label{prop:necessary conditions for generalized discriminatory property}
@@ -874,10 +904,7 @@ We can finally turn to the proof of \cref{prop:necessary conditions for generali
     \end{align}
     Indeed, the second equality holds by sigmoidality of \(\psi\) and the second equality usese the fact that \(\psi\) is bounded by assumption, thus by dominated convergence \(\lim_{n\to\infty}\int_X\psi(s_n(f(x)-\theta))\nu(\diff x)=\int_X\lim_{n\to\infty}\psi(s_n(f(x)-\theta))\nu(\diff x)\)  with \(\psi_n=\psi(s_n(f(x)-\theta))\leq\lVert \psi\rVert_{\infty}<\infty\),  for the positive and negative part of \(\nu\). Indeed, if \(f(x)>c\), then \(s_n(f(x)-c)\to\infty\) as \(n\to\infty\), and by sigmoidality of \(\psi\) we have that \(\lim_{n\to\infty}\psi(s_n(f(x)-c)+\gamma)=1\). If \(f(x)<c\), by the same argument: \(\lim_{n\to\infty}\psi(s_n(f(x)-c)=0\), and for \(f(x)=c\), \(\lim_{n\to\infty}\psi(s_n(f(x)-c)=\psi(\gamma)\). But the left hand side in \cref{eq:concluding monotone class for discriminatory functions} is also equal to \(0\) by assumption, whence the claim.
 \end{proof}
-Note that the argument in \cref{eq:concluding monotone class for discriminatory functions} can be shortened under ruling assumptions. Indeed, we assumed \(\exists \nu\neq 0\) such that \(\int_X\psi(f(x)+\beta)\nu(\diff x)\quad\forall f\in X^*, \beta\in\mathbb{R}\). In particular, \(f=0\quad\forall x\in X\) and \(\beta = 0\) are admissible; hence \(0=\int_X\psi(0+0)\nu(\diff x)=\psi(0)\nu(X)\implies \psi(0)=0\). Hence 
-\begin{equation}
- \nu(f(x)>c)=\lim_{n\to\infty}\int_X\psi(s_n(f(x)-c))\nu(\diff x)=0\;. 
-\end{equation}
+
 \begin{remark}
     Notice that what we really need for \cref{prop:necessary conditions for generalized discriminatory property} is \cref{lemma:Fourier equality iif measure equality for general X}. In \cref{lemma:Fourier equality iif measure equality for general X} the crucial property is that \(X^*\) generates the \(\sigma\)-algebra, which is trivial for \(\mathcal{A}=\sigma(X^*)\). In the case where \(X\) is locally convex Hausdorff space, we already mentioned that \(\sigma(X^*)\) coincides with the Borel \(\sigma\)-algebra over \(X\). This is a nice feature as we can take \(\mathcal{A}=\mathcal{B}(X)\) in our standing assumption, but if we require \(\mathcal{A}=\sigma(X^*)\), we only need \(X\) to be a topological vector space. Hence, the standing assumptions are 
 \end{remark}
@@ -963,7 +990,7 @@ As usual for \(L^p\) spaces, the case \(p=2\) is particularly interesting as it 
 \begin{equation}\label{eq:scalar product on H^2}
     (M,N)_{\mathcal{H}^2}=\mathbb{E}[M_{\infty}N_{\infty}]\;.
 \end{equation}
-This inner-product structure on \(\mathcal{H}^2\) induces a natural notion of orthogonality. We call \(X,Y\in\mathcal{H}^2\) \texit{weakly orthogonal} if \((X,Y)_{\mathcal{H}^2}=0\). Why we refer to this notion of orthogonality as "weak" is due to the fact that we will later encounter a stronger notion of orhtogonality on the subspace \(\mathcal{H}_0^2=\left\{X\in\mathcal{H}^2:X_0=0\right\}\) which will imply the latter. We finish this subsection with the following standard convetion: For simplicity, we will call elements in \(\in\mathcal{H}^2\) square integrable martingales.
+This inner-product structure on \(\mathcal{H}^2\) induces a natural notion of orthogonality. We call \(X,Y\in\mathcal{H}^2\) \textit{weakly orthogonal} if \((X,Y)_{\mathcal{H}^2}=0\). Why we refer to this notion of orthogonality as "weak" is due to the fact that we will later encounter a stronger notion of orhtogonality on the subspace \(\mathcal{H}_0^2=\left\{X\in\mathcal{H}^2:X_0=0\right\}\) which will imply the latter. We finish this subsection with the following standard convetion: For simplicity, we will call elements in \(\in\mathcal{H}^2\) square integrable martingales.
 \textcolor{blue}{maybe present corollary 3 of chapter II Protter.}
 
 \subsection{Stochastic Integration for square integrable Martingales}\label{sec:Stochastic Integration for square integrable Martingales}
@@ -1009,52 +1036,52 @@ Furthermore, for every \(t\in\mathbb{R}_+\), we define
 \end{definition}
 Notice that the expressions \cref{eq:integral of simple processes} are pathwise and hence independent of the representation of \(H\in\mathcal{S}\).
 \bigbreak
-We now turn to the integration for \(X\) a square integrable martingale. The key observation is the so called \textit{Itô Isometry} , which we state below. 
-Recall that for \(X\in\mathcal{H}^2\) one can define its quadratic variation process \(\langle X\rangle\) (see \parencite[Def.11.1.1.]{CohenElliott2015StochasticCalculusApplications}. The crucial observation is the following.
+We now turn to the integration for \(M\) a square integrable martingale. The key observation is the so called \textit{Itô Isometry} , which we state below. 
+Recall that for \(M\in\mathcal{H}^2\) one can define its quadratic variation process \(\langle M\rangle\) (see \parencite[Def.11.1.1.]{CohenElliott2015StochasticCalculusApplications}. The crucial observation is the following.
 \begin{proposition}\label{prop:Ito isometry for simple processes}
-    For \(H\in\mathcal{E}\) and \(X\in\mathcal{H}_0^2\), we have that \(\int H\diff X\in\mathcal{H}^2_0\) and the property
+    For \(H\in\mathcal{E}\) and \(M\in\mathcal{H}_0^2\), we have that \(\int H\diff M\in\mathcal{H}^2_0\) and the property
     \begin{equation}\label{eq:Ito isometry for simple processes}
-        \mathbb{E}[\left(\int_0^{\infty} H_s\diff X_s\right)^2]=\mathbb{E}[\int_0^{\infty}H_s^2\diff\langle M\rangle_s]\;,
+        \mathbb{E}[\left(\int_0^{\infty} H_s\diff M_s\right)^2]=\mathbb{E}[\int_0^{\infty}H_s^2\diff\langle M\rangle_s]\;,
     \end{equation}
     where \(\int_0^{\infty}H_s^2\diff\langle M\rangle_s\) denotes the Lebesgue-Stieltjes integral for the finite variation process \(\langle M\rangle\).
 \end{proposition}
 The statement involves two things. First, it postulates the equality \cref{eq:Ito isometry for simple processes}, and secondly, it assumes that the terms in \cref{eq:Ito isometry for simple processes} are finite. 
 The proof of the martingale property, as well as the final equality \cref{eq:Ito isometry for simple processes}, is proven by direct calculation (see \parencite[Lemma.~12.1.4]{CohenElliott2015StochasticCalculusApplications}).
-The main idea is that one wants to elevate \cref{prop:Ito isometry for simple processes} to an isometry statement. Recall that, knowing in the setting of \cref{prop:Ito isometry for simple processes}, we have \(\int_0^{\infty} H_s\diff X_s\in\mathcal{H}_0^2\). From our identification, \cref{eq:scalar product on H^2} we have
+The main idea is that one wants to elevate \cref{prop:Ito isometry for simple processes} to an isometry statement. Recall that, knowing in the setting of \cref{prop:Ito isometry for simple processes}, we have \(\int_0^{\infty} H_s\diff M_s\in\mathcal{H}_0^2\). From our identification, \cref{eq:scalar product on H^2} we have
 \begin{equation}
-    \mathbb{E}[\left(\int_0^{\infty} H_s\diff X_s\right)^2]=\lVert\int H_s\diff X_s\rVert_{\mathcal{H}^2}\;.
+    \mathbb{E}[\left(\int_0^{\infty} H_s\diff M_s\right)^2]=\lVert\int H_s\diff M_s\rVert_{\mathcal{H}^2}\;.
 \end{equation}
 Thus we want to understand \cref{prop:Ito isometry for simple processes} as the statement that the map 
 \begin{align}\label{eq:integral map as isometry}
-     I:&H\mapsto \int H\diff X\\
+     I:&H\mapsto \int H\diff M\\
      &\mathcal{L}\to\mathcal{H}_0^2\;,
 \end{align}
 is an linear isometry between \(\mathcal{L}\) and \(\mathcal{H}_0^2\) for some appropriate space normed vector \(\mathcal{L}\). From \cref{eq:Ito isometry for simple processes} the natural candidate is the following space:
 \begin{definition}\label{def:L^2(M)}
-    Let \(X\in\mathcal{H}^2\). We denote \(L^2(X)\) as the space of predictable processes \(H\) such that 
+    Let \(M\in\mathcal{H}^2\). We denote \(L^2(M)\) as the space of predictable processes \(H\) such that 
     \begin{equation}
         \lVert H\rVert_{L^2(M)}=\mathbb{E}[\int_0^{\infty}H_s^2\diff\langle M\rangle_s]^{\frac{1}{2}}<\infty\;.
     \end{equation}
 \end{definition}
 For later use we define the general \(L^p(M)\)-space
 \begin{definition}\label{def:L^p(M)}
-    Let \(X\in\mathcal{H}^2\). We denote \(L^2(X)\) as the space of predictable processes \(H\) such that 
+    Let \(M\in\mathcal{H}^2\). We denote \(L^2(M)\) as the space of predictable processes \(H\) such that 
     \begin{equation}
         \lVert H\rVert_{L^p(M)}=\mathbb{E}[\left(\int_0^{\infty}H_s^2\diff\langle M\rangle_s\right)^{\frac{p}{2}}]^{\frac{1}{p}}<\infty\;.
     \end{equation}
 \end{definition}
 The definition of \(L^p(M)\) for \(p=2\) reduces to the definition for \(L^2(M)\). \\\\
-Hence \cref{prop:Ito isometry for simple processes} reads exactly as the statement that the map \(I:L^2(X)\cap\mathcal{E}\to\mathcal{H}^2_0\) given by \(H\mapsto \int H\diff X\) as defined in \cref{eq:integral of simple processes} is an isometry of normed vector spaces. This important structural insight will enable us to extend the stochastic integral to all of \(L^2(X)\). Indeed we will show that \(\mathcal{E}\) is a dense subset of \(L^2(X)\), hence we define the stochastic integral of processs in \(L^2(X)\) for \(X\in\mathcal{H}_0^2\) as the unique continuous extension of the linear, bounded map \cref{eq:integral map as isometry} for \(\mathcal{L}=L^2(X)\).
+Hence \cref{prop:Ito isometry for simple processes} reads exactly as the statement that the map \(I:L^2(M)\cap\mathcal{E}\to\mathcal{H}^2_0\) given by \(H\mapsto \int H\diff M\) as defined in \cref{eq:integral of simple processes} is an isometry of normed vector spaces. This important structural insight will enable us to extend the stochastic integral to all of \(L^2(M)\). Indeed we will show that \(\mathcal{E}\) is a dense subset of \(L^2(M)\), hence we define the stochastic integral of processs in \(L^2(M)\) for \(M\in\mathcal{H}_0^2\) as the unique continuous extension of the linear, bounded map \cref{eq:integral map as isometry} for \(\mathcal{L}=L^2(M)\).
 \bigbreak
-We first make a crucial observation, justifying the choice of notation \(L^2(X)\). For this we define the following measure on the measure space \(\left(\Omega\times[0,\infty),\mathcal{F}\otimes\mathcal{B}([0,\infty)\right)\):
+We first make a crucial observation, justifying the choice of notation \(L^2(M)\). For this we define the following measure on the measure space \(\left(\Omega\times[0,\infty),\mathcal{F}\otimes\mathcal{B}([0,\infty)\right)\):
 \begin{equation}
     \mathbb{P}_M(A)=\mathbb{E}[\int_0^{\infty}1_A\diff\langle M\rangle_s]\quad\forall A\in\mathcal{F}\otimes\mathcal{B}([0,\infty))\;.
 \end{equation}
  Then we have, by \cref{def:L^2(M)}:
-\begin{equation}\label{eq:L^2(X) as Hilbert space}
+\begin{equation}\label{eq:L^2(M) as Hilbert space}
     L^2(M) = L^2(\Omega\times [0,\infty),\mathcal{P},\mathbb{P}_M)\;,
 \end{equation}
-where \(\mathcal{P}\) is the sub-\(\sigma\)-algebra of \(\mathcal{F}\otimes\mathcal{B}[0,\infty)\) generatey by adapted, left-continuous processes. As usual \cref{eq:L^2(X) as Hilbert space} is to be understood as the quotient space \(\mathcal{L}^2(\mathcal{P},\mathbb{P}_M)/\sim\) with \(X\sim Y\iff \lVert X-Y\rVert_{L^2(M)}=0\), making \(\lVert \cdot\rVert_{L^2(M)}\) a well real norm on \(L^2(M)\). In particular this implies \(L^2(M)\) is a Hilbert space with inner product \(\langle X,Y\rangle_{L^2(M)}=\mathbb{E}[\int_0^{\infty}X Y\diff\langle M\rangle_s]\) and in particular \(L^2(M)\) is complete. 
+where \(\mathcal{P}\) is the sub-\(\sigma\)-algebra of \(\mathcal{F}\otimes\mathcal{B}[0,\infty)\) generatey by adapted, left-continuous processes. As usual \cref{eq:L^2(M) as Hilbert space} is to be understood as the quotient space \(\mathcal{L}^2(\mathcal{P},\mathbb{P}_M)/\sim\) with \(X\sim Y\iff \lVert X-Y\rVert_{L^2(M)}=0\), making \(\lVert \cdot\rVert_{L^2(M)}\) a well real norm on \(L^2(M)\). In particular this implies \(L^2(M)\) is a Hilbert space with inner product \(\langle X,Y\rangle_{L^2(M)}=\mathbb{E}[\int_0^{\infty}X Y\diff\langle M\rangle_s]\) and in particular \(L^2(M)\) is complete. 
 Consider the following usefull lemma, assuring that for \(M\in\mathcal{H}_0^2\) the measure \(\mathbb{P}_M\) is finite.
 \begin{lemma}\label{eq:P_M is finite measure}
     Suppose \(M\) is a local martingale starting at \(0\). Then \(M\in\mathcal{H}^2_0\) if and only if \(\mathbb{E}[\langle M\rangle_{\infty}]<\infty\)
@@ -1179,7 +1206,7 @@ We will refer to the setting in \cref{thm:square integrable stochastic integral}
     \end{equation}
 \end{proposition}
 For the proof we refer to \parencite[Thm.~2.5.]{Schweizer2025BrownianMotionStochasticCalculus}. Conceptually not that the right-hand side is a linear form on in \(N\) that is on \(\mathcal{H}^2\), which has been identified with a Hilbertspace. By the Kunita-Watanabe inequality \cref(...) it is also continuous. Then \(L\) is the unique Riesz-Fischer vector in \(\mathcal{H}^2\) such that the continuous linear form can be written as an inner product. The latter characterises the continous linear form on a Hilbertspace uniquely. 
-One can further extend the integral of \cref{thm:square integrable stochastic integral} to integrators in \(M\in\mathcal{H}^2_{0,loc}\) and integrands in \(H\inL^2_{loc}(M)\), where the latter is defined to be the class of predictable processes \(H\) such that there exists a localizing sequence \((\tau_n)_{n\in\mathbb{N}}\) for which \(H1_{(0,\tau_n]}\) is in \(L^2(M)\). 
+One can further extend the integral of \cref{thm:square integrable stochastic integral} to integrators in \(M\in\mathcal{H}^2_{0,loc}\) and integrands in \(H\in L^2_{loc}(M)\), where the latter is defined to be the class of predictable processes \(H\) such that there exists a localizing sequence \((\tau_n)_{n\in\mathbb{N}}\) for which \(H1_{(0,\tau_n]}\) is in \(L^2(M)\). 
 We give the definition of \(L_{loc}^2(M)\).
 \begin{definition}\label{def:L^2(M)_loc}
     For \(M\in\mathcal{H}^2_{0,loc}\) the space \(L_{loc}^2(M)\) consists of predictable processes \(H\) for which there is  a sequence of stopping times \(\tau_n\nearrow\infty\) almost surely, such that 
@@ -1214,15 +1241,15 @@ where \(L^2_{loc}(M)\) as in \cref{def:L^2(M)_loc}.
 \subsection{Kunita-Watanabe Decomposition}
 Before turning towards stochastic integration with respect to general semimartingales we profit from the current familiarity of the reader with the square integrable setup to introduce and and state the celebrated Kunita Watanabe decomposition. For this we will need a stronger notion of orthonogality on \(\mathcal{H}^2_0\) then the one induced by the inner product structure. The fact that \(\mathcal{H}^2_0\) is a space of uniformly integrable martingales leeds to a richer geometry than the Hilbertspace structure discussed in \cref{eq:H^p identification}. 
 \begin{definition}
-    Let \(X,Y\in\mathcal{H}_0^2\). We say that \(X\) is strongly orthogonal to \(Y\) and vise versa if their product \(XY\) is a martingale. In this case, we denote \(X\perp Y\).
+    Let \(M,N\in\mathcal{H}_0^2\). We say that \(M\) is strongly orthogonal to \(N\) and vise versa if their product \(MN\) is a martingale. In this case, we denote \(M\perp N\).
 \end{definition}
-In particular, for \(X\perp Y\),
+In particular, for \(M\perp N\),
 \begin{equation}
-    (X,Y)_{\mathcal{H}_0^2}=\mathbb{E}[X_{\infty}Y_{\infty}]=\mathbb{E}[X_0Y_0]=0\;.
+    (M,N)_{\mathcal{H}_0^2}=\mathbb{E}[M_{\infty}N_{\infty}]=\mathbb{E}[M_0N_0]=0\;.
 \end{equation}
-Hence, strong orthogonality implies the weak orthogonality of \(X,Y\in\mathcal{H}_0^2\). 
+Hence, strong orthogonality implies the weak orthogonality of \(M,N\in\mathcal{H}_0^2\). 
 \bigbreak
-As shortly hinted in \cref{sec:high level discussion of mean-square hedging}, in the context of mean-squared hedging we are generally interested, for a fixed prices process \(X\), what are the strategies for which the value process is again square integrable. In the square integrable setting, we gave a partial answer in affirming that for \(X\) square integrable the space \(L^2(M)\) is in \(G_T(\vartheta)\). In this case, we already argued that the mean-squared hedging problem reduced to a projection problem in \(L^2\). The Kunita Watanabe inquality will give a complete answer for the square integrable setting and even the locally square integrable case. The crucial observation is given by the following \cref{prop:weak and strong stable subspaces}, which necessits the introduction of the following concept
+As shortly hinted in \cref{sec:high level discussion of mean-square hedging}, in the context of mean-squared hedging we are generally interested, for a fixed prices process \(M\), what are the strategies for which the value process is again square integrable. In the square integrable setting, we gave a partial answer in affirming that for \(M\) square integrable the space \(L^2(M)\) is in \(G_T(\vartheta)\). In this case, we already argued that the mean-squared hedging problem reduced to a projection problem in \(L^2\). The Kunita Watanabe inquality will give a complete answer for the square integrable setting and even the locally square integrable case. The crucial observation is given by the following \cref{prop:weak and strong stable subspaces}, which necessits the introduction of the following concept
 \begin{definition}\label{def:stable subspace}
     A \textit{stable} subspace of \(\mathcal{H}_0^2\) is a closed linear subsapce \(\mathcal{A}\) of \(\mathcal{H}_0^2\) which is closed under stopping: For very \(M\in\mathcal{A}\) and every stopping time \(\tau\), the stopped process \(M^{\tau}\) is in \(\mathcal{A}\).
 \end{definition}
@@ -1238,7 +1265,7 @@ The following example of a stable subspace instantly underlines the importance o
     The closedness of \( \mathcal{I}^2(M)\) in \(\mathcal{H}^2_0\) follows directly from \cref{thm:Ito Isometry} as \( \mathcal{I}^2(M)\) is the isometric image under the map \(H\to H\bullet M\) of the Hilbert space \(L^2(M)\). Stopping follows from properties of the Itô-integral under stopping and the fact that \(H\in L^2(M)\implies H1_{(0,\tau]}\) for a stopping-time \(\tau\). The latter follows because \(M\in \mathcal{H}_0^2\) if and only if \(\mathbb{E}[[M]_{\infty}]<\infty\).
 \end{proof}
 Furthermore, we have that 
-\begin{equation}\label{eq:closedness of vartheta bullet X_T in L^2}
+\begin{equation}\label{eq:closedness of vartheta bullet M_T in L^2}
      \mathcal{I}_{\infty}^2(M)=\left\{\int_0^{\infty} H\diff M:H\in L^2(M)\right\}
 \end{equation}
 is a closed subspace of \(L^2(\mathcal{F}_{\infty})\). Indeed, notice that under the identification \(\mathcal{H}^2\simeq L^2(\mathcal{F}_{\infty})\) we have that \cref{thm:Ito Isometry} reads as an isometry of Hilbert-spaces \(L^2(M)\to L^2(\mathcal{F}_{\infty})\).
@@ -1286,7 +1313,7 @@ For our purposes we need to enlarge the definition of elementary predictable pro
     \end{equation}
 In particular, we have that \(H^i\) is \(\mathcal{F}_{\tau_i}\)-measurable. We denote the set of elementary predictable processes by \(\mathcal{S}\) and we say \(H\in\mathcal{S}\) is associated with a sequence \((\tau_k)_{k=0}^{n+1}\).
 \end{definition}
-Clearly \(\mathcal{E}\subset\mathcal{S}\). We further denote \(\mathcal{S}_{ucp}\) the set \(\mathcal{S}\) endowed with the topology of \(ucp\)-convergence. Furthermore we dentoe by \(\mathbb{L}\) the class of adapted càglàd processes, \(b\mathbb{L}\) the respective bounded subset and by \(\mathbb{D}\) the class of adapted càdlàg processes. The construction of the stochastic integral \(\int H\diff X\) for \(H\in b\mathbb{L}\) and \(X\) a semimartingale. The construction laid out in \parencite[Chapter.~4]{Protter2005StochasticIntegration} works as follows:\\
+Clearly \(\mathcal{E}\subset\mathcal{S}\). We further denote \(\mathcal{S}_{ucp}\) the set \(\mathcal{S}\) endowed with the topology of \(ucp\)-convergence. Furthermore we dentoe by \(\mathbb{L}\) the class of adapted càglàd processes, \(b\mathbb{L}\) the respective bounded subset and by \(\mathbb{D}\) the class of adapted càdlàg processes. The construction of the stochastic integral \(\int H\diff M\) for \(H\in b\mathbb{L}\) and \(X\) a semimartingale. The construction laid out in \parencite[Chapter.~4]{Protter2005StochasticIntegration} works as follows:\\
 The integral for the simple processes is defined as in \cref{def:integral of simple processes}. One shows that the integral map 
 \begin{equation}\label{eq:ucp continuity of integral map}
     I_X:\mathcal{S}_{ucp}\to\mathbb{D}_{ucp}
@@ -1433,7 +1460,7 @@ the discounted price process \(X\) is only assumed to be a continuous semimartin
 the natural situation under the real-world measure \(P\) under which discounted asset prices need not be
 martingales. Consequently, the Hilbert space argument from
 the previous section no longer applies directly.
- For the following, we essentially follow \parencite{Schweizer2001GuidedTourQuadraticHedging}. We will not give proofs for the following results as they are all nicely presented in \parencite[Chapter.~4]{Schweizer2001GuidedTourQuadraticHedging}.
+ For the following, we essentially follow \parencite{Schweizer2001GuidedTourQuadraticHedging}. We will not give proofs for the following results as they are all nicely presented in \parencite[Chapter.~4]{Schweizer2001GuidedTourQuadraticHedging}. In accordance to the latter we assume \(T<\infty\) in this section. 
  \bigbreak
 We recall the problem at hand. 
 Let \(H \in L^2(P)\) be a contingent claim. For a suitable class \(\Theta\subset\Theta^2\) of 
@@ -1598,7 +1625,7 @@ If we want a more explicit characterization of the \(\Theta\)-mean variance stra
 Recall from the standing assumptions that our price process \(X\) is a locally square integrable semimartingale, meaning that there exists a localizing stopping sequence \((\tau_n)_{n\in\mathbb{N}}\) such that \(\mathbb{E}[|\sup_{0\leq s\leq t}X^*_{s\wedge\tau_n}|^{2}]<\infty\) for all \(0\leq t\leq T\), \(n\in\mathbb{N}\). \\\\
 Consider the set of equivalent local martingale measures (ELMM) for \(X\) with a square integrable density \(\frac{\diff Q}{\diff P}\in L^2(P)\) and denote this class of probability measures by \(\mathbb{P}_{e}^2(X)\). It turns out that we can characterise the latter through \(G_T(\Theta')\)-martingale measures, for a well chosen \(\Theta'\), equivalent to \(P\). Let \((\tau_n)_{n\in\mathbb{N}}\) be a localizing sequence of \(X\). We denote by \(\Theta_{simple}\) the real span of random variables: \(\phi=\xi 1_{(\sigma,\tau]}\) for stopping times \(\tau\leq\sigma\) such that there exists \(n\) for which \(\tau\leq\tau_n\) and \(\xi\) bounded and \(\mathcal{F}_{\sigma}\)-measurable. 
 \begin{lemma}\label{lemma:ELMM and P_e^2(X)}
-    Q is an ELMM for X with \(\frac{\diff Q}{\diff P}\in L^2(P)\) if and only if Q is in \(\mathbb{P}_s^2(G_T(\Theta_{simple}))\) and \(Q\approx P\).\footnote{Here we implicitely consider positive measure for which \(Q\approx P\) makes sense. This should be understood implicitely, as the class \(\mathbb{P}_s^2(G_T(\Theta_{simple}))\) might contain signed measures otherwise.}\textcolor{blue}{is this correct?}
+    Q is an ELMM for X with \(\frac{\diff Q}{\diff P}\in L^2(P)\) if and only if Q is in \(\mathbb{P}_s^2(G_T(\Theta_{simple}))\) and \(Q\approx P\).\footnote{Here we implicitely consider positive measure for which \(Q\approx P\) makes sense. This should be understood implicitely, as the class \(\mathbb{P}_s^2(G_T(\Theta_{simple}))\) might contain signed measures otherwise.}
 \end{lemma}
 \begin{proof}
     We show both directions. First assume \(Q\) is ELMM for \(X\) with \(\frac{\diff Q}{\diff P}\in L^2(P)\). 
@@ -2089,7 +2116,7 @@ The following idea is based on the observation made by \parencite{HornikStinchco
 \end{equation}
 is discriminatory, as a Borel-measurable, non-constant, and bounded function. Recall the trigonometric identity.
 \begin{align}
-    \cos(x)\cos(y)=\cos(x+y)-\cos(x-y)
+    \cos(x)\cos(y)=\frac{1}{2}(\cos(x+y)+\cos(x-y))
 \end{align}
 In particular \(\mathcal{NN}_{\cos}(\mathbb{R}^k)\) forms an algebra of functions; hence, so does \(\mathcal{E}(\cos)\). The monotone class argument of \cref{prop:density of E in L2(M) via monotone class} and \cref{prop:density of E in Lp(M) via monotone class} respectively are totally analogous for \(\mathcal{E}(\cos)\) instead of \(\mathcal{E}\), provided we argue that 
 \begin{equation}
@@ -2121,7 +2148,7 @@ We show more generally that  \(\sigma(\mathcal{E}(\psi))=\mathcal{P}\) for any a
     \begin{equation}
         \mathbb{P}_M(N\times[0,\infty))=\mathbb{E}[\int_0^{\infty}1_N1_{[0,\infty)}(s)\diff \langle M\rangle_s]]=\mathbb{E}[1_N\langle M\rangle_{\infty}]=0
     \end{equation}
-    because \(\langle M\rangle_{\infty}\) is integrable by the assumption that \(M\in\mathcal{H}_{0,loc}^2\). Thus we have shown that \(V\) is measurable with respect to the completion of \(\sigma(\mathcal{E}(\psi))\) with respect to the measure \(\mathbb{P}_M\). We denote the latter by \(\overline{\sigma(\mathcal{E}(\psi))}^{\mathbb{P}_M}\). By the remarks at the beginning of this proof, this shows that 
+    because \(\langle M\rangle_{\infty}\) is integrable by the assumption that \(M\in\mathcal{H}_{0}^2\). Thus we have shown that \(V\) is measurable with respect to the completion of \(\sigma(\mathcal{E}(\psi))\) with respect to the measure \(\mathbb{P}_M\). We denote the latter by \(\overline{\sigma(\mathcal{E}(\psi))}^{\mathbb{P}_M}\). By the remarks at the beginning of this proof, this shows that 
      \begin{equation}
         \mathcal{P}\subset\overline{\sigma(\mathcal{E}(\psi))}^{\mathbb{P}_M}
     \end{equation}
@@ -2159,7 +2186,7 @@ for any activation function \(\psi\) and \(p\in[1,\infty)\). Indeed, if this hol
     \overline{\mathcal{E}(\psi)}^{L^2(M)}=L^2(M)\;.
 \end{equation}
 for \(M\in\mathcal{H}^2\), without further infinitesimal integrability conditions. We show the latter as a proposition
-\begin{proposition}
+\begin{proposition}\label{prop:density of E(psi) in L^2(M)}
     Assume \(Y_t\) takes values in a compact subspace \(K^t\in\mathbb{R}\) for every \(t\in[0,\infty)\). Then, under the assumptions of \cref{prop:E(psi) generated P}, we have for \(M\in\mathcal{H}^2\)
     \begin{equation}
         \overline{\mathcal{E}(\psi)}^{L^2(M)}=L^2(M)\,.
@@ -2171,7 +2198,7 @@ As explained it remainse to show that
     \begin{equation}
     \mathcal{E}(\cos)\subset \overline{\mathcal{E}(\psi)}^{L^2(M)}
 \end{equation}
-Let \(U\in\mathcal{E}(\psi)\):
+Let \(U\in\mathcal{E}(\cos)\):
 \begin{equation}
     U = U_01_{\left\{0\right\}}+\sum_{i=1}^n \varphi_i(Y_{t_1}^i,\dots,Y_{t_{k(i)}}^i)1_{(t_i,t_{i+1}]}
 \end{equation}
@@ -2239,7 +2266,7 @@ We get the following version of \cref{prop:Lp(M) density of E(psi)}
     where convergence holds in \(\mathcal{H}^2\). 
 \end{proposition}
 \begin{proof}
-    The density of \(\widetilde{\mathcal{E}}(\psi)\) in \(L^2(M)\) analogoues to \cref{prop:Lp(M) density of E(psi) under compacteness}. The last claim follows the exact same reasoning as in \cref{prop:Lp(M) density of E(psi)}.
+    The density of \(\widetilde{\mathcal{E}}(\psi)\) in \(L^2(M)\) is analogous to \cref{prop:density of E(psi) in L^2(M)}. The last claim follows the exact same reasoning as in \cref{prop:Lp(M) density of E(psi)}.
 \end{proof}
 This version does not require the additional infinitesimal integrability of \(M\).  
 
@@ -2280,10 +2307,10 @@ Moreover, recall that the first claim has been shown in \cref{sec:Mean Variance 
   Notice that what made the proof of the second part work was essentially the continuity of the map \(\vartheta\mapsto(\vartheta\bullet M)_{\infty}\) is a continuous linear operator from \(L^2(M)\to  L^2(\mathcal{F}_{\infty},\mathbb{P})\). This is the essential idea that is going to lead us to extend \cref{thm:martingale setup, continuous deep variance hedging} to some particular semimartingales.  
 \end{remark}
 
-\section{Extension for semimartingales}
+\section{Extension for semimartingales}\label{sec:extension of deep mean squared hedging to semimartingales}
 Regarding \cref{thm:martingale setup, continuous deep variance hedging}, one is led to the natural question of whether one can obtain the claim for a more general setup. In this section, we will investigate a first approach to this. In particular, we want to allow for more general integrands. More precisely, we will allow a subclass of semimartingales as price processes \(M\). For this, we will have to adapt the space of integrable processes in a way that density results of the type \cref{cor:p-ucp density of S} and \cref{cor:ucp and p-ucp density of E}. We will first outline the general idea before giving concrete conditions and the corresponding extension. For what is to follow we consider real-valued processes (in particular one-dimensional).
 \bigbreak
-Let \(X\in\mathcal{S}_{loc}^2\) be a locally square integrable, local martingale. In particular such a semimartingale is a special semimartingale, thus admits the decomposition
+Let \(X\in\mathcal{S}_{loc}^2\) be a locally square integrable, semimartingale. In particular such a semimartingale is a special semimartingale, thus admits the decomposition
 \begin{equation}\label{eq:canonical decomposition}
     X=X_0+M+A\;,
 \end{equation}
@@ -2316,18 +2343,21 @@ Let \(X\) be a semimartingale with representation \cref{eq:semimartingale decomp
     \begin{equation}
         L^2(M,A)=\mathcal{L}^2(M,A)/\sim\;,
     \end{equation}
-    where \(X\sim Y\) if \(X=Y\quad\mathbb{P}\)-a.s.
+    where \(X\sim Y\) if \(\lVert X-Y\rVert_{L^2(M)}=0\). 
     Further denoting
  \begin{equation}
         \mathcal{L}^2(A)=\left\{H \text{ predictable }:\lVert\int_{0}^{\infty}|H_s|\diff |A|_s\rVert_{L^2(P)}\coloneqq\lVert H\rVert_{L^2(A)}<\infty\right\}
-    \end{equation}
+  6  \end{equation}
     and the corresponding quotient space \(L^2(A)\).
 \end{definition}
 We have
 \begin{equation}
     L^2(M,A)=L^2(A)\cap L^2(M)
 \end{equation}
-and \(\lVert H\rVert_{L^2(M,A)}^2=\lVert H\rVert_{L^2(A)}+\lVert H\rVert_{L^2(M)}\). As usual we will abuse notation in talking about elements in \(L^2(M,A)\) as processes although, strictly speaking, it containes equivalence classes of processes. 
+and \begin{equation}
+    \lVert H\rVert_{L^2(M,A)}^2=\lVert H\rVert_{L^2(A)}+\lVert H\rVert_{L^2(M)}
+\end{equation}
+As usual we will abuse notation in talking about elements in \(L^2(M,A)\) as processes although, strictly speaking, it containes equivalence classes of processes. 
  Furthermore, according to the definition on page 165 \parencite{Protter2005StochasticIntegration} processes in \(L(M,A)\) are \(X\)-integrable. Also, it is clear by construction that 
 \(\Theta=L^2(M,A)\subset \Theta^2\). Notice that \(L^2(M,A)=\Theta_S\) in the notation of \cref{sec:Mean-variance Hedging with continuous price process}. Furthermore, it is clear that \(L^2(M,A)\) is the natural extension to the \(L^2(M)\) case discussed in \cref{sec:Mean Variance Hedging in square integrable setting}. 
 \bigbreak
@@ -2343,9 +2373,13 @@ This motivates further investigation of conditions for which the norm \(\lVert\c
     \lVert \vartheta\rVert_{L^2(M)}\leq\lVert \vartheta\rVert_{L^2(M,A)}\;.
 \end{equation}
 Hence, we want to understand under which assumptions there exists \(C>0\) such that 
-\begin{equation}\label{condition_D_2(P)}
+\begin{equation}
     \lVert \vartheta\rVert_{L^2(M,A)}\leq C \lVert \vartheta\rVert_{L^2(M)}\quad \forall \theta \in L^2(M)\cap L^2(A)\,.
 \end{equation}
+or equivalently 
+\begin{equation}\label{condition_D_2(P)}
+    \exists C>0:\quad \lVert\vartheta\rVert_{L^2(A)}\leq C\lVert\vartheta\rVert_{L^2(M)},\quad \forall\vartheta\in L^2(A)\cap L^2(M)\;.\footnotemark
+\end{equation}\footnotetext{The 'if' part is trivial. The 'only if' part requires to show that the identity mapping: \(id:L^2(M)\to L^2(A)\) is continuous. This can be done by arguing that \(D_2(P)\) implies that \(\diff A<<\diff\langle M\rangle\) and hence \(\vartheta_n\overset{L^2(M)}{\to}\vartheta\implies \vartheta_n\overset{L^2(A)}{\to}\vartheta\). Thus the graph of the identity map is closed and hence continuous by the closed graph theorem. For more details see \parencite[Lemma.~3.2.]{DelbaenMonatSchachermayerSchweizerStricker1997WeightedNormInequalities}}.
 For notational consistency with \parencite{DelbaenMonatSchachermayerSchweizerStricker1997WeightedNormInequalities} we denote the above condition by \(D_2(P)\). Notice that \cref{condition_D_2(P)} is equivalent to the condition 
 \begin{equation}
     L^2(M)\subset L^2(A)\;.
@@ -2378,7 +2412,12 @@ Thus, imposing the additional assumption
     \lVert K_{\infty}\rVert_{\infty}<\infty\;,
 \end{equation}
 where \(\lVert K_{\infty}\rVert_{\infty} = \underset{\mathbb{P}}{\operatorname*{ess\sup}}K_{\infty}\)
-We thus find that condition \(D_2(P)\) holds for bounded mean-variance tradeoff.  The following condition is common in the literature
+What we have shown in \cref{eq:bounding L^2(M,A) norm under necessary assumption} is that under the assumption, there exists a predictable density \(\diff A_s=\lambda_s\diff\langle M\rangle_s\) and bounded \(MVT\) we have
+\begin{equation}
+    \lVert H\rVert_{L^2(A)}\leq C\lVert H\rVert_{L^2(M)}
+\end{equation} 
+for \(C=\lVert K_{\infty}\rVert_{\infty}<\infty\). 
+We thus find that condition \(D_2(P)\) holds for the bounded mean-variance tradeoff\footnote{If we assume bounded MVT we implicetly assume that the MVT is well-defined, in particular the predictable density \(\lambda\) is assumed to exist.}.  The following condition is common in the literature
 \begin{definition}\label{def:condition SC_stro}
     Assume \(X\) is a semimartingale with canonical decomposition \(X=X_0+M+A\). Then we say that \(X\) satisfies the structure condition \(SC\) if
     \begin{itemize}
@@ -2386,7 +2425,7 @@ We thus find that condition \(D_2(P)\) holds for bounded mean-variance tradeoff.
         \item \(K_t=\int_0^t \lambda_s^2\diff \langle M\rangle_s<\infty\) for \(P\)-almost all \(\omega\in\Omega\) and all \(t\in[0,\infty)\).
     \end{itemize}
 \end{definition}
-Note that assuming bounded MVP in particular implies the \(SC\) condition. Indeed \(\langle M\rangle\) is a non-decreasing process and \(\lambda^2\geq 0\) hence \(K_t=(\lambda\bullet X)_t\) is non-decreasing. 
+Note that assuming bounded MVP in particular implies the \(SC\) condition. Indeed \(\langle M\rangle\) is a non-decreasing process and \(\lambda^2\geq 0\) hence \(K_t=(\lambda^2\bullet \langle X\rangle)_t\) is non-decreasing. 
 The previous arguments show that requiring bounded MVT in addition to \(SC\) is a sufficient condition for \(D_2(P)\). following conditions are sufficient for \(D_2(P)\).
 
 
@@ -2409,7 +2448,7 @@ The latter is continuous and surjective as a map
 \end{equation}
 where \(G_T(L^2(M,A))\subset L^2(P,\mathcal{F}_{\infty})\) by construction.  
 Observe that \((L^2(M,A),\lVert\cdot\rVert_{L^2(M,A)})\) is a Banach space. What is more \(I_{\infty}\) is even bijective.
-\begin{lemma}
+\begin{lemma}\label{lemma:integral map is bijective}
     Assume \(X\) is a semimartingale in \(\mathcal{S}^2_{loc}\) which is a local martingale udner some equivalent measure \(Q\) with square-integrable density \(\frac{\diff Q}{\diff P}\). Then the map \(I_{\infty}:L^2(M,A)\to G_T(L^2(M,A))\) is bijective
 \end{lemma}
 \begin{proof}
@@ -2437,7 +2476,20 @@ Hence \(I_{\infty}\) is a continuous bijective map from the Banach space \(L^2(M
 \begin{proof}
     This follows directly from the Inverse Operator Theorem, (see ....) that states that every bijective bounded linear operator \(T:X\to Y\) between two Banach spaces \(X,Y\) is a homeomorphism, in particular asserting that the inverse map is continuous as well. As the inverse of a linear map is necessarily linear, the claim that the inverse is continuous is equivalent to the claim that the inverse is bounded. 
     \\\\
-   Hence, the 'if' part is a direct application of the inverse operator Theorem. Conversely, we know that \(L^2(M,A)\) is Banach, and by the previous Lemma, \(I_{\infty}\) is a continuous, bijective, linear map. If condition \cref{eq:homeo condition} holds, it is a homeomorphsim and in particular a closed map. That is \(I_{\infty}(L^2(M,A))=G_T(L^2(M,A))\) is closed as the image of a closed space under a closed map. 
+   Hence, the 'if' part is a direct application of the inverse operator Theorem, because if \(G_T(L^2M,A))\) is complete \(I_{\infty}\) is a bijectie linear map between complete metric spaces by \cref{lemma:integral map is bijective}. By the inverse operator Theorem it is a moemorphism and thus \cref{eq:homeo condition} follows from the continuity of \(I_{\infty}^{-1}\). Conversely, we know that \(L^2(M,A)\) is Banach, and by the previous Lemma, \(I_{\infty}\) is a continuous, bijective, linear map. If condition \cref{eq:homeo condition} holds, it is a linear homeomorphism \(I_{\infty}(L^2(M,A))=G_T(L^2(M,A))\) . Then \(I_{\infty}(L^2(M,A))=G_T(L^2(M,A)\) is complete. Indeed let \((I_{\infty}(x_n))_{n\in\mathbb{N}}\subset G_T(L^2(M,A))\) be a Cauchy-sequence for some \((x_n)_{n\in\mathbb{N}}\subset L^2(M,A)\). \(I_{\infty}^{-1}\) exists and is bounded hence 
+   \begin{align*}
+       \lVert x_n-x_m\rVert_{L^2(M,A)}=\lVert I_{\infty}^{-1}(y_n)-I_{\infty}^{-1}(y_m)\rVert_{L^2(P)}\leq C\lVert y_n-y_m\rVert_{L^2(P)}\;.
+   \end{align*}
+   for any \(n,m\in\mathbb{N}\).
+   Hence \((x_n)_{n\in\mathbb{N}}\) is a Cauchy sequence in the \(L^2(M,A)\) which is complete. Hence 
+   \begin{equation}
+       \exists x\in L^2(M,A):\quad\lim_{n\to\infty}x_n=x
+   \end{equation}
+   By continuity of \(T\) we have that 
+   \begin{equation}
+       \lim_{n\to\infty}I_{\infty}(x_n)=I_{\infty}(x)
+   \end{equation}
+   We have thus shown, that every Cauchy sequence in \(G_T(L^2(M,A))\) converges, whence \(G_T(L^2(M,A))\) is complete.
 \end{proof}
 This yields a functional analytic, sufficient and necessary condition for the closedness of \(G_T(L^2(M,A))\) and hence the existence of the mean-variance hedging solution. Surprisingly, the following theorem shows a close connection between the closedness of \(G_T(L^2(M,A))\) and the condition \(D_2(P)\). 
 \begin{theorem}\label{thm:G_T closed implies D_2(P)}
@@ -2468,9 +2520,9 @@ We can now give the proof of \cref{thm:G_T closed implies D_2(P)}.
 \begin{proof}
     Let \(\vartheta\in L^2(M,A)\) and \(\epsilon\) the predictable process of \cref{lemma:predictable epsilon}. Then 
     \begin{align*}
-        \lVert G_T(\epsilon\vartheta)\rVert_{\mathcal{L}^2}&\leq \lVert \epsilon\vartheta\rVert_{L^2(M)}+\lVert \epsilon\vartheta\rVert_{L^2(A)}\\
-        &\leq \lVert \vartheta\rVert_{L^2(M)}+\lVert \vartheta\rVert_{L^2(A)}
-        \\&= \lVert \vartheta\rVert_{L^2(M)}+\eta\;,
+        \lVert G_T(\epsilon\vartheta)\rVert_{L^2}&\leq \lVert (\epsilon\vartheta\bullet M)_T\rVert_{L^2}+\lVert (\epsilon\vartheta\bullet M)_T\rVert_{L^2}
+        \\
+        &\leq \lVert \vartheta\rVert_{L^2(M)}+\eta\;,
     \end{align*}
     by the same reasoning as in \cref{eq:bounding the L^2 norm of the stochastic integral} and \cref{lemma:predictable epsilon}. By \cref{prop:closedness of G_T in L^2 functional analytic iff condition}, under the assumption that \(G_T(\Theta)\subset\mathcal{L}^2(P)\) is closed, we have
     \begin{align*}
@@ -2491,8 +2543,6 @@ with
     \lVert\vartheta\rVert_{\mathcal{R}^2(P)}=\lVert\vartheta^*\rVert_{\mathcal{L}^2(P)}\;.
 \end{equation}
 We will not further investigate this route as we are interested in closedness of \(G_T(\Theta)\) in \(\mathcal{L}^2\). The latter is completely characterised by \parencite[Thm.~4.1]{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM} under the requirement that \(X\) is continuous semimartingale. 
-\bigbreak
-\textcolor{blue}{discuss Theorem 3.7. Then either cite or proof the D2(P) iff bmo2 statement. Finally cite the R2(P) condition and according necessary and sufficient conditions}
 \bigbreak
 The key additional ingredient as far as we are concerned in this article is the reversed Hölder inequality. 
 \begin{definition}\label{def:reverse Hölder}
@@ -2530,14 +2580,14 @@ Thus, to have an existence claim about the mean-variance hedging solution, we re
     Assume the \(X=X_0+M+A\) is a continuous semimartingale in \(\mathcal{S}_{loc}^2\) with \(\mathbb{P}_e^2(X)\neq\emptyset\). Assume that there exists \(\epsilon>0\) for which \(M\in\mathcal{H}^{2+\epsilon}\). Furthermore, assume that some \(Q\in\mathbb{P}^2_e(X)\) satisfies the \(\mathcal{R}_2(P)\) inequality. Let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_{\infty}\)-measurable random variable. Furthermore, assume \(\mathcal{F}_0\) to be trivial. Then:
 \begin{equation}\label{eq:martingale setup, continuous deep variance hedging}
     \min_{c\in\mathbb{R},\,\vartheta\in L^2(M,A)}\mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]
-    \,=\,\inf_{c\in\mathbb{R},\,\vartheta\in \widetilde{\mathcal{E}}(\psi)}
+    \,=\,\inf_{c\in\mathbb{R},\,\vartheta\in \mathcal{E}(\psi)}
     \mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]\;,
 \end{equation}
 \end{proposition}
 \begin{proof}
    The assumption imply by \cref{thm:closedness of G_T(Theta)} that \(G_T(\Theta)\) is closed in  \(\mathcal{L}^2(P)\). Hence the minimum on the left-hand side exists. Furthermore, according to \cref{thm:G_T closed implies D_2(P)} the conditions imply that \(D_2(P)\) holds, hence \(\mathcal{E}(\psi)\) is dense in \(L^2(M,A)=L^2(M)\).
 \end{proof}
-According to \cref{prop:Lp(M) density of E(psi) under compacteness}, considering the market information process \(\widetilde{Y}=\tanh(Y)\) instead of \(Y\), effectively replacing \(\mathcal{E}(\psi)\) by \(\widetilde{\mathcal{E}}(\psi)\) we can let go of the additional \(\epsilon\)-integrability condition on \(M\). Furthermore, according to \parencite[Thm.~3.7]{DelbaenSchachermayer1998ExistenceAbsolutelyContinuousLMM} the assumptions in \cref{prop:continuous time deep mean variance hedging for semimartingales} already imply the \(bmo_2\)-condition, which can be dropped. We get the following version. 
+According to \cref{prop:Lp(M) density of E(psi) under compacteness}, considering the market information process \(\widetilde{Y}=\tanh(Y)\) instead of \(Y\), effectively replacing \(\mathcal{E}(\psi)\) by \(\widetilde{\mathcal{E}}(\psi)\) we can let go of the additional \(\epsilon\)-integrability condition on \(M\). We get the following version. 
 
 
 \begin{proposition}\label{prop:continuous time deep mean variance hedging for semimartingales under compactness}
@@ -2548,6 +2598,7 @@ According to \cref{prop:Lp(M) density of E(psi) under compacteness}, considering
     \mathbb{E}\Bigl[\bigl(H-c-\int_{0}^T\vartheta_t\diff X_t\bigr)^2\Bigr]\;,
 \end{equation}
 \end{proposition}
+\textcolor{blue}{
 \begin{proposition}\label{prop:deep mean variance for continuous semimartingales}
     Assume the \(X=X_0+M+A\), continuous such that \(\exists \epsilon>0\) for which \(M\in\mathcal{H}^{2+\epsilon}\), and assume \(X\) satisfies the structure condition with bounded MVP. Furthermore, assum the existence of a square integrable local martingale measure \(Q\) that satisfies \(\mathcal{R}_2(P)\). Let \(H\in L^2(\mathbb{P})\) be a real-valued \(\mathcal{F}_{\infty}\)-measurable random variable. Furthermore, assume \(\mathcal{F}_0\) to be trivial. Then:
 \begin{equation}\label{eq:martingale setup, continuous deep variance hedging}
@@ -2559,7 +2610,6 @@ According to \cref{prop:Lp(M) density of E(psi) under compacteness}, considering
     The existence follows from \cref{thm:closedness of G_T(Theta)}. Indeed the assumptions imply that \(G_T(L^2(M,A))\) is closed in \(L^2(P)\) hence so is \(\mathbb{R}+G_T(L^2(M,A))\). Thus existence follows from projection as discussed multiple times.
     By remark \cref{rem:sufficient condition for extension} and density of \(\mathcal{E}(\psi)\) in \(L^2(M)=L^2(M,A)\) the claim follows. 
 \end{proof}
-\textcolor{blue}{
 We finish by mentioning necessary and sufficient conditions for \(D_2(P)\). For this we need the notion of \(bmo_2\) local-martingales. 
 \begin{definition}
     Let \(X\) be a locally-square integrable local martingale. Then \(X\in bmo_2\) if there is \(C>0\) such that 
@@ -2656,20 +2706,13 @@ If we show that the map
 \begin{equation}
     J:\vartheta\mapsto\mathbb{E}[\left(H-V_0-(\vartheta\bullet X)_T\right)^2]
 \end{equation}
-is continuous with respect to the \(\lVert\cdot\rVert\)-induced topology, the 
+is continuous with  to the \(\lVert\cdot\rVert\)-induced topology, the 
 \cref{prop:finite deep mean variance hedging} follows from \cref{prop:minimization of closure}. The continuity follows from the repetitive application of Cauchy-Schwarz and the observation that in the finite case 
 \begin{equation}
     (\vartheta\bullet X)_T=\sum_{k=1}^{n}\vartheta_k(X_{k}-X_{k-1})\leq2\max_{0\leq k\leq n}\max_{\omega\in\Omega}|X_k(\omega)|\sum_{k=1}^n\vartheta_k\;,
 \end{equation}
 where \(C(X)\coloneqq\max_{0\leq k\leq n}\max_{\omega\in\Omega}|X_k(\omega)|<\infty\) as this \(X_k\) is a finite random variable on the finite sample space \(\Omega\).
-Denoting \(Z\coloneqq H-V_0\) for some fixed \(H,V_0\), we find 
-\begin{align*}
-    &\left|\mathbb{E}[(Z-(\vartheta\bullet X)_T)^2]-\mathbb{E}[(Z-(\vartheta'\bullet X)_T)^2]\right|\\
-    &\leq\lVert Z\rVert_{L^2}\lVert(\vartheta-\vartheta')\bullet X\rVert_{L^2}+2C(X)n\lVert \vartheta-\vartheta'\rVert\\
-    &\leq C(X)\lVert \vartheta-\vartheta'\rVert +2nC(X)\lVert \vartheta-\vartheta'\rVert\\
-    &C(X)\left(1+2n\right)\lVert \vartheta-\vartheta'\rVert\;.
-\end{align*}
-Hence the map \(J\) is 1-Lipschitz and thus (uniformly) continuous.
+Thus, the map \(J\) is continuous as the composition of two continuous maps. 
 
 
 \section{With loss of generality argument }\label{Appendix:w.l.o.g.}
@@ -2705,23 +2748,32 @@ as \(\int_0^1|K_s|^p\diff |A|_s\leq 1\) by assumption. But \(A\) has finite vari
 \begin{equation}
     \mathbb{P}(|A|_1^{1/q}>M)<\epsilon\;.
 \end{equation}
-Hence \(\mathcal{P}(A,|A|)\) is bounded in \(L^0\) and thus there exists a predictable density \(\alpha_s\). Furthermore 
+Hence \(\mathcal{P}(A,|A|)\) is bounded in \(L^0\) and thus there exists a predictable density \(\alpha_s\).\\\\
+Take the finite variation process 
 \begin{equation}
-    dA_s = \alpha_s\diff D_s
+    B_t\coloneqq\int_0^t \vartheta_s\diff A_s \;.
 \end{equation}
-implies that \(|\alpha_s|=1\). Hence
+Indeed, the later is a finite variation process for any finite variation process \(A\) and \(\vartheta\in L^2(A)\). By the above, there exists a predictable density \(\beta\) such that 
+\begin{equation}\label{eq:predictable density for total variation}
+    \diff B_t=\beta_t\diff |B|_t
+\end{equation}
+It follows from \cref{eq:predictable density for total variation} that \(\beta_s\in\left\{-1,1\right\}\) for any \(s\in[0,\infty)\). Hence, in \cref{...} if \(\int \vartheta\diff A\) is not monotone the conclusion of the lemma still holds for 
 \begin{equation}
-    \alpha_s\epsilon_s
+    \widetilde{\epsilon}=\epsilon\cdot\beta
 \end{equation}
-is predictable and takes values in \(\left\{-1,1\right\}\). Finally let
+Indeed the latter is a predictable process with values in \(\left\{-1,1\right\}\). Apply the same reasoning in \cref{lemaa} to the increasing, finite variation process \(|B|_t=\int_0^t 1\diff|B|_s\). We get the existence of predictable process \(\widetilde{\epsilon}\) such that for every \(\eta>0\) we have 
 \begin{equation}
-    sgn(\alpha\theta)_s\coloneqq signum(\alpha_s\theta_s)=1_{\alpha_s\theta_s>0}-1_{\alpha_s\theta_s\leq 0}\;.
+    \forall t\in[0,T],\quad\left|\int_0^t\widetilde{\epsilon}_s\diff|B|_s\right|\leq\eta
 \end{equation}
-Note that \(sgn(\alpha_s\theta_s)\) is predictable as linear combination of indicators of predictable sets  (because \(\alpha\) is predictable and \(\vartheta\in L^2(M)\cap L^2(A)\) as well). Hence 
+The integral above can be rewritten as
 \begin{equation}
-    \theta\bullet A=sgn(\theta_s\alpha_s)\theta_s\alpha_s\bullet |A|
+    \int_0^t\widetilde{\epsilon}_s\beta_s\diff B_s=\int_0^t\widetilde{\epsilon}_s\beta_s\vartheta_s\diff A_s\;.
 \end{equation}
-is non-decreasing. Does if \(\theta\bullet A\) is not non-decreasing, apply the theorem to \(\theta\alpha\bullet A\). The conclusion remainse the same for the predictable process \(\widetilde{\epsilon}=\epsilon\alpha\) which takes values in \(\left\{-1,1\right\}\).
+The claim follows by setting 
+\begin{equation}
+    \epsilon_s=\widetilde{\epsilon_s}\beta_s\;,
+\end{equation}
+which defines a predictable process with values in \(\left\{-1,1\right\}\), hence the claim.
 \end{appendices}
 \end{document}
 
