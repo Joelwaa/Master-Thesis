@@ -234,6 +234,7 @@ $\mathcal{L}^{\infty}(\Omega,\mathcal{F},\mu;\mathbb{R})$, & Set of $\mathcal{F}
 L^p(\Omega, \mathcal{F},\mu;\mathbb{R}),\quad p\in [0,\infty] & quotient space of \(\mathcal{L}^p\) with respect to the equivalence relation \(f\sim g\iff \lVert f-g\rVert_{L^p}=0\)\\
 \mathbb{F}=(\mathcal{F}_i)_{i\in I} \text{ satisfies the usual assumptions } & \mathbb{F} is right-continuous i.e. \(\cap_{\epsilon>0}\mathcal{F}_{t+\epsilon}=\mathcal{F}_t\) and is \(\mu\)-complete\\
 \mathcal{F}_I=\bigvee_{i\in I}\mathcal{F}_i & In general \(\mathcal{F}_i\subset\mathcal{F}\) and \(\mathcal{F}_I\subset \mathcal{F}\) for some index set \(I\). We often assume but do so explictely, \(\mathcal{F}=\mathcal{F}_I\) \\
+X_*\mathbb{P}(A) & Push-forward measure of \(\mathbb{P}\) ofn \(\mathcal{F}\) under the measurable map \(X:\mathcal{E}\to\mathcal{F}\). It is defined as \(\mathbb{P}(X^{-1}(A))\) for all \(A\in\mathcal{F}\). \\
 \bottomrule
 \end{tabularx}
 
@@ -354,7 +355,7 @@ We define the following set
 where \(T\) is the final time and \(G_T(\Theta)=\left\{(\vartheta \bullet X)_T:\vartheta\in \Theta\right\}\).\\
 Hence, \(\mathcal{A}(\Theta)\) defines the space of terminal values of portfolios \((V_0,\vartheta)\in\mathbb{R}\times \Theta\). The price process \(X=(X_0,\dots,X_d)\) is fixed throughout all of this article; hence, we abuse notation by omitting the dependency of \cref{eq:terminal value processes}. We write \(\mathcal{A}(\Theta)\).
 
-\section{General idea of hedging}
+\section{General idea of hedging}\label{sec:general idea of hedging}
 As explained in the \cref{sec:hedging} we want to hedge a liablity \(H\) which we model to be a real-valued random variable whose value is known at the final time \(T\geq 0\), i.e. \(H\in\mathcal{L}^0(\Omega,\mathcal{F}_T;\mathbb{R})\). For an concrete example, one might think of \(H\) as a europian call option and \(T\) the strike time of that option.
 \\
 We call a contingent claim \textit{attainable} if there exists a self-financing strategy \((\vartheta,\eta)\) such that
@@ -406,7 +407,9 @@ The above conditions can be translated in practically relevant requirements. The
 \\\\
 Furthermore, we call a position \(X\) \(\rho\)-acceptable if \(\rho(X)\leq 0\), and we call \(X\) to be a \(\rho\)-indifferent portfolio if \(\rho(X) = \rho(0)\); i.e., holding the portfolio \(X\) is equivalent, from the point of view of the convex risk measure \(\rho\), to having no position in the market at all. We call \(\rho\) normalized if \(\rho(0)=0\).
 \\\\
-Notice that by cash invariance \(\rho(X+\rho(X))=0\). In other words, \(\rho(X)\) is the smallest amount of cash that needs to be added to the portfolio \(X\) in order to make it \(\rho\)-acceptable. 
+\begin{remark}\label{rem:minimal amound of injected cash for acceptable position}
+    Notice that by cash invariance \(\rho(X+\rho(X))=0\). In other words, \(\rho(X)\) is the smallest amount of cash that needs to be added to the portfolio \(X\) in order to make it \(\rho\)-acceptable.
+\end{remark} 
 \bigbreak
 We now consider the following minimization problem. Let \(\rho\) be a convex risk measure and \(H\in \mathcal{L}^0(\mathcal{F}_T,\mathbb{P};\mathbb{R})\) a liability. Then
 \begin{equation}\label{eq:risk measure hedging}
@@ -420,7 +423,7 @@ We interpret \(\pi(X)\) as the hedging error under optimal hedging, or equivalen
     \\&\leq \alpha\inf_{\vartheta_1\in\Theta}\rho( (V_0+(\vartheta_1\bullet X)_T-H_1)+(1-\alpha)\inf_{\vartheta_2\in\Theta}\rho( (V_01(\vartheta_2\bullet X)_T-H_2)
 \end{align*}
 Taking \(\inf_{V_0\in\mathbb{R}}\) of the above inequality yields \(\pi(\alpha H_1+(1-\alpha) H_2)\leq \alpha\pi(H_1)+(1-\alpha)\pi(H_2)\), where we used the convexity of \(\Theta\) in the second step and the convexity of \(\rho\) in the third step.
-\\\\
+\begin{remark}\label{rem:ill posed problem}
 Notice an important subtlety about \cref{eq:risk measure hedging}. Due to the cash-invariance property of the convex risk measure \(\rho\) we have 
 \begin{align*}
     \pi(H) = &\inf_{(V_0,\vartheta)\in\mathbb{R}\times G_T(\Theta)}\rho\left(H-V_0-(\vartheta\bullet X)_T\right)\\
@@ -429,7 +432,8 @@ Notice an important subtlety about \cref{eq:risk measure hedging}. Due to the ca
 \end{align*}
 if \(\rho\left(H-(\vartheta\bullet X)_T\right)\) is finite,
  we can take \(V_0\) arbitrarily negative.\footnote{ If \(\rho\left(H-(\vartheta\bullet X)_T\right)=+\infty\) the problem is again ill defined.} In this sense, the problem is ill defined. Hence, either we restrict the set of admissible strategies to those that are lower bounded by some real value \(-b\leq 0\), or we can put additional assumptions on the convex risk measure \(\rho\) (see \parencite{Xu2006RiskMeasurePricingHedging} for a sufficient treatment of this matter). 
-Alternatively, we can take a different point of view and consider a fixed, finite and deterministic \(V_0^*\in\mathbb{R}\) and analyze the minimization problem 
+\end{remark}
+Alternatively, we can take a different point of view and consider a fixed, finite, and deterministic \(V_0^*\in\mathbb{R}\) and analyze the minimization problem 
 \begin{equation}\label{eq:risk measure heding with fixed initial capital}
     \inf_{\vartheta\in\Theta}\rho\left(H-V_0^*-(\vartheta\bullet X)_T\right)\;.
 \end{equation}
@@ -469,7 +473,7 @@ In this context, if a solution of the form \(V_0^*+(\vartheta^*\bullet X_T)\in\m
 Furthermore, notice that if \(G_T(\Theta)\) is a closed subspace of \(L^2\), then so is \(\mathcal{A}(\Theta)\) and \cref{eq:mean squared hedging} reduces to a \(L^2\) projection problem of the \(L^2\)-random variable \(H\) onto \(\mathcal{A}(\Theta)\). 
 Indeed, then \cref{eq:mean squared hedging} asks for the element in the closed subspace \(\mathcal{A}(\Theta)\) that minimizes the \(L^2\)-distance. Recalling that \((L^2(\mathbb{R)},\lVert\cdot\rVert_{L^2})\) is a Hilbert space, we get existence and uniqueness of the minizer of \cref{eq:mean squared hedging} from the Hilbert projection Theorem \parencite[Thm.~12.3]{Rudin1991FunctionalAnalysis}. 
 \end{remark}
-Notice that due to the continuity of the map, \footnote{It follows as the composition of continuous functions: \(L^2\)-norm and addition in \(\mathbb{R}\). This uses the general fact that for \(f:X\to\mathbb{R}\) continuous for some topological space \(X\), we have for any subset (\(Y\subset X\)) that \(\inf d(Y)=\inf d(\overline{Y})\). For a short proof, see \cref{Appendix:Infima over closure}}.
+Notice that due to the continuity of the map, \footnote{It follows as the composition of continuous functions: \(L^2\)-norm and addition in \(\mathbb{R}\). This uses the general fact that for \(d:X\to\mathbb{R}\) continuous for some topological space \(X\), we have for any subset \(Y\subset X\) that \(\inf d(Y)=\inf d(\overline{Y})\), where the closure is taken with respect to the topology of \(X\) for which \(d\) is continuous. For a short proof, see \cref{Appendix:Infima over closure}}.
 \begin{equation}
 \begin{cases}
     (\mathcal{A}(\Theta),\lVert\cdot\rVert_{L^2})\to(\mathbb{R},|\cdot|_{\mathbb{R}})\\
@@ -481,72 +485,75 @@ the minimization problem \cref{eq:mean squared hedging} is equivalent to
 \inf_{V_T\in \overline{\mathcal{A}(\Theta)}}\mathbb{E}[\left(H-V_T\right)^2]\;,
 \end{equation}
 where the closure \(\overline{\mathcal{A}(\Theta)}=\overline{G_T(\Theta)+\mathbb{R}}\) is taken in \(L^2\). In particular, \(\overline{\mathcal{A}(\Theta)}\) is clearly closed in \(L^2(\mathbb{P})\), and hence, by the application of the Hilbert projection theorem, \cref{eq:mean squared hedging over closure} admits a unique solution as the \(L^2\)-projection on the closed subspace \(\overline{\mathcal{A}(\Theta)}\). Nevertheles this doesn not allow to infer an explicit expression for this solution other than that it is an \(L^2\)-limit of portfolios \((V_0,\vartheta)\in\mathcal{A}(\Theta)\). In section \cref{sec:Mean-variance Hedging with continuous price process} we will see sufficient conditions such that \(\overline{\mathcal{A}(\Theta)}=\mathbb{R}+\overline{G_T(\Theta)}\). Then we can at least infer the mean-variance price, while still not revealing the structure of the mean-variance strategy.  If pricing is the major concern, this might be satisfactory.  \\\\
-If, however, we want to infer more explicitly regarding the mean-variance strategy, we will need to study conditions on \(\Theta\) and \(X\) for which \(G_T(\Theta)\) is closed in \(L^2(\mathbb{P})\). Indeed, if this is the case, by the same Hilbert projection argument, we get the existence of a unique \(V_T^*\in G_T(\Theta)\), which, as an element of \(G_T(\Theta)\), takes the form \(V_T^*=\int_0^T\vartheta^*\diff X_s\). We touch upon this question in \cref{sec:deep mean-square hedging in continuous time} and \cref{sec:extension of deep mean squared hedging to semimartingales}. In this case one might study explicit expressions of the mean-variance portfolio.
+If, however, we want to infer more explicitly regarding the mean-variance strategy, we will need to study conditions on \(\Theta\) and \(X\) for which \(G_T(\Theta)\) is closed in \(L^2(\mathbb{P})\). Indeed, if this is the case, by the same Hilbert projection argument, we get the existence of a unique \(V_T^*\in G_T(\Theta)\), which, as an element of \(G_T(\Theta)\), takes the form \(V_T^*=\int_0^T\vartheta^*_s\diff X_s\). We touch upon this question in \cref{sec:deep mean-square hedging in continuous time} and \cref{sec:extension of deep mean squared hedging to semimartingales}. In this case one might study explicit expressions of the mean-variance portfolio.
 
 
 \chapter{Deep Hedging in Discrete Time}\label{ch:Deep Hedging in Discrete Time}
-After establishing a good understanding of the hedging problem in general terms we further discuss deep hedging. We will approach it generally at first and then go into more detail into the set up and treatement of \parencite{Buehler2018DeepHedging}. Recall that the hedging problem, as we treat it in this article, is given by \cref{eq:general hedging} as the approximation of a liability \(H\) by the value process of a self-financing strategy \(\vartheta\in\Theta\) for some set of admissible trading strategies \(\Theta\) and some notion of closeness. In this section we shall require \(T<\infty\). 
+After establishing an the mean-variance hedging problem in general terms, we further discuss a particular solution approach introduced by \parencite{Buehler2018DeepHedging}. The latter treats the hedging problem in a finite and discrete setup. We refer to the approach developped in \parencite{Buehler2018DeepHedging} as deep hedging. \\
+The section will be build up as follows. First we heuristically discuss its main ideas before presenting the main theoretical results \parencite{Buehler2018DeepHedging}. Although the latter particularly treats convex risk-measure hedging in detail, their approach is more general and extends to mean-variance hedging. In the last part of this section, we work out their approach in the mean-variance hedging setting, theoretically laying the ground for the time-continuous generalization of \parencite{Arandjelovic2025} presented in \cref{sec:algorithmically generated random variables} and \cref{sec:deep mean-square hedging in continuous time}. \\  In this section, we shall require that \(T<\infty\). 
 
 \section{The deep hedging framework of Bühler et al.}\label{sec:The deep hedging framework of Bühler et al.}
-The basic idea in deep hedging is to approximate the strategies \(\vartheta\in\Theta\) by a \textit{good} set of approximants. By good, we mean that the approximation should be arbitrarily exact and implementation friendly. The limiting exactness of our approximants is central to the theoretical development of \parencite{Buehler2018DeepHedging} as discussed in the following, and the practical importance of neural networks will motivate a specific choice for our approximation system. The specific setup we discuss in this chapter is based on a finite sample space \(\Omega\). 
-\\\\
-What makes \parencite{Buehler2018DeepHedging} particularly powerful is its practical generality, particularly allowing for trading costs. 
-The main problem that is directly addressed theoretically in \parencite{Buehler2018DeepHedging} is convex risk-measure hedging as introduced in \cref{eq:risk measure hedging}. In light of our discussion of the continuous time setup, we will nevertheless consider a frictionless market, that is, without trading costs. In this case, we will show how the theoretical results from \parencite{Buehler2018DeepHedging} apply to mean-variance hedging in the finite setup. This in particular adds to \parencite[Remark.~3.4]{Buehler2018DeepHedging} and conceptually links their work to our discussion of deep mean-variance hedging.
-
-What makes \parencite{Buehler2018DeepHedging} particularly powerful is its practical generality, especially in allowing for trading costs: \(C_t(\vartheta)\) and modeling of constrained strategies denoted by \(\mathcal{H}\subset\mathcal{H}^u\), where the latter denotes the unconstrained strategies.
-\\
-As the purpose of this exposition is to understand deep hedging and, in particular, its relation to deep mean-variance hedging, we won't assume unnecessary generality and will specialize in this case. 
-\begin{align}\label{eq:simplifying assumptions}
-    &C_t(\vartheta)=0\quad\forall \vartheta\quad\forall t\geq 0\;,\\
-    &\mathcal{H}=\mathcal{H}^u=\Theta\;,
-\end{align}
-where \(\Theta\) denotes the set of \(\mathbb{F}\)-predictable processes.
+The main idea in the deep hedging approach is to approximate optimal hedging strategies \(\vartheta\in\Theta\) by a suitable set of approximants. In our context, suitable refers to the property that the approximation should be universal and practical. By universal, we mean that the approximation system is rich enough to approximate any admissible strategy in a strong enough sense arbitrarily well. In particular, the last point refers to a limiting result not referring to the efficiency of the approximation, given a finite amount of computational resources. Neural networks will form a well suited choice to construct the approximation system. Nevertheless, the novelty in \parencite{Buehler2018DeepHedging} lies in the general idea of how to get an approximation system for random, admissible strategies \(\vartheta\in\Theta\) from well-known approximation systems of deterministic functions. 
+\bigbreak
+The basic constraints in \parencite{Buehler2018DeepHedging} are in their implementation friendly, discrete time, finite sample space setup. Although very restrictive, this allows the authors of \parencite{Buehler2018DeepHedging} to formulate their approach in very general terms, allowing for 
+non-constant trading costs. \\
+In light of our discussion of the continuous time setup, and in accordance with \cref{sec:general idea of hedging}, we will nevertheless consider a frictionless market, that is, without trading costs. In this case, we will show how the theoretical results from \parencite{Buehler2018DeepHedging} apply to mean-variance hedging in the discrete time, finite sample space setup. This in particular adds to \parencite[Remark.~3.4]{Buehler2018DeepHedging} and conceptually links their work to our discussion of deep mean-variance hedging in \cref{sec:deep mean-square hedging in continuous time}.
 \subsection{Market model and trading strategies}
-The current setup still follows, for the most part, the general setup described in \cref{sec:hedging}. Some simplifying assumptions are made that make the treatment technically easier compared to the general continuous time treatment, as discussed in \cref{sec:deep mean-square hedging in continuous time}. In particular, the main simplifications follow from the assumptions of a discrete financial market with a finite time horizon \(T\), finitely many trading times \(0=t_0<t_1<\dots<t_n=T<\infty\), and a finite sample space \(\Omega=\{\omega_1,\dots,\omega_N\}\) such that \(\mathbb{P}(\left\{\omega_i\right\})>0\) for all \(i=1,\dots,N\). Hence, the market-filtration \(\mathbb{F}=(\mathcal{F})_{k=0}^n\), generated by the \(\mathbb{R}^r\)-valued market process \(Y=(Y_k)_{k=0}^n\), is also finitely generated in the sense that \(\mathcal{F}_k=\sigma(Y_0,\dots,Y_k)\). If we consider \(\mathcal{F}_k\) the available information up to time \(t_k\), we have, by the Doob-Dynkin lemma \parencite[Lemma.~1.14]{Kallenberg2002FoundationsModernProbability}, that any random quantity whose value can be deduced from the information available at time \(t_k\), that is any \(\mathcal{F}_k\)-measurable random variable, is a function of \(Y_0,\dots,Y_k\).  
-\bigbreak
-Recall that the optimization problem \cref{eq:risk measure hedging} is ill defined in the sense that \(\pi(H)=-\infty\) for all \(H\in\mathcal{L}^0(\mathbb{P},\mathcal{F}_T;\mathbb{R})\) if we don't put additional assumptions on \(\mathcal{A}(\Theta)\) and \(\rho\). An alternative, related problem, which doesn't suffer from this degenerate behavior, is to consider 
-\begin{equation}\label{eq:risk measure hedging from buehler}
-    \pi(L)=\inf_{\vartheta\in\Theta}\rho(L-(\vartheta\bullet X)_T)\;,
+The current setup follows the general setup described in \cref{sec:hedging} under the following simplyfying assumptions. We assume a finitely many trading times \(0=t_0<t_1<\dots<t_n=T<\infty\), and a finite sample space \(\Omega=\{\omega_1,\dots,\omega_N\}\) such that \(\mathbb{P}(\left\{\omega_i\right\})>0\) for all \(i=1,\dots,N\). Hence, the market-filtration \(\mathbb{F}=(\mathcal{F}_k)_{k=0}^n\), with \(\mathcal{F}_n=\mathcal{F}_T\), generated by the \(\mathbb{R}^r\)-valued market process \(Y=(Y_k)_{k=0}^n\), is also finitely generated, that is 
+\begin{equation}
+    \mathcal{F}_k=\sigma(Y_0,\dots,Y_k)\;.
+\end{equation} 
+The Doob-Dynkin representation lemma \parencite[Lemma.~1.14]{Kallenberg2002FoundationsModernProbability} states in this discrete setup that any observable whose value can be determined with the information available up to time \(t_k\) can be represented as a deterministic function of the knowledge from \(Y\) up to time \(t_k\). Hence, setting the stochastic basis as 
+\begin{equation}
+    (\Omega,\mathcal{F},\mathbb{F,\mathbb{P}})
 \end{equation}
-for \(L\in\mathcal{L}^0(\mathbb{P},\mathcal{F},\mathbb{R})\) and where one optimizes over \(\vartheta\in\Theta\). Clearly, \cref{eq:risk measure hedging from buehler} is equivalent to \cref{eq:risk measure heding with fixed initial capital} by writing \(\widetilde{L}=L+V_0\) for fixed \(V_0\).Furthermore, \cref{lemma:Finiteness of inf for finite sample space} still applies to \cref{eq:risk measure hedging from buehler} and ensures finiteness if \(\pi(0)>-\infty\). \cref{eq:risk measure hedging from buehler} is then the hedging problem that is explicitly addressed in \parencite{Buehler2018DeepHedging}.
+with \(\mathcal{F}=\mathcal{F}_T\), it is conceptually stated that \(Y\) constitutes all the information that is knowable for an agent in the market. In other words, \(\left\{Y_0,\dots,Y_k\right\}\) is the richest possible feature set.  
 \bigbreak
-Commenting on the interpretation of \cref{eq:risk measure hedging from buehler} we observe that it corresponds to the optimal hedging error for \(V_0=0\) initial capital, which feels natural. Nevertheless,is due to the observations made earlier regarding the interpretation of the convex risk measure, \(\pi(H)\) of  \cref{eq:risk measure hedging from buehler} is the minimal additional cash that needs to be added to the traders position in order to make it \(\rho\)-acceptable. 
+Recall our discussion in \cref{rem:ill posed problem} showcasing that the optimization problem \cref{eq:risk measure hedging} is ill defined in the sense that \(\pi(H)=-\infty\) for all \(H\in\mathcal{L}^0(\mathbb{P},\mathcal{F}_T;\mathbb{R})\) if we don't put additional assumptions on \(\mathcal{A}(\Theta)\) and \(\rho\). Thus, we consider the closely related hedging problem \cref{eq:general hedging for fixed initial capital}, which doesn't suffer from this degenerate behavior:
+\begin{equation}\label{eq:risk measure hedging from buehler}
+    \pi(H)=\inf_{\vartheta\in\Theta}\rho((\vartheta\bullet X)_T-H)\;,\footnotemark
+\end{equation}\footnotetext{\cref{eq:risk measure hedging from buehler} is clearly, \cref{eq:risk measure hedging from buehler} is equivalent to \cref{eq:risk measure heding with fixed initial capital} by writing \(\widetilde{L}=L+V_0\) for fixed \(V_0\)}
+for \(L\in\mathcal{L}^0(\mathcal{F}_T;\mathbb{R})\). Furthermore, \cref{lemma:Finiteness of inf for finite sample space} still applies to \cref{eq:risk measure hedging from buehler} and ensures finiteness if \(\pi(0)>-\infty\). \cref{eq:risk measure hedging from buehler} is then the hedging problem that is explicitly addressed in \parencite{Buehler2018DeepHedging}.
+\bigbreak
+Recall that due to the discussion in \cref{rem:minimal amound of injected cash for acceptable position} \(\pi(H)\) of  \cref{eq:risk measure hedging from buehler} is the minimal additional cash that needs to be added to the traders position in order to make it \(\rho\)-acceptable.
+
+
 \section{Approximation of trading strategies}\label{sec:Approximation of trading strategies}
-Adapting the point of view presented in \parencite{Buehler2018DeepHedging}, we are not so much interested in sufficient conditions for the infimum in \cref{eq:risk measure hedging from buehler} to be attained, but rather in the consistent approximation of \(\pi(L)\) for any \(L\in\mathcal{L}^0(\mathbb{P},\mathcal{F}_T;\mathbb{R})\) through approximating the trading strategies in \(\Theta\). The underlying idea is to leverage the \(\mathbb{F}\)-predictability of \(\vartheta\in\Theta\) by approximating its respective Doob-Dynkin functional representation with a suitable set of functions. Mathematically speaking, we want to find a suitable dense subset of the function space that encompasses the Doob-Dynkin representations of the \(\mathcal{F}_{k-1}\)-predictable \(\vartheta_k\). That is:
+Adapting the point of view presented in \parencite{Buehler2018DeepHedging}, we are not interested in sufficient conditions for the infimum in \cref{eq:risk measure hedging from buehler} to be attained, but rather in the consistent approximation of \(\pi(L)\) for any \(H\in\mathcal{L}^0(\mathbb{P},\mathcal{F}_T;\mathbb{R})\) through approximating the optimal trading strategies in \(\Theta\). The underlying idea is to leverage the \(\mathbb{F}\)-predictability of the admissible strategies \(\vartheta=(\vartheta_k)_{k=1}^n\) by approximating its respective Doob-Dynkin functional representation of its components with a suitable set of functions. Mathematically speaking, we want to find a suitable dense subset of the function space that encompasses the Doob-Dynkin representations of the \(\mathcal{F}_{k-1}\)-measurable \(\vartheta_k\). That is:
 \begin{equation}
    \vartheta_k=f_k(Y_0,\dots,Y_{k-1})\;,
 \end{equation}
-where \(f_k:\mathbb{R}^{rk}\to\mathbb{R}^d\) is Borel-measurable.
-\\
-Notice that in our current setting, finite \(\Omega\) we have that 
+where \(f_k:\mathbb{R}^{r\times k}\to\mathbb{R}^d\) is Borel-measurable. For simplicity, we assume \(\vartheta_k\) to take values in \(\mathbb{R}\). The multidimensional case follows analogously. 
+\bigbreak
+In the current setup, \(\Omega\) is assumed to be finite. Hence we have that 
 \begin{equation}
     \mathbb{E}_{\mathbb{P}}\left[f_k(Y_0,\dots,Y_{k-1})\right]=\sum_{\omega\in\Omega}f_k(Y_0(\omega),\dots,Y_{k-1}(\omega))<\infty\;,
 \end{equation}
-is finite as a finite sum over finite terms.
+is finite as a finite sum of finite terms.
 In particular, due to
 \begin{equation}
     \mathbb{E}_{\mathbb{P}}\left[f_k(Y_0,\dots,Y_{k-1})\right]=\mathbb{E}_{\mathcal{L}(Y_0,\dots,Y_{k-1})}\left[f_k\right]\;,
 \end{equation}
 where \(\mathcal{L}(Y_0,\dots,Y_{k-1})\) denotes the law of \((Y_0,\dots,Y_{k-1})\)\footnote{That is, the push-forward measure \(\mathbb{P}_*(Y_0,\dots,Y_{k-1})\coloneqq\mathbb{P}\circ(Y_0,\dots,Y_{k-1})^{-1}\).}, we have 
 \begin{equation}\label{eq:f is in L1 for finite Omega}
-    f_k\in L^1(\mathbb{R}^{rk},\mathcal{L}(Y_0,\dots,Y_{k-1}))\;.
+    f_k\in L^1(\mathbb{R}^{r\times k},\mathcal{L}(Y_0,\dots,Y_{k-1}))\;.
 \end{equation}
 More generally, we have
 \begin{equation}
-    f_k\in L^p(\mathbb{R}^{rk},\mathcal{L}(Y_0,\dots,Y_{k-1}))\quad\forall p>0\;.
+    f_k\in L^p(\mathbb{R}^{r\times k},\mathcal{L}(Y_0,\dots,Y_{k-1}))\;,\quad p\geq 1\;.
 \end{equation}
-In the probabilistic case, measure spaces are finite (probability spaces); hence \(L^p\subset L^q\) for \(p\geq q\). Hence, we need an approximation system \(\Psi\) that approximates functions from \(\subset\  L^1(\mathbb{R}^{r(k+1)},\mathcal{L}(Y_0,\dots,Y_{k-1}))\) arbitrarily well. Technically, we want the following density statement.
+The stochastic basis is in particular a finte measure space; hence \(L^p\subset L^q\) for \(p\geq q\). Thus, we need an approximation system \(\Psi\) that can approximate functions in \(L^1(\mathbb{R}^{r\times k},\mathcal{L}(Y_0,\dots,Y_{k-1}))\) arbitrarily well. Technically, we want the following density statement to hold for \(\Psi\).
 \begin{equation}
-    \overline{\Psi}^{L^1}=L^1(\mathbb{R}^{r(k+1)},\mathcal{L}(Y_0,\dots,Y_{k-1}))\;.
+\overline{\Psi}^{L^1}=L^1(\mathbb{R}^{r\times k},\mathcal{L}(Y_0,\dots,Y_{k-1}))\;.
 \end{equation}
-This is enough for the \(\Omega\)-finite case. Looking ahead, we want to treat the general \(\Omega\) case. We need to require \(\Psi\) to be in \(L^p\quad p>0\). We will do this by requiring elements in \(\Psi\) to be essentially bounded, that is almost surely bounded. Thus, what we want is \(\Psi\) such that:
+As \(L^1(\mathbb{P})\) is a metric space this statement is equivalent to the following
 \begin{align*}
-  &\Psi\subset\mathcal{L}^{\infty}(\Omega,\mathbb{P})\\
-  &\overline{\Psi}^{L^1}=L^1(\Omega,\mathbb{P})\;.
+\forall f\in L^1(\mathbb{P})\;\forall \epsilon>0\;\exists \psi\in\Psi:\;\lVert f-\psi\rVert_{L^1(\mathbb{P})}=\int_{\mathbb{R}^{r\times k}}|f(x)-\psi(x)| \mathcal{L}(Y_0,\dots,Y_{k-1})(\diff x)<\epsilon\;.
 \end{align*}
-We will only motivate and introduce a concrete incarnation of such a \(\Psi\) at the end of the current chapter and discuss it in \cref{ch:Neural Networks and Universal Approximation}. For now and the rest of this section we shall remain general.
+The case \(p=1\) is enough for the \(\Omega\)-finite case. It will turn out that for more general sample spaces \(\Omega\) we need density in \(L^p,\; p\geq 1\).
+We will only motivate and introduce a concrete incarnation of such a \(\Psi\) at the end of this section and discuss it in \cref{ch:Neural Networks and Universal Approximation}. For now, and for the rest of this section, we shall remain general.
 \bigbreak
-We now come back to the original task of approximating \(\pi(L)\) of \cref{eq:risk measure hedging from buehler} by approximating the strategies in \(\Theta\) using our approximation system \(\Psi\). Following \parencite{Buehler2018DeepHedging}  we introduce a stratification on \(\Psi\) as follows. Denote by \((\Psi_M)_{M\in\mathbb{N}}\) a sequence of subsets of \(\Psi\) such that 
+We now return to the original task of approximating \(\pi(L)\) of \cref{eq:risk measure hedging from buehler} by approximating the strategies in \(\Theta\) using \(\Psi\). Following \parencite{Buehler2018DeepHedging}  we introduce a stratification on \(\Psi\) as follows. Denote by \((\Psi_M)_{M\in\mathbb{N}}\) a sequence of subsets of \(\Psi\) such that 
 \begin{itemize}
     \item \(\Psi_M\subset\Psi_{M+1}\quad\forall M\in\mathbb{N}\)\;,
     \item \(\bigcup_{M\in\mathbb{N}}\Psi_M=\Psi\)\;,
@@ -557,7 +564,8 @@ As we want to approximate strategies with \(\Psi\) we define the following subse
 \begin{equation}\label{eq:restricted strategies}
     \Theta_M\coloneqq\{\vartheta=(\vartheta_k)_{k=0}^{n-1}\in\Theta:\vartheta_k=F_k(Y_0,\dots,Y_{k-1},\vartheta_{k-1}),\quad F_k\in\Psi_M\}\;.
 \end{equation}
-Notice the analogy with the Doob-Dynkin representation of the strategy \(\vartheta\). Do to the same Doob-Dynking representation theorem \(\vartheta_{k-1}\) is itself already some measurable function of \((Y_0,\dots,Y_{k-1})\), thus we can omitt \(\vartheta_{k-1}\) dependency in the definition \cref{eq:restricted strategies}. Thus, \(\Theta_M\) is the set of strategies that have a Doob-Dynkin representation in \(\Psi_M\). 
+Because \(\Psi_M\subset\Psi_{M+1}\) for all \(M\geq1\) we have \(\Theta_M\subset\Theta_{M+1}\).
+Furthermore, notice the analogy with the Doob-Dynkin representation of the strategy \(\vartheta\). Again due to the Doob-Dynkin representation theorem, \(\vartheta_{k-1}\) is itself already some measurable function of \((Y_0,\dots,Y_{k-1})\); thus, we can omit \(\vartheta_{k-1}\) dependency in the definition \cref{eq:restricted strategies}. Thus, \(\Theta_M\) is the set of strategies whose components (in time) have a Doob-Dynkin representation in \(\Psi_M\). 
 We further denote
 \begin{equation}
     \Theta_{\infty}\coloneqq \bigcup_{M\in\mathbb{N}}\Theta_M
@@ -565,66 +573,95 @@ We further denote
 
 We can now state the restricted optimization problem. 
 \begin{equation}\label{eq:restricted risk measure hedging from buehler}
-    \pi^M(L)=\inf_{\vartheta\in\Theta_M}\rho(L-(\vartheta\bullet X)_T)\;.
+\pi^M(H)=\inf_{\vartheta\in\Theta_M}\rho((\vartheta\bullet X)_T-H)\;.
 \end{equation}
-The natural theorem we would like to show is that the restricted hedging errors from \cref{eq:restricted risk measure hedging from buehler} converge to the unrestricted hedging error \cref{eq:risk measure hedging from buehler} for \(M\to\infty\). Indeed, in our current setup, this holds true and is the core theoretical result of \parencite{Buehler2018DeepHedging}. 
+The theorem we will state and prove shows that the restricted hedging errors from \cref{eq:restricted risk measure hedging from buehler} converge to the unrestricted hedging error \cref{eq:risk measure hedging from buehler} for \(M\to\infty\). This constitutes the core theoretical result of \parencite{Buehler2018DeepHedging}. 
 \begin{theorem}[Consistent Approximation of Hedging Errors]\label{thm:approximation by restricted hedging errors}
  Let \(\Theta_M\subset \Theta\) be as in \cref{eq:restricted strategies} and \(\pi^M\) as in \cref{eq:restricted risk measure hedging from buehler}. Then, for any \(L\in\mathcal{L}^0(\mathbb{P},\mathcal{F}_T;\mathbb{R})\),
  \begin{equation}
-     \lim_{M\to\infty}\pi^M(L)=\pi(L)\;.
+     \lim_{M\to\infty}\pi^M(H)=\pi(H)\;.
  \end{equation}
 \end{theorem}
-Before giving the proof, we conceptually argue how we expect the proof to proceed. Recall that the strategy \(\vartheta=(\vartheta_k)_{k=0}^{n-1}\) is a \(\mathbb{F}\)-adapted process, where \(\mathcal{F}_k=\sigma(Y_0,\dots,Y_{k})\). By Doob-Dynkin, for every \(k=0,\dots n-1\), there exists a \(f_k:\mathbb{R}^{r(k+1)}\to\mathbb{R}^d\) measurable function such that. 
+Before giving the proof, we conceptually argue how we expect the proof to proceed. Recall that the strategy \(\vartheta=(\vartheta_k)_{k=1}^{n}\) is a \(\mathbb{F}\)-predictable process. In particular, \(\vartheta_k\) is \(\mathcal{F}_{k-1}\)-measurable with \(\mathcal{F}_{k-1}=\sigma(Y_0,\dots,Y_{k-1})\). By Doob-Dynkin, for every \(k=1,\dots n\), there exists a \(f_k:\mathbb{R}^{r\times k}\to\mathbb{R}\) measurable function such that. 
 \begin{equation}
     \vartheta_k=f_k(Y_0,\dots,Y_{k-1})\;.
 \end{equation}
-As we have argued previously in \cref{eq:f is in L1 for finite Omega} we have \(f\in L^1(\mathbb{R}^{r(k+1)},\mathcal{L}(Y_0,\dots,Y_{k-1}))\). We can thus approximate it by elements in \(\Psi\). Because \(\bigcup_{M\in\mathbb{N}}\Psi_M=\Psi\), for a given approximation error bound \(\epsilon>0\) we can do so by elements of \(\Psi_M\) for \(M\in\mathbb{N}\) large enough. The hope is then that we can also approximate the hedging error arbitrarily well in the sense that we can get \(\epsilon\)-close with large enough \(M\). To show that this works requires careful argumentation and will be done in the following proof
+As we have argued previously in \cref{eq:f is in L1 for finite Omega} we have \(f\in L^1(\mathbb{R}^{r\times k},\mathcal{L}(Y_0,\dots,Y_{k-1}))\). We can thus approximate it by elements in \(\Psi\). Because \(\bigcup_{M\in\mathbb{N}}\Psi_M=\Psi\), for a given approximation error bound \(\epsilon>0\) we can do so by elements of \(\Psi_M\) for \(M\in\mathbb{N}\) large enough. The hope is then that we can also approximate the hedging error arbitrarily well in the sense that we can get \(\epsilon\)-close with large enough \(M\). To show that this works requires care and will be done in the following proof
 \begin{proof}
- First, notice that due to the monotonicity \(\Psi_M\subset\Psi_{M+1}\subset\Psi\) we have \(\Theta_M\subset\Theta_{M+1}\subset\Theta\) hence \(\pi^M(L)\geq\pi^{M+1}(L)\geq\pi(L)\). Hence, the convergence of \(\pi(L)\) from above is equivalent to convergence from above. Thus, it is enough to show that for any \(\epsilon>0\), there exists \(M\in\mathbb{N}\) such that 
+ First, notice that due to the monotonicity \(\Psi_M\subset\Psi_{M+1}\subset\Psi\) we have \(\Theta_M\subset\Theta_{M+1}\subset\Theta\) hence 
  \begin{equation}
-     \pi^M(L)\leq \pi(L)+\epsilon\;.
+     \pi^M(H)\geq\pi^{M+1}(H)\geq\pi(H)\;. 
+ \end{equation}
+ Hence, the convergence of \(\pi^M(H)\) to \(\pi(H)\) is from above. Hence, it is enough to show that for any \(\epsilon>0\), there exists \(M\in\mathbb{N}\) such that 
+ \begin{equation}
+     \pi^M(H)\leq \pi(H)+\epsilon\;.
  \end{equation}
  Furthermore, by the definition of the infimum over a real set, for every \(\epsilon/2>0\), there exists \(\vartheta\in\Theta\) such that
  \begin{equation}
-     \rho(L-(\vartheta\bullet X)_T)\leq\pi(L)+\frac{\epsilon}{2}\;.
+     \rho((\vartheta\bullet X)_T-H)\leq\pi(H)+\frac{\epsilon}{2}\;.
  \end{equation}
- Consider this \(\vartheta=(\vartheta_k)_{k=0}^{n-1}\). By definition, \(\vartheta_k\) is \(\mathcal{F}_k\)-measurable. So, by the Doob-Dynkin lemma, there exists \(f_k:\mathbb{R}^{rk}\to\mathbb{R}^d\) measurable such that 
+ Consider this \(\vartheta=(\vartheta_k)_{k=1}^{n}\). By definition, \(\vartheta_k\) is \(\mathcal{F}_{k-1}\)-measurable. So, by the Doob-Dynkin lemma, there exists a measurable \(f_k:\mathbb{R}^{r\times k}\to\mathbb{R}^d\) such that 
  \begin{equation}
      \vartheta_k=f_k(Y_0,\dots,Y_{k-1})\;,
  \end{equation}
- for all \(k=0,\dots,n-1\). As argued in \cref{eq:f is in L1 for finite Omega} \(f_k\in L^1(\mathbb{R}^{rk},\mathcal{L}(Y_0,\dots,Y_{k-1}))\) because \(\Omega\) is finite. Let's denote \(\mu\coloneqq\mathcal{L}(Y_0,\dots,Y_{k-1})\). By the density of \(\Psi\) in \(L^1\), there exists a sequence of functions \(F_k^n\) converging to \(f_k\) in \(L^1(\mathbb{R}^{rk},\mu;\mathbb{R}^d)\) or, equivalently, \(\vartheta_k^n\coloneqq F_k^n(Y_0,\dots,Y_{k-1})\) converges to \(f_k(Y_0,\dots,Y_{k-1})\) in \(L^1(\Omega,\mathbb{P};\mathbb{R}^d)\) as \(n\to\infty\)\footnote{in the sense that \(\int_{\mathbb{R}^{r(k+1)}}\lVert f_k-F_k^n\rVert_{d}\diff \mu\to 0\) as \(n\to\infty\), where \(\lVert\cdot\lVert_d\) denotes the Euclidean norm on \(\mathbb{R}^d\)}. Passing to a subsequence and by a diagonal argument, we get \(\mathbb{P}\)-almost sure convergence for all \(k\) simultaneously. Morally speaking, we want to pass the limit \(n\to\infty\) inside \(\rho\). Even if \(\rho\) has sufficient regularity, \(\mathbb{P}\)-a.s. convergence is not enough to get the claim. Recall that we assumed, in the current finite setting, that \(\mathbb{P}(\{\omega\})>0\) for all \(\omega\in\Omega\), hence \(\mathbb{P}\)-almost sure convergence is equivalent to convergence everywhere. Thus
+ for all \(k=0,\dots,n\). As argued in \cref{eq:f is in L1 for finite Omega} \(f_k\in L^1(\mathbb{R}^{r\times k},\mathcal{L}(Y_0,\dots,Y_{k-1}))\) because \(\Omega\) is finite. Let's denote \(\mu\coloneqq\mathcal{L}(Y_0,\dots,Y_{k-1})\). By the density of \(\Psi\) in \(L^1\), there exists a sequence of functions \((F_k^n)_{n\in\mathbb{N}}\subset \Psi\) converging to \(f_k\) in \(L^1(\mathbb{R}^{r\times k},\mu)\). In particular, we have for 
  \begin{equation}
-     \lim_{n\to\infty}\vartheta_k^n(\omega)=\vartheta_k(\omega)\quad\forall\omega\in\Omega\;,k=0,\dots,n-1\;.
+     \vartheta_{k}^n\coloneqq F_{k}^n(Y_0,\dots,Y_{k-1})\in \Theta_{\infty}
  \end{equation}
- \\
+ that \(\vartheta_{k}^n\to f_k(Y_0,\dots,Y_{k-1})\) in \(L^1(\Omega,\mathbb{P})\). Passing to a subsequence and by a diagonal argument, we get \(\mathbb{P}\)-almost sure convergence for all \(k\) simultaneously. Morally speaking, we want to pass the limit \(n\to\infty\) inside \(\rho\). Even if \(\rho\) has sufficient regularity, \(\mathbb{P}\)-a.s. convergence is not enough to conclude. Recall that we assumed, in the current setting, that \(\mathbb{P}(\{\omega\})>0\) for all \(\omega\in\Omega\), hence \(\mathbb{P}\)-almost sure convergence is equivalent to convergence everywhere. Thus
+ \begin{equation}
+     \lim_{n\to\infty}\vartheta_k^n(\omega)=\vartheta_k(\omega)\quad\forall\omega\in\Omega\;,k=0,\dots,n\;.\footnotemark
+ \end{equation}\footnotetext{Note that the continuity of the stochastic integral is trivial in this finite setting. When trying to naivly generalize this approach to a time-continuous one with general sample space \(\Omega\), this step is highly non-trivial.}
  In particular, 
  \begin{align}
 (\vartheta^n\bullet X)_T(\omega)=\sum_{k=1}^{n}\vartheta^n_k(\omega)\cdot(X_{k}(\omega)-X_{k-1}(\omega))\overset{n\to\infty}{\rightarrow}(\vartheta\bullet X)_T(\omega)\;.
 \end{align}
- Furthermore, notice that \(\mathcal{L}^0(\Omega,\mathcal{F}_T;\mathbb{R})\simeq\mathbb{R}^{N}\), hence we can identify \(\rho\) with a convex map \(\tilde{\rho}:\mathbb{R}^{N}\to\mathbb{R}\). In the following we will not differentiate \(\rho\) adn \(\tilde{\rho}\). Notice that \(\rho\) is convex function on a finite dimensional vector space and as such continuous (see \parencite[Thm.~1.3.14.]{Cheridito2013ConvexAnalysis}). Thus we have
+ Furthermore, notice that \(\mathcal{L}^0(\Omega,\mathcal{F}_T;\mathbb{R})\simeq\mathbb{R}^{N}\)\footnote{Any random variable \(Z\) on \(\Omega=\left\{\omega_i\right\}_{i=1}^N\) can be identified bijectively with the tuple \((Z(\omega_1),\dots,Z(\omega_N))\in\mathbb{R}^N\).}. Hence, we can identify \(\rho\) with a convex map \(\tilde{\rho}:\mathbb{R}^{N}\to\mathbb{R}\). In the following, we will not differentiate \(\rho\) and \(\tilde{\rho}\). Notice that \(\rho\) is a convex function on a finite dimensional vector space and, as such, is continuous \parencite[Thm.~10.1]{Rockafellar1970ConvexAnalysis}. Thus, we have
  \begin{equation}
-     \lim_{n\to\infty}\rho(L-(\vartheta^n\bullet X)_T)=\rho(L-(\vartheta\bullet X)_T)\;.
+     \lim_{n\to\infty}\rho((\vartheta^n\bullet X)_T-H)=\rho((\vartheta\bullet X)_T-H)\;.
 \end{equation}
 In particular, there exists \(n\in\mathbb{N}\) large enough such that 
 \begin{equation}
-    \rho(L-(\vartheta^n\bullet X)_T)\leq\rho(L-(\vartheta\bullet X)_T)+\frac{\epsilon}{2}\leq\pi(L)+\epsilon\;.
+    \rho((\vartheta^n\bullet X)_T-H)\leq\rho((\vartheta\bullet X)_T-H)+\frac{\epsilon}{2}\leq\pi(H)+\epsilon\;.
 \end{equation}
 Since for every \(\vartheta^n\) there exists \(M\in\mathbb{N}\) large enough for which \(\vartheta^n\in\Theta_M\). Thus, we have 
 \begin{equation}
-    \pi^M(L)\leq\pi(L)+\epsilon\;,
+    \pi^M(H)\leq\pi(H)+\epsilon\;,
 \end{equation}
 which ends the proof.
 \end{proof}
+\begin{remark}
+ Observe that we showed in particular that 
+    \begin{equation*}
+        \pi^{\infty}(H)=\pi(H)\;,
+    \end{equation*}
+    where 
+    \begin{equation*}
+    \pi^{\infty}(H)=\inf_{\vartheta\in\Theta_{\infty}}\rho((\vartheta\bullet X)_T-H)\;.
+    \end{equation*}
+    Indeed we found a sequence \((\vartheta_k^n)_{n\in\mathbb{N}}\subset\Theta_{\infty}\) such that 
+    \begin{equation*}
+        \lim_{n\to\infty}\rho((\vartheta^n\bullet X)_T-H)=\pi(H)\;,
+    \end{equation*}
+    which implies 
+    \begin{equation*}
+        \inf_{\Theta_{\infty}}\rho((\vartheta^n\bullet X)_T-H)=\inf_{\Theta}\rho((\vartheta^n\bullet X)_T-H)\;.
+    \end{equation*}
+    Observe that this does not directly follow from the continuity of the map \(\rho:\mathbb{R}^N\to\mathbb{R}\) by \cref{Appendix:Infima over closure}, because \(\Psi\) is dense in \(L^1\) with respect to the \(L^1\)-topology, which is not the topology for which \(\rho\) is continuous. The argument used in the proof to establish convergence everywhere is crucial. 
+\end{remark}
 \section{From convex risk measures to quadratic loss}
-As previously pointed out, the minimization problem in \cref{eq:risk measure hedging from buehler}, used in particular in the convergence result \cref{thm:approximation by restricted hedging errors}, is not quite the same minimization problem \cref{eq:risk measure hedging}. Even worse, we have to study mean-squared hedging separately from the convex risk measure hedging, as the \(L^2\)-norm is not a convex risk measure (it lacks cash-invariance and the monotonicity is reversed). Nevertheless, the methods used in the proof of \cref{thm:approximation by restricted hedging errors} apply analogously to the mean variance hedging setup, as remarked in \parencite[Rem~.3.4.]{Buehler2018DeepHedging}. In the setting of \parencite{Buehler2018DeepHedging} and more precisely \parencite[Rem~.3.4.]{Buehler2018DeepHedging}, the initial capital \(V_0\) is fixed exogenously, for instance by the market. In the following, we show an analogous statement to \cref{thm:approximation by restricted hedging errors} for the mean variance setup, still with finite \(\Omega\). We argue that this is a stronger statement than the mean-variance minimization problem \cref{prop:finite deep mean variance hedging}. Lastly, we show how to generalize to the joint minimization over self-financing strategies \((V_0,\vartheta)\).
+We show in this subsection that the ideas developed in the proof of \cref{thm:approximation by restricted hedging errors} can also be applied to the problem \cref{eq:mean squared hedging} in the setup of \parencite{Buehler2018DeepHedging}. Note that this is not a mere consequence of \cref{thm:approximation by restricted hedging errors} as the square of \(L^2\)-norm is not a convex risk measure. For instance, it doesn't satisfy cash-invariance, and the monotonicity property is reversed. The observation that the ideas are applicable to the mean-variance hedging problem is made \parencite[Rem~.3.4.]{Buehler2018DeepHedging} for the case where \(V_0\) is fixed exogenously. We show it here explicitly and extend the remark by showing how to treat the joint minimization over \((V_0,\vartheta)\in\mathbb{R}\times \Theta\). 
+For fixed \(V_0\) we show a similar statement to  \cref{thm:approximation by restricted hedging errors}. 
+We argue that this is a stronger statement than the mean-variance hedging problem \cref{prop:finite deep mean variance hedging}. 
+
 \subsection{Approximate optimal hedging in the context of deep hedging}
-As before, compared to the general setup in \parencite{Buehler2018DeepHedging} we specialize to the case where do not consider the differentiation between constrained and unconstrained strategies. We also neglect trading costs, that is, \(C_t=0\quad \forall t\geq 0\). The minimization problem we study now takes the form 
+As before, we consider the same setup, that is, a finite sample space \(\Omega\), finite trading times \((t_i)_{i=0}^n\) with \(t_n=T<\infty\). We also take \(\vartheta_k\) real-valued for all \(k=0,\dots,n\) and  neglect trading costs: \(C_t=0\quad \forall t\geq 0\). We study the following mean-variance hedging problem for fixed \(V_0\).
 \begin{equation}\label{eq:hedging error}
-    \Delta(H) = \inf_{\vartheta\in\Theta}\mathbb{E}[\left(H-V_0-\vartheta\bullet X\right)_T)^2]
+    \Delta(H) = \inf_{\vartheta\in\Theta}\mathbb{E}[\left(V_0+(\vartheta\bullet X\right)_T-H)^2]
 \end{equation}
 and in analogy to \parencite[Thm.~4.9.]{Buehler2018DeepHedging} we introduce
 \begin{equation}\label{eq:restricted mean variance hedging error}
-    \Delta^M(H) = \inf_{\vartheta\in\Theta_M}\mathbb{E}[\left(H-V_0-\vartheta\bullet X\right)_T)^2]
+    \Delta^M(H) = \inf_{\vartheta\in\Theta_M}\mathbb{E}[\left(V_0+(\vartheta\bullet X)_T-H\right)^2]
 \end{equation}
 for \(\Theta_M\) as in \cref{eq:restricted strategies} and \(V_0\in\mathbb{R}\) fixed as in the setup of \cref{eq:risk measure heding with fixed initial capital}. We want to show the following discrete time deep mean hedging theorem.
 \begin{proposition}[Finite Deep Mean variance Hedging]\label{prop:finite deep mean variance hedging}
@@ -639,51 +676,103 @@ Let \(\Theta_M\) be as in \cref{eq:restricted strategies}, \(\Delta^M(H)\) as in
         \lim_{M\to\infty}\Delta^M(H)\to\Delta(H)\;.
     \end{equation}
 \end{theorem}
-Indeed \cref{thm:strong discrete deep mean variance hedging} implies \cref{prop:finite deep mean variance hedging}. To see this more generally, let \(J:\mathcal{H}\to\mathbb{R}\) and assume \(\lim_{M\to\infty}\inf J(\mathcal{H}^M)=\inf J(\mathcal{H}^u)\). Then there exists \((x_n)_{n\in\mathbb{N}}\subset\bigcup_{n\geq 1}\mathcal{H}^M\) such that \(\lim_{n\to\infty}J(x_n)=\inf J(\mathcal{H}^u)\). This then implies \(\inf J(\mathcal{\bigcup_{M\geq 1}\mathcal{H}}^M)=\inf J(\mathcal{H}^u)\). Indeed, because \(\bigcup_{M\geq 1}\mathcal{H}^M\subset \mathcal{H}^u\) hence \(\inf J(\mathcal{H}^u)\) is a lower bound for \(\inf J(\mathcal{\bigcup_{M\geq 1}\mathcal{H}}^M)\). Those it remainse to show that \(\forall \delta>0\) there exists \(x_n\in \bigcup_{M\geq 1}\mathcal{H}^M)\) such that \(\inf J(\mathcal{\bigcup_{M\geq 1}\mathcal{H}}^M)<\inf J(\mathcal{H}^u)+\delta\). This is equivalent to finding a sequence \((x_n)_{n\in\mathbb{N}}\subset \bigcup_{M\geq 1}\mathcal{H}^M\) such that \(\lim_{n\to\infty}J(x_n)=\inf J(\mathcal{H)}\).\footnote{This equivalence is more or less by definition but rigourusly it goes like this. For once if the the property holds for every \(\delta>0\) we can consider the nullsequence \(\delta_n = 1/n\) and get for every \(n\in\mathbb{N}\) an \(x_n\) such that \(J(x_n)\) is \(\delta_n\) close to \(\inf J(\mathcal{H})\). Conversely, if there exists such a sequence then \(\forall \delta>0\quad \exists N\in\mathbb{N}\) for which \(\left|J(x_n)-\inf J(\mathcal{H})\right|<\delta\). But \(J(x_n)\geq \inf J(\mathcal{H}^M)\geq \inf J(\mathcal{H})\) for some \(M\in\mathbb{N}\), so \(J(x_n)<\inf J(\mathcal{H})+\delta\).} For \(J(\vartheta)\coloneqq\mathbb{E}[\left(H-p_0-(\vartheta\bullet X)_T\right)^2]\) we get the claim.
-\\\\
-For the proof of \cref{thm:strong discrete deep mean variance hedging} we proceed very similar to the strategy used in the proof of \parencite[Thm.~4.9.]{Buehler2018DeepHedging} with the simplification as previously meantioned:
+First we show as a lemma that \cref{thm:strong discrete deep mean variance hedging} implies \cref{prop:finite deep mean variance hedging}.
+\begin{lemma}\label{lemma:strong form implies weak form}
+    Assume \(\lim_{M\to\infty}\Delta^M(H)=\Delta(H)\).  Then in particular, \(\Delta^{\infty}(H)=\Delta(H)\).
+\end{lemma}
 \begin{proof}
-Notice first that by the definition, we have \(\Psi=\bigcup_{M\geq 1}\Psi_M\subset\Theta\) and \(\Psi_M\subset\Psi_{M+1}\subset\bigcup_{M\geq 1}\Psi_M\subset \Theta\) for all \(M\in\mathbb{N}\). Hence \(\Delta^M(H)\geq\Delta^{M+1}(H)\geq\Delta(H)\). So in particular it suffised to show that \(\forall \epsilon>0\quad\exists M\in\mathbb{N}\) such that \(\Delta^M(H)\leq\Delta(H)+\epsilon\).
-The proof now is exactly the same as in \parencite[Thm.~4.9.]{Buehler2018DeepHedging} just using the fact that the expectations
-\begin{equation}\label{eq:Continuity of L^2 norm}
-    \mathbb{E}[\left(H-V_0-(\vartheta\bullet X)_T\right)^2]=\sum_{\omega\in\Omega}\left(H(\omega)-V_0-(\vartheta\bullet X)_T(\omega)\right)^2\;,
-\end{equation}
-are finite sums because the sample space \(\Omega = \left\{\omega_1,\dots,\omega_N\right\}\) is finite and the square function is continuous everywhere. As we are dealing with expectations, we don't even need convergence in every \(\omega\in\Omega\) but almost everywhere convergence of the approximation functions \(\vartheta_k^n\coloneqq F_{k,n}(Y_0,\dots,Y_{k-1})\) to \(\vartheta_k\) (where the latter is \(\vartheta\in\Theta\) such that \(\mathbb{E}[\left(H-p_0-(\vartheta\bullet X)_T\right)^2]\leq\Delta(H)+\epsilon\)).
+Let
+\[
+J(\vartheta):=\mathbb E[(V_0+(\vartheta\cdot X)_T-H)^2].
+\]
+for fixed \(H\).
+Since \(\Theta_M\subseteq \Theta_\infty\subseteq \Theta\), taking infima reverses inclusions, hence
+\[
+\Delta(H)=\inf_{\vartheta\in\Theta}J(\vartheta)
+\leq
+\inf_{\vartheta\in\Theta_\infty}J(\vartheta)
+=
+\Delta^\infty(H)
+\leq
+\inf_{\vartheta\in\Theta_M}J(\vartheta)
+=
+\Delta_M(H)
+\]
+for every \(M\in\mathbb N\). Letting \(M\to\infty\) and using the assumption
+\[
+\lim_{M\to\infty}\Delta^M(H)=\Delta(H)\;,
+\]
+we obtain
+\[
+\Delta(H)\leq \Delta^\infty(H)\leq \Delta(H)\;.
+\]
 \end{proof}
-This shows that, as alluded to in \parencite[Remark~3.4]{Buehler2018DeepHedging}, the approximate optimal hedging problem, and in particular the mean hedging problem, is subsumed in the framework of \parencite{Buehler2018DeepHedging}. Indeed the proof above for \(l(\cdot)=(\cdot)^2\) goes through for any continuous function \(l:\mathbb{R}\to\mathbb{R}_+\).
-\\
-We may want to extend the setting to the joint optimization problem of \cref{eq:mean squared hedging}. For this consider the following modified set up.
-\begin{align*}
- &(\tilde{X}_k^i)_{k=0}^n \text{ for } i=0,\dots,d \text{, where } X_k^0 = k/n, \tilde{X}_k^i = X_k^i\quad i = 1,\dots,d \text{ and } k=0,\dots n.\\
- &
-    (\tilde{\vartheta}_k^i)_{k=0}^n \text{ for } i=0,\dots,d \text{, where } \tilde{\vartheta}_k^0 = V_0, \delta_k^i = \tilde{\vartheta}_k^i\quad i = 1,\dots,d \text{ and } k=0,\dots n.
-\end{align*}
-Then observe that \(\tilde{X}\) and \(\tilde{\vartheta}\) are still \(\mathbb{F}\)-adapted and 
+For the proof of \cref{thm:strong discrete deep mean variance hedging} we proceed very similarly to the strategy used in the proof of \cref{thm:approximation by restricted hedging errors}.
+\begin{proof}
+By definition, we have \(\Theta_{\infty}=\bigcup_{M\geq 1}\Theta_M\subset\Theta\) and \(\Theta_M\subset\Theta_{M+1}\) for all \(M\in\mathbb{N}\). Hence, 
 \begin{equation}
-    (\tilde{\vartheta}\bullet\tilde{X})_T=V_0+(\vartheta\bullet X)_T\;.
+    \Delta^M(H)\geq\Delta^{M+1}(H)\geq\Delta(H)\;.
+\end{equation} So in particular, it sufficed to show that \(\forall \epsilon>0\;\exists M\in\mathbb{N}\) such that \(\Delta^M(H)\leq\Delta(H)+\epsilon\).
+The proof now is exactly the same as in \cref{thm:approximation by restricted hedging errors} just using the fact that the expectations
+\begin{equation}\label{eq:Continuity of L^2 norm}
+    \mathbb{E}[\left(V_0+(\vartheta\bullet X)_T-H\right)^2]=\sum_{\omega\in\Omega}\left(V_0+(\vartheta\bullet X)_T(\omega)-H(\omega)\right)^2\;,
 \end{equation}
-Due to adaptability, we still have the Doob-Dynkin representation of the \(\mathcal{F}_k\)-measurable function \(\tilde{\vartheta}_k=f_k(Y_0,\dots,Y_{k-1})\) for some measurable function \(f_k:\mathbb{R}^{r(k+1)}\to\mathbb{R}^{d+1}\). Because \(\Omega\) is finite, \(\tilde{\vartheta}\) is bounded, hence \(f_k\in L^1(\mathbb{R}^{r(k+1),\mu})\), where \(\mu=\mathcal{L}(Y_0,\dots,Y_{k-1})\). Hence we can approximate \(f_k\) by elements of our dense approximants \(\Psi\). Whence we get the same results as in \cref{prop:finite deep mean variance hedging} and \cref{thm:strong discrete deep mean variance hedging} for the corresponding joint minimization over \((V_0,\vartheta)\in\mathcal{A}(\Theta)
-=
-\left\{
-\tilde{\vartheta}
-=
-(\tilde{\vartheta}_k)_{k=0}^{n-1}
-:\;
-\tilde{\vartheta}_k
-=
-(V_0,\vartheta_k),
-\quad
-V_0\in\mathbb R,
-\quad
-\vartheta\in\Theta
-\right\}\). This now gives a full account for the treatment of mean-variance hedging in the setup of \parencite{Buehler2018DeepHedging}.
+are finite sums because the sample space \(\Omega = \left\{\omega_1,\dots,\omega_N\right\}\) is finite and the square function is continuous everywhere. As we are dealing with expectations, we don't even need convergence in every \(\omega\in\Omega\) as almost everywhere convergence of the approximation functions \(\vartheta_k^n\coloneqq F_{k,n}(Y_0,\dots,Y_{k-1})\) to \(\vartheta_k\) is enough.
+\end{proof}
+This shows that, as alluded to in \parencite[Remark~3.4]{Buehler2018DeepHedging}, the approximate optimal hedging problem, and in particular the mean-variance hedging problem, is subsumed in the framework of \parencite{Buehler2018DeepHedging}. Indeed, the proof above for \(l(\cdot)=(\cdot)^2\) goes through for any continuous function \(l:\mathbb{R}\to\mathbb{R}_+\).
 \bigbreak
-We remark that in the current setting, \cref{prop:finite deep mean variance hedging} can also be proved directly by observing that \(\overline{\Theta_{\infty}}^{\lVert\cdot\rVert}=\Theta\) and that the map \(\vartheta\mapsto\lVert H-V_0-(\vartheta\bullet X)_T\rVert_{L^2}\) is continuous with respect to the norm induced by \(\lVert\cdot\lVert\). For details, we refer to the appendix \cref{Appendix:Direct proof of Finite Deep mean variance Hedging}
+We remark that in the current setting, \cref{prop:finite deep mean variance hedging} can also be proved directly by observing that \(\overline{\Theta_{\infty}}^{\lVert\cdot\rVert}=\Theta\) and that the map \(\vartheta\mapsto\lVert H-V_0-(\vartheta\bullet X)_T\rVert_{L^2}\) is continuous with respect to the norm induced by \(\lVert\cdot\lVert\). For details, we refer to the appendix: \cref{Appendix:Direct proof of Finite Deep mean variance Hedging}.
 \bigbreak
-The latter sets up the mean-variance hedging problem as a mathematically well-posed optimization problem. On the other hand, one might raise a valid concern that the quadratic criterion introduced symmetrically punished gains and losses. This is usually inappropriate as losses are modeled to be punished more severely than gains \textcolor{blue}{maybe find a paper on utility pricing that makes this precise as an economical assumption and put this as a reference.} To relieve this tension, we might formulate \cref{eq:mean squared hedging} under the martingale measure. Seen under the real world measure, the symmetry is then broken in general (see \cref{...}). \\\\
-This corresponds to taking the price-process \(X\) to be a locally square integrable martingale. The locally square integrable martingale case will be treated in \cref{sec:Mean Variance Hedging in square integrable setting}. One can still treat \cref{eq:mean squared hedging} as originally stated, under the real-world measure, and study its mathematical properties. The treatment then becomes more technical. We sketch it in \cref{sec:continuous hedging}, following \parencite{Schweizer2001GuidedTourQuadraticHedging} and \parencite{Schweizer1994ApproximatingRandomVariablesStochasticIntegrals}.
-\bigbreak
-Lastly, notice the same conditions on the cost process \(C\) (upper semi-continuity) and the constraining map \(H\)(continuity) in \parencite{Buehler2018DeepHedging}; all the results generalize to the general case with a non-zero cost process and the constrained hedging problem \parencite[Lemma~4.4.]{Buehler2018DeepHedging}, when going through the exact argument given in the proof of \parencite[Prop.~4.9.]{Arandjelovic2025}, using the observation \cref{eq:Continuity of L^2 norm}.
+We finish by extending \cref{thm:strong discrete deep mean variance hedging} to the joint case \cref{eq:mean squared hedging}, minimizing over the initial capital as well. For this, we use the notation 
+\begin{equation}
+    J(V_0,\vartheta)\coloneqq \mathbb{E}[(V_0+(\vartheta\cdot X)_T-H)^2]
+\end{equation}
+and 
+\begin{align*}
+&\Delta_{\mathbb{R}}(H)=\inf_{V_0\in\mathbb{R}}\inf_{\vartheta\in \Theta}J(V_0,\vartheta)
+\\
+&\Delta^M_{\mathbb{R}}(H)=\inf_{V_0\in\mathbb{R}}\inf_{\vartheta\in \Theta_M}J(V_0,\vartheta)
+\end{align*}
+Furthermore, we write for fixed \(V_0\in\mathbb{R}\)
+\begin{align}
+    &\Delta_{V_0}(H)=\inf_{\vartheta\in\Theta}J(V_0,\vartheta)\\
+    &\Delta^M_{V_0}(H)=\inf_{\vartheta\in\Theta_M}J(V_0,\vartheta)
+\end{align}
+\begin{proposition}
+    Let \(\Theta,\Theta_{\infty}\) and \(\Theta_M\) be as in \cref{thm:strong discrete deep mean variance hedging}. Then
+    \begin{equation}
+        \lim_{M\to\infty}\Delta_{\mathbb{R}}^M(H)=\Delta_{\mathbb{R}}(H)\;.
+    \end{equation}
+ In particular, we have 
+    \begin{equation}
+    \inf_{V_0\in\mathbb{R}}\inf_{\vartheta\in\Theta}\mathbb{E}[\left(H-V_0-(\vartheta\bullet X)_T\right)^2]=\inf_{V_0\in\mathbb{R}}\inf_{\vartheta\in\Theta_{\infty}}\mathbb{E}[\left(H-V_0-(\vartheta\bullet X)_T\right)^2].
+    \end{equation}
+    \begin{proof}
+        The proof relies on \cref{thm:strong discrete deep mean variance hedging}. By definition of the infimum, for every \(\epsilon>0\) there exists \(V_0^{\epsilon/2}\) such that 
+        \begin{equation}
+        \inf_{V_0\in\mathbb{R}}\inf_{\vartheta\in\Theta}J(V_0,\vartheta)+\frac{\epsilon}{2}>\inf_{\vartheta\in\Theta}J(V_0^{\epsilon/2},\vartheta)\;.
+        \end{equation}
+        Fix this \(V_0^{\epsilon/2}\). By \cref{thm:strong discrete deep mean variance hedging} we have
+        \begin{equation}
+            \lim_{M\to\infty}\Delta_{V_0^{\epsilon/2}}^M(H)=\Delta_{V_0^{\epsilon/2}}(H)\;.
+        \end{equation}
+        As we observed in \cref{thm:strong discrete deep mean variance hedging}, the convergence is from above, so equivalently we have that for every \(\epsilon>0\) there exists \(M_{\frac{\epsilon}{2}}\in\mathbb{N}\) big enough such that
+        \begin{equation}
+            \Delta_{V_0^{\epsilon/2}}(H)+\frac{\epsilon}{2}>\Delta^{M_{\frac{\epsilon}{2}}}_{V_0^{\epsilon/2}}(H)
+        \end{equation}
+ Hence, we have that for every \(\epsilon>0\) there exists \(V_0^{\epsilon/2}\in\mathbb{R}\) and \(M_{\frac{\epsilon}{2}}\in\mathbb{N}\) such that
+        \begin{align*}
+            |\Delta_{\mathbb{R}}(H)-\Delta^{M_{\frac{\epsilon}{2}}}_{V_0^{\epsilon/2}}(H)|\leq |\Delta_{\mathbb{R}}(H)-\Delta_{V_0^{\epsilon/2}}(H)|+|\Delta_{V_0^{\epsilon/2}}(H)-\Delta^{M_{\frac{\epsilon}{2}}}_{V_0^{\epsilon/2}}(H)|
+            < \epsilon\;,
+        \end{align*}
+ Hence, the first claim. For the second part notice that 
+        \begin{equation}
+            \mathbb{R}+\Theta_M\subset\mathbb{R}+\Theta_{M+1}
+        \end{equation}
+ Hence, the second part follows from the first part by the same reasoning as in \cref{lemma:strong form implies weak form}.
+        \end{proof}
+
+\end{proposition}
 \chapter{Neural Networks and Universal Approximation}\label{ch:Neural Networks and Universal Approximation}
 \section{Feedforward neural networks}
 Regarding our discussion in \cref{sec:The deep hedging framework of Bühler et al.} all we required was an approximation system \(\Psi\) to be a subset of bounded random variables with the property that 
@@ -1546,7 +1635,7 @@ because \(L\in\mathcal{H}_0^2\), in particular, \(L_{\infty}\) exists and \(\mat
 \end{equation}
 for all \(Z_0+\int\vartheta^Z\diff X\in\mathbb{R}+\mathcal{I}(X)\). This shows that \(\mathbb{E}[H]+\int \vartheta^H\diff X\) is the minimizer in \(\mathbb{R}+\mathcal{I}(X)\). Retranslating into the random variable form, we get that \(\mathbb{E}[H|\mathcal{F}_0]+\int_0^{\infty} \vartheta^H_s\diff X_s\) minimizes \cref{eq:square integrable mean square hedging} and hence the claim. 
 \end{proof}
-\section{Mean-variance Hedging with continuous price process}\label{sec:Mean-variance Hedging with continuous price process}
+\section{Continuous Semimartingale Case}\label{sec:Mean-variance Hedging with continuous price process}
 
 We now leave the martingale setting and consider the mean-variance hedging problem when
 the discounted price process \(X\) is only assumed to be a continuous semimartingale. This is
@@ -2736,7 +2825,8 @@ based on \parencite[Thm.~5]{Hornik1991}, using tools from \parencite{Rudin1990Fo
 % Appendix
 % =================================================
 \begin{appendices}
-\label{Appendix:Infima over closure}
+
+\section{Appendix:Infima over closure}\label{Appendix:Infima over closure}
 \begin{proposition}\label{prop:minimization of closure}
      Let X be a normed space, \(Y\subset X\) a subset and \(d:X\to\mathbb{R}\) continous. Then 
      \begin{equation}
@@ -2754,7 +2844,7 @@ based on \parencite[Thm.~5]{Hornik1991}, using tools from \parencite{Rudin1990Fo
     \end{equation}
 \end{proof}
 Notice that the above proof also works if \(d\) is only upper-semi continuous. Then we have \(d(y)\geq\limsup_{n\to\infty}{d(y_n)}\) and we get the same conclusion. Furthermore, we can generalize the above to a general topological space \(Y\) by replacing sequences by nets, as all we have used is that for \(y\in\overline{Y}\) there exists \((y_n)_{n\in\mathbb{N}}\subset Y\) such that \(\lim_{n\to\infty}y_n = y\) in \(X\)
-\section{Direct proof of Finite Deep mean variance Hedging}
+\section{Direct proof of Finite Deep mean variance Hedging}\label{Appendix:Direct proof of Finite Deep mean variance Hedging}
 \begin{proof}
     Recall that 
     \begin{align}
