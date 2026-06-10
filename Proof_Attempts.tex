@@ -410,4 +410,179 @@ Furthermore we will think of a more general approach generalizing \parencite[Thm
     S_t = \lambda B_t + \mu t
 \end{equation}
 Then \(\langle S\rangle_t= \lambda^2 t\) and \(A_t=\mu t\).
+\bigbreak
+ ```latex
+\begin{proposition}
+Let \(p \in [1,\infty)\) and let \(M \in \mathcal H^p_0\). Let
+\(L^p(M)\) denote the space of predictable processes \(H\) such that
+\[
+    \|H\|_{L^p(M)}
+    :=
+    \mathbb E\left[
+        \left(
+            \int_0^T H_s^2 \, d[M]_s
+        \right)^{p/2}
+    \right]^{1/p}
+    < \infty .
+\]
+Then the set \(\mathcal E\) of bounded elementary predictable processes is dense in
+\(L^p(M)\).
+\end{proposition}
+
+\begin{proof}
+We first observe that \(M \in \mathcal H^p_0\) implies
+\[
+    \mathbb E\left[[M]_T^{p/2}\right] < \infty .
+\]
+Indeed, this follows from the Burkholder--Davis--Gundy inequalities, since
+\(M \in \mathcal H^p_0\) implies \(\mathbb E[(M_T^*)^p] < \infty\), where
+\(M_T^* := \sup_{0 \leq t \leq T} |M_t|\).
+
+Let \(\mathcal C\) be the set of all bounded predictable processes \(H\) such that, for
+every \(\varepsilon>0\), there exists \(H_\varepsilon \in \mathcal E\) with
+\[
+    \|H-H_\varepsilon\|_{L^p(M)} < \varepsilon .
+\]
+We show that \(\mathcal C\) contains all bounded predictable processes.
+
+First, \(\mathcal C\) contains \(\mathcal E\), since for \(H\in\mathcal E\) we can simply
+take \(H_\varepsilon=H\). Moreover, \(\mathcal C\) contains the constant processes. Indeed,
+let \(c\in\mathbb R\), and let \(t_n\uparrow T\). Define
+\[
+    H^n := c\mathbf 1_{\{0\}} + c\mathbf 1_{(0,t_n]} .
+\]
+Then \(H^n\in\mathcal E\), and \(H^n\to c\) pointwise. Furthermore,
+\[
+    \left(
+        \int_0^T |H^n_s-c|^2\,d[M]_s
+    \right)^{p/2}
+    \leq
+    |c|^p [M]_T^{p/2}.
+\]
+The right-hand side is integrable. Hence, by dominated convergence,
+\[
+    \|H^n-c\|_{L^p(M)} \to 0 .
+\]
+Thus the constant process \(c\) belongs to \(\mathcal C\).
+
+Next, \(\mathcal C\) is a vector space. Let \(H,G\in\mathcal C\) and let
+\(\alpha,\beta\in\mathbb R\). For \(\varepsilon>0\), choose
+\(H_\varepsilon,G_\varepsilon\in\mathcal E\) such that
+\[
+    \|H-H_\varepsilon\|_{L^p(M)}
+    <
+    \frac{\varepsilon}{2(1+|\alpha|)}
+\]
+and
+\[
+    \|G-G_\varepsilon\|_{L^p(M)}
+    <
+    \frac{\varepsilon}{2(1+|\beta|)} .
+\]
+Since \(\mathcal E\) is a vector space, \(\alpha H_\varepsilon+\beta G_\varepsilon\in
+\mathcal E\), and by the triangle inequality,
+\[
+\begin{aligned}
+    \|\alpha H+\beta G-(\alpha H_\varepsilon+\beta G_\varepsilon)\|_{L^p(M)}
+    &\leq
+    |\alpha|\,\|H-H_\varepsilon\|_{L^p(M)}
+    +
+    |\beta|\,\|G-G_\varepsilon\|_{L^p(M)}  \\
+    &< \varepsilon .
+\end{aligned}
+\]
+Therefore \(\alpha H+\beta G\in\mathcal C\).
+
+We now prove that \(\mathcal C\) is closed under bounded monotone pointwise limits.
+Let \((H^n)_{n\in\mathbb N}\subseteq \mathcal C\) be such that
+\[
+    H^n \uparrow H
+\]
+pointwise, and assume that there exists \(C>0\) such that
+\[
+    |H^n_s(\omega)| \leq C,
+    \qquad
+    |H_s(\omega)| \leq C
+\]
+for all \(n\), \(s\), and \(\omega\). Since \(H\) is the pointwise limit of predictable
+processes, \(H\) is predictable. Moreover, for fixed \(\omega\), dominated convergence with
+respect to the finite measure \(d[M]_s(\omega)\) gives
+\[
+    \int_0^T |H^n_s(\omega)-H_s(\omega)|^2\,d[M]_s(\omega)
+    \longrightarrow 0 .
+\]
+Furthermore,
+\[
+    \left(
+        \int_0^T |H^n_s-H_s|^2\,d[M]_s
+    \right)^{p/2}
+    \leq
+    (2C)^p [M]_T^{p/2}.
+\]
+The right-hand side is integrable. Hence, by dominated convergence,
+\[
+    \|H^n-H\|_{L^p(M)}\to 0 .
+\]
+Let \(\varepsilon>0\). Choose \(n\in\mathbb N\) such that
+\[
+    \|H^n-H\|_{L^p(M)}<\frac{\varepsilon}{2}.
+\]
+Since \(H^n\in\mathcal C\), there exists \(K\in\mathcal E\) such that
+\[
+    \|H^n-K\|_{L^p(M)}<\frac{\varepsilon}{2}.
+\]
+Therefore,
+\[
+    \|H-K\|_{L^p(M)}
+    \leq
+    \|H-H^n\|_{L^p(M)}
+    +
+    \|H^n-K\|_{L^p(M)}
+    <\varepsilon .
+\]
+Thus \(H\in\mathcal C\).
+
+Since \(\mathcal E\) is closed under pointwise multiplication and
+\[
+    \sigma(\mathcal E)=\mathcal P,
+\]
+the functional monotone class theorem implies that \(\mathcal C\) contains every bounded
+\(\mathcal P\)-measurable process. Hence every bounded predictable process can be
+approximated in \(L^p(M)\) by elements of \(\mathcal E\).
+
+It remains to pass from bounded predictable processes to arbitrary elements of
+\(L^p(M)\). Let \(H\in L^p(M)\), and define the truncations
+\[
+    H^n := (-n)\vee H \wedge n .
+\]
+Then each \(H^n\) is bounded and predictable. Moreover, \(H^n\to H\) pointwise and
+\[
+    |H^n-H|^2 \leq H^2 .
+\]
+For almost every \(\omega\), dominated convergence with respect to \(d[M]_s(\omega)\)
+yields
+\[
+    \int_0^T |H^n_s(\omega)-H_s(\omega)|^2\,d[M]_s(\omega)
+    \longrightarrow 0 .
+\]
+Furthermore,
+\[
+    \left(
+        \int_0^T |H^n_s-H_s|^2\,d[M]_s
+    \right)^{p/2}
+    \leq
+    \left(
+        \int_0^T H_s^2\,d[M]_s
+    \right)^{p/2},
+\]
+and the right-hand side is integrable because \(H\in L^p(M)\). Hence another application
+of dominated convergence gives
+\[
+    \|H^n-H\|_{L^p(M)}\to 0 .
+\]
+For each \(n\), the bounded predictable process \(H^n\) can be approximated in
+\(L^p(M)\) by elements of \(\mathcal E\). Combining this approximation with
+\(\|H^n-H\|_{L^p(M)}\to 0\) shows that \(H\) itself can be approximated in \(L^p(M)\) by
+elements of \(\mathcal E\). Therefore, \(\mathcal E\) is dense in \(L^p(M)\).
+\end{proof}
 \end{document}
