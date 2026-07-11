@@ -1,0 +1,244 @@
+\documentclass[11pt]{report}
+
+% Shared preamble for main.tex and Proof_Attempts.tex
+% (packages, theorem styles, macros, page layout, etc.)
+
+% -------------------------------------------------
+% Page layout / typography
+% -------------------------------------------------
+\usepackage[a4paper,margin=30mm,headheight=14pt]{geometry}
+\usepackage{microtype}              % better spacing/kerning
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}         % ok for pdflatex; remove if using lualatex/xelatex
+\usepackage{xcolor}
+\usepackage{lmodern}                % modern Latin Modern fonts
+\usepackage{setspace}               % optional: \onehalfspacing etc.
+
+% -------------------------------------------------
+% Graphics / tables / lists
+% -------------------------------------------------
+\usepackage{graphicx}
+\usepackage{booktabs}               % professional tables
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+
+% -------------------------------------------------
+% Math (standard praxis)
+% -------------------------------------------------
+\usepackage{amsmath,amssymb,amsthm} % AMS core
+\usepackage{mathtools}             % extends/fixes amsmath
+\usepackage{stmaryrd}              % \llbracket, \rrbracket for stochastic intervals
+
+% Upright differential (use as \int f(x)\,\diff x)
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}
+
+% Operators
+\DeclareMathOperator*{\arginf}{arginf}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\usepackage{bm}                    % bold math symbols
+\usepackage{dsfont}                % \mathds{1} indicator
+\usepackage{mathrsfs}              % script font \mathscr
+\usepackage{bbm}                   % alternative blackboard bold, incl. \mathbbm{1}
+\usepackage{siunitx}               % units/numbers (also nice in finance tables)
+
+% -------------------------------------------------
+% References / hyperlinks (standard modern setup)
+% -------------------------------------------------
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  pdftitle={Master Project},
+  pdfauthor={Your Name},
+  pdfsubject={Mathematical Finance},
+  pdfkeywords={Mathematical Finance, Stochastic Calculus, ...}
+}
+
+% cleveref + shared theorem counters:
+% If environments share the "theorem" counter, \cref may otherwise call everything "Theorem".
+% aliascnt creates alias counters so cleveref can distinguish Remark/Lemma/etc.
+\usepackage{aliascnt}
+
+% cleveref must be loaded AFTER hyperref
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+% -------------------------------------------------
+% Theorems / definitions (standard mathematical setup)
+% -------------------------------------------------
+% Numbering: Theorem 2.3, Lemma 2.4, ... within each chapter.
+\theoremstyle{plain} % italic body, bold heading
+\newtheorem{theorem}{Theorem}[chapter]
+
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
+
+\theoremstyle{definition} % upright body
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+\aliascntresetthe{definition}
+
+\newaliascnt{assumption}{theorem}
+\newtheorem{assumption}[assumption]{Assumption}
+\aliascntresetthe{assumption}
+
+\theoremstyle{remark} % upright body, italic heading
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+\aliascntresetthe{remark}
+
+% Unnumbered variants (use sparingly)
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{definition*}{Definition}
+
+% Cleveref names for theorem-like environments
+\crefname{theorem}{Theorem}{Theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+\crefname{proposition}{Proposition}{Propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+\crefname{lemma}{Lemma}{Lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+\crefname{corollary}{Corollary}{Corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+\crefname{definition}{Definition}{Definitions}
+\Crefname{definition}{Definition}{Definitions}
+\crefname{assumption}{Assumption}{Assumptions}
+\Crefname{assumption}{Assumption}{Assumptions}
+\crefname{remark}{Remark}{Remarks}
+\Crefname{remark}{Remark}{Remarks}
+
+% -------------------------------------------------
+% Bibliography (biblatex + biber)
+% -------------------------------------------------
+\usepackage{csquotes} % recommended with biblatex
+\usepackage[
+  backend=biber,
+  style=authoryear,
+  dashed=false, % don't replace repeated author/editor with an em-dash
+  maxcitenames=2,
+  maxbibnames=99
+]{biblatex}
+\addbibresource{references.bib}
+
+% -------------------------------------------------
+% Appendix + PDF inclusion (optional)
+% -------------------------------------------------
+\usepackage{appendix}
+\usepackage{pdfpages}
+
+% -------------------------------------------------
+% Nomenclature / symbols list (optional but common in math finance)
+% -------------------------------------------------
+\usepackage[intoc]{nomencl}
+\makenomenclature
+% Example: \nomenclature{$W_t$}{Standard Brownian motion}
+
+% -------------------------------------------------
+% Header / footer (simple, thesis-friendly)
+% -------------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% -------------------------------------------------
+% Table of contents depth (DETAILED ToC)
+% -------------------------------------------------
+% tocdepth: 0=part, 1=chapter, 2=section, 3=subsection, 4=subsubsection
+\setcounter{tocdepth}{3}  % show down to \subsection in ToC
+\setcounter{secnumdepth}{3} % number down to \subsection (or 4 for subsubsection)
+
+\begin{document}
+\section{Completentess of \(L^2(A)\cap L^2(M)\)}
+Let \(X=M+A\) be the canonical decomposition of \(X\in\mathcal
+S^2_{loc}\). Let 
+\begin{equation}
+    L^2(M) = \left\{\vartheta\text{ predictable }:\mathbb{E}[\int_0^T\vartheta_s^2\diff [M]_s]=\lVert\vartheta\rVert_{L^2(M)}^2<\infty \right\}
+\end{equation}
+ and 
+ \begin{equation}
+     L^2(A) = \left\{\vartheta\text{ predictable }:\mathbb{E}[\left(\int_0^T|\vartheta_s|\diff |A|_s\right)^2]=\lVert\vartheta\rVert_{L^2(A)}<\infty \right\}
+ \end{equation}
+ then 
+ \begin{equation}
+     \Theta=L^2(M)\cap L^2(A),\;\lVert\cdot\rVert_{\Theta}=\lVert\cdot\rVert_{L^2(M)}+\lVert\cdot\rVert_{L^2(A)}
+ \end{equation}
+ In order to show that \(\Theta\) is complete under the norm \(\lVert\cdot\rVert_{\Theta}\), it is enough that \((L^2(M),\lVert\cdot\rVert_{L^2(M)})\) and \((L^2(A),\lVert\cdot\rVert_{L^2(A)})\) are complete normed spaces. 
+ \\\\
+ Q1: Why? If \((\vartheta_n)_{n\in\mathbf{N}}\) is a Cauchy sequence in \((\Theta,\lVert\cdot\rVert_{\Theta})\) then it is a Cauchy sequence in \((L^2(M),\lVert\cdot\rVert_{L^2(M)})\) and \((L^2(A),\lVert\cdot\rVert_{L^2(A)})\). If the latter have been shown to be complete under their norm, there exists \(\vartheta^*\) such that \(\vartheta_n\overset{L^2(M)}{\to}\vartheta^*\) and \(\widetilde{\vartheta}^*\) such that \(\vartheta_n\overset{L^2(A)}{\to}\widetilde{\vartheta}^*\). The claim is shown if \(\lVert\vartheta^*-\widetilde{\vartheta}^*\rVert_{\Theta}=0\). I don't see why this should be the case.
+ \\\\
+ Assume the latter to be true. The completeness of \(L^2(M)\) is clear as it is isomorphic to \(L^2(\mathcal{P},\mathbb{P}_M)\) and the latter is complete (Jean-Francois Le Gall: Measure Theory, Probability and Stochastic Processes, Thm.4.5). But for the case \(L^2(A)\) it is not clear to me. In particular, the standard \(L^p\) completeness arguments do not work because \(L^2(A)\) is not isomorphic to an \(L^p\)-space. Indeed, the square in the definition of \(\lVert\cdot\rVert_{L^2(A)}\) destroys subadditivity, so that \(B\mapsto \mathbb{E}[\left(\int_0^T1_B\diff|A|\right)^2]\) does not define a measure on \((\Omega\times[0,T],\mathcal{P})\). (In the case \(p=1\) it does and the standard argument goes through).
+ \bigbreak
+ \underline{Attempt 1:}
+ \\
+ Assume it is shown that \((L^1(A),\lVert\cdot\rVert_{L^1(A)})\) is complete. 
+ \\
+ Assume \(\sum_{n\geq 1}\lVert \vartheta^n\rVert_{L^2(A)}<\infty\). Note that this equivalently reads
+ \begin{equation}
+     \sum_{n\geq 1}\lVert\int_0^T|\vartheta^n|\diff |A|\rVert_{L^2(P)}<\infty
+ \end{equation}
+ We denote \(\theta^n = \sum_{i=1}^n\vartheta^i\).
+ \\
+ Because \(L^2(P)\) is complete, there exists \(Z_2\) such that 
+ \begin{equation}
+     \lim_{n\to\infty}\lVert\int_0^T|\theta^n|\diff |A|-Z_2\rVert_{L^2(P)}=0\;.
+ \end{equation}
+ Furthermore, as
+ \begin{equation}
+     \lVert f\rVert_{L^1(P)}\leq P(\Omega)^{\frac{1}{2}}\lVert f\rVert_{L^2(P)}
+ \end{equation}
+ \begin{equation}
+     \sum_{n\geq 1}\lVert \vartheta^n\rVert_{L^2(A)}<\infty\implies\sum_{n\geq 1}\lVert \vartheta^n\rVert_{L^1(A)}<\infty
+ \end{equation}
+ Again, \(L^1(P)\) is well known to be complete, hence \(\exists Z_1\) such that
+  \begin{equation}
+     \lim_{n\to\infty}\lVert\int_0^T|\theta^n|\diff |A|-Z_1\rVert_{L^1(P)}=0\;.
+ \end{equation}
+ Furthermore, we assumed that \((L^1(A),\lVert\cdot\rVert_{L^1(A)})\) is known to be complete. Hence, there exists \(\theta^*\) such that 
+ \begin{equation}
+     \lim_{n\to\infty}\mathbb{E}[\int_0^\infty|\theta^n-\theta^*|\diff |A|]=0
+ \end{equation}
+ Because \(|\theta^n-\theta^*|\geq ||\theta^n|-|\theta^*||\) the latter implies
+ \begin{equation}
+     \lim_{n\to\infty}\mathbb{E}[\left|\int_0^T|\theta^n|\diff |A|-\int_0^T|\theta^*|\diff |A|\right|]=0
+ \end{equation}
+ that is \(\int_0^T|\theta^n|\diff |A|\to\int_0^T|\theta^*|\diff |A|\) in \(L^1\). \(L^1\), being a normed vector space, is in particular Hausdorff, hence has unique limits. Thus, 
+ \begin{equation}
+     \int_0^T|\theta^*|\diff |A|=Z_1
+ \end{equation}
+ But 
+ \begin{equation}
+     \lim_{n\to\infty}\lVert Z_2-\int_0^T|\theta^n|\diff |A|\rVert_{L^1}\lesssim \lVert Z_2-\int_0^T|\theta^n|\diff |A|\rVert_{L^2}=0
+ \end{equation}
+ Hence, again by the uniqueness of limits, 
+ \begin{equation}
+     Z_2=Z_1=\int_0^T|\theta^*|\diff |A|
+ \end{equation}
+ where the equalities hold in \(L^1\). 
+ This shows that
+ \begin{equation}
+     \mathbb{E}[\left(\int_0^T|\theta^n|-|\theta^*|\diff |A|\right)^2]\to0
+ \end{equation}
+ \bigbreak
+ \underline{Attempt 2:}
+ \end{document}
+\end{document}
