@@ -1210,7 +1210,7 @@ For a proof, see \parencite[Corollary.~4.8.7]{Friedman1982FoundationsModernAnaly
 Recall that we assumed that \(\psi\) is discriminatory, which precisely states that \eqref{eq:discriminatory property in proof} implies that \(\mu=0\). Thus, \(F=0\), whence the contradiction.
 \end{proof}
 
-In summary, the theorem, broadly speaking, works by contradiction through Lemma \ref{lemma:Hahn Banach corollary}. The arguments are quite general and mainly require an explicit characterization of the topological dual of the ambiant space in which we want to show density. The notion of  discriminatory activation functions is then chosen to be well suited to conclude density.
+In summary, the theorem, broadly speaking, works by contradiction through Lemma \ref{lemma:Hahn Banach corollary}. The arguments are quite general and mainly require an explicit characterization of the topological dual of the ambient space in which we want to show density. The notion of  discriminatory activation functions is chosen to be well suited to conclude density.
 For \(C(K;\mathbb{R})\) as above, the topological dual is explicitly characterized by the Riesz-Markov-Kakutani Theorem. The discriminatory property of \(\psi\) turns out to be the natural notion in this context. We know from the Riesz Theorem for \(L^p\)-spaces (see \parencite[Thm.~4.4.1.]{Bogachev2007MeasureTheory}) that a similar characterization of bounded linear functionals on \(L^p\)-spaces through an integral mapping exists. The non-trivial part is to show that the same notion of discriminatory activation functions is well adapted to the \(L^p\)-case.
 \begin{theorem}\label{thm:density of NN in L^p}
     Let \(\psi\) be a discriminatory function, and \(K\subseteq\mathbb{R}^k\) a \(\mu\) finite positive measure. Then
@@ -1223,25 +1223,29 @@ For \(C(K;\mathbb{R})\) as above, the topological dual is explicitly characteriz
     The proof is analogous to the proof of Theorem \ref{thm:density of NN in C(K)}, simply using that, by the Riesz Theorem, every continuous linear functional  \(F\in L^p(\mathbb{R}^k,\mu)^*\) is of the form
     \begin{equation}\label{eq:dual of L^p}
         F(f)=\int_{\mathbb{R}^k}fg\diff \mu\quad\forall f\in C(\mathbb{R}^k)
-    \end{equation} for some \(g\in L^q(\mathbb{R}^k,\mu)\), where \(\frac{1}{p}+\frac{1}{q}=1\).
+    \end{equation} for some \(g\in L^q(\mathbb{R}^k,\mu)\), where \(\frac{1}{p}+\frac{1}{q}=1\). 
 
     
-   First, notice that due to the finiteness of \(\mu\), \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) is a linear subspace of  \(L^p(\mathbb{R}^k,\mu)\). Then, by the same strategy as in Theorem \ref{thm:density of NN in C(K)}, assuming \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) is not dense in \(L^p(\mathbb{R}^k,\mu)\), there must exists \(F\in L^p(\mathbb{R}^k,\mu)^*\) that annihilates \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\). By \eqref{eq:dual of L^p}, this implies
+   First, notice that due to the finiteness of \(\mu\), \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) is a linear subspace of  \(L^p(\mathbb{R}^k,\mu)\). Then, by the same strategy as in Theorem \ref{thm:density of NN in C(K)}, assuming \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) is not dense in \(L^p(\mathbb{R}^k,\mu)\), there must exist \(F\in L^p(\mathbb{R}^k,\mu)^*\) that annihilates \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\). By \eqref{eq:dual of L^p}, this implies
     \begin{equation}\label{eq:Lp Riesz}
         \int_{\mathbb{R}^k}fg\diff \mu=0\quad\forall f\in L^p(\mathbb{R}^k).
     \end{equation}
 \end{proof}
-The key observation is that by setting \(\sigma(B)\coloneqq\int_B g\diff \mu\), \(\sigma\) defines a finite measure and  
+The key observation is that by setting \(\sigma(B)\coloneqq\int_B g\diff \mu\), \(\sigma\) defines a finite measure, and 
 \eqref{eq:Lp Riesz} reads as 
 \begin{equation}\label{eq:Lp discriminatory}
         \int_{\mathbb{R}^k}f\diff \sigma=0\quad\forall f\in L^p(\sigma).
 \end{equation}
 We find ourselves in the same situation as in the proof of Theorem \ref{thm:density of NN in C(K)}.
-    From \eqref{eq:Lp discriminatory} we conclude that, due to the assumption that \(\psi\) is discriminatory, we find
+    From \eqref{eq:Lp discriminatory} we conclude, in particular, that we get 
+   \begin{equation*}
+        \int_{\mathbb{R}^k}\psi(w^{\rm{tr}}x+b) \sigma(\diff x)=0\quad\forall w\in\mathbb{R}^k,\forall b\in\mathbb{R}.
+\end{equation*}
+due to the assumption that \(\psi\) is discriminatory, we find that
     \begin{equation*}
-        \sigma = 0\,.
+        \sigma = 0.
     \end{equation*}
-    But this is contradictory, as we assumed \(F\neq 0\). It remainse to argue that \(\sigma\) indeed defines a finite measure. 
+    But this is contradictory, as we assumed \(F\neq 0\). It remains to argue that \(\sigma\) indeed defines a finite measure. 
     This follows from Hölder's inequality (for the same Hölder conjugate pair \(p,q\) as used in the representation \eqref{eq:dual of L^p}) and the fact that \(\mu\) is finite by assumption:
     \begin{align*}
         |\sigma(B)|=\bigg|\int_{\mathbb{R}^k}1_B g\diff \mu\bigg|\leq \lVert 1_{B}\rVert_{L^p(\mu)}\lVert g \rVert_{L^q(\mu)}=(\mu(\mathbb{R}^k))^{1/p}\lVert g\rVert_{L^q(\mu)}<\infty\quad\forall B\subseteq \mathbb{R}^k.
@@ -1271,62 +1275,72 @@ We find ourselves in the same situation as in the proof of Theorem \ref{thm:dens
  \end{proposition}
  For the proof, see \parencite[Thm.~5]{Hornik1991}.
 \subsection{Neural networks on topological vector spaces}
-We will now turn to the task of defining neural networks on more general spaces than \(\mathbb{R}^k\) and show that we can still obtain analogous density results. First, this is of independent mathematical interest. Secondly, this might be of practical interest, as one might want to consider neural networks on path-spaces, which are generally not finite-dimensional. In particular, we will use this viewpoint in our \textit{naïve} approach explained in Section \ref{sec:The naïv approach and what goes wrong} and in Proposition \ref{prop:reduction to countably generated sigma algebra is not fundamental}. 
-\bigbreak
-Note that if we want to generalize neural networks to be defined on more abstract spaces, such as \(\mathbb{R}^k\), for instance, locally convex spaces, it is immediately clear that we will need to generalize the notion of shallow feedforward neural networks from Definition \ref{def:shallow feedforward neural networks}, as they rely on the parametrization of affine maps on \(\mathbb{R}^k\). As previously noted, recall that for any such affine map \(A\), there exist \(w\in\mathbb{R}^k\) and \(b \in \mathbb{R}\) such that 
-\begin{equation}
+We will now turn to the task of defining neural networks on more general spaces than \(\mathbb{R}^k\) and show that we can still obtain analogous density results. First, this is of independent mathematical interest. Secondly, this might be of practical interest, as one might want to consider neural networks on path-spaces, which are generally not finite-dimensional. In particular, we will use this viewpoint in our \textit{naive} approach explained in Section \ref{sec:The naïv approach and what goes wrong} and in Proposition \ref{prop:reduction to countably generated sigma algebra is not fundamental}. 
+
+
+Note that if we want to generalize neural networks to be defined on more abstract spaces such as general locally convex spaces, it is immediately clear that we will need to generalize the notion of shallow feedforward neural networks from Definition \ref{def:shallow feedforward neural networks}, as they rely on the parametrization of affine maps on \(\mathbb{R}^k\). As previously noted, recall that for any such affine map \(A\), there exist \(w\in\mathbb{R}^k\) and \(b \in \mathbb{R}\) such that 
+\begin{equation*}
     A(x)=w^{tr}x+b.
-\end{equation}
-We can identify any \(w^{tr}\) with the continuous linear form \(\langle w,\cdot\rangle\in\mathbb{R}^*\) and vise versa by Riesz-Fischer \parencite[Cor.~4.3.2.]{Bogachev2007MeasureTheory}. This motivates the following generalization of Definition \ref{def:shallow feedforward neural networks} to topological vector spaces \(X\) with topological dual \(X^*\).
+\end{equation*}
+We can identify any \(w^{tr}\) with the continuous linear form \(\langle w,\cdot\rangle\in\mathbb{R}^*\) and vice versa (this follows from Riesz-Fischer \parencite[Cor.~4.3.2.]{Bogachev2007MeasureTheory} on the Hilbert space \((\mathbb{R}^k,\langle\cdot,\cdot\rangle)\)). This motivates the following generalization of Definition \ref{def:shallow feedforward neural networks} to topological vector spaces \(X\) with a topological dual \(X^*\).
 \begin{definition}\label{def:NN on locally convex X}
     Let \(X\) be a topological vector space and \(\mathcal{A}\) a \(\sigma\)-algebra on \(X\). Furthermore, let \(\Gamma\) be a set of real-valued, \(\mathcal{A}\)-measurable maps on \(X\) and \(\psi:\mathbb{R}\to\mathbb{R}\) be measurable and sigmoidal. Then we define 
-    \begin{equation}
+    \begin{equation*}
         \mathcal{NN}_{\psi}(X,\Gamma)\coloneqq\operatorname{span}_{\mathbb{R}}\left\{\psi(F(\cdot)+b):F\in \Gamma,b\in\mathbb{R}\right\}.
-    \end{equation}
+    \end{equation*}
     We call elements of \(\mathcal{NN}_{\psi}(X,\Gamma)\) shallow feedforward neural networks with the activation function \(\psi\).
 \end{definition}
 In particular, elements in \(\mathcal{NN}_{\psi}(X,\Gamma)\) are \(\mathcal{A}\)-measurable functions.
 \\\\
-\textbf{Example:} We shall often be interested in the case where \(\Gamma=X^*\). If we take \(X=C(K;\mathbb{R})\) for \(K\subseteq\mathbb{R}^k\) compact, by Riesz-Markov-Kakutani, elements in Definition \ref{def:NN on locally convex X} take a much more explicit form:
-\begin{equation}
+\textbf{Example:} We are mostly interested in the case where \(\Gamma=X^*\). If we take \(X=C(K;\mathbb{R})\) for \(K\subseteq\mathbb{R}^k\) compact, by Riesz-Markov-Kakutani, elements in Definition \ref{def:NN on locally convex X} take the explicit form:
+\begin{equation*}
      \mathcal{NN}_{\psi}(C(K;\mathbb{R}),C(K;\mathbb{R})^*)=\operatorname{span}_{\mathbb{R}}\left\{f\mapsto\psi(\int_X f\diff \mu+b):\mu\in\mathcal{M}(K),b\in\mathbb{R}\right\}.
-\end{equation}
+\end{equation*}
 We obtain a similar characterization for \(X=L^p(\mu)\) by Riesz. 
-\begin{equation}
+\begin{equation*}
      \mathcal{NN}_{\psi}(L^p(\mu),(L^p(\mu))^*)=\operatorname{span}_{\mathbb{R}}\left\{f\mapsto\psi(\int_X fg\diff \mu+b):g\in L^q(\mu)(K),b\in\mathbb{R}\right\},
-\end{equation}
+\end{equation*}
 where \(\frac{1}{p}+\frac{1}{q}=1\).
 
-We shall now give the analog density result to Theorem \ref{thm:density of NN in L^p} for locally convex spaces \(X\) instead of the common Euclidean spaces \(\mathbb{R}^k\). For what is to follow, we shall assume:
+
+We shall now give the analog density result to Theorem \ref{thm:density of NN in L^p} for topological vector spaces \(X\) instead of the common Euclidean spaces \(\mathbb{R}^k\). For what is to follow, we shall assume:
 \begin{itemize}
-    \item \(X\) is a topological vector space
-    \item\(\Gamma = X^*\), where \(X^*\) denotes the topological dual of \(X\), that is \(X^*=\left\{\text{continuous, linear maps: }X\to\mathbb{R}\right\}\)
+    \item \(X\) is a topological vector space,
+    \item\(\Gamma = X^*\),
     \item\(\mathcal{A}=\sigma(X^*)\).
 \end{itemize}
 Under this assumption, we will omit \(\Gamma =X^*\) in the notation of Definition \ref{def:NN on locally convex X}.
-Note that the proof given for Theorem \ref{thm:density of NN in L^p} doesn't require any property of the \(\mathbb{R}^k\) only the discriminatory property of \(\psi\). The latter admits the obvious generalization
+Note that the proof given for Theorem \ref{thm:density of NN in L^p} doesn't require any property of \(\mathbb{R}^k\). Only the discriminatory property of \(\psi\), which is in turn adapted to \(\mathbb{R}^k\) and which needs to be modified accordingly.
 \begin{definition}\label{def:discriminatory property of X}
  We call a map \(\psi:\mathbb{R}\to\mathbb{R}\) discriminatory if it is Borel-measurable, bounded, and if
-    \begin{equation}
+    \begin{equation*}
         \int_{X}\psi(F(x)+b)\mu(\diff x)=0
-    \end{equation}
-    for all \(F\in X^*,b\in\mathbb{R}\) and \(\mu\) a finite, signed measure on \((X,\sigma(X^*))\), it follows that \(\mu=0\).    
+    \end{equation*}
+    for all \(F\in X^*,b\in\mathbb{R}\) and \(\mu\) a finite, signed measure on \((X,\sigma(X^*))\), implies that \(\mu=0\).    
 \end{definition}
 \begin{theorem}\label{thm:density of NN in L^p on topological vector space}
     Let \(\psi\) be a discriminatory map, \(\mu\) a finite, positive measure, and \(p\in[1,\infty)\). Then
-    \begin{equation}
+    \begin{equation*}
          \overline{\mathcal{NN}_{\psi}(X)}^{\lVert\cdot\rVert_{L^p}}=L^p(X,\mathcal{A},\mu).
-    \end{equation}
+    \end{equation*}
 \end{theorem} 
 \begin{proof}
-    Notice that \(\psi\), being discriminatory, it is in particular bounded. Hence \(\mathcal{NN}_{\psi}(K
-    X)\subseteq L^p(X,\mu)\) because \(\mu\) is finite by assumption. The rest of the proof is completely analogous to Theorem \ref{thm:density of NN in L^p} and relies on the fact that for a discriminatory \(\psi\) in the sense of Definition \ref{def:discriminatory property of X}, Hahn-Banach yields that the inner regular Borel measure \(\mu\) is the \(0\) measure. Hence, we indeed need the discriminatory property 
+    Notice that \(\psi\), being discriminatory, is in particular bounded. Hence \(\mathcal{NN}_{\psi}(
+    X)\subseteq L^p(X,\mu)\) because \(\mu\) is finite by assumption. The rest of the proof is completely analogous to Theorem \ref{thm:density of NN in L^p} as the notion of a discriminatory activation function \(\psi\) is defined accordingly. Indeed, notice that the identification of the dual of \(L^p(X,\mathcal{A},\mu)\) with \(L^q(X,\mathcal{A},\mu)\) for a Hölder conjugate pair \(p,q\) through the Riesz Theorem works for any measure space \(((X,\mathcal{A},\mu))\). For a topological vector space \(X\) we might apply it in particular to the measure space \((X,\sigma(X^*),\mu)\) for a finite measure \(\mu\) on \(\sigma(X^*)\). The Hahn-Banach based proof by contradiction is analogous to that in Theorem \ref{thm:density of NN in L^p}, as the Hahn-Banach corollary applies to the Banach space \(L^p(X,\mathcal{A},\mu)\) for any finite measure space \((X,\mathcal{A},\mu)\). Hence, we again have the existence of a continuous linear functional \(\widetilde{F}\in L^p(X,\mathcal{A},\mu)^*\) such that 
+    \begin{equation*}
+        \widetilde{F}(f)=\int_{X}fg\diff \mu=0\quad\forall f\in L^p(X,\mathcal{A},\mu).
+    \end{equation*}
+    We again define \(\sigma(B)\coloneqq\int_B g\diff \mu\) for all \(B\in\sigma(X^*)\) and by Hölder this defines a finite measure. Hence we get that in particular 
+     \begin{equation*}
+        \int_{X}\psi(F(x)+b) \sigma(\diff x)=0\quad\forall F\in X^*,\forall b\in\mathbb{R}.
+\end{equation*}
+    and by the discriminator property \ref{def:discriminatory property of X} we conclude that \(\sigma=0\), yielding the contradiction and hence the claim. 
 \end{proof}
-The non-trivial part that requires more work is the generalization of Proposition \ref{prop:sigmoidal implies discriminatory}. 
+The generalization of Proposition \ref{prop:sigmoidal implies discriminatory} is non-trivial. 
 \begin{proposition}\label{prop:necessary conditions for generalized discriminatory property}
     Let \(\psi:\mathbb{R}\to\mathbb{R}\) be measurable, bounded, and sigmoidal. Then \(\psi\) is discriminatory in the sense of Definition \ref{def:discriminatory property of X}.
 \end{proposition}
-Before giving the proof, we state a useful Lemma from \parencite[Lemma.~7.13.5.]{Bogachev2007MeasureTheory}. For the statement, we require the definition of the characteristic functional of a measure \(\mu\) on \(Cyl(X,\Gamma)\) for \(\Gamma\) a subset of real-valued maps on \(X\) and \(Cyl(X,\Gamma)\) defined as follows:
+Before reproducing the proof of \parencite[Prop.~5.15]{Arandjelovic2025}, we state a useful Lemma from \parencite[Lemma.~7.13.5.]{Bogachev2007MeasureTheory}. For the statement, we require the definition of the characteristic functional of a measure \(\mu\) on \(Cyl(X,\Gamma)\) for \(\Gamma\) a subset of real-valued maps on \(X\) and \(Cyl(X,\Gamma)\) defined as follows:
 \begin{equation}
     Cyl(X,\Gamma)=\left\{ C(f_1,\dots,f_n,B):f_i\in \Gamma\text{ for }i=1,\dots,n,n\in\mathbb{N},B\in\mathcal{B}(\mathbb{R}^n)\right\},
 \end{equation}
