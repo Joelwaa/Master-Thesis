@@ -1153,9 +1153,13 @@ This is the simplest class of neural networks one can define. As it is the only 
 \begin{remark}\label{rem:NN don't form algebra}
     Notice that \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) is a vector space by definition, but it is not closed under pointwise multiplication. In particular, \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) doesn't form an algebra of functions.
 \end{remark}
-The first question we address is whether continuous functions on compact domains \(K\subseteq\mathbb{R}^k\) can be approximated by elements of \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) with respect to the \(\lVert f\rVert_{\infty}=\sup_{x\in K}|f(x)|\). By this, we mean whether the following holds
+The first question we address is whether continuous functions on compact domains \(K\subseteq\mathbb{R}^k\) can be approximated by elements of 
 \begin{equation*}
-    \forall{f}\in C(K)\quad\forall\epsilon>0\quad\exists G\in\mathcal{NN}_{\psi}(\mathbb{R}^k):\lVert f-G\rVert_{\infty}<\epsilon.
+    \mathcal{NN}_{\psi}(K)\coloneqq \big\{G|_K:G\in\mathcal{NN}_{\psi}(\mathbb{R}^k)\big\},
+\end{equation*}
+with respect to the \(\lVert f\rVert_{\infty}=\sup_{x\in K}|f(x)|\). We need to check whether
+\begin{equation*}
+    \forall{f}\in C(K)\quad\forall\epsilon>0\quad\exists G\in\mathcal{NN}_{\psi}(K):\lVert f-G\rVert_{\infty}<\epsilon,
 \end{equation*}
 or in topological notation
 \begin{equation*}\label{eq:density of NN in C(K)}
@@ -1174,11 +1178,12 @@ where \(\mu\) is a signed Borel-measure and \(A\mapsto\int_{K}\psi(A(x))\mu(\dif
 \end{equation*} 
 \begin{definition}\label{def:discriminatory maps over reals}
     We call a map \(\psi:\mathbb{R}\to\mathbb{R}\) discriminatory if it is Borel-measurable, bounded, and if
-    \begin{equation*}
+    \begin{equation}\label{eq:discriminatory maps over reals}
         \int_{\mathbb{R}^k}\psi(w^{tr}x+b)\mu(\diff x)=0
-    \end{equation*}
-    for all \(w\in\mathbb{R}^k,b\in\mathbb{R}\) and \(\mu\) finite, signed measures on \((\mathbb{R}^k,\mathcal{B}(\mathbb{R}^k))\), implies that \(\mu\) is the zero measure on \(\mathbb{R}^k\).
+    \end{equation}
+    for all \(w\in\mathbb{R}^k,b\in\mathbb{R}\) and \(\mu\) finite, signed measures on \((\mathbb{R}^k,\mathcal{B}(\mathbb{R}^k))\), it implies that \(\mu\) is the zero measure on \(\mathbb{R}^k\).
 \end{definition}
+
 The motivation for this definition will arise naturally in the proof of the following theorem.
 \begin{theorem}\label{thm:density of NN in C(K)}
     Let \(\psi\) be a continuous discriminatory map, and \(K\subseteq\mathbb{R}^k\) a compact subset. Then
@@ -1192,28 +1197,41 @@ The proof we provide relies predominantly on the following corollary of the Hahn
 \end{lemma}
 For a proof, see \parencite[Corollary.~4.8.7]{Friedman1982FoundationsModernAnalysis}.
 \begin{proof}[Proof of Theorem \ref{thm:density of NN in C(K)}]
-    The proof goes by contradiction. First, notice that \(\mathcal{NN}_{\psi}(K)\) is a linear subspace of \(C(K;\mathbb{R})\) because \(\psi\) is continuous and bounded by assumption. For the sake of contraction, assume \(\mathcal{NN}_{\psi}(K)\) is not dense in \(C(K;\mathbb{R})\) for the uniform topology. By Lemma \ref{lemma:Hahn Banach corollary}, there must exist a nonzero continuous functional \(F\in C(K;\mathbb
+    The proof goes by contradiction. First, notice that \(\mathcal{NN}_{\psi}(K)\) is a linear subspace of \(C(K;\mathbb{R})\) because \(\psi\) is continuous and bounded by assumption. For the sake of contraction, assume \(\mathcal{NN}_{\psi}(K)\) is not dense in \(C(K;\mathbb{R})\) for the uniform topology. By Lemma \ref{lemma:Hahn Banach corollary}, there must exist a nonzero continuous functional \(\Lambda\in C(K;\mathbb
     R)^*\) such that 
     \begin{equation*}
-        F(f)=0\quad\forall f\in\mathcal{NN}_{\psi}(K).
+        \Lambda(f)=0\quad\forall f\in\mathcal{NN}_{\psi}(K).
     \end{equation*}
-     By Riesz-Marko-Kakutani (see \parencite[Thm.~7.10.4.]{Bogachev2007MeasureTheory}), we know that \(C^*(K;\mathbb{R})\simeq\mathcal{M}_r(K)\), where \(\mathcal{M}_r(K)\) denotes the set of finite signed Radon measures on \(K\), that is finite signed, inner regular Borel measure. Hence, for every \(F\in C(K;\mathbb
+     By Riesz-Marko-Kakutani (see \parencite[Thm.~7.10.4.]{Bogachev2007MeasureTheory}), we know that \(C^*(K;\mathbb{R})\simeq\mathcal{M}_r(K)\), where \(\mathcal{M}_r(K)\) denotes the set of finite signed Radon measures on \(K\), that is finite signed, inner regular Borel measure. Hence, for every \(\Lambda\in C(K;\mathbb
     R)^*\) there exists a unique \(\mu\in\mathcal{M}_r(K)\) such that 
  \begin{equation*}
-     F(f)=\int_K f\diff\mu\quad\forall f\in C(K;\mathbb{R}).
+     \Lambda(f)=\int_K f\diff\mu\quad\forall f\in C(K;\mathbb{R}).
  \end{equation*}
    Because \(\psi(A)\in\mathcal{NN}_{\psi}(K)\subseteq C(K;\mathbb
     R)\) for all affine linear maps \(A\) on \(K\), we have
+    \begin{equation*}
+        \int_K \psi(w^{tr}x+b)\mu(\diff x)=0\quad\forall w\in\mathbb{R}^k,b\in\mathbb{R}.
+    \end{equation*}
+    Coinsider the measure 
+    \begin{equation*}
+        \overline{\mu}(B)\coloneqq \mu(B\cap K),\;\forall B\in\mathcal{B}(\mathbb{R}^k).
+    \end{equation*}
+    Then, \(\overline{\mu}\) defines a finite, signed measure on \(\mathcal{B}(\mathbb{R}^k)\) (see Lemma \ref{lemma:radon measures on compact subspaces} for an in depth treatment of this construction). Now it follows by standard measure theoretic induction that 
+    \begin{equation*}
+         \int_K \psi(w^{tr}x+b)\mu(\diff x)=\int_{\mathbb{R}^k}\psi(w^{tr}x+b)\overline{\mu}(\diff x).
+    \end{equation*}
+    Hence, we can rewrite \eqref{eq:discriminatory property in proof} as 
     \begin{equation}\label{eq:discriminatory property in proof}
-        \int_K \psi(w^{tr}x+b)\diff\mu(x)=0\quad\forall w\in\mathbb{R}^k,b\in\mathbb{R}.
+    \int_{\mathbb{R}^k}\psi(w^{tr}x+b)\overline{\mu}(\diff x)=0\quad\forall w\in\mathbb{R}^k,b\in\mathbb{R}.
     \end{equation}
-Recall that we assumed that \(\psi\) is discriminatory, which precisely states that \eqref{eq:discriminatory property in proof} implies that \(\mu=0\). Thus, \(F=0\), whence the contradiction.
+    
+Recall that we assumed that \(\psi\) is discriminatory, which precisely states that \eqref{eq:discriminatory property in proof} implies that \(\mu=0\). Thus, \(\Lambda=0\), whence the contradiction.
 \end{proof}
 
 In summary, the theorem, broadly speaking, works by contradiction through Lemma \ref{lemma:Hahn Banach corollary}. The arguments are quite general and mainly require an explicit characterization of the topological dual of the ambient space in which we want to show density. The notion of  discriminatory activation functions is chosen to be well suited to conclude density.
 For \(C(K;\mathbb{R})\) as above, the topological dual is explicitly characterized by the Riesz-Markov-Kakutani Theorem. The discriminatory property of \(\psi\) turns out to be the natural notion in this context. We know from the Riesz Theorem for \(L^p\)-spaces (see \parencite[Thm.~4.4.1.]{Bogachev2007MeasureTheory}) that a similar characterization of bounded linear functionals on \(L^p\)-spaces through an integral mapping exists. The non-trivial part is to show that the same notion of discriminatory activation functions is well adapted to the \(L^p\)-case.
 \begin{theorem}\label{thm:density of NN in L^p}
-    Let \(\psi\) be a discriminatory function, and \(K\subseteq\mathbb{R}^k\) a \(\mu\) finite positive measure. Then
+    Let \(\psi\) be a discriminatory function, and \(K\subseteq\mathbb{R}^k\) a \(\mu\) finite positive measure on \(\mathcal{B}(\mathbb{R}^k)\). Then
     \begin{equation*}
          \overline{\mathcal{NN}_{\psi}(\mathbb{R}^k)}^{\lVert\cdot\rVert_{L^p}}=L^p(\mathbb{R}^k,\mu)
     \end{equation*}
@@ -1228,13 +1246,13 @@ For \(C(K;\mathbb{R})\) as above, the topological dual is explicitly characteriz
     
    First, notice that due to the finiteness of \(\mu\), \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) is a linear subspace of  \(L^p(\mathbb{R}^k,\mu)\). Then, by the same strategy as in Theorem \ref{thm:density of NN in C(K)}, assuming \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) is not dense in \(L^p(\mathbb{R}^k,\mu)\), there must exist \(F\in L^p(\mathbb{R}^k,\mu)^*\) that annihilates \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\). By \eqref{eq:dual of L^p}, this implies
     \begin{equation}\label{eq:Lp Riesz}
-        \int_{\mathbb{R}^k}fg\diff \mu=0\quad\forall f\in L^p(\mathbb{R}^k).
+        \int_{\mathbb{R}^k}fg\diff \mu=0\quad\forall f\in \mathcal{NN}_{\psi}(\mathbb{R}^k).
     \end{equation}
 \end{proof}
 The key observation is that by setting \(\sigma(B)\coloneqq\int_B g\diff \mu\), \(\sigma\) defines a finite measure, and 
 \eqref{eq:Lp Riesz} reads as 
 \begin{equation}\label{eq:Lp discriminatory}
-        \int_{\mathbb{R}^k}f\diff \sigma=0\quad\forall f\in L^p(\sigma).
+        \int_{\mathbb{R}^k}f\diff \sigma=0\quad\forall f\in \mathcal{NN}_{\psi}(\mathbb{R}^k).
 \end{equation}
 We find ourselves in the same situation as in the proof of Theorem \ref{thm:density of NN in C(K)}.
     From \eqref{eq:Lp discriminatory} we conclude, in particular, that we get 
@@ -1282,277 +1300,352 @@ Note that if we want to generalize neural networks to be defined on more abstrac
 \begin{equation*}
     A(x)=w^{tr}x+b.
 \end{equation*}
-We can identify any \(w^{tr}\) with the continuous linear form \(\langle w,\cdot\rangle\in\mathbb{R}^*\) and vice versa (this follows from Riesz-Fischer \parencite[Cor.~4.3.2.]{Bogachev2007MeasureTheory} on the Hilbert space \((\mathbb{R}^k,\langle\cdot,\cdot\rangle)\)). This motivates the following generalization of Definition \ref{def:shallow feedforward neural networks} to topological vector spaces \(X\) with a topological dual \(X^*\).
+We can identify any \(w^{tr}\) with the continuous linear form \(\langle w,\cdot\rangle\in\mathbb{R}^*\) and vice versa (this follows from Riesz-Fischer \parencite[Cor.~4.3.2.]{Bogachev2007MeasureTheory} on the Hilbert space \((\mathbb{R}^k,\langle\cdot,\cdot\rangle)\)). This motivates the following generalization of Definition \ref{def:shallow feedforward neural networks} to topological vector spaces \(E\) with a topological dual \(E^*\).
 \begin{definition}\label{def:NN on locally convex X}
-    Let \(X\) be a topological vector space and \(\mathcal{A}\) a \(\sigma\)-algebra on \(X\). Furthermore, let \(\Gamma\) be a set of real-valued, \(\mathcal{A}\)-measurable maps on \(X\) and \(\psi:\mathbb{R}\to\mathbb{R}\) be measurable and sigmoidal. Then we define 
+    Let \(E\) be a topological vector space and \(\mathcal{A}\) a \(\sigma\)-algebra on \(E\). Furthermore, let \(\Gamma\) be a set of real-valued, \(\mathcal{A}\)-measurable maps on \(E\) and \(\psi:\mathbb{R}\to\mathbb{R}\) be measurable and sigmoidal. Then we define 
     \begin{equation*}
-        \mathcal{NN}_{\psi}(X,\Gamma)\coloneqq\operatorname{span}_{\mathbb{R}}\left\{\psi(F(\cdot)+b):F\in \Gamma,b\in\mathbb{R}\right\}.
+        \mathcal{NN}_{\psi}(E,\Gamma)\coloneqq\operatorname{span}_{\mathbb{R}}\left\{\psi(F(\cdot)+b):F\in \Gamma,b\in\mathbb{R}\right\}.
     \end{equation*}
-    We call elements of \(\mathcal{NN}_{\psi}(X,\Gamma)\) shallow feedforward neural networks with the activation function \(\psi\).
+    We call elements of \(\mathcal{NN}_{\psi}(E,\Gamma)\) shallow feedforward neural networks with the activation function \(\psi\).
 \end{definition}
-In particular, elements in \(\mathcal{NN}_{\psi}(X,\Gamma)\) are \(\mathcal{A}\)-measurable functions.
+In particular, elements in \(\mathcal{NN}_{\psi}(E,\Gamma)\) are \(\mathcal{A}\)-measurable functions.
 \\\\
-\textbf{Example:} We are mostly interested in the case where \(\Gamma=X^*\). If we take \(X=C(K;\mathbb{R})\) for \(K\subseteq\mathbb{R}^k\) compact, by Riesz-Markov-Kakutani, elements in Definition \ref{def:NN on locally convex X} take the explicit form:
+\textbf{Example:} We are mostly interested in the case where \(\Gamma=E^*\). If we take \(E=C(K;\mathbb{R})\) for \(K\subseteq\mathbb{R}^k\) compact, by Riesz-Markov-Kakutani, elements in Definition \ref{def:NN on locally convex X} take the explicit form:
 \begin{equation*}
-     \mathcal{NN}_{\psi}(C(K;\mathbb{R}),C(K;\mathbb{R})^*)=\operatorname{span}_{\mathbb{R}}\left\{f\mapsto\psi(\int_X f\diff \mu+b):\mu\in\mathcal{M}(K),b\in\mathbb{R}\right\}.
+     \mathcal{NN}_{\psi}(C(K;\mathbb{R}),C(K;\mathbb{R})^*)=\operatorname{span}_{\mathbb{R}}\left\{f\mapsto\psi(\int_E f\diff \mu+b):\mu\in\mathcal{M}(K),b\in\mathbb{R}\right\}
 \end{equation*}
-We obtain a similar characterization for \(X=L^p(\mu)\) by Riesz. 
+We obtain a similar characterization for \(E=L^p(\mu)\) by Riesz
 \begin{equation*}
-     \mathcal{NN}_{\psi}(L^p(\mu),(L^p(\mu))^*)=\operatorname{span}_{\mathbb{R}}\left\{f\mapsto\psi(\int_X fg\diff \mu+b):g\in L^q(\mu)(K),b\in\mathbb{R}\right\},
+     \mathcal{NN}_{\psi}(L^p(\mu),(L^p(\mu))^*)=\operatorname{span}_{\mathbb{R}}\left\{f\mapsto\psi(\int_E fg\diff \mu+b):g\in L^q(\mu)(K),b\in\mathbb{R}\right\},
 \end{equation*}
 where \(\frac{1}{p}+\frac{1}{q}=1\).
-
-
-We shall now give the analog density result to Theorem \ref{thm:density of NN in L^p} for topological vector spaces \(X\) instead of the common Euclidean spaces \(\mathbb{R}^k\). For what is to follow, we shall assume:
+\bigbreak 
+We shall now give the analog density result to Theorem \ref{thm:density of NN in L^p} for topological vector spaces \(E\) instead of the common Euclidean spaces \(\mathbb{R}^k\). For what is to follow, we shall assume:
 \begin{itemize}
-    \item \(X\) is a topological vector space,
-    \item\(\Gamma = X^*\),
-    \item\(\mathcal{A}=\sigma(X^*)\).
+    \item \(E\) is a topological vector space,
+    \item\(\Gamma = E^*\),
+    \item\(\mathcal{A}=\sigma(E^*)\).
 \end{itemize}
-Under this assumption, we will omit \(\Gamma =X^*\) in the notation of Definition \ref{def:NN on locally convex X}.
-Note that the proof given for Theorem \ref{thm:density of NN in L^p} doesn't require any property of \(\mathbb{R}^k\). Only the discriminatory property of \(\psi\), which is in turn adapted to \(\mathbb{R}^k\) and which needs to be modified accordingly.
+Under this assumption, we will omit \(\Gamma =E^*\) in the notation of Definition \ref{def:NN on locally convex X}.
+Note that the proof given for Theorem \ref{thm:density of NN in L^p} doesn't require any property of \(\mathbb{R}^k\). Only the discriminatory property of \(\psi\), which is, in turn, adapted to \(\mathbb{R}^k\) and needs to be modified accordingly.
 \begin{definition}\label{def:discriminatory property of X}
  We call a map \(\psi:\mathbb{R}\to\mathbb{R}\) discriminatory if it is Borel-measurable, bounded, and if
     \begin{equation*}
-        \int_{X}\psi(F(x)+b)\mu(\diff x)=0
+        \int_{E}\psi(F(x)+b)\mu(\diff x)=0
     \end{equation*}
-    for all \(F\in X^*,b\in\mathbb{R}\) and \(\mu\) a finite, signed measure on \((X,\sigma(X^*))\), implies that \(\mu=0\).    
+    for all \(F\in E^*,b\in\mathbb{R}\) and \(\mu\), a finite signed measure on \((E,\sigma(E^*))\) implies that \(\mu=0\).    
 \end{definition}
+
 \begin{theorem}\label{thm:density of NN in L^p on topological vector space}
     Let \(\psi\) be a discriminatory map, \(\mu\) a finite, positive measure, and \(p\in[1,\infty)\). Then
     \begin{equation*}
-         \overline{\mathcal{NN}_{\psi}(X)}^{\lVert\cdot\rVert_{L^p}}=L^p(X,\mathcal{A},\mu).
+         \overline{\mathcal{NN}_{\psi}(E)}^{\lVert\cdot\rVert_{L^p}}=L^p(E,\mathcal{A},\mu).
     \end{equation*}
 \end{theorem} 
 \begin{proof}
     Notice that \(\psi\), being discriminatory, is in particular bounded. Hence \(\mathcal{NN}_{\psi}(
-    X)\subseteq L^p(X,\mu)\) because \(\mu\) is finite by assumption. The rest of the proof is completely analogous to Theorem \ref{thm:density of NN in L^p} as the notion of a discriminatory activation function \(\psi\) is defined accordingly. Indeed, notice that the identification of the dual of \(L^p(X,\mathcal{A},\mu)\) with \(L^q(X,\mathcal{A},\mu)\) for a Hölder conjugate pair \(p,q\) through the Riesz Theorem works for any measure space \(((X,\mathcal{A},\mu))\). For a topological vector space \(X\) we might apply it in particular to the measure space \((X,\sigma(X^*),\mu)\) for a finite measure \(\mu\) on \(\sigma(X^*)\). The Hahn-Banach based proof by contradiction is analogous to that in Theorem \ref{thm:density of NN in L^p}, as the Hahn-Banach corollary applies to the Banach space \(L^p(X,\mathcal{A},\mu)\) for any finite measure space \((X,\mathcal{A},\mu)\). Hence, we again have the existence of a continuous linear functional \(\widetilde{F}\in L^p(X,\mathcal{A},\mu)^*\) such that 
+    E)\subseteq L^p(E,\mu)\) as \(\mu\) is finite measure. The rest of the proof is completely analogous to Theorem \ref{thm:density of NN in L^p} as the notion of a discriminatory activation function \(\psi\) is defined appropriately in Definition \ref{def:discriminatory property of X}. Indeed, notice that the identification of the dual of \(L^p(E,\mathcal{A},\mu)\) with \(L^q(E,\mathcal{A},\mu)\) for a Hölder conjugate pair \(p,q\) through the Riesz Theorem works for any measure space \((E,\mathcal{A},\mu)\). For a topological vector space \(E\) we might apply it to the measure space \((E,\sigma(E^*),\mu)\) for a finite measure \(\mu\) on \(\sigma(E^*)\). The Hahn-Banach based proof by contradiction of Theorem \ref{thm:density of NN in L^p}  is now analogous to the current case. Indeed, the Hahn-Banach Corollary \ref{lemma:Hahn Banach corollary} applies to the Banach space \(L^p(E,\mathcal{A},\mu)\) for any finite measure space \((E,\mathcal{A},\mu)\). Hence, we again have the existence of a continuous linear functional \(\Lambda\in L^p(E,\mathcal{A},\mu)^*\) such that 
     \begin{equation*}
-        \widetilde{F}(f)=\int_{X}fg\diff \mu=0\quad\forall f\in L^p(X,\mathcal{A},\mu).
+        \Lambda(f)=\int_{E}fg\diff \mu=0\quad\forall f\in \mathcal{NN}_{\psi}(E).
     \end{equation*}
-    We again define \(\sigma(B)\coloneqq\int_B g\diff \mu\) for all \(B\in\sigma(X^*)\) and by Hölder this defines a finite measure. Hence we get that in particular 
+    We again define \(\sigma(B)\coloneqq\int_B g\diff \mu\) for all \(B\in\sigma(E^*)\), and by Hölder, this defines a finite measure. Hence, we get that in particular 
      \begin{equation*}
-        \int_{X}\psi(F(x)+b) \sigma(\diff x)=0\quad\forall F\in X^*,\forall b\in\mathbb{R}.
+        \int_{E}\psi(F(x)+b) \sigma(\diff x)=0\quad\forall F\in E^*,\forall b\in\mathbb{R}.
 \end{equation*}
-    and by the discriminator property \ref{def:discriminatory property of X} we conclude that \(\sigma=0\), yielding the contradiction and hence the claim. 
+    By the discriminator property \ref{def:discriminatory property of X} we conclude that \(\sigma=0\), yielding the contradiction and hence the claim. 
 \end{proof}
 The generalization of Proposition \ref{prop:sigmoidal implies discriminatory} is non-trivial. 
 \begin{proposition}\label{prop:necessary conditions for generalized discriminatory property}
     Let \(\psi:\mathbb{R}\to\mathbb{R}\) be measurable, bounded, and sigmoidal. Then \(\psi\) is discriminatory in the sense of Definition \ref{def:discriminatory property of X}.
 \end{proposition}
-Before reproducing the proof of \parencite[Prop.~5.15]{Arandjelovic2025}, we state a useful Lemma from \parencite[Lemma.~7.13.5.]{Bogachev2007MeasureTheory}. For the statement, we require the definition of the characteristic functional of a measure \(\mu\) on \(Cyl(X,\Gamma)\) for \(\Gamma\) a subset of real-valued maps on \(X\) and \(Cyl(X,\Gamma)\) defined as follows:
-\begin{equation}
-    Cyl(X,\Gamma)=\left\{ C(f_1,\dots,f_n,B):f_i\in \Gamma\text{ for }i=1,\dots,n,n\in\mathbb{N},B\in\mathcal{B}(\mathbb{R}^n)\right\},
-\end{equation}
-where \(C(f_1,\dots,f_n,B)=\left\{x\in X:(f_1(x),\dots,f_2(x))\in B)\right\}\) is called a \(\Gamma\)-cylinder set. Clearly, we have
-\begin{equation}
-    \sigma(Cyl(X,\Gamma))=\sigma(\Gamma). 
-\end{equation}
-We define the Fourier transform of a measure \(\mu\) on \(Cyl(X,\Gamma)\) as 
-\begin{equation}
-    \tilde{\mu}(f)=\int_{\mathbb{R}}e^{it}\mu\circ f^{-1}(dt).\footnotemark
-\end{equation}\footnotetext{Notice that this definition is consistent with the definition of the Fourier transform of measures on \(\mathbb{R}^n\): \(\tilde{\mu}(y)=\int_{\mathbb{R}}e^{i\langle y,x\rangle}\mu(\diff x)\). The equivalence follows from the identification through Riesz-Fischer for the Hilbert-space \((\mathbb{R}^n,\langle\cdot,\cdot\rangle)\)}
-From here on, we shall take \(\Gamma=X^*\).
+Before reproducing the proof of \parencite[Prop.~5.15]{Arandjelovic2025}, we state a useful Lemma from \parencite[Lemma.~7.13.5.]{Bogachev2007MeasureTheory}. For the statement, we require the definition of the characteristic functional of a measure \(\mu\) on \(Cyl(E,\Gamma)\) for \(\Gamma\subseteq E^*\) and \(Cyl(E,\Gamma)\) defined as follows:
+\begin{equation*}
+    Cyl(E,\Gamma)=\left\{ C(f_1,\dots,f_n,B):(f_i)_{i=1}^n\subseteq\Gamma, n\in\mathbb{N},B\in\mathcal{B}(\mathbb{R}^n)\right\},
+\end{equation*}
+where \(C(f_1,\dots,f_n,B)=\left\{x\in E:(f_1(x),\dots,f_n(x))\in B)\right\}\) is called a \(\Gamma\)-cylinder set. Clearly, we have
+\begin{equation*}
+    \sigma(Cyl(E,\Gamma))=\sigma(\Gamma). 
+\end{equation*}
+We define the Fourier transform of a measure \(\mu\) on \(Cyl(E,\Gamma)\) as 
+\begin{equation*}
+    \tilde{\mu}(f)=\int_{\mathbb{R}}e^{it}\mu\circ f^{-1}(dt)
+\end{equation*}
+for \(f\in \Gamma\). Observe that
+\begin{equation*}
+    \int_{\mathbb{R}}e^{it}\mu\circ f^{-1}(dt)=\int_E e^{if(x)}\mu(\diff x).
+\end{equation*}
+Note that this definition is consistent with the definition of the Fourier transform of measures on \(\mathbb{R}^n\) \begin{equation*}
+    \tilde{\mu}(y)=\int_{\mathbb{R}^n}e^{i\langle y,k\rangle}\mu(\diff k).
+\end{equation*}
+Indeed, by Riesz-Fischer for the Hilbert-space \((\mathbb{R}^n,\langle\cdot,\cdot\rangle)\), for any \(f\in (\mathbb{R}^n)^*\) there exists a unique \(y\in\mathbb{R}^n\) such that \(f(\cdot)=\langle y,\cdot\rangle\).
+From here on, we shall take \(\Gamma=E^*\).
+The next lemma shows that the Fourier transform of measures on \((E,Cyl(E,E^*))\) characterizes the measures completely. This result is based on the respective statement for the measures on \(\mathbb{R}^n\), see \parencite[Prop.~3.8.6]{Bogachev2007MeasureTheory}.
 \begin{lemma}\label{lemma:Fourier equality iif measure equality for general X}
-    Let \(X\) be a topological vector space and \(X^*\) its topological dual. Let \(\mu,\nu\) be measures on \(\sigma(X^*)\) and \(\tilde{\mu}=\tilde{\nu}\), then one has \(\mu=\nu\).
+    Let \(E\) be a topological vector space and \(E^*\) its topological dual. Let \(\mu,\nu\) be measures on \(\sigma(E^*)\) and \(\tilde{\mu}=\tilde{\nu}\), then one has \(\mu=\nu\). 
 \end{lemma}
 \begin{proof}
-    For all \(f_1,\dots,f_n\in X^*\) we have 
+    For all \(f_1,\dots,f_n\in E^*\) define the following measures on \((\mathbb{R}^n,\sigma\big ((\mathbb{R}^n)^*\big))\)
     \begin{align*}
-        \widetilde{\mu\circ(f_1,\dots,f_n)^{-1}}&=\int_{\mathbb{R}^n}e^{i\langle y,x\rangle} \mu\circ(f_1,\dots,f_n)^{-1}(\diff t)\\&=\int_X e^{i\sum_{j=1}^n y_jf_j(x)}\mu(\diff x)=\widetilde{\mu}(\sum_{j=1}^n y_jf_j(x))=\widetilde{\nu}(\sum_{j=1}^n y_jf_j(x))\\&=\widetilde{\nu\circ(f_1,\dots,f_n)^{-1}}.
+        &\sigma\coloneqq \mu\circ(f_1,\dots,f_n)^{-1}
+        \\& \lambda\coloneqq \nu\circ(f_1,\dots,f_n)^{-1}
     \end{align*}
+    We show that \(\widetilde{\sigma}=\widetilde{\lambda}\).
+    
+    \begin{align*}
+        \widetilde{\sigma}(y)=\int_{\mathbb{R}^n}e^{i\langle y,k\rangle} \mu\circ(f_1,\dots,f_n)^{-1}(\diff k)&=\int_E e^{i\sum_{j=1}^n y_jf_j(x)}\mu(\diff x)\\&
+        =\widetilde{\mu}\Big(\sum_{j=1}^n y_jf_j(x)\Big)=\widetilde{\nu}\Big(\sum_{j=1}^n y_jf_j(x)\Big)=\widetilde{\lambda}(y).
+    \end{align*}
+    for all \(y\in\mathbb{R}^n\).
  Now, from \parencite[Prop.~3.8.6]{Bogachev2007MeasureTheory}, this implies 
-    \begin{equation}
-        \mu(\sum_{j=1}^n y_jf_j(x))=\nu(\sum_{j=1}^n y_jf_j(x)).
-    \end{equation}
-    But by definition, \(\sigma(X^*)\) is generated by the intersection stable generating system of cylinder sets \(C(f_1,\dots,f_n,B)\), hence \(\mu=\nu\) on all of \(\sigma(X^*)\). Now this shows that 
+    \begin{equation*}
+        \sigma=\mu\circ(f_1,\dots,f_n)^{-1}=\nu\circ(f_1,\dots,f_n)^{-1}=\lambda.
+    \end{equation*}
+    But by definition, \(\sigma(E^*)\) is generated by the intersection stable generating system of cylinder sets \(C(f_1,\dots,f_n,B)\), hence \(\mu=\nu\) on all of \(\sigma(E^*)\). 
 \end{proof}
 \begin{remark}\label{rem:radon measures uniquely determined by values on sigma(X*)}
-For locally convex Hausdorff spaces \(X\) Lemma \ref{lemma:Fourier equality iif measure equality for general X} also holds true for Radon measures; that is, inner regular Borel-measures. This is not trivial, as in general for topological vector spaces \(\mathcal{B}(X)\subseteq \sigma(X^*)\). It follows from \parencite[sec.~7.1]{Bogachev2007MeasureTheory} and, in particular, the discussion at the beginning of subsection 7.12 in Bogachev that Radon measures on locally convex spaces are uniquely determined by their values of \(Cyl(X,X^*)=\sigma(X^*)\).
+For locally convex Hausdorff spaces \(E\), Lemma \ref{lemma:Fourier equality iif measure equality for general X} also holds true for Radon measures; that is, inner regular Borel-measures. This is not trivial, as it is generally the case for topological vector spaces that \(\sigma(E^*)\subseteq\mathcal{B}(E)\). It follows from \parencite[Prop.~7.12.1.]{Bogachev2007MeasureTheory}  that Radon measures on locally convex spaces are uniquely determined by their values on \(Cyl(E,E^*)=\sigma(E^*)\).
 \end{remark}
-We can finally turn to the proof of Proposition \ref{prop:necessary conditions for generalized discriminatory property}.
-\begin{proof}
-    The proof goes by contradiction. Assume there is such a non-zero, finite measure \(\nu=\nu^+-\nu^-\). We show that the conditions in the proposition imply that \(\nu^+=\nu^-\), hence \(\nu=0\), which contradicts the assumption\(\psi\) is discriminatory. We do this by showing the equivalent claim 
+Before giving the proof of Proposition \ref{prop:necessary conditions for generalized discriminatory property} we recall a functinoal version of the montone class theorem as it will be used repeatadly in this thesis. We take the version from \parencite[Thm.~7.4.1.]{CohenElliott2015StochasticCalculusApplications} and refer to the latter for a proof.
+\begin{theorem}\label{thm:montone class}
+    Suppose \( \mathcal{H} \) is a real vector space of real-valued, bounded functions, such that
+\begin{enumerate}[label=(\roman*)]
+  \item \( \mathcal{H} \) contains the constant functions,
+  \item \( \mathcal{H} \) is closed under uniform convergence, and
+  \item for every uniformly bounded increasing sequence \( \{f_n\}_{n\in\mathbb{N}}\subset\mathcal{H} \) of positive
+  functions the limit \( f=\lim_{n} f_n \) is in \( \mathcal{H} \).
+\end{enumerate}
+Suppose \( \mathcal{C} \) is a subset of \( \mathcal{H} \) which is closed under multiplication and, as usual, write \( \sigma(\mathcal{C}) \) for
+the \( \sigma \)-algebra generated by \( \mathcal{C} \) (that is the smallest \( \sigma \)-algebra such that \( f \) is measurable
+for every \( f\in \mathcal{C} \)). Then \( \mathcal{H} \) contains all bounded \( \sigma(\mathcal{C}) \)-measurable functions.
+\end{theorem}
+We can finally turn to the proof of Proposition \ref{prop:necessary conditions for generalized discriminatory property}, which is a reproduction of the proof appearing in \parencite[Prop.~5.15.]{Arandjelovic2025} in the special case of \(L^p\) spaces.
+\begin{proof}[Proof of \ref{prop:necessary conditions for generalized discriminatory property}]
+    The proof goes by contradiction. For the sake of contradiction, assume that \(\psi\) is a measurable, bounded is not dicriminatory in the sense of Definition \ref{def:discriminatory property of X}. Hence, let \(\nu\) be a non-zero, finite measure, such that 
+    \begin{equation}\label{eq:contradictory assumption}
+        \int_E \psi(f(x)+b)\nu(\diff x)=0,\;\forall f\in E^*,\forall b\in\mathbb{R}.
+    \end{equation}
+    Furthermore, we write \(\nu=\nu^+-\nu^-\), where \(\nu^+\) and \(\nu^-\) denote the positive and negative parts of the signed measure \(\nu\). We show that the conditions in the proposition imply that \(\nu^+=\nu^-\) and thus \(\nu=0\). We do this by showing the equivalent claim 
     \begin{equation}\label{eq:proof strategy of necessary conditions for generalized discriminatory property}
-        \widetilde{\nu}^+(f)=\widetilde{\nu}^-(f)\quad\forall f\in X^*.
-    \end{equation} Indeed, equivalence follows from the previously stated Lemma \ref{lemma:Fourier equality iif measure equality for general X}. We show \eqref{eq:proof strategy of necessary conditions for generalized discriminatory property} by a monotone class argument.
-    \bigbreak
+        \widetilde{\nu}^+(f)=\widetilde{\nu}^-(f)\quad\forall f\in E^*.
+    \end{equation} Indeed, if \eqref{eq:proof strategy of necessary conditions for generalized discriminatory property} holds  then \(\nu^+=\nu^-\) by Lemma \ref{lemma:Fourier equality iif measure equality for general X}. We show \eqref{eq:proof strategy of necessary conditions for generalized discriminatory property} by a monotone class argument.
  More precisely, notice that
-    \begin{equation}
-        \widetilde{\nu}^+(f)-\widetilde{\nu}^-(f)=\widetilde{\nu}(f)=\int_X e^{if(x)}\mu(\diff x)=\int_X \cos(f(x))\nu(\diff x)+i\int_X\sin(f(x))\nu(\diff x),
-    \end{equation}
-    hence to show that this expression is equal to \(0\), we need to show that the complex number on the right is equal to \(0\), that is, that both its real and imaginary parts are vanishing. We set up the monotone class argument:
-    Let \(\mathcal{H}\) be the class of
+    \begin{equation*}
+        \widetilde{\nu}^+(f)-\widetilde{\nu}^-(f)=\widetilde{\nu}(f)=\int_E e^{if(x)}\mu(\diff x)=\int_E \cos(f(x))\nu(\diff x)+i\int_E\sin(f(x))\nu(\diff x).
+    \end{equation*}
+    Hence, to show that this expression is equal to \(0\), we need to show that the complex number on the right is equal to \(0\), that is, that both its real and imaginary parts vanish. We set up the monotone class argument:
+    Let 
     \begin{align*}
-        \mathcal{H}=\left\{ \text{bounded, measurable } h: \mathbb{R} \to \mathbb{R} \text{ such that } \int_X h(f(x)) \nu(\diff x) = 0 \; \forall f \in X^* \right\}.
+        \mathcal{H}=\left\{ \text{bounded, measurable } h: \mathbb{R} \to \mathbb{R}: \int_E h(f(x)) \nu(\diff x) = 0, \; \forall f \in E^* \right\}.
     \end{align*}
-    The goal is to show that \(\mathcal{H}\) contains all maps \(1_I, I=(a,b]\) for \(a\leq b\)\footnote{We take the convention \((a,b]=\emptyset\) for \(a=b\).}. It is well known that these form a generating, intersection stable system for \(\mathcal{B}(\mathbb{R})\). If we show the latter, then by the monotone class theorem \parencite[Thm.~7.4.1.]{CohenElliott2015StochasticCalculusApplications}, \(\mathcal{H}\) contains all bounded measurable maps; hence, both integrals for \(h\in\left\{\cos,\sin\right\}\) vanish, proving the claim.
-    \\\\
-    We will need to argue why \(\mathcal{H}\) is a monotone class and why it contains the respective indicator functions. Recall that we assumed, by contradiction, that \(\psi\) is not discriminatory. Hence, there exists \(\nu\neq 0\) such that \(\int_X\psi(f(x)+b)\nu(\diff x)=0\quad\forall f\in X^*,b\in\mathbb{R}\).\bigbreak
-    \(\mathcal{H}\) is a real-vector space, containing constant functions and closed under  bounded monotone limits. Indeed, the first claim is clear by definition. It contains \(1_{\mathbb{R}}\) since for every \(f\in X^*\) we have 
-    \begin{equation}
-        \int_X1_{\mathbb{R}}(f(x))\nu(\diff x)=\nu(X)=\frac{1}{\psi(b)}\int_X\psi(0+b)\nu(\diff x)=0,
-    \end{equation}
-    for any \(b\in\mathbb{R}\) such that \(\psi(b)\neq 0\), which exists since \(\psi\) is sigmoidal and with \(0\in X^*\).
+    The goal is to show that \(\mathcal{H}\) contains the indicators of half-open real intervals \(I=(a,b]\) for \(a\leq b\), taking the convention \((a,b]=\emptyset\) for \(a=b\). It is well known that these form a generating, intersection stable system for \(\mathcal{B}(\mathbb{R})\). If we show the latter, then by the monotone class theorem ( see \parencite[Thm.~7.4.1.]{CohenElliott2015StochasticCalculusApplications}), \(\mathcal{H}\) contains all bounded Borel-measurable maps; hence, both integrals for \(h\in\left\{\cos,\sin\right\}\) vanish, proving the claim.
+ 
+
+    
+    \(\mathcal{H}\) is a real-vector space, containing constant functions and closed under  bounded monotone limits. Indeed, the first claim is clear by definition. It contains \(1_{\mathbb{R}}\) since for every \(f\in E^*\) we have by \eqref{eq:contradictory assumption}
+    \begin{equation*}
+        \int_E1_{\mathbb{R}}(f(x))\nu(\diff x)=\nu(E)=\frac{1}{\psi(b)}\int_E\psi(0+b)\nu(\diff x)=0,
+    \end{equation*}
+    for any \(b\in\mathbb{R}\) such that \(\psi(b)\neq 0\), which exists since \(\psi\) is sigmoidal and with \(0\in E^*\).
     For the bounded monotone limits, we conclude by dominated convergence for the positive and negative parts of \(\nu\). Indeed, let \((f_n)_{n\in\mathbb{N}}\subseteq \mathcal{H}\) be uniformly bounded by \(C\in\mathbb{R}_+\), converging pointwise to \(f\). Then \(f\) is bounded and measurable as well, and 
-    \begin{equation}
-        \lim_{n\to\infty}\left(\int_Xh_n(f(x))\nu^+(\diff x)-\int_Xh_n(f(x))\nu^-(\diff x)\right)=0+0\quad\forall f\in X^*,
-    \end{equation}
-    by dominated convergence. It remains to show that \(1_{(a,b]}\) for \(a\leq b\) are in \(\mathcal{H}\). It is enough to show that \(1_{(c,\infty)}\in\mathcal{H}\) for any \(c\in\mathbb{R}\). Then, because \(\mathcal{H}\) is a vector space of real-valued functions, the claim follows. Indeed, consider a real sequence \((s_n)_{n\in\mathbb{N}}\) increasing to \(\infty\). Then:
+    \begin{equation*}
+        \lim_{n\to\infty}\left(\int_Eh_n(f(x))\nu^+(\diff x)-\int_Eh_n(f(x))\nu^-(\diff x)\right)=0+0\quad\forall f\in E^*,
+    \end{equation*}
+    by dominated convergence. It remains to show that the maps \(1_{(a,b]}\) for \(a\leq b\) are in \(\mathcal{H}\). It is enough to show that \(1_{(c,\infty)}\in\mathcal{H}\) for any \(c\in\mathbb{R}\). Then, because \(\mathcal{H}\) is a vector space of real-valued functions, the claim follows. Indeed, consider a real sequence \((s_n)_{n\in\mathbb{N}}\) increasing to \(\infty\). Then:
     \begin{align}\label{eq:concluding monotone class for discriminatory functions}
-        &\int_X1_{(c,\infty)}(f(x))\nu(\diff x)=\nu(f(x)>c)=\lim_{\gamma\to-\infty}\nu(f(x)>c)+\psi(\gamma)\nu(f(x)=c)\\&=\lim_{\gamma\to-\infty}\lim_{n\to\infty}\int_X\psi(s_n(f(x)-c)+\gamma)\nu(\diff x).
-    \end{align}
-    Indeed, the second equality holds by the sigmoidality of \(\psi\), and the second equality uses the fact that \(\psi\) is bounded by assumption; thus, by dominated convergence 
-    \begin{equation}
-        \lim_{n\to\infty}\int_X\psi(s_n(f(x)-\theta))\nu(\diff x)=\int_X\lim_{n\to\infty}\psi(s_n(f(x)-\theta))\nu(\diff x),
-        \end{equation}
-        with \(\psi_n=\psi(s_n(f(x)-\theta))\leq\lVert \psi\rVert_{\infty}<\infty\),  for the positive and negative parts of \(\nu\). Indeed, if \(f(x)>c\), then \(s_n(f(x)-c)\to\infty\) as \(n\to\infty\), and by the sigmoidality of \(\psi\) we have that \(\lim_{n\to\infty}\psi(s_n(f(x)-c)+\gamma)=1\). If \(f(x)<c\), by the same argument: \(\lim_{n\to\infty}\psi(s_n(f(x)-c)=0\), and for \(f(x)=c\), \(\lim_{n\to\infty}\psi(s_n(f(x)-c)=\psi(\gamma)\). But the left-hand side in \eqref{eq:concluding monotone class for discriminatory functions} is also equal to \(0\) by assumption; whence the claim.
+\int_E 1_{(c,\infty)}(f(x))\,\nu(\diff x)=\nu(f(x)>c)
+&=\lim_{\gamma\to-\infty}\bigl(\nu(f(x)>c)+\psi(\gamma)\nu(f(x)=c)\bigr)\notag\\
+&=\lim_{\gamma\to-\infty}\lim_{n\to\infty}\int_E\psi(s_n(f(x)-c)+\gamma)\,\nu(\diff x).
+\end{align}
+    Indeed, the first equality holds by the sigmoidality of \(\psi\), and the second equality uses the fact that \(\psi\) is bounded by assumption and \(\nu^{+/-}\) are finite measures; thus, \(\psi\) is \(\nu\) integrable and by dominated convergence 
+    \begin{equation*}
+        \lim_{n\to\infty}\int_E\psi(s_n(f(x)-\theta))\nu(\diff x)=\int_E\lim_{n\to\infty}\psi(s_n(f(x)-\theta))\nu(\diff x),
+        \end{equation*}
+        with \(\psi_n=\psi(s_n(f(x)-\theta))\leq\lVert \psi\rVert_{\infty}<\infty\),  for the positive and negative parts of \(\nu\). Indeed, if \(f(x)>c\), then \(s_n(f(x)-c)\to\infty\) as \(n\to\infty\), and by the sigmoidality of \(\psi\) we have that \(\lim_{n\to\infty}\psi(s_n(f(x)-c)+\gamma)=1\). If \(f(x)<c\), by the same argument: \(\lim_{n\to\infty}\psi(s_n(f(x)-c)=0\), and for \(f(x)=c\), \(\lim_{n\to\infty}\psi(s_n(f(x)-c)=\psi(\gamma)\). But
+        \begin{equation*}
+            \int_E\psi(s_n(f(x)-c)+\gamma)\,\nu(\diff x)=0
+        \end{equation*}
+        by \eqref{eq:contradictory assumption}, hence the claim.
 \end{proof}
 
 
-
-By \cref{rem:radon measures uniquely determined by values on sigma(X*)}, we have the following corollary for a more restrictive notion of a discriminatory map
-\begin{definition}\label{def:Borel discriminatory property of X}
- We call a map \(\psi:\mathbb{R}\to\mathbb{R}\) Borel-discriminatory if it is Borel-measurable, bounded, and if
-    \begin{equation}
-        \int_{X}\psi(F(x)+b)\mu(\diff x)=0
-    \end{equation}
-    for all \(F\in X^*,b\in\mathbb{R}\) and \(\mu\), a finite signed Radon measure on \((X,\mathcal{B}(X))\) implies that \(\mu=0\).    
-\end{definition}
-\begin{corollary}
-     Let \(X\) be a locally convex Hausdorff space and \(\psi:\mathbb{R}\to\mathbb{R}\) be measurable, bounded, and sigmoidal. Then \(\psi\) is discriminatory in the sense of Definition \ref{def:Borel discriminatory property of X}.
-\end{corollary}
-\begin{theorem}
-    Let \(X\) be a locally convex Hausdorff space, \(\psi\) a continuous, Borel-discriminatory map, and \(K\subseteq X\) a compact subspace. Then
-    \begin{equation}
-       \overline{\mathcal{NN}_{\psi}}^{\lVert\cdot\rVert_{\infty}}=C(K;\mathbb{R})
-    \end{equation}
+We finish this section with the proof of the generalized version of Theorem \ref{thm:density of NN in C(K)}. Notice that it requires more structure on \(E\); in particular, we take it to be a locally convex Hausdorff space. 
+\begin{theorem}\label{thm:density of NN in C(K) generalized}
+    Let \(E\) be a locally convex Hausdorff space, \(\psi\) a continuous, discriminatory map in the sense of \ref{def:discriminatory property of X}, and \(K\subseteq E\) a compact subset. Then
+    \begin{equation*}
+       \overline{\mathcal{NN}_{\psi}(K)}^{\lVert\cdot\rVert_{\infty}}=C(K;\mathbb{R}),
+    \end{equation*}
+    where \(\mathcal{NN}_{\psi}(K)=\{G|_K:G\in\mathcal{NN}_{\psi}(E)\}\)
 \end{theorem}
+In the proof of Theorem \ref{thm:density of NN in C(K)} we showed that if \(\psi\) is discriminatory, the discriminatory property \eqref{eq:discriminatory maps over reals} over a compact \(K\) subset still implies that any measure on \(\mathcal{B}(K)\) is necessarily the zero measure. More precisely, if for a compact subset \(K\subseteq\mathbb{R}^k\), the condition
+\(\int_K\psi(w^{\rm{tr}}x+b)\mu(\diff x)=0\) for all \(w\in\mathbb{R}^k\) and \(b\in \mathbb{R}\) implies that the measure \(\mu\) on \(\mathcal{B}(K)\) is the zero measure. We make this observation explicit at this point as it will be used again in the proof of \ref{thm:density of NN in C(K) generalized} in a slightly more technical setting. In particular, we need the claim for Radon-measures. 
+
+\begin{lemma}\label{lemma:radon measures on compact subspaces}
+ Let \(E\) be a Hausdorff topological vector space and \(\mathcal{B}(E)\) the respective Borel-\(\sigma\)-algebra, which is the \(\sigma\)-algebra generated by the open sets in \(E\). Furthermore, let \(K\) be a compact subset of \(E\) and \(\mathcal{B}(K)\) the respective Borel-\(\sigma\)-algebra generated by the open sets in \(K\), where we equip \(K\) with the subspace topology. Let \(\mu\) be a Radon-measure on \(\mathcal{B}(K)\). Then the set-function on \(\mathcal{B}(E)\)
+ defined as
+ \begin{equation*}
+     \overline{\mu}(B)\coloneqq \mu(B\cap K),\;B\in\mathcal{B}(E),
+ \end{equation*}
+ defines a Radon-measure on \(\mathcal{B(E)}\). In particular, we have 
+ \begin{equation}\label{eq:inclusion mapping}
+     \overline{\mu}=i_*\mu,
+ \end{equation}
+ where \(i:K\to E\) is the embedding function.
+\end{lemma}
 \begin{proof}
+    It is a standard result that 
+    \begin{equation*}
+        \mathcal{B}(K)=\{A\cap K:A\in\mathcal{B}(E)\}.
+    \end{equation*}
+    (see \parencite[Lemma.~6.2.4.]{Bogachev2007MeasureTheory}). Hence, \(\overline{\mu}\) is well defined. \(\overline{\mu}\) clearly defines a measure as for a countable collection of disjoint sets \((B_i)_{i\in\mathbb{N}}\subseteq\mathcal{B}(E)\) we have
+    \begin{equation*}
+        \overline{\mu}\Big(\bigcup_{i\in\mathbb{N}}B_i\Big)=\mu\Big(\bigcup_{i\in\mathbb{N}}(B_i\cap K)\Big)=\sum_{i\geq 1}\mu(B_i\cap K)=\sum_{i\geq 1}\overline{\mu}(B_i).
+    \end{equation*}
+    Furthermore, one can check from the definition of the total variation measure that \(|\overline{\mu}|(B)=|\mu|(B\cap K)\) for all \(B\in\mathcal{B}(E)\). 
+    
+    
+           For the Radon property of \(\overline{\mu}\), notice that as \(\mu\) is Radon by assumption, there exists a compact set \(K_{\epsilon}\subseteq B\cap K\) such that for any set \(B\cap K\in\mathcal{B}(K)\) and any \(\epsilon>0\), \(|\mu|(B\cap K / K_{\epsilon})<\epsilon\). In particular, \(K_{\epsilon}\subseteq B\) and 
+       \begin{equation*}
+           |\overline{\mu}|(B/K_{\epsilon})=|\mu|(B/ K_{\epsilon}\cap K)=|\mu|(B\cap K_{\epsilon}^c\cap K)=|\mu|(B\cap K/ K_{\epsilon})<\epsilon.
+       \end{equation*}
+       As we equipped \(K\) with the subspace topologyy the inclusion mapping \(i:K\mapsto E\) is continuous, and hence \(K_{\epsilon}\) is compact in \(E\) as well. Note that the expression \(B/K\) for a compact set \(K\) and a measurable set \(B\) appearing in the definition of a Radon-measure is a measurable set, as compact sets are closed in Hausdorff spaces.
+
+    
+       For property \eqref{eq:inclusion mapping}, simply notice that \(i:K\to E\) is continuous by the definition of the subspace topology and hence \(\mathcal{B}(K)/\mathcal{B}(E)\)-measurable. Then by definition, for \(A\subseteq\mathcal{B}(E)\)
+    \begin{equation*}
+        i_*\mu(A) = \mu\big(i^{-1}(A)\big)=\mu(A\cap K)=\overline{\mu}(A).
+    \end{equation*}
+\end{proof}
+
+The following is a direct consequence of the lemma \ref{lemma:radon measures on compact subspaces}
+\begin{corollary}\label{cor:discriminatory property extends also true for subspace}
+ Let \(\mu\) and \(\overline{\mu}\) be as in Lemma \ref{lemma:radon measures on compact subspaces}, then 
+ \begin{equation*}
+     \int_K f|_K\diff \mu=\int_E f\diff \overline{\mu}.
+ \end{equation*}
+ for all \(\mathcal{B}(E)\)-measurable and \(\overline{\mu}\) integrable maps \(f\).
+\end{corollary}
+\begin{proof}[Proof of Theorem \ref{thm:density of NN in C(K) generalized}]
 Notice that since every \(G\in\mathcal{NN}_{\psi}(K)\) is of the form 
-    \begin{equation}
-        G(x) =\sum_{i=1}^Nc_i\psi(F(x)+b),
-    \end{equation}
-    where \(\psi\) is continuous by assumption, and \(F\in X^*\) is hence in particular continuous. Hence \(G:X\to\mathbb{R}\) is continuous as a composition of continuous maps.
- The notion of a Borel-discriminatory map is such that the proof is now analogous to Theorem \ref{thm:density of NN in C(K)}. Indeed, the argument by contradiction essentially works by using the discriminatory property of \(\psi\) to argue that the Radon measure \(\mu\) associated with the functionals \(F\in C(K;\mathbb{R})^*\) must vanish, yielding a contradiction with the fact that \(F\) is a non-zero functional. 
+    \begin{equation*}
+        G(x) =\sum_{i=1}^Nc_i\psi(F_i|_K(x)+b_i),
+    \end{equation*}
+    where \(\psi\) is continuous by assumption, and \(F_i\in E^*\) are, in particular, continuous. Hence, \(G:K\to\mathbb{R}\) is continuous as a composition of continuous maps. The proof follows the proof of Theorem \ref{thm:density of NN in C(K)} closely. Assume by contradiction that \(\mathcal{NN}_{\psi}(K)\) is not dense in \(C(K;\mathbb{R})\). Then, by Lemma \ref{lemma:Hahn Banach corollary}, there exists a non zero \(\Lambda\in C(K;\mathbb{R})^*\) such that \(\Lambda|_{\mathcal{NN}_{\psi}(K)}=0\). By the Riesz-Markov-Kakutani theorem, there exists a finite, signed Radon measure \(\mu\) on \(\mathcal{B}(K)\) such that 
+    \begin{equation*}
+    \Lambda(f)=\int_Kf\diff \mu,\;\forall f\in C(K;\mathbb{R}).
+    \end{equation*}
+As \(\psi(F|_K(\cdot)+b)\in\mathcal{NN}_{\psi}(K)\) for all \(F\in E^*\) we have
+\begin{equation}\label{eq:equation 2}
+    \int_K\psi(F(x)+b)\mu(\diff x)=0,\;\forall F\in E^*,\forall b\in\mathbb{R}.
+\end{equation}
+It remains to argue that \(\mu\) is the zero measure. By Corollary \ref{cor:discriminatory property extends also true for subspace} we can rewrite \eqref{eq:equation 2} as 
+\begin{equation}\label{eq:equation 3}
+    \int_{E}\psi(F(x)+b)\overline{\mu}(\diff x)=0,\;\forall F\in E^*,\forall b\in\mathbb{R},
+\end{equation}
+where \(\overline{\mu}\) is as in Lemma \ref{lemma:radon measures on compact subspaces}.
+By assumption, \(\psi\) is discriminatory in the sense of Definition \ref{def:discriminatory property of X}, and \(\overline{\mu}\) is a finite signed Radon measure on \(\mathcal{B}(E)\). In particular, it is a finite signed measure on \(\sigma(E^*)\). Because \(\psi\) is discriminatory in the sense \ref{def:discriminatory property of X}, the condition \eqref{eq:equation 3}
+    implies that \(\overline{\mu}\) restricted to \(\sigma(E^*)\) is the zero-measure. Since finite signed Radon measures on a locally convex Hausdorff space are uniquely determined by their restrictions to \(\sigma(E^*)\), it is the zero measure on all of \(\mathcal{B}(E)\). In particular, this implies that \(\mu\) is the zero measure on \(\mathcal{B}(K)\), which concludes the proof.
  \end{proof}
- \begin{remark}
-     Observe that the previous notion of a discriminatory map Definition \ref{def:discriminatory property of X} is not sufficient for this purpose, as the latter only asserts that the measure \(\mu\) vanishes on \(\sigma(X^*)\). For a Borel measure \(\mu\) on \(\mathcal{B}(X)\), where \(X\) is a general topological vector space, this is not sufficient to conclude that \(\mu=0\). Nevertheless, in the proof of Theorem \ref{thm:density of NN in L^p on topological vector space} this is not needed, as for a finite, positive measure \(\mu\) on \(\sigma(X^*)\), the measure 
-     \begin{equation}
-     \sigma(B)=\int_B g\diff \mu,\;B\in\sigma(X^*),    
-     \end{equation} is itself a finite signed measure on \(\sigma(X^*)\) by the same argument as in Theorem \ref{thm:density of NN in L^p}. 
-\end{remark}
 
 \begin{definition}\label{def:standing assumptions}
     We refer to the following set of requirements as \textit{standing assumptions}:
     \begin{itemize}
-    \item \(X\) is a topological vector space with topology \(\tau_X\).
-    \item \(\Gamma=X^*\).
-    \item \(\mathcal{A}=\sigma(X^*)\), where \(X^*\) is the topological dual of \(X\).
+    \item \(E\) is a topological vector space with topology \(\tau_E\).
+    \item \(\Gamma=E^*\).
+    \item \(\mathcal{A}=\sigma(E^*)\), where \(E^*\) is the topological dual of \(E\).
     \item \(\mu\) is a finite signed-measure on \(\mathcal{A}\).
     \item \(\psi:\mathbb{R}\to\mathbb{R}\) is bounded, measurable, and sigmoidal. 
 \end{itemize}
 \end{definition}
 
 
-\chapter{Continuous--time mean--variance hedging}\label{ch:continuous time mean variance hedging}
-In this section, we explore mean-variance hedging in a mathematical finance context and study some properties in special cases, which we summarize by the properties of the price process used: a square-integrable martingale setting and a continuous semimartingale setting. In particular, we assume a continuous time setting. Hence, we fix the stochastic basis for this chapter as a complete, filtered probability space
-\begin{equation}
-    (\Omega,\mathcal{F},\mathbb{F},\mathbb{P}) 
-\end{equation}
-with filtration \(\mathbb{F}=(\mathcal{F}_t)_{t\in\mathbb{R}_+}\), we choose the unbounded time-horizon \(\mathbb{T}_+=\mathbb{R}_+\) for \(T=\infty\). We assume that \(\mathcal{F}\) satisfies the usual assumptions. We introduce a further elementary concept.
+\chapter{Continuous-time mean--variance hedging}\label{ch:continuous time mean variance hedging}
+In this chapter, we explore some theoretical aspects of the treatment of mean–variance hedging on a continuous time grid. In particular, we study the continuous-time mean-variance hedging problem according to the properties of the price-process \(X\) and the corresponding strategies. Together with the approximation properties of shallow-feed forward neural networks, this will lay the foundations to develop deep-mean-variance hedging results in continuous time.
+
+As alluded to in Chapter \ref{ch:hedging}, a general treatment of the mean-variance hedging problem requires a sophisticated notion of stochastic integration. As we aim for self-containment as much as reasonably possible in the scope of this thesis, we discuss the construction of the stochastic integral in the \textit{square integrable} case, which forms the cornerstone of the theory of stochastic integration. We give a few remarks on the general case, while mainly referring to standard works such as \parencite[Ch.~ II,IV]{Protter2005StochasticIntegration} and \parencite[Sec.~12]{CohenElliott2015StochasticCalculusApplications} for the details and missing proofs. 
+
+ 
+We need to follow the classic concept of local properties in the stochastic sense.
 \begin{definition}\label{def:local martingale}
-We call \(M\) a local martingale in \((\Omega,\mathcal{F},\mathbb{F},\mathbb{P})\) if there exists a sequence of stopping times \((\tau_n)_{n\in\mathbb{N}}\) such that \(\tau_n \nearrow \infty\) almost surely, such that \(X^{\tau_n}-X_0\) is a martingale for every \(n\in\mathbb{N}\).
+    Let \(Z\) be a stochastic process on the stochastic basis \((\Omega,\mathcal{F},\mathbb{F},\mathbb{P})\) with \(\mathbb{T}_+=\mathbb{R}_+\). Let \(\mathcal{C}\) be some class of stochastic  processes. We say that \(X\) is locally in the class \(\mathcal{C}\) if there exists a sequence of stopping times \((\tau_n)_{n\in\mathbb{N}}\) such that for almost all \(\omega\), \((\tau_n(\omega))_{n\in\mathbb{N}}\) is an increasing sequence such that \(\lim_{n\to\infty}\tau_n(\omega)=\infty\), and such that \(X^{\tau_n}1_{\tau_n>0}\) is in \(\mathcal{C}\). We denote the class of processes that are locally in \(\mathcal{C}\) by \(\mathcal{C}_{\rm{loc}}\). 
 \end{definition}
-Furthermore, it is a standard result that any martingale \(M\) with respect to a right-continuous filtration admits a càdlàg modification, that is a process \(\widetilde{M}\) such that \(\widetilde{M}\) is again a martingale on the same filered probability space, has càdlàg paths and satisfies
-\begin{equation}
-    \mathbb{P}(M_t=\widetilde{M}_t,\;\forall t\in \mathbb{R}_+)
-\end{equation}
-We shall always take the càdlàg version even if not explicitely mensioned.
+A class that is of particular interest to us in this chapter is the class of local martingales; that is, the class of processes that are locally a martingale. Furthermore, notice that for processes that take the value zero at time zero, we have 
+\begin{equation*}
+    X^{\tau_n}1_{\tau_n>0}=X^{\tau_n}-X_01_{\tau_n=0}=X^{\tau_n}.
+\end{equation*}
+ 
+Furthermore, it is a standard result that any martingale \(M\) with respect to a right-continuous filtration admits a càdlàg modification; that is, a process \(\widetilde{M}\) such that \(\widetilde{M}\) is again a martingale on the same filtered probability space, has càdlàg paths, and satisfies
+\begin{equation*}
+    \mathbb{P}(M_t=\widetilde{M}_t,\;\forall t\in \mathbb{R}_+).
+\end{equation*}
+We shall assume the underlying filtered probability space \((\Omega,\mathcal{F},\mathbb{F},\mathbb{P})\) to be complete and that the filtration satisfies the usual assumptions.
+For any martingale in this and the following chapters, we shall always take the càdlàg version, even if not explicitly mentioned.
 \section{Self financing strategies in continuous times}\label{sec:Self financing strategies in continuous times}
 In the continuous time setting, the gains process of a self-financing strategy \eqref{eq:self financing strategy} is given by
-\begin{equation}
-    V_t = V_0 + \int_0^t \vartheta_t\diff X_t,t\in\mathbb{R}_+
-\end{equation}
-where \(\int_0^t \vartheta_t\diff X_t\) denotes the stochastic integral of strategy \(\vartheta\) with respect to the price process \(X\). Thus, we need to understand stochastic integration with respect to stochastic processes in order to understand self-financing strategies in continuous time mathematical finance and, in particular, mean-variance hedging. The definition of the stochastic integral with respect to \(X\) depends on the degree of generality of \(X\), which in turn determines the set of integrable processes \(L(X)\) with respect to which the stochastic integral is well defined. Different instances of \(L(X)\) will be encountered in the proceeding discussion of Section \ref{sec:Stochastic Integration for square-integrable Martingales} and Section \ref{sec:Stochastic Integration for square-integrable Martingales}. 
-\\\\
+\begin{equation*}
+    V_t = V_0 + \int_0^t \vartheta_t\diff X_t,\;t\in\mathbb{R}_+,
+\end{equation*}
+where \(\int_0^t \vartheta_t\diff X_t\) denotes the stochastic integral of a strategy \(\vartheta\) with respect to the price process \(X\). Thus, we need to understand stochastic integration with respect to stochastic processes in order to understand self-financing strategies in continuous time mathematical finance and, in particular, mean-variance hedging. The definition of the stochastic integral with respect to \(X\) depends on the properties of \(X\). In particular, the class of processes \(\vartheta\) for which \(\int\vartheta\diff X\) is well-defined depends on the properties of \(X\). We call this process \(X\)-integrable.
+
+
 In the case where \(X\) is of finite variation, the integration theory is classical, pathwise Lebesgue-Stieltjes integration with respect to the induced signed measure on \(\mathbb{R}\):
-\begin{equation}
+\begin{equation*}
     \diff X(\omega)=\diff X_{+}(\omega)-\diff X_{-}(\omega)
-\end{equation}
-where \(X=X_+-X_-\) is the decomposition of \(X\) into two non-decreasing processes \(X_+,X_-\). For non-decreasing processes, we can associate a positive measure, namely Lebesgue-Stieltjes measures.
-If \(X\) is of infinite variation, this no longer works. For Hölder continuous integration, we might still be able to define a sensible integral in a similar way (Young integral: see \parencite{Young1936}). For processes with more pathological behavior, such as Brownian motion; we can't classically define an integration theory. In particular, we can't define a pathwise integral with respect to Brownian motion (see \parencite[Thm.~56]{Protter2005StochasticIntegration}). We will discuss some aspects of the construction of the stochastic integral, although the most general version. 
-\bigbreak 
+\end{equation*}
+where \(X=X_+-X_-\) is the decomposition of \(X\) into two non-decreasing processes \(X_+,X_-\). For non-decreasing processes, we can associate a positive measure, namely the Lebesgue-Stieltjes measures. For every \(\omega\) the integration theory is then the well-known Lebesgue integration theory (see \parencite[Ch.6,sec.3.3]{SteinShakarchi2005RealAnalysis}). 
+If \(X\) is of infinite variation, this no longer works. For Hölder continuous integration, we might still be able to define a sensible integral in a similar way (Young integral: see \parencite{Young1936}). For processes with more pathological behavior, such as Brownian motion, we can't classically define an integration theory. In particular, we can't define a pathwise integral with respect to Brownian motion (see \parencite[Thm.~56]{Protter2005StochasticIntegration}). 
+
+
+
 We shall distinguish between the statistical, or real-world, probability measure \(\mathbb{P}\)
-and equivalent probability measures under which the discounted price process becomes a
-local martingale. We call a probability measure \(\mathbb{Q}\sim \mathbb{P}\) an equivalent local martingale
-measure (ELMM) for \(X\) if \(X\) is a local \(\mathbb{Q}\)-martingale and denote the set of all such measures by
-\begin{equation}
+and the equivalent probability measures under which the discounted price process becomes a
+local martingale. We call a probability measure \(\mathbb{Q}\) an equivalent local martingale
+measure (ELMM) for \(X\) if \(\mathbb{Q} \approx \mathbb{P}\) and \(X\) is a local \(\mathbb{Q}\)-martingale. We denote the set of all such measures by
+\begin{equation*}
     \mathcal M_e(X)
     :=
-    \{\mathbb{Q}\sim \mathbb{P} : X \text{ is a local } \mathbb{Q}\text{-martingale}\}.
-\end{equation}
+    \{\text{probability measure }\mathbb{Q}: \mathbb{Q}\approx \mathbb{P},\; X \text{ is a local } \mathbb{Q}\text{-martingale}\}.
+\end{equation*}
 Elements of \(\mathcal M_e(X)\) are also called risk-neutral measures. We shall assume that \(\mathcal{M}_e(X)\neq\emptyset\), which according to \parencite[Cor~.1.2.]{DelbaenSchachermayer1994FTAP} is equivalent to assuming that there is \textit{no free lunch with vanishing risk} (NFLVR). In a complete market,
 the equivalent local martingale measure is unique, while in incomplete markets, one
 typically has several such measures. 
 \bigbreak
-From the perspective of integration theory, we might allow all \(X\)-integrable strategies \(\vartheta\). For our treatment of mean-variance hedging, we already argued that it is a good idea to restrict to a class of admissible integrands \(\Theta\) such that the respective stochastic integral, evaluated at the final time, is itself a square-integrable random variable. For the purpose of this thesis, this shall be the relevant restriction on \(\vartheta\). We mention at this point that, from a mathematical finance perspective, one might want to restrict the set of admissible strategies further. A common financial admissibility condition, such as that found in \parencite[Def.~3.4.]{RheinlaenderSexton2011HedgingDerivatives}, is to require that admissible strategies are such that the associated value process, and thus, up to its initial value, the stochastic integral with respect to the price process, shall be a \(\mathbb{Q}\)-supermartingale for every \(\mathbb{Q}\in\mathcal{M}_e\). In particular, a strategy \(\vartheta\) that is locally bounded, predictable, and bounded from below is admissible. Indeed, for locally bounded and predictable strategies, the value process is a local martingale (see \parencite[Thm.~29]{Protter2005StochasticIntegration}), and by Fatou, boundedness from below implies that it is a super-martingale. 
-\bigbreak 
-This notion of admissible strategies prohibits pathological examples such as the suicide strategy \parencite[Ex.~3.3.]{RheinlaenderSexton2011HedgingDerivatives} yielding a sure profit with unlimited risk. In this thesis, we are concerned with mean-variance hedging as a mathematical problem more than its financial interpretation; thus, we value generality over practicality. In short, we shall define \textit{admissible} strategies as a set \(\Theta\) of strategies, restricted in order to make the mathematical problem at hand well-defined and/or to develop a solution theory. Hence, the standing convention is:
-\begin{equation}
-    \vartheta \text{ admissible }\iff\vartheta\in\Theta\subseteq L(X).
-\end{equation}
-This is to be taken as the baseline notion of admissibility and will be restricted depending on current needs. 
+From the perspective of stochastic integration theory, we might allow all \(X\)-integrable strategies \(\vartheta\). For our treatment of mean-variance hedging, we already argued that it is a good idea to restrict to a class of admissible integrands \(\Theta\) to processes for which the random variable \(\int_0^T\vartheta\diff X\) is itself a square-integrable random variable. For the purpose of this thesis, this shall be the relevant restriction on \(\vartheta\). We mention at this point that, from a mathematical finance perspective, one might consider restricting the set of admissible strategies further. A common financial admissibility condition, such as that found in \parencite[Def.~3.4.]{RheinlaenderSexton2011HedgingDerivatives}, is to require that admissible strategies are such that the associated value process, and thus, up to its initial value, the stochastic integral with respect to the price process, is a \(\mathbb{Q}\)-super-martingale for every \(\mathbb{Q}\in\mathcal{M}_e\). In particular, a strategy \(\vartheta\) that is locally bounded, predictable, and bounded from below is admissible. Indeed, for locally bounded and predictable strategies, the value process is a local martingale (see \parencite[Ch.~IV,Thm.~29]{Protter2005StochasticIntegration}), and by Fatou, boundedness from below implies that it is a super-martingale. 
+This notion of admissible strategies prohibits pathological examples such as the suicide strategy (see  \parencite[Ex.~3.3.]{RheinlaenderSexton2011HedgingDerivatives}) that yield a sure profit with unlimited risk. In this thesis, we are concerned with mean-variance hedging as a mathematical problem independent of its financial context. Hence, if not stated otherwise, admissible strategies are \(X\)-integrable strategies. In different contexts, we might put different assumptions on the strategies we call admissible. 
 
 \section{Square integrable martingale case}
-In this section, we solve the mean-variance problem \eqref{eq:mean squared hedging} in the square-integrable martingale setting, which assumes the price process \(M\) to be a square-integrable martingale. In order to do so, we need some fundamental properties of the respective notion of stochastic integration. We discuss the construction of the stochastic integral for square-integrable price processes and appropriate integrands.
+In this section, we solve the mean-variance problem \eqref{eq:mean squared hedging} in the square-integrable martingale setting, which assumes the price process \(M\) to be a square-integrable martingale (see the definition below). To do so, we first introduce the concept of a square integrable martingale we use in this thesis. Furthermore, we construct the stochastic integral for square integrable martingale integrators. This allows us to introduce the notions and concepts needed in subsequent sections. 
 
-\subsection{Stochastic integration for square-integrable martingales}\label{sec:Stochastic Integration for square-integrable Martingales}
-The strategy will be as follows: we will start by defining integration with respect to \(X\) for \textit{simple processes}. We will find that the constructed integration map defines an isomorphism of Hilbert-spaces which can be used to extend the integral by continuity to more general integrands.
-\\\\
- First, we shall motivate why the square-integrable martingale case can be considered the heart of general stochastic integration with respect to semimartingales. For this, we first explain what we mean by semimartingales in the first place.
-We call a stochastic process \(X\) a semimartingale, or a classical semimartingale, if it can be written as 
-\begin{equation}\label{def:semimartingale}
-    X = X_0+M+A\;
-\end{equation}
-with \(M\in\mathcal{M}_{0,\rm{loc}}\) and \(A\) of finite variation. We call \(X\) special if we can choose \(A\) in Definition \ref{def:semimartingale} to be predictable. In that case, the decomposition \(X=X_0+M+A\) is unique and is referred to as the canonical decomposition of \(X\).
-\\\\
-For a classical semimartingale, according to the fundamental theorem of local martingales \parencite[Thm.~29,Ch.III]{Protter2005StochasticIntegration}, every local martingale can be decomposed as a sum of a local martingale with bounded jumps and a local martingale of finite variation. The latter can be absorbed in the finite variation part of Definition \ref{def:semimartingale}. Hence, we may choose the local martingale \(M\) to have bounded jumps and thus be a locally square-integrable local martingale. Assume that integration with respect to locally square-integrable processes \(M\) is understood for a respective class of integrable processes. Up to the non-uniqueness of the decomposition Definition \ref{def:semimartingale} of a classical semimartingale, we naturally define the integral of some \(X\)-integrable process \(\vartheta\) with respect to \(X\) as 
-\begin{equation}\label{eq:heuristic integral with respect to semimartingale}
-    \int \vartheta\diff X\coloneqq\int \vartheta\diff M+\int \vartheta\diff A.
-\end{equation}
-In particular, integration with respect to finite variation measures is well understood via the Lebesgue-Stieltjes integral. Hence, the main conceptual gap in \eqref{eq:heuristic integral with respect to semimartingale} is, up to localization, the construction of \(\int \vartheta\diff M\) for a square-integrable martingale \(M\).
 \subsection{\(\mathcal{H}^p\) martingale spaces}
-In order to discuss stochastic integration with respect to square-integrable martingales, we need to introduce and study the martingale space \(\mathcal{H}^2\) and its geometry. We will start with a general discussion about \(\mathcal{H}^p\) for \(p\in[1,\infty)\). 
+In order to discuss stochastic integration with respect to square integrable martingales, we introduce and study the space of square integrable martingales and its geometry. We start with a discussion of the general \(\mathcal{H}^p\)-spaces.
  
 \begin{definition}\label{def:H^p}
-    Let \(p\in[1,\infty)\), and write
-    \begin{equation}
+    Let \(p\in[1,\infty)\), and \(M\) be a stochastic process. Let
+    \begin{equation*}
         \lVert M\rVert_{\mathcal{H}^p}\coloneqq \lVert M_\infty^*\rVert_{p}=\mathbb{E}\Big[\sup_{t\in\mathbb{R}_+}|M_t|^p\Big]^{1/p},
-    \end{equation}
-    where we use the notation \(M^*_\infty\coloneqq\sup_{t\in\mathbb{R}_+}|M_t|\) and \(\lVert\cdot\rVert_p\) to denote the \(L^p\)-norm. \(\mathcal{H}^p\) then denotes the space of martingales such that 
-    \begin{equation}
+    \end{equation*}
+    where we use the notation \(M^*_\infty\coloneqq\sup_{t\in\mathbb{R}_+}|M_t|\) and \(\lVert\cdot\rVert_p\) to denote the \(L^p\)-norm. We denote by \(\mathcal{H}^p\) the space of martingales such that 
+    \begin{equation}\label{eq:finite Hp norm}
          \lVert M\rVert_{\mathcal{H}^p}<\infty.
     \end{equation}
 \end{definition}
-We call processes in \(\mathcal{H}^p\) p-integrable martingale. Furthermore, we denote by \(\mathcal{H}^p_0\), processes \(X\) in \(\mathcal{H}^p\) with \(X_0=0\). The following lemma will be crucial in characterizing the space \(\mathcal{H}^p\).
+We call processes in \(\mathcal{H}^p\) p-integrable martingales. More generally, we call processes that satisfy \eqref{eq:finite Hp norm} p-integrable processes. Furthermore, we denote by \(\mathcal{H}^p_0\) processes \(X\) in \(\mathcal{H}^p\) with \(X_0=0\). Fianlly, \(\mathcal{H}^p_{\rm{loc}},\mathcal{H}^p_{0,\rm{loc}}\) denote the respective localized spaces.
 \begin{remark}\label{rem:equivalence of H^p convetions}
-    There exist different conventions for defining \(\mathcal{H}^p\) in the literature. Another common convetion is to define \(\mathcal{H}^p\) as the space of martingales such that 
-    \begin{equation}
+    There exist different conventions for defining \(\mathcal{H}^p\) in the literature. Another common convention is to define \(\mathcal{H}^p\) as the space of martingales such that 
+    \begin{equation*}
         \sup_{t\in\mathbb{R}_+}\mathbb{E}\Big[|M_t|^p\Big]<\infty.
-    \end{equation}
-    Nevertheless, notice that due to Jensen's inequality, \(|X|^p\) is a submartingale and due to Doob's \(L^p\)-inequality for submartingales for \(p>1\) we have
-    \begin{equation}
+    \end{equation*}
+    Nevertheless, notice that due to Jensen's inequality, \(|X|^p\) is a submartingale and due to Doob's \(L^p\)-inequality for submartingales and \(p>1\) we have
+    \begin{equation*}
         \mathbb{E}\Big[\sup_{t\in\mathbb{R}_+}|M_t|^p\Big]^{\frac{1}{p}}\leq q\sup_{t\in\mathbb{R}_+}\mathbb{E}\Big[|M_t|^p\Big]^{\frac{1}{p}}<\infty,
-    \end{equation}
-    where \(\frac{1}{p}+\frac{1}{q}=1\). The converse inequality is always true, hence for \(p>1\) both convetions on the space of martingales, are equivalent. The upside of this way of defining the \(\mathcal{H}^p\) space is by requiring that a local martingales in \(\mathcal{H}^p\) is automatically a true martingale by Lemma \ref{lemma:local martingale is a true martingale}.
+    \end{equation*}
+    where \(\frac{1}{p}+\frac{1}{q}=1\). The converse inequality is always true; hence, for \(p>1\), both conventions for the definition of \(\mathcal{H}^p\) yield the same space of martingales. The upside of the convention taken in Definition \ref{def:H^p} is that a local martingale in \(\mathcal{H}^p\) is automatically a true martingale by Lemma \ref{lemma:local martingale is a true martingale}.
 \end{remark}
-We denote by \(\mathcal{H}^p_{\rm{loc}},\mathcal{H}^p_{0,\rm{loc}}\) the respective localized classes.
+The following lemma will be crucial for the study of the geometry of \(\mathcal{H}^p\).
 \begin{lemma}\label{lemma:equivalence of H^p norm}
- Let \(\mathcal{H}^p\) be as in Definition \ref{def:H^p}. Then \(\mathcal{H}^p\) has the following property
+ Let \(\mathcal{H}^p\) be as in Definition \ref{def:H^p}. Then \(\mathcal{H}^p\) has the following property:
     \begin{enumerate}
-        \item For \(q\leq p\), then \(\lVert M\rVert_{\mathcal{H}^q}\leq\lVert X\rVert_{\mathcal{H}^p}\) thus \(\mathcal{H}^p\subseteq\mathcal{H}^q\). In particular, \(\mathcal{H}^p\subseteq\mathcal{H}^1\) for all \(p\in[1,\infty)\).
-        \item If \(p\in(1,\infty)\) and \(M\) are uniformly integrable, then 
+        \item For \(q\leq p\), we have \(\lVert M\rVert_{\mathcal{H}^q}\leq\lVert X\rVert_{\mathcal{H}^p}\) implying \(\mathcal{H}^p\subseteq\mathcal{H}^q\). In particular, \(\mathcal{H}^p\subseteq\mathcal{H}^1\) for all \(p\in[1,\infty)\).
+        \item If \(p\in(1,\infty)\) and \(M\) is a uniformly integrable martingale, then 
         \begin{equation}
             \lVert M_\infty\rVert_{L^p}\leq\lVert M_\infty^*\rVert_{L^p}\leq q\lVert M_\infty\rVert_p
         \end{equation}
@@ -1560,12 +1653,12 @@ We denote by \(\mathcal{H}^p_{\rm{loc}},\mathcal{H}^p_{0,\rm{loc}}\) the respect
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    (1) is the usual inclusion of \(L^p(\mu)\) spaces for finite measure \(\mu\) which we recall to follow from Jensen's inequality \parencite[Thm.~4.3]{LeGall2022MeasureTheoryProbabilityStochasticProcesses}. For (2), first notice that by the martingale convergence theorem \(M_\infty\coloneqq\lim_{n\to \infty}M_n\) is well defined as an almost sure limit. The first inequality is obvious, and the second follows by Doob's \(L^p\) inequality \parencite[Prop.~2.17.]{RheinlaenderSexton2011HedgingDerivatives}. 
+    Part (1.) is the usual inclusion of \(L^p(\mu)\) spaces for finite measure \(\mu\), which we recall follows from Jensen's inequality \parencite[Thm.~4.3]{LeGall2022MeasureTheoryProbabilityStochasticProcesses}. For (2.), first notice that by the martingale convergence theorem \(M_\infty\coloneqq\lim_{n\to \infty}M_n\) is well defined as an almost sure limit. The first inequality is due to the monotonicity of the Lebesgue-integral, and the second follows from Doob's \(L^p\) inequality (see \parencite[Prop.~2.17.]{RheinlaenderSexton2011HedgingDerivatives}). 
 \end{proof}
 In particular, by \parencite[Thm.~12.27]{LeGall2022MeasureTheoryProbabilityStochasticProcesses}, this implies that for any \(M\in\mathcal{H}^p\) with \(p>1\) the limit process
-\begin{equation}
+\begin{equation*}
     M_{\infty}\coloneqq \lim_{t\to\infty}M_t
-\end{equation}
+\end{equation*}
 exists almost surely.
 
 
@@ -1578,20 +1671,21 @@ For a proof, see \parencite[Thm.~5.1, II]{Protter2005StochasticIntegration}.
     For all \(p\in[1,\infty)\), we have that \(X\in\mathcal{H}^p\) is uniformly integrable and \(|M_t|^p\to|M_\infty|^p\) in \(L^1\).
 \end{lemma}
 \begin{proof}
-    For the first part, it suffices to notice that \(X\in\mathcal{H}^p\) for \(p\in[1,\infty)\) implies  \(E[X_\infty^*]<\infty\), by point (1) of Lemma \ref{lemma:equivalence of H^p norm}. Thus, \(M\) is uniformly integrable, and \(M_\infty\) exists as an almost sure limit \(\lim_{t\to \infty}M_t=M_\infty\). Now, because \(|M_t|^p\leq (M_\infty^*)^p\) and \((M_\infty^*)^p\) are integrable, the family \((|M_t|^p)_{t\in\mathbb{R}_+}\) is uniformly integrable by \parencite[Example.~2.5.3.]{CohenElliott2015StochasticCalculusApplications} for \(\phi(\cdot)=|\cdot|^p\). Hence, the almost sure convergence of \(|M_t|^p\) to \(|M_\infty|^p\) implies the respective \(L^1\) convergence of the latter.
+    For the first part, it suffices to notice that \(X\in\mathcal{H}^p\) for \(p\in[1,\infty)\) implies  \(E[X_\infty^*]<\infty\), by point (1.) of Lemma \ref{lemma:equivalence of H^p norm}. Thus, \(M\) is uniformly integrable, and \(M_\infty\) exists as an almost sure limit \(\lim_{t\to \infty}M_t=M_\infty\). Now, because \(|M_t|^p\leq (M_\infty^*)^p\) and \((M_\infty^*)^p\) is integrable, the family \((|M_t|^p)_{t\in\mathbb{R}_+}\) is uniformly integrable by \parencite[Example.~2.5.3.]{CohenElliott2015StochasticCalculusApplications} for \(\phi(\cdot)=|\cdot|^p\). Hence, the almost sure convergence of \(|M_t|^p\) to \(|M_\infty|^p\) implies the respective \(L^1\) convergence of the latter.
 \end{proof}
-Now, without proof, we state the following theorem. A proof is given in \parencite[Lemma~10.1.5.]{CohenElliott2015StochasticCalculusApplications}.
-\begin{theorem}\label{thm:H^p is a Banach space}
-    Identifying indistinguishable martingales, \(\mathcal{H}^p\) is a Banach space under its norm for all \(p\in[1,\infty)\).
-\end{theorem}
-We can use our general insight from Lemma \ref{lemma:equivalence of H^p norm} and Theorem \ref{thm:H^p is a Banach space} to identify \(\mathcal{H}^p\) with the Banach space \(L^p(\Omega,\mathcal{F},\mathbb{P})\). Indeed, the identification is explicitly provided by the following bijective mapping
+
+We can use our general insight from Lemma \ref{lemma:equivalence of H^p norm} to identify \(\mathcal{H}^p\) with the Banach space \(L^p(\Omega,\mathcal{F}_{\infty},\mathbb{P})\). Indeed, the identification is explicitly provided by the following bijective mapping
 \begin{align}\label{eq:H^p identification}
-    &\mathcal{H}^p\to L^p(\Omega,\mathcal{F}_\infty,\mathbb{P})\\
+    &\mathcal{H}^p\to L^p(\Omega,\mathcal{F}_\infty,\mathbb{P})\notag
+    \\
     &M\mapsto M_\infty
 \end{align}
-First of all, because the processes in \(\mathcal{H}^p\) are uniformly integrable by the previous result Lemma \ref{lemma:martingales in H^p are UI}, the map is well defined. Injectivity again follows from the fact that \(M\in\mathcal{H}^p\) is uniformly integrable, and hence by \parencite[Thm.12.27]{LeGall2022MeasureTheoryProbabilityStochasticProcesses} the limit \(M_\infty=\lim_{n\to\infty} M_t\) exists and \(M_t = \mathbb{E}[M_\infty|\mathcal{F}_t]\). Surjectivity follows by setting \(M_t = \mathbb{E}[X|\mathcal{F}_t]\in\mathcal{H}^p\) for \(X\in L^p(\Omega,\mathcal{F}_\infty,\mathbb{P})\). Moreover, Lemma \ref{lemma:equivalence of H^p norm} (2) states that the norm on \(\mathcal{H}^p\) is equivalent to the norm on \(L^p\) under the stated identification. In particular, this implies that the dual of \(\mathcal{H}^p\) can be \(\mathcal{H}^q\) where \((p,q)\) are taken to be Hölder conjugates. More explicitly, any continuous linear form \(\phi\in(\mathcal{H}^p)^*\) can be identified with some \(N\in\mathcal{H}^q\) and written as \(\phi(M)=\mathbb{E}[M_\infty N_\infty]\). 
-\\\\
-The identification of \(\mathcal{H}^p\) with \(L^p\) suggests that the case \(p=2\) has a particularly rich Hilbert space structure. According to the identification \eqref{eq:H^p identification}, \(\mathcal{H}^2\) can be identified with the Hilbert space \(L^2(\Omega,\mathcal{F}_{\infty},\mathbb{P})\). Explicitly, we can define an inner product on \(\mathcal{H}^2\) that is given by 
+First of all, because the processes in \(\mathcal{H}^p\) are uniformly integrable by Lemma \ref{lemma:martingales in H^p are UI},  \(M_{\infty}\) is well-defined. Injectivity again follows from the fact that \(M\in\mathcal{H}^p\) is uniformly integrable, and hence by \parencite[Thm.12.27]{LeGall2022MeasureTheoryProbabilityStochasticProcesses} the limit \(M_\infty=\lim_{n\to\infty} M_t\) exists almost surely and \(M_t = \mathbb{E}[M_\infty|\mathcal{F}_t]\). Surjectivity follows by setting \(M_t = \mathbb{E}[X|\mathcal{F}_t]\in\mathcal{H}^p\) for \(X\in L^p(\Omega,\mathcal{F}_\infty,\mathbb{P})\). Indeed, under \eqref{eq:H^p identification} we then get, by the martingale convergence theorem, \(M\mapsto M_{\infty}=\mathbb{E}[X|\mathcal{F}_{\infty}]=X\).
+
+Moreover, (2.) of Lemma \ref{lemma:equivalence of H^p norm}  states that the norm on \(\mathcal{H}^p\) is equivalent to the norm on \(L^p\) under the stated identification. In particular, this implies that the dual of \(\mathcal{H}^p\) can be identified with \(\mathcal{H}^q\), where \((p,q)\) are taken to be Hölder conjugates. More explicitly, any continuous linear form \(\phi\in(\mathcal{H}^p)^*\) can be identified with some \(N\in\mathcal{H}^q\) and written as \(\phi(M)=\mathbb{E}[M_\infty N_\infty]\). 
+
+
+The identification of \(\mathcal{H}^p\) with \(L^p\) suggests that the case \(p=2\) has a particularly rich Hilbert-space structure. According to the identification \eqref{eq:H^p identification}, \(\mathcal{H}^2\) can be identified with the Hilbert space \(L^2(\Omega,\mathcal{F}_{\infty},\mathbb{P})\). Explicitly, we can define an inner product on \(\mathcal{H}^2\) that is given by 
 \begin{equation}\label{eq:scalar product on H^2}
     (M,N)_{\mathcal{H}^2}=\mathbb{E}[M_{\infty}N_{\infty}].
 \end{equation}
@@ -1599,392 +1693,442 @@ This inner product induces the same topology as the \(\lVert\cdot\rVert_{\mathca
 \begin{definition}\label{def:weak orthogonality}
     We call \(X,Y\in\mathcal{H}^2\) \textit{weakly orthogonal} if \((X,Y)_{\mathcal{H}^2}=0\).
 \end{definition}
-The terminology \textit{weak} suggests that there might be a related \textit{strong} orthogonality. Indeed, this is the case and shall be introduced in Section \ref{sec:Kunita-Watanabe Decomposition}.
+The terminology \textit{weak} suggests that there might be a related \textit{strong} orthogonality. Indeed, this is the case and is studied in Section \ref{sec:Kunita-Watanabe Decomposition}.
+In the following section, we construct the stochastic integral for square integrable martingales \(X\) by first defining integration with respect to \(X\) for \textit{simple processes}. We will find that the integration map \(\vartheta\mapsto\int\vartheta\diff X\) defines an isomorphism of Hilbert-spaces for a well chosen class of stochastic processes. This observation, originally due to Kunita and Watanabe (see \parencite{KunitaWatanabe1967SquareIntegrableMartingales}), is used to extend the integral by continuity to a more general class of integrands.
+
 \subsection{Integration of simple integrands}
-This general approach requires minimal conditions on the integrator \(X\), which we require to be a classical semimartingale. It follows the general insight of integration theory to define an integral for piece-wise constant functions and later argue in what way to extend it. 
+As in classic integration theory, we start by defining the integral for the class of piecewise constant processes, where for stochastic processes, the pieces are intervals on \(\Omega\times\mathbb{R}_+\). More precisely, we shall take as intervals predictable sets of the form \((\tau,\sigma]\coloneqq \{(\omega,t)\in\Omega\times\mathbb{R}_+:\tau(\omega)< t\leq\sigma(\omega)\}\), where \(\tau\leq\sigma\) are stopping times. For the purposes of this section, it is enough to consider deterministic times. The stochastic intervals will only appear as indicator sets of indicator functions. Hence, there is no risk of confusion between stochastic intervals and ordinary real intervals when using deterministic times as \(1_{\{(\omega,r):s<r\leq t\}}=1_{\Omega}1_{(s,t]}=1_{(s,t]}\).
+
 \begin{definition}\label{def:elementary predictable process}
     We call \(\vartheta\) an \textit{elementary predictable process} if there exists a finite, increasing sequence of deterministic times, \(0=t_0<\dots<t_{n+1}<\infty\) and a sequence of bounded random variables \((\vartheta^i)_{i=0}^n\subseteq\mathcal{L}^{\infty}(\mathcal{F}_{t_i},\mathbb{P})\) such that 
-    \begin{equation}
+    \begin{equation}\label{eq:representation of elementary predictable process}
         \vartheta = \vartheta^01_{\left\{0\right\}}+\sum_{i=0}^n\vartheta^i1_{(t_i,t_{i+1}]}.
     \end{equation}
-In particular, we have that \(\vartheta^i\) is \(\mathcal{F}_{t_i}\)-measurable. In particular, \(\vartheta\) is \(\mathcal{F}_{t_{n}}\)-measurable. Moreover, as \(\vartheta^i\) are essentially bounded, \(\vartheta\) is essentially as a stochastic process, that is, there exists \(N:\mathbb{P}(N)=0\) and \(C>0\) such that \(|\vartheta_t(\omega)|\leq C\) for all \(\omega\in N^c\).  We denote the set of elementary predictable processes by \(\mathcal{E}\) and we say \(\vartheta\in\mathcal{E}\) is associated with a sequence \((t_k)_{k=0}^{n+1}\).
+In particular, we have that \(\vartheta^i\) is \(\mathcal{F}_{t_i}\)-measurable. Moreover, as \(\vartheta^i\) is essentially bounded for every \(i=0,\dots,n\), we have that \(\vartheta\) is an essentially bounded stochastic process; that is, there exist \(N\in\mathcal{F}\) such that \(\mathbb{P}(N)=0\) and \(C>0\) such that \(|\vartheta_t(\omega)|\leq C\) for all \(\omega\in N^c\).  We denote the set of elementary predictable processes by \(\mathcal{E}\) and we say \(\vartheta\in\mathcal{E}\) is associated with a sequence \((t_k)_{k=0}^{n+1}\).
 \end{definition}
-Notice that elementary processes are, as defined, adapted, left-continuous processes; thus, they are predictable. In particular, observe that clearly \(\mathcal{E}\) is closed under summation, but even more, it is also closed under pointwise multiplication. To see this, take two elements of \(\vartheta,G\in\mathcal{E}\) and their associated sequences \((t^\vartheta_k)_{n=0}^{n+1}\), \((t^G_k)_{k=0}^{l+1}\) for some \(n,l\in\mathbb{N}\). They both form a partition of \([0,\infty]\) if we add one point \(t_{n+2}=t_{l+2}=\infty\) to both sequences. Take their common refinement and notice that the pointwise product of two indicator functions of disjoint sets vanishes.
+The association of \(\vartheta\) with \((t_k)_{k=0}^{n+1}\) should be understood in the sense that it fixes a representation of \(\vartheta\), which is not unique. Indeed, we might define a refined grid by adding a point \(t_i<s_i<\dots<t_{i+1}\) for some \(i=1,\dots,n\). This changes the representation of \(\vartheta\) in the sense that we associate it with the refined sequence \(t_0<\dots<t_i<s_i<t_{i+1}<t_{n+1}\), but this clearly doesn't change the values \(\vartheta\) takes, as the latter is constant on \((t_i,t_{i+1}]\). Hence, saying that we associate \(\vartheta\) with the grid \((t_i)_{k=0}^{n+1}\) should be understood as the identification of a representation \eqref{eq:representation of elementary predictable process} with \((t_i)_{k=0}^{n+1}\).
+
+
+Furthermore, notice that elementary processes are adapted, left-continuous processes; thus, they are predictable. In particular, observe that \(\mathcal{E}\) is clearly closed under summation; moreover, it is also closed under pointwise multiplication. To see this, take two elements of \(\vartheta,\eta\in\mathcal{E}\) and their associated sequences \((t^\vartheta_k)_{n=0}^{n+1}\), \((t^\eta_k)_{k=0}^{l+1}\) for some \(n,l\in\mathbb{N}\). They both form a partition of \([0,\infty]\) if we add the points \(t^{\vartheta
+}_{n+2}=t^{\eta}_{l+2}=\infty\) to both sequences. Take their common refinement and notice that the pointwise product of two indicator functions of disjoint sets vanishes.
 \\\\
 For later use, we denote by \(\mathcal{E}^{\infty}\) the set of processes as in Definition \ref{def:elementary predictable process}, but for infinite sets \((t_k)_{k\in\mathbb{N}}\) where \(0=t_0<\dots<t_n<\infty\) and \(\lim_{n\to\infty}t_n=\infty\). Hence, processes of the form 
 \begin{equation}
       \vartheta = \vartheta^01_{\left\{0\right\}}+\sum_{i= 0}^\infty \vartheta^i1_{(t_i,t_{i+1}]}.
 \end{equation}
-We identify a process in \(\mathcal{E}\) associated with the sequence \((t_k)_{k=0}^n\), with the process in \(\mathcal{E}^{\infty}\) and the corresponding sequence \(\tilde{t}_t=t_k\quad k=0,\dots,n\), and \(t_k = t_n\) for \(k>n\), following the convention \(1_{(t,t]}=1_{\emptyset}=0\), effectively identifying \(\mathcal{E}\) as a subset of \(\mathcal{E}^{\infty}\). Observe that process in \(\mathcal{E}^{\infty}\) are not necessarily essentially bounded. 
-\bigbreak
-The corresponding integral of \(\vartheta\) with respect to \(X\) is then naturally defined as follows
+We identify a process in \(\mathcal{E}\) associated with the sequence \((t_k)_{k=0}^n\), to the process in \(\mathcal{E}^{\infty}\) associated with the sequence \(\tilde{t}_t=t_k\quad k=0,\dots,n\), and \(t_k = t_n\) for \(k>n\), taking the convention \(1_{(t,t]}=1_{\emptyset}=0\). Hence, we identify \(\mathcal{E}\) as a subset of \(\mathcal{E}^{\infty}\). Observe that a process in \(\mathcal{E}^{\infty}\) is not necessarily essentially bounded. 
+
+
+We define a stochastic integral of \(\vartheta\in\mathcal{E}\) with respect to integrators \(X\), which we assume to be a classical semimartingale, that is a stochastic process \(X\), that can be written as 
+\begin{equation}\label{def:semimartingale}
+    X = X_0+M+A\;
+\end{equation}
+with \(M\) a local martingale and \(A\) a process of finite variation. We call \(X\) a special semimartingale if we can choose \(A\) in Definition \ref{def:semimartingale} to be predictable. In that case, the decomposition \(X=X_0+M+A\) is unique and is referred to as the canonical decomposition of \(X\).
+We define a stochastic integral of \(\vartheta\in\mathcal{E}\) with respect to a classic semimartingale \(X\) as follows
 \begin{definition}\label{def:integral of simple processes}
 Let \(\vartheta\in\mathcal{E}\). Then we set 
 \begin{equation}\label{eq:integral of simple processes}
-    I_X(\vartheta)\coloneqq \vartheta^0X_0+\sum_{i=1}^n \vartheta^i(X_{t_{i+1}}-X_{t_{i}}).
+    I_X(\vartheta)\coloneqq \vartheta^0X_0+\sum_{i=1}^n \vartheta^i(X_{t_{i+1}}-X_{t_{i}}),
 \end{equation}
-Furthermore, for every \(t\in\mathbb{R}_+\), we define
-    \begin{equation}
-        I_X(\vartheta)_t\coloneqq \vartheta^0X_0+\sum_{i=1}^n \vartheta^i(X_{t_{i+1}\wedge t}-X_{t_{i}\wedge t}).
-    \end{equation}
+ such that
+    \begin{equation*}
+        I_X(\vartheta)_t\coloneqq \vartheta^0X_0+\sum_{i=1}^n \vartheta^i(X_{t_{i+1}\wedge t}-X_{t_{i}\wedge t}),\; t\in\mathbb{R}_+.
+    \end{equation*}
     We call \(I_X(\vartheta)\) the stochastic integral process of \(\vartheta\) with respect to \(X\) and use the following notations interchangeably
-    \begin{equation}
+    \begin{equation*}
         I_X(\vartheta)=\vartheta\bullet X=\int \vartheta\diff X.
-    \end{equation}
+    \end{equation*}
     We shall omit \(X\) in the left-most notation if it is clear from the context.
 \end{definition}
-Notice that the expressions \eqref{eq:integral of simple processes} are pathwise and hence independent of the representation of \(\vartheta\in\mathcal{E}\).
-\subsection{Stochastic integral for locally square--integrable local martingales}
- a square-integrable martingale \(M\). The case where \(M\) is a locally square-integrable local martingale follows from a localization argument. 
-\\\\
-The key observation is the so called \textit{Itô Isometry}, which we state below. 
-Recall that for \(M\in\mathcal{\vartheta}^2\) one can define its predictable quadratic variation process \(\langle M\rangle\) \parencite[Def.11.1.1.]{CohenElliott2015StochasticCalculusApplications}. For general semimartingales, one can always define its optional quadratic variation \([M]\) \parencite[Def.11.1.4.]{CohenElliott2015StochasticCalculusApplications}. We refer to \parencite{CohenElliott2015StochasticCalculusApplications} and \parencite{Protter2005StochasticIntegration} for their definitions and properties. The crucial observation is the following.
+It is clear that the pathwise definition of the integral \eqref{eq:integral of simple processes} is independent of the representation of \(\vartheta\in\mathcal{E}\).
+\subsection{Stochastic integral for square-integrable local martingales}
+
+ We start this subsection by showing that the construction of the stochastic integral with respect to square integrable martingales is not just a special case in which the construction works nicely but constitutes the essential stepping stone towards a general theory of stochastic integration for the class of semimartingales.
+
+
+Consider the decomposition of a classic semimartingale
+\begin{equation*}
+    X = X_0+M+A.
+\end{equation*}
+According to the fundamental theorem of local martingales (see \parencite[Thm.~29,Ch.III]{Protter2005StochasticIntegration}), every local martingale can be decomposed as a sum of a local martingale with bounded jumps and a local martingale of finite variation. The finite variation part of the local martingale can be absorbed in the finite variation part of Definition \ref{def:semimartingale}. Hence, we may choose the local martingale \(M\) to have bounded jumps and thus to be a locally square-integrable local martingale. Assume that integration with respect to locally square-integrable processes \(M\) is understood for a respective class of integrable processes. Up to the non-uniqueness of the decomposition in Definition \ref{def:semimartingale} of a classical semimartingale, we naturally define the integral of some \(X\)-integrable process \(\vartheta\) with respect to \(X\) as 
+\begin{equation}\label{eq:heuristic integral with respect to semimartingale}
+    \int \vartheta\diff X\coloneqq\int \vartheta\diff M+\int \vartheta\diff A.
+\end{equation}
+In particular, integration with respect to the finite variation measures is well understood via the Lebesgue-Stieltjes integral. Hence, the main conceptual gap in \eqref{eq:heuristic integral with respect to semimartingale} is, up to localization, the construction of \(\int \vartheta\diff M\) for a square-integrable martingale \(M\).
+
+
+We use without proof the result that for \(M\in\mathcal{H}_0^2\) one can define its predictable quadratic variation process (see \(\langle M\rangle\) \parencite[Def.11.1.1.]{CohenElliott2015StochasticCalculusApplications}).
+One can even show that the process \(\langle M\rangle\) exists if and only if \(M\in\mathcal{H}_{0,\rm{loc}}^2\), where \(\mathcal{H}_{0,\rm{loc}}^2\) is the space of processes that are locally in \(\mathcal{H}_{0}^2\) (see \parencite[Rem.~11.3.3.]{CohenElliott2015StochasticCalculusApplications}). Furthermore, recall that for general semimartingales, one can always define its optional quadratic variation \([M]\) (see \parencite[Def.11.1.4.]{CohenElliott2015StochasticCalculusApplications}). The key observation of this section is the following.
 \begin{proposition}\label{prop:Ito isometry for simple processes}
-    For \(\vartheta\in\mathcal{E}\) and \(M\in\mathcal{H}_0^2\), we have that \(\int \vartheta\diff M\in\mathcal{H}^2_0\) and the property
+    For \(\vartheta\in\mathcal{E}\) and \(M\in\mathcal{H}_0^2\), we have \(\int \vartheta\diff M\in\mathcal{H}^2_0\) and the following equation holds
     \begin{equation}\label{eq:Ito isometry for simple processes}
         \mathbb{E}\bigg[\left(\int_0^{\infty} \vartheta_t\diff M_t\right)^2\bigg]=\mathbb{E}\bigg[\int_0^{\infty}\vartheta_t^2\diff\langle M\rangle_t\bigg],
     \end{equation}
     where \(\int_0^{\infty}\vartheta_t^2\diff\langle M\rangle_t\) denotes the pathwise Lebesgue-Stieltjes integral for the finite variation process \(\langle M\rangle\).
 \end{proposition}
 The statement involves two sub-statements. First, it postulates the equality \eqref{eq:Ito isometry for simple processes}; secondly, it states that \(\int \vartheta\diff M\) is a square-integrable martingale starting at \(0\); hence, the terms in \eqref{eq:Ito isometry for simple processes} are finite. 
-The proof of the martingale property, as well as the equality in \eqref{eq:Ito isometry for simple processes}, is proven by direct calculation \parencite[Lemma.~12.1.4]{CohenElliott2015StochasticCalculusApplications}.
-The main idea is that one wants to elevate Proposition \ref{prop:Ito isometry for simple processes} to an isometry statement. From our identification \eqref{eq:scalar product on H^2}, we have
-\begin{equation}
+The proof of the martingale property, as well as the equality in \eqref{eq:Ito isometry for simple processes}, is proven by direct (see calculation \parencite[Lemma.~12.1.4]{CohenElliott2015StochasticCalculusApplications}).
+The crucial idea is to elevate Proposition \ref{prop:Ito isometry for simple processes} to an isometry statement. From our identification \eqref{eq:scalar product on H^2}, we have
+\begin{equation*}
     \mathbb{E}\bigg[\left(\int_0^{\infty} \vartheta_t\diff M_t\right)^2\bigg]=\left(\int \vartheta_t\diff M_t,\int \vartheta_t\diff M_t\right)_{\mathcal{H}^2}.
-\end{equation}
-Recall that by Lemma \ref{lemma:equivalence of H^p norm} the right hand side defines a norm on \(\mathcal{H}^2\) equivalent to the one we used in Definition \ref{def:H^p}. 
-Thus, we want to understand Proposition \ref{prop:Ito isometry for simple processes} as the statement that the map 
+\end{equation*}
+Recall that by Lemma \ref{lemma:equivalence of H^p norm} the inner-product \((\cdot,\cdot)_{\mathcal{H}^2}\) induces a norm on \(\mathcal{H}^2\), which is equivalent to the one introduced in Definition \ref{def:H^p}. 
+Thus, we want to understand Proposition \ref{prop:Ito isometry for simple processes} as the following statement. Let 
 \begin{align}\label{eq:integral map as isometry}
-     I:&\mathcal{L}\to\mathcal{H}_0^2,\\
-     &\vartheta\mapsto \int \vartheta\diff M
+     I:&L\to\mathcal{H}_0^2,\notag\\
+     &\vartheta\mapsto \int \vartheta\diff M.
 \end{align}
-is a linear isometry between \(L\) and \(\mathcal{H}_0^2\) for some appropriate normed vector space \(L\). From \eqref{eq:Ito isometry for simple processes} the natural candidate is the following space:
+The map \(I\) defines a linear isometry between \(L\) and \(\mathcal{H}_0^2\) for some appropriate normed vector space \(L\) of predictable processes. From \eqref{eq:Ito isometry for simple processes} the natural candidate is the following space for \(p=2\).
 \begin{definition}\label{def:L^p(M)}
-    Let \(M\in\mathcal{H}_0^p\). We denote \(L^p(M)\) as the space of predictable processes \(\vartheta\) such that 
-    \begin{equation}
+    Let \(M\in\mathcal{H}_0^p\). We denote \(\mathcal{L}^p(M)\) as the space of predictable processes \(\vartheta\) such that 
+    \begin{equation*}
         \lVert \vartheta\rVert_{L^p(M)}=\mathbb{E}\bigg[\left(\int_0^{\infty}\vartheta_t^2\diff[M]_t\right)^{\frac{p}{2}}\bigg]^{\frac{1}{p}}<\infty.
-    \end{equation}
-    for \(p\in[1,\infty)\).
+    \end{equation*}
+    for \(p\in[1,\infty)\)
 \end{definition}
+As usual, we then define
+\begin{equation*}
+    L^p(M) = \mathcal{L}^p(M)/\sim,
+\end{equation*}
+where the equivalence relation is defined as  \(\vartheta\sim\eta\) if and only if \(\lVert\vartheta-\eta\rVert_{L^p(M)}=0\).
 \begin{remark}\label{rem:L^2(M)}
 In the case \(p=2\), the predictable quadratic variation process exists, and we have
-\begin{equation}
+\begin{equation*}
      \lVert \vartheta\rVert_{L^2(M)}=\mathbb{E}\bigg[\int_0^{\infty}\vartheta_t^2\diff[M]_t\bigg]^{\frac{1}{2}}=\mathbb{E}\bigg[\int_0^{\infty}\vartheta_t^2\diff\langle M\rangle_t\bigg]^{\frac{1}{2}}.
-\end{equation}
+\end{equation*}
 This is a consequence of
-\([M]-\langle M\rangle\) being a local martingale \parencite[Lemma.~11.3.4.]{CohenElliott2015StochasticCalculusApplications}. 
+\([M]-\langle M\rangle\) being a local martingale (see \parencite[Lemma.~11.3.4.]{CohenElliott2015StochasticCalculusApplications}). 
 \end{remark}
 
-Hence, Proposition \ref{prop:Ito isometry for simple processes} reads exactly as the statement that the map \(I:L^2(M)\cap\mathcal{E}\to\mathcal{H}^2_0\) given by \(\vartheta\mapsto \int \vartheta\diff M\) as defined in \eqref{eq:integral of simple processes} is an isometry of normed vector spaces. This important structural insight will enable us to extend the stochastic integral to all of \(L^2(M)\). Indeed, we will show that \(\mathcal{E}\) is a dense subset of \(L^2(M)\); hence, we define the stochastic integral of processes in \(L^2(M)\) for \(M\in\mathcal{H}_0^2\) as the unique continuous extension of the linear, bounded map \eqref{eq:integral map as isometry} for \(L=L^2(M)\).
-\bigbreak
-Observe that the suggestive notation \(L^p(M)\) as some sort of \(L^p\)-space is justified in the case \(p=2\). Indeed, we define the following measure on the measure product space \(\left(\Omega\times\mathbb{R}_+,\mathcal{P}\right)\):
+Hence, Proposition \ref{prop:Ito isometry for simple processes} now reads as the statement that the map \(I:L^2(M)\cap\mathcal{E}\to\mathcal{H}^2_0\) given by \(\vartheta\mapsto \int \vartheta\diff M\) as defined in \eqref{eq:integral of simple processes} is an isometry of normed vector spaces. This important structural insight will enable us to extend the stochastic integral to all of \(L^2(M)\). Indeed, we will show that \(\mathcal{E}\) is a dense subset of \(L^2(M)\). The stochastic integral for \(M\in\mathcal{H}^2_0\) and  \(\vartheta\in L^2(M)\) is then defined abstractly as the unique continuous extension of the linear, bounded map \eqref{eq:integral map as isometry} to \(\overline{\mathcal{E}}=L^2(M)\).
+
+First, we make an interesting observation justifying the suggestive notation \(L^p(M)\) as some sort of \(L^p\)-space, at least in the case \(p=2\). For \(M\in\mathcal{H}^2_0\) we define the following measure on the product measure space \(\left(\Omega\times\mathbb{R}_+,\mathcal{P}\right)\):
 \begin{equation}\label{def:P_M measure}
-    \mathbb{P}_M(A)=\mathbb{E}\bigg[\int_0^{\infty}1_A\diff\langle M\rangle_t\bigg]\quad\forall A\in\mathcal{P}.
+    \mathbb{P}_M(A)=\mathbb{E}\bigg[\int_0^{\infty}1_A\diff\langle M\rangle_t\bigg],\;\forall A\in\mathcal{P}.
 \end{equation}
- Then we have, by Definition \ref{def:L^p(M)}:
-\begin{equation}\label{eq:L^2(M) as Hilbert space}
-    L^2(M) = L^2(\Omega\times \mathbb{R}_+,\mathcal{P},\mathbb{P}_M),
-\end{equation}
-where \(\mathcal{P}\) is predictable, \(\sigma\)-algebra, that is the sub-\(\sigma\)-algebra of \(\mathcal{F}\otimes\mathcal{B}(\mathbb{R}_+)\) generated by adapted, left-continuous processes. \cref{rem:L^2(M)} now reads as the statement that 
-The last equality follows from the fact that the measures
-\begin{equation}
-    \mathbb{P}_{[M]}(B):=\mathbb E\left[\int_0^{\infty} 1_B\,\diff [M]\right],
-\qquad
-\mathbb{P}_{\langle M\rangle}(B):=\mathbb E\left[\int_0^{\infty} 1_B\,\diff \langle M\rangle\right]
-\end{equation}
-coincide on the predictable \(\sigma\)-algebra. In turn, this justifies the notation \(\mathbb{P}_M\) indifferent to whether \(\langle M\rangle\) or \([M]\) is used.
-
-
-As usual, \eqref{eq:L^2(M) as Hilbert space} is to be understood as the quotient space \(L^2(\mathbb{P}_M)=\mathcal{L}^2(\mathbb{P}_M)/\sim\) with \(X\sim Y\iff \lVert X-Y\rVert_{L^2(M)}=0\), making \(\lVert \cdot\rVert_{L^2(M)}\) a well-defined norm on \(L^2(M)\). In particular, this implies \(L^2(M)\) is a Hilbert space with inner product \(( X,Y)_{L^2(M)}=\mathbb{E}[\int_0^{\infty}X Y\diff\langle M\rangle_t]\). In particular, \(L^2(M)\) is a Banach space. 
-\\\\
-Consider the following useful lemma, assuring that for \(M\in\mathcal{H}_0^2\) the measure \(\mathbb{P}_M\) is finite.
+The following lemma assures that for \(M\in\mathcal{H}_0^2\) the measure \(\mathbb{P}_M\) is finite. The proof uses the well-known Burkholder-Davis-Gundy inequality (BDG) for local martingales (see \parencite[Thm.~11.5.5.]{CohenElliott2015StochasticCalculusApplications}). As it is used repeatedly in this thesis, we recall it as the theorem.
+\begin{theorem}
+    For any \(1\leq p<\infty\), there exist constants \(c_p,C_p>0\) such that, for any local martingale \(M\) with \(M_0=0\),
+    \begin{equation}\label{eq:BDG}
+        c_p\mathbb{E}\big[[M]_{\infty}^{\frac{p}{2}}\big]^{\frac{1}{p}}\leq\mathbb{E}\big[(M_{\infty}^*)^p\big]^{\frac{1}{p}}\leq C_p\mathbb{E}\big[[M]_{\infty}^{\frac{p}{2}}\big]^{\frac{1}{p}}.
+    \end{equation}
+\end{theorem}
+For a proof, see \parencite[Thm.~11.5.5.]{CohenElliott2015StochasticCalculusApplications}.
 \begin{lemma}\label{eq:P_M is finite measure}
     Suppose \(M\) is a local martingale starting at \(0\). Then \(M\in\mathcal{H}^2_0\) if and only if \(\mathbb{E}[[M]_{\infty}]<\infty\)
 \end{lemma}
 \begin{proof}
- The statement is a simple observation of the Burkholder--Davis--Gundi inequality for \(p=2\). We restate it for convenience. Let \(M\) be a local martingale with \(M_0=0\). Then there exists \(c_2,C_2>0\) such that 
- \begin{equation}\label{eq:BDG}
+ The statement is a simple observation of the Burkholder--Davis--Gundi inequality for \(p=2\). There exist constants \(c_2,C_2>0\) such that 
+ \begin{equation}\label{eq:BDG p=2}
      c_2\mathbb{E}[[M]_{\infty}]^{\frac{1}{2}}\leq\mathbb{E}[(M^*_\infty)^2]\leq  C_2\mathbb{E}[[M]_{\infty}]^{\frac{1}{2}}.
  \end{equation}
- Observe that the middle term corresponds exactly to the \(\mathcal{H}^2\)-norm as we introduced it Definition \ref{def:H^p}. The lemma is now straightforward. If \(M\) is a local martingale with \(M_0=0\) and \(\mathbb{E}[[M]_\infty]<\infty\), then by \eqref{eq:BDG} 
- \begin{equation}
+ Observe that the middle term corresponds exactly to the \(\mathcal{H}^2\)-norm as we introduced it in Definition \ref{def:H^p}. The lemma is now straightforward. If \(M\) is a local martingale with \(M_0=0\) and \(\mathbb{E}[[M]_\infty]<\infty\), then by \eqref{eq:BDG p=2} 
+ \begin{equation*}
      \lVert M\rVert_{\mathcal{H}^2}\leq C_2\mathbb{E}[[M]_{\infty}]^{\frac{1}{2}}<\infty.
- \end{equation}
- By Lemma \ref{lemma:local martingale is a true martingale} is a true martingale with finite \(\mathcal{H}^2\)-norm and \(M_0=0\) by assumption. Hence in \(\mathcal{H}^2_0\). Conversly, assume \(M\in\mathcal{H}^2_0\). Again by \eqref{eq:BDG}.
- \begin{equation}
+ \end{equation*}
+ By Lemma \ref{lemma:local martingale is a true martingale} is a true martingale with finite \(\mathcal{H}^2\)-norm and \(M_0=0\) by assumption. Hence in \(\mathcal{H}^2_0\). Conversely, assume \(M\in\mathcal{H}^2_0\). Again by \eqref{eq:BDG p=2}.
+ \begin{equation*}
      \mathbb{E}[[M]_{\infty}]^{\frac{1}{2}}\leq\frac{1}{c_2}\mathbb{E}[(M^*_\infty)^2]=\frac{1}{c_2}\lVert M\rVert_{\mathcal{H}^2}<\infty.
- \end{equation}
+ \end{equation*}
  Hence \(\mathbb{E}[[M]_{\infty}]<\infty\), which completes the proof.
 \end{proof}
-Furthermore, one can show that the process \(\langle M\rangle\) exists if and only if \(M\in\mathcal{H}_{0,\rm{loc}}^2\) where \(\mathcal{H}_{0,\rm{loc}}^2\) is the space of processes that are locally in \(\mathcal{H}_{0}^2\) (see \parencite[Rem.~11.3.3.]{CohenElliott2015StochasticCalculusApplications}). Observe that the space of locally continuous martingales, denoted \(\mathcal{M}_{0,\rm{loc}}^c\) is a subset of \(\mathcal{H}_{0,\rm{loc}}^2\). 
-\bigbreak
-Now we can prove that the processes in \(L^2(M)\) are approximated by elementary predictable processes. The proof will be based on an application of the functional version of the monotone class theorem \parencite[Thm.~7.4.1.]{CohenElliott2015StochasticCalculusApplications}, which crucially uses the following fact
-\begin{equation}
-    \sigma(\mathcal{E})=\mathcal{P}. 
+Hence, by Definition \ref{def:L^p(M)}, we have
+\begin{equation}\label{eq:L^2(M) as Hilbert space}
+    L^2(M) = L^2(\Omega\times \mathbb{R}_+,\mathcal{P},\mathbb{P}_M),
 \end{equation}
-First we show a simple but usefull lemma. 
-The next lemma shows that this is equivalent to the full statement \(\sigma(\mathcal{E})=\mathcal{P}\).
+where \(\mathcal{P}\) is predictable, \(\sigma\)-algebra, that is the sub-\(\sigma\)-algebra of \(\mathcal{F}\otimes\mathcal{B}(\mathbb{R}_+)\) generated by adapted, left-continuous processes. \cref{rem:L^2(M)} now reads as the statement that 
+the measures
+\begin{equation*}
+    \mathbb{P}_{[M]}(B):=\mathbb E\left[\int_0^{\infty} 1_B\,\diff [M]\right],
+\qquad
+\mathbb{P}_{\langle M\rangle}(B):=\mathbb E\left[\int_0^{\infty} 1_B\,\diff \langle M\rangle\right]
+\end{equation*}
+coincide on the predictable \(\sigma\)-algebra. In turn, this justifies the notation \(\mathbb{P}_M\) indifferent to whether \(\langle M\rangle\) or \([M]\) is used.
+
+
+Equation \eqref{eq:L^2(M) as Hilbert space}  implies \(L^2(M)\) is a Hilbert space with inner product \((X,Y)_{L^2(M)}=\mathbb{E}[\int_0^{\infty}X Y\diff\langle M\rangle_t]\).
+ 
+We turn to the proof that the processes in \(L^2(M)\) are approximated by elementary predictable processes. The proof will be based on an application of the functional version of the monotone class (see theorem \parencite[Thm.~7.4.1.]{CohenElliott2015StochasticCalculusApplications}), which crucially uses the following fact
+\begin{equation*}
+    \sigma(\mathcal{E})=\mathcal{P}. 
+\end{equation*}
+First, we show a simple but useful lemma.
 \begin{lemma}\label{lemma:sigma algebra of bounded functions}
     Let \(\mathcal{M}\) be a class of real-valued functions on \(\Omega\). We denote by \(b\mathcal{M}\) the class of essentially bounded functions in \(\mathcal{M}\). Then
-    \begin{equation}
+    \begin{equation*}
         \sigma(b\mathcal{M})=\sigma(\mathcal{M}).
-    \end{equation}
+    \end{equation*}
 \end{lemma}
 \begin{proof}
     The inclusion \(\sigma(b\mathcal{M})\subseteq\sigma(\mathcal{M})\) is clear. For the converse, let us consider \(X\in\mathcal{M}\) and define
-    \begin{equation}
+    \begin{equation*}
         X^n = -n\vee X\wedge n\in b \mathcal{M}.
-    \end{equation}
-    Then it is clear that \(X^n\to X\) pointwise as \(n\to \infty\), that is \(X^n(\omega,t)\to X(\omega,t)\quad\forall (\omega,t)\in\Omega\times\mathbb{R}_+\) . Hence \(X\) is \(\sigma(b\mathcal{M})\)-measurable as the pointwise limit of processes in \(b\mathcal{M}\), because pointwise limits preserve measurability. Because \(\sigma(\mathcal{M})\) is the smallest \(\sigma\)-algebra such that all \(X\in\mathcal{M}\) are measurable, the claim follows.
+    \end{equation*}
+    It is clear that \(X^n\to X\) pointwise as \(n\to \infty\), that is \(X^n(\omega,t)\to X(\omega,t)\) for all \((\omega,t)\in\Omega\times\mathbb{R}_+\). Because pointwise limits preserve measurability, \(X\) is \(\sigma(b\mathcal{M})\)-measurable as the pointwise limit of processes in \(b\mathcal{M}\). Because \(\sigma(\mathcal{M})\) is the smallest \(\sigma\)-algebra such that all \(X\in\mathcal{M}\) are measurable, the claim follows.
 \end{proof}
 \begin{remark}
-    We shall abuse language in saying that a process is bounded when meaning that it is essentially bounded. In our cases, we can always restrict to a full measure set on which the essentially bounded function/process is actually bounded. 
+    We somtimes abuse language in saying that a process is bounded when we mean that it is essentially bounded. In our cases, we can always restrict ourselves to a full measure set on which the essentially bounded function/process is bounded. 
 \end{remark}
 \begin{lemma}\label{lemma:elementary processes generated predictable sigma algebra}
-    For \(\mathcal{E}\) as in Definition \ref{def:elementary predictable process} and \(\mathcal{P}\) the predictable \(\sigma\)-algebra, we have that 
-    \begin{equation}
+    For \(\mathcal{E}\) as in Definition \ref{def:elementary predictable process} and \(\mathcal{P}\) denoting the predictable \(\sigma\)-algebra, we have that 
+    \begin{equation*}
         \sigma(\mathcal{E})=\mathcal{P}.
-    \end{equation}
+    \end{equation*}
     \begin{proof}
-        By definition, \(\mathcal{P}\) is generated by the family of adapted, left-continuous processes. Every element of \(\mathcal{E}\) is clearly adapted and left-continuous; hence, \(\sigma(\mathcal{E})\subseteq\mathcal{P}\) is clear. It remains to show that \(\mathcal{P}\subseteq\sigma(\mathcal{E})\). For this, we first show that every bounded, adapted left-continuous process is the limit of elements of \(\mathcal{E}^{\infty}\). By Lemma \ref{lemma:sigma algebra of bounded functions} the boundedness assumption is without loss of generality. 
+        By definition, \(\mathcal{P}\) is generated by the family of adapted, left-continuous processes. Every element of \(\mathcal{E}\) is clearly adapted and left-continuous; hence, \(\sigma(\mathcal{E})\subseteq\mathcal{P}\) is clear. It remains to show that \(\mathcal{P}\subseteq\sigma(\mathcal{E})\). For this, we first show that every bounded, adapted left-continuous process is the limit of elements of \(\mathcal{E}^{\infty}\). By Lemma \ref{lemma:sigma algebra of bounded functions} the boundedness assumption is without loss of generality.
         
         
-        Let \(X\) be a bounded, adapted, left-continuous process. By Lemma \ref{lemma:sigma algebra of bounded functions} we might assume \(X\) to be bounded. We define
+           Let \(X\) be a bounded, adapted, left-continuous process. We define
         \begin{equation}\label{eq:approximating adapted left-continuous process}
             X^n= X_01_{\left\{0\right\}}+\sum_{k\geq 1}X_{k/n}1_{(k/n,(k+1)/n]}
         \end{equation}
-        As \(X\) is adapted and bounded, \(X_{k/n}\) is \(\mathcal{F}_{k/n}\)-measurable and bounded, thus \(X^n\in\mathcal{E}^{\infty}\). Then, for every fixed \(t\in\mathbb{R}_+\), there exists a unique \(k(n)\in\mathbb{N}\) such that \(\frac{k(n)}{n}<t\leq \frac{k(n)+1}{n}\). Hence, \(X_t^n=X_{k(n)/n}\), thus \(X_t^n\) is \(\mathcal{F}_{k/n}\subseteq\mathcal{F}_t\)-measurable; hence, adapted. Furthermore, notice that \(\lim_{n\to\infty}\frac{k(n)}{n}\leq\lim_{n\to\infty}|\frac{k(n)}{n}-t|+t\leq\lim_{n\to\infty}\frac{1}{n}+t=t\) and \(\frac{k(n)}{n}<t\); hence, \(k(n)\nearrow t\). Thus, for every \((\omega,t)\in\Omega\times\mathbb{R}_+,\;X^n_t(\omega)\to X_t(\omega)\) as \(n\to\infty\) by the left-continuity of \(X\). This implies 
-        \begin{equation}
+        As \(X\) is adapted and bounded, \(X_{k/n}\) is \(\mathcal{F}_{k/n}\)-measurable and bounded; thus, \(X^n\in\mathcal{E}^{\infty}\). Then, for every fixed \(t\in\mathbb{R}_+\), there exists a unique \(k(n)\in\mathbb{N}\) such that \(\frac{k(n)}{n}<t\leq \frac{k(n)+1}{n}\). Hence, \(X_t^n=X_{k(n)/n}\), thus \(X_t^n\) is \(\mathcal{F}_{k(n)/n}\subseteq\mathcal{F}_t\)-measurable; hence, it is adapted. Furthermore, notice that \(\lim_{n\to\infty}\frac{k(n)}{n}\leq\lim_{n\to\infty}|\frac{k(n)}{n}-t|+t\leq\lim_{n\to\infty}\frac{1}{n}+t=t\) and \(\frac{k(n)}{n}<t\); hence, \(k(n)\nearrow t\). Thus, for every \((\omega,t)\in\Omega\times\mathbb{R}_+,\;X^n_t(\omega)\to X_t(\omega)\) as \(n\to\infty\) by the left-continuity of \(X\). This implies 
+        \begin{equation*}
             \mathcal{P}\subseteq\sigma(\mathcal{E}^{\infty}).
-        \end{equation}
-        Indeed, every bounded, adapted, left-continuous process \(X\) is \(\sigma(\mathcal{E}^{\infty})\) as the point-wise limit of elements in \(\mathcal{E}^{\infty}\). But \(\mathcal{P}\) is the smallest such \(\sigma\)-algebra \parencite[Thm.~7.2.4.]{CohenElliott2015StochasticCalculusApplications}.
-        \\\\
+        \end{equation*}
+        Indeed, every bounded, adapted, left-continuous process \(X\) is \(\sigma(\mathcal{E}^{\infty})\) as the point-wise limit of elements in \(\mathcal{E}^{\infty}\). But \(\mathcal{P}\) is the smallest such \(\sigma\)-algebra.
+
+
+
  Furthermore, every 
- \begin{equation}
+ \begin{equation}\label{eq:approximating adapted left-continuous processes 2}
      \vartheta=\vartheta^01_{\left\{0\right\}}+\sum_{i= 0}^\infty \vartheta^i1_{(t_i,t_{i+1}]}\in\mathcal{E}^{\infty}
  \end{equation}
  is clearly the pointwise limit of the processes
-        \begin{equation}\label{eq:approximating approximating-sequence of adapted left-continuous processes}
+        \begin{equation*}\label{eq:approximating approximating-sequence of adapted left-continuous processes}
             \vartheta^{m}=\vartheta^01_{\left\{0\right\}}+\sum_{k=1}^m\vartheta^{i}1_{(t_k,t_{k+1}]}\in\mathcal{E},
-        \end{equation}
+        \end{equation*}
         for \(m\to\infty\).
-        By the same argument as before, we have
-        \begin{equation}
+        Again as pointwise limits of measurable processes are measurable we have
+        \begin{equation*}
         \mathcal{P}\subseteq\sigma(\mathcal{E}^{\infty})\subseteq\sigma(\mathcal{E}).
-        \end{equation}
+        \end{equation*}
         \end{proof}
 \end{lemma}
-Taking a closer look, we see that the previous proof shows the following corollary
+Taking a closer look, we see that the previous proof can be used to show the following usefull corollary.
 \begin{corollary}
     Let \(\mathcal{A}=\left\{A\times(s,t], A\in\mathcal{F}_t, s<t\in\mathbb{R}_+\right\}\cup \left\{\left\{0\right\}\times A, A\in\mathcal{F}_0\right\}\). Then \(\sigma(\mathcal{A})=\mathcal{P}\).
 \end{corollary}
 \begin{proof}
-    Every indicator function \(1_B=1_A1_{(s,t]}\) with \(B\in\mathcal{A}\) is adapted and left-continuous; hence, it is predictable. The converse inclusion follows from the very same argument as in Lemma \ref{lemma:elementary processes generated predictable sigma algebra}. Indeed, every bounded, adapted left-continuous process \(X\) is the limit of processes \(X^n\) of the form \eqref{eq:approximating adapted left-continuous process}. Every \(X^n\) is the limit of processes \(X^n_m\) of the form \eqref{eq:approximating approximating-sequence of adapted left-continuous processes}. The latter is clearly seen to be \(\sigma(\mathcal{A})\)-measurable as \(X_{k/n}\) is \(\mathcal{F}_{k/n}\)-measurable. Indeed, for \(B\in\mathcal{B}(\mathbb{R})\)
-    \begin{align}
-    (X_{t/k}1_{(t/k,k+1/n]})^{-1}(B)=
+    Every indicator function \(1_B=1_A1_{(s,t]}\) with \(B\in\mathcal{A}\) is adapted and left-continuous; hence, it is predictable. The converse inclusion follows from the very same argument as in Lemma \ref{lemma:elementary processes generated predictable sigma algebra}. Indeed, every bounded, adapted left-continuous process \(X\) is the limit of processes \(X^n\) of the form \eqref{eq:approximating adapted left-continuous process}. Every \(X^n\) is the limit of processes \(X^n_m\) of the form \eqref{eq:approximating adapted left-continuous processes 2}. The latter is clearly seen to be \(\sigma(\mathcal{A})\)-measurable as \(X_{k/n}\) is \(\mathcal{F}_{k/n}\)-measurable. Indeed, for \(B\in\mathcal{B}(\mathbb{R})\)
+    \begin{align*}
+    (X_{\frac{k}{n}}1_{(\frac{k}{n},\frac{k}{n}+\frac{1}{n}]})^{-1}(B)=
     \begin{cases}
-        X_{t/k}^{-1}(B)\times (k/n,k+1/n] \text{ if }0\notin B\\
-        X_{t/k}^{-1}(B)\times (k/n,k+1/n]\cup \Omega\times \mathbb{R}/(k/n,k+1/n]\text{ if }0\in B
+        X_{\frac{k}{n}}^{-1}(B)\times (\frac{k}{n},\frac{k}{n}+\frac{1}{n}] \text{ if }0\notin B\\
+        X_{\frac{k}{n}}^{-1}(B)\times (\frac{k}{n},\frac{k}{n}+\frac{1}{n}]\cup \Omega\times \mathbb{R}/(\frac{k}{n},\frac{k}{n}+\frac{1}{n}]\text{ if }0\in B
     \end{cases}
-    \end{align}
-    but \( \Omega\times \mathbb{R}/(k/n,k+1/n]=(\Omega\times(k/n,k+1/n])^c\in\sigma(\mathcal{A})\). In every case \\
-    \((X_{t/k}1_{(t/k,k+1/n]})^{-1}(B)\in\sigma(\mathcal{A})\).
- Thus, \(X^n\) is \(\sigma(\mathcal{A})\)-measurable as a pointwise limit of measurable processes; hence, so is \(X\).
+    \end{align*}
+    but \( \Omega\times \mathbb{R}/(\frac{k}{n},\frac{k}{n}+\frac{1}{n}]=\big(\Omega\times(\frac{k}{n},\frac{k}{n}+\frac{1}{n}]\big)^c\in\sigma(\mathcal{A})\). In every case
+    \((X_{\frac{k}{n}}1_{(\frac{k}{n},\frac{k}{n}+\frac{1}{n}]})^{-1}(B)\in\sigma(\mathcal{A})\).
+    Hence, \(X^n_m\) is \(\sigma(\mathcal{A})\)-measurable as a finite sum of measurable processes, and \(X^n\) is \(\sigma(\mathcal{A})\)-measurable as a pointwise limit of measurable processes; hence, so is \(X\).
 \end{proof}
 We can finally state and prove the density of elementary processes in \(L^2(M)\).
 \begin{proposition}\label{prop:density of E in L2(M) via monotone class}
-    Let \(M\in\mathcal{H}^2_0\) and \(\mathcal{E}\) as defined in Definition \ref{def:elementary predictable process}. Then \(\mathcal{E}\) is dense in \(L^2(M)\).
+    Let \(M\in\mathcal{H}^2_0\) and \(\mathcal{E}\) be defined in Definition \ref{def:elementary predictable process}. Then \(\mathcal{E}\) is dense in \(L^2(M)\).
 \end{proposition}
 \begin{proof}
-    The proof uses essentially the functional version of the monotone class theorem and dominated convergence. By Lemma \ref{lemma:sigma algebra of bounded functions} and Lemma \ref{lemma:elementary processes generated predictable sigma algebra} we have 
-    \begin{equation}
+    The proof is based on the functional version of the monotone class theorem and dominated convergence. By Lemma \ref{lemma:sigma algebra of bounded functions} and Lemma \ref{lemma:elementary processes generated predictable sigma algebra} we have 
+    \begin{equation*}
         \sigma(\mathcal{E})=\mathcal{P}.
-    \end{equation}
+    \end{equation*}
     Let 
-    \begin{equation}
-        \mathcal{H}=\left\{ \vartheta\in b\mathcal{P}:\vartheta\in L^2(M),\forall \epsilon>0, \exists \vartheta_{\epsilon}\in \mathcal{E}\text{ with }\lVert \vartheta_{\epsilon}-\vartheta\rVert_{L^2(M)}<\epsilon\right\}.
-    \end{equation}
-    where \(b\mathcal{P}\) denotes the set of processes which are essentially bounded and \(\mathcal{P}\)-measurable.
+    \begin{equation*}
+        \mathcal{H}=\left\{ \vartheta\in b\mathcal{P}:\vartheta\in L^2(M),\forall \epsilon>0, \exists \vartheta_{\epsilon}\in \mathcal{E}\text{ with }\lVert \vartheta_{\epsilon}-\vartheta\rVert_{L^2(M)}<\epsilon\right\},
+    \end{equation*}
+    where \(b\mathcal{P}\) denotes the set of processes that are essentially bounded and predictable.
 
     
-    Suppose we were able to show that \(\mathcal{H}\) was a monotone class containing the algebra of functions \(\mathcal{E}\). We would conclude by the monotone class theorem \parencite[Thm.~7.4.1.]{CohenElliott2015StochasticCalculusApplications} that \(\mathcal{H}\) contains all bounded \(\sigma(\mathcal{E})=\mathcal{P}\)-measurable processes, which would show that \(\mathcal{E}\) is dense in \(bL^2(\mathcal{P},\mathbb{P}_M)\). To get density in \(L^2(\mathcal{P},\mathbb{P}_M)\) we observe that for \(\vartheta\in L^2(\mathcal{P},\mathbb{P}_M)\) we might consider, without loss of generality, the bounded process
-    \begin{equation}
+      Suppose we were able to show that \(\mathcal{H}\) is a monotone class containing the algebra of functions \(\mathcal{E}\). We would conclude by the monotone class theorem  that \(\mathcal{H}\) contains all bounded \(\mathcal{P}\)-measurable processes, which would show that \(\mathcal{E}\) is dense in \(bL^2(\mathcal{P},\mathbb{P}_M)\). To get density in \(L^2(\mathcal{P},\mathbb{P}_M)\) we observe that for \(\vartheta\in L^2(\mathcal{P},\mathbb{P}_M)\) we might consider, without loss of generality, the bounded process
+    \begin{equation*}
         \vartheta^n=-n\vee \vartheta\wedge n\in bL^2(\mathcal{P},\mathbb{P}_M).
-    \end{equation}
-    Clearly \(\vartheta^n\mapsto \vartheta\) pointwise and \(|\vartheta^n|\leq|\vartheta|\) hence \(|\vartheta^n-\vartheta|\leq 2|\vartheta|\) with \(\vartheta\in L^2(\mathcal{P},\mathbb{P}_M)\) by assumption. Thus, by dominated convergence
-    \begin{equation}
+    \end{equation*}
+ Clearly, \(\vartheta^n\mapsto \vartheta\) pointwise and \(|\vartheta^n|\leq|\vartheta|\) hence \(|\vartheta^n-\vartheta|\leq 2|\vartheta|\) with \(\vartheta\in L^2(\mathcal{P},\mathbb{P}_M)\) by assumption. Thus, by dominated convergence
+    \begin{equation*}
         \vartheta^n\overset{L^2(M)}{\to}\vartheta.
-    \end{equation}
+    \end{equation*}
     In particular, for every \(\epsilon>0\) there exists \(n\) large enough such that
-    \begin{equation}
+    \begin{equation*}
         \lVert \vartheta^n-\vartheta\rVert<\frac{\epsilon}{2}.
-    \end{equation}
+    \end{equation*}
     Furthermore, if \(\mathcal{E}\) is dense in \(bL^2(M)\) there exists a sequence \((\xi^n_m)_{m\in\mathbb{N}}\in\mathcal{E}\) such that 
-    \begin{equation}
+    \begin{equation*}
          \xi^n_m\overset{L^2(M)}{\to}\vartheta^n.
-    \end{equation}
+    \end{equation*}
     Hence for every \(\epsilon>0\) there is \(m\) big enough such that
-    \begin{equation}
+    \begin{equation*}
         \lVert \xi^n_m-\vartheta^n\rVert<\frac{\epsilon}{2}.
-    \end{equation}
+    \end{equation*}
     Hence, for these choices for \(n,m\)
-    \begin{equation}
+    \begin{equation*}
         \lVert \xi^n_m-\vartheta\rVert_{L^2(M)}\leq\lVert \xi^n_m-\vartheta^n\rVert_{L^2(M)}+\lVert \vartheta^n-\vartheta\rVert_{L^2(M)}<\epsilon.
-    \end{equation}
-    In other words, the first part shows that \(bL^2(M)\) is dense in \(L^2(M)\); hence, 
-    \begin{equation}
+    \end{equation*}
+    In other words, we just argued that \(bL^2(M)\) is dense in \(L^2(M)\); hence
+    \begin{equation*}
         \overline{\mathcal{E}}^{L^2(M)}=\overline{bL^2(M)}^{L^2(M)}=L^2(M).
-    \end{equation}
-    \\\\
+    \end{equation*}
  It remains to show that the application of the monotone class theorem is justified. 
-    \\\\
-    First, we need to show that \(\mathcal{H}\) contains \(\mathcal{E}\). Clearly processes in \(\mathcal{E}\) are predictable. Furhtermore, as \(M\in\mathcal{H}^2_0\) we have by \eqref{eq:P_M is finite measure} that \([M]_\infty\) is integrable. Hence, as elements in \(\mathcal{E}\) are bounded, uniformly in \(\omega, t\) on a measure-1 set on \(\Omega\). Thus, for \(\vartheta\in\mathcal{E}\)
-    \begin{equation}
-        \lVert\vartheta\rVert_{L^2(M)}=\mathbb{E}\bigg[\int_0^{\infty}\vartheta_t^2\diff =[M]_t\bigg]\lesssim\mathbb{E}[[M_\infty]]<\infty.
-    \end{equation}
-    Hence, \(\mathcal{H}\) contains \(\mathcal{E}\). Notice, that we crucially the integrability of \([M]_\infty\) which, according to \eqref{eq:P_M is finite measure} is the case if and onfly if \(M\in\mathcal{H}^2_0\). In particular, it is not enough to require \(M\in\mathcal{H}_{0-\rm{loc}}^2\).  
+
+ 
+      First, we need to show that \(\mathcal{H}\) contains \(\mathcal{E}\). Clearly, processes in \(\mathcal{E}\) are predictable. Furthermore, as \(M\in\mathcal{H}^2_0\), we have by \eqref{eq:P_M is finite measure} that \([M]_\infty\) is integrable. Hence, as elements in \(\mathcal{E}\) are bounded, uniformly in \((\omega, t)\) on \(\mathcal{N}^c\times\mathbb{R}_+\), where \(\mathbb{P}(\mathcal{N})=0\) we have for \(\vartheta\in\mathcal{E}\)
+    \begin{equation*}
+        \lVert\vartheta\rVert_{L^2(M)}=\mathbb{E}\bigg[\int_0^{\infty}\vartheta_t^2\diff [M]_t\bigg]\lesssim\mathbb{E}\big[[M_\infty]\big]<\infty.
+    \end{equation*}
+    Hence, \(\mathcal{H}\) contains \(\mathcal{E}\). Notice, that this crucially uses the integrability of \([M]_\infty\) which, according to \eqref{eq:P_M is finite measure} is the case if and only if \(M\in\mathcal{H}^2_0\). In particular, it is not enough to require \(M\in\mathcal{H}_{0,\rm{loc}}^2\).  
     
-    What is more, \(\mathcal{H}\) contains the constant functions. Indeed, for \(X=c\in\mathbb{R}\) take \(X^n=c1_{\left\{0\right\}}+c1_{(0,n]}\). Then \(X^n\in \mathcal{E}\) and \(X^n\to X\) pointwise. Furthermore, as the measure \(\mathbb{P}_M\) is finite for \(M\in\mathcal{H}^2\) we have that the constant process equal to \(|c|^2\) is in \(L^2(\mathcal{P},\mathbb{P}_M)\). It is then a direct application of dominated convergence that yields 
-    \begin{equation}
+    What is more, \(\mathcal{H}\) contains the constant processes. Indeed, let \(c\in\mathbb{R}\) and  \(X_t(\omega)=c\) for all \((\omega,t)\in\Omega\times \mathbb{R}_+\) and consider \(X^n=c1_{\left\{0\right\}}+c1_{(0,n]}\). Then \(X^n\in \mathcal{E}\) and \(X^n\to X\) pointwise. Furthermore, as the measure \(\mathbb{P}_M\) is finite for \(M\in\mathcal{H}_0^2\) we have that the constant process equal to \(c^2\) is in \(L^2(\mathcal{P},\mathbb{P}_M)\). It is then a direct application of dominated convergence that yields 
+    \begin{equation*}
         X^n\overset{L^2(M)}{\to}X.
-    \end{equation}
+    \end{equation*}
 In particular, for every \(\epsilon>0\) there exists \(n\) such that 
-\begin{equation}
+\begin{equation*}
     \lVert X^n-c\rVert_{L^2(M)}<\epsilon.
-\end{equation}
-Clearly, \(\mathcal{H}\) forms a vector space of functions. Indeed, if \(\vartheta_1,\vartheta_2\in\mathcal{H}\), for every \(\epsilon>0\) there exist \(\vartheta^1_{\frac{\epsilon}{2}},\vartheta^2_{\frac{\epsilon}{2|\alpha|}}\) such that, for all \(\alpha\in\mathbb{R}\):
-    \begin{equation}
+\end{equation*}
+Clearly, \(\mathcal{H}\) forms a vector space of functions (on \(\Omega\times\mathbb{R}_+\)). Indeed, if \(\vartheta_1,\vartheta_2\in\mathcal{H}\), for every \(\epsilon>0\) there exist \(\vartheta^1_{\frac{\epsilon}{2}},\vartheta^2_{\frac{\epsilon}{2|\alpha|}}\in\mathcal{E}\) such that, for all \(\alpha\in\mathbb{R}\):
+    \begin{equation*}
         \lVert \vartheta^1+\alpha \vartheta^2- \vartheta^1_{\frac{\epsilon}{2}}-\alpha \vartheta^2_{\frac{\epsilon}{2|\alpha|}} \rVert_{L^2(M)}\leq \epsilon,
-    \end{equation}
+    \end{equation*}
     due to the triangle inequality.
  It remains to show that \(\mathcal{H}\) is closed under bounded monotone limits. Hence, let \(0<\vartheta_0<\vartheta_1<\dots\) with \(\vartheta_j\in\mathcal{H}\) such that \(\lim_{n\to\infty}\vartheta_n = \vartheta\) pointwise, with \(\vartheta\) bounded. Fix \(\epsilon>0\). Then, due to dominated convergence 
-    \begin{equation}
+    \begin{equation*}
         \lim_{n\to\infty}\lVert \vartheta-\vartheta_n\rVert_{L^2(M)}=0.
-    \end{equation}
+    \end{equation*}
     Hence, there exists \(n\in\mathbb{N}\) large enough such that \(\lVert \vartheta-\vartheta_n\rVert_{L^2(M)}<\epsilon/2\). Now \(\vartheta_n\in\mathcal{\vartheta}\); hence, there exists \(\vartheta^n_{\epsilon/2}\in \mathcal{E}\) such that \(\lVert \vartheta_n-\vartheta^n_{\epsilon/2}\rVert_{L^2(M)}<\epsilon/2\). By the triangle inequality, we have
     \begin{equation}
         \lVert \vartheta-\vartheta^n_{\epsilon/2}\rVert_{L^2(M)}\leq\lVert \vartheta-\vartheta_n\rVert_{L^2(M)}+\lVert \vartheta_n-\vartheta^n_{\epsilon/2}\rVert_{L^2(M)}<\epsilon
     \end{equation}
  Hence, we conclude by the monotone class theorem. 
 \end{proof}
-One might wonder wether the latter can be generalized to general \(p\in[1,\infty)\). The proof given does not go through for the general case without modification. Indeed, we used dominated convergence for the finite-measure \(L^2\)-space \(L^2(M)\simeq L^2(\mathcal{P},\mathbb{P_M})\). For \(p\neq 2\) however, there is not such \(L^p\)-identification. The argument needs the following modifiactions. Hence, we need to argue this cases seperatly. The rest of the poof is analogous. 
-\\
-We first used DCT to argue that it is enough to show the claim for bounded functions in \(L^2(M)\). In the general case, we argue by successive application of DCT. 
-Again assume the claim to be shown for bounded processes in \(L^p(M)\). Let \(\vartheta\in L^p(M)\) and consider \(\vartheta^n=-n\vee \vartheta\wedge n\in bL^p(M)\). Again, it is clear that \(\vartheta^n\to\vartheta\) pointwise with \(|\vartheta^n-\vartheta|\leq 2|\vartheta|\). First notice, that 
-\begin{equation}
-    \mathbb{E}[\left(\int_0^{\infty}|\vartheta|_s^2\diff [M]_s\right)^{\frac{p}{2}}]<\infty\implies\int_0^{\infty}|\vartheta|_s^2\diff [M]_s<\infty,\;\;\mathbb{P}\text{-almost everywhere}
+One might wonder whether the latter can be generalized to general \(p\in[1,\infty)\). The proof given does not hold for the general case without modification. Indeed, the main reason for giving the proof in the case \(p=2\) is that the proof remains tractable, as the repeated application of dominated convergence can be done on the joint space \((\Omega\times\mathbb{R}_+)\), as \(L^2(M)\simeq L^2(\mathcal{P},\mathbb{P_M})\) forms a Hilbert space. For \(p\neq 2\), however, there is no such \(L^p\)-identification. We need to show how to adapt the dominated convergence arguments in the previous proof. The rest is analogous and does not depend on the choice of \(p\). Let's take a look at the place we used dominated convergence (DCT) in the proof of Proposition \ref{prop:density of E in L2(M) via monotone class}. In the following we refer to the case where we allow for and \(p\in[1,\infty)\) as the general case. For the following asseum \(M\in\mathcal{H}^p_0\).
+
+
+The first time we used DCT was to argue that it is enough to show the claim for bounded functions in \(L^2(M)\). In the general case, we argue by successive application of DCT. 
+Again, assume the claim to be shown for bounded processes in \(L^p(M)\). Let \(\vartheta\in L^p(M)\) and consider \(\vartheta^n=-n\vee \vartheta\wedge n\in bL^p(M)\). Again, it is clear that \(\vartheta^n\to\vartheta\) pointwise with \(|\vartheta^n-\vartheta|\leq 2|\vartheta|\). First notice, that 
+\begin{equation}\label{eq:integral is integrable}
+    \mathbb{E}\Big[\left(\int_0^{\infty}|\vartheta|_s^2\diff [M]_s\right)^{\frac{p}{2}}\Big]<\infty\implies\int_0^{\infty}|\vartheta|_s^2\diff [M]_s<\infty,\;\;\mathbb{P}\text{-almost everywhere}
 \end{equation}
- Furthermore, observe that \([M]\) is a non-negative, non-decreasing process, hence for every \(\omega\), \(\diff [M](\omega)\) defines a Lebsegue-Stieljes measure. As \(M\in\mathcal{H}^p\), the BDG-inequalities imply that \(\diff [M]\) is, almoste surely, a finite measure. 
+ Furthermore, observe that \([M]\) is a non-negative, non-decreasing process, hence for every \(\omega\), \(\diff [M](\omega)\) defines a Lebsegue-Stieljes measure. As \(M\in\mathcal{H}^p\), the BDG inequalities imply that \(\diff [M]\) is, almost surely, a finite measure. 
  Indeed
- \begin{equation}
-    \mathbb{E}[[M]^{\frac{p}{2}}]\leq \frac{1}{c_p}\mathbb{E}[\sup_{t\in\mathbb{R}_+}|M|^p]=\lVert M\rVert_{\mathcal{H}^p}<\infty,
-\end{equation}
+ \begin{equation*}
+    \mathbb{E}\big[[M]^{\frac{p}{2}}\big]\leq \frac{1}{c_p}\mathbb{E}\Big[\sup_{t\in\mathbb{R}_+}|M|^p\Big]=\lVert M\rVert_{\mathcal{H}^p}<\infty,
+\end{equation*}
 which implies that \([M]<\infty\) almost surely. 
-Hence on a full-\(\mathbb{P}\)-measure set we can apply the DCT for every \(\omega\), that is pathwise, with the domination of \(\vartheta^2\in L^1(\diff [M]_s) \). 
-\begin{equation}
-    \lim_{n\to\infty}\int_{0}^{\infty}|\vartheta_s^n-\vartheta_s|^2\diff [M]_s=0.
-\end{equation}
+Hence outside of a \(\mathbb{P}\)-nullset  \(\mathcal{N}\) we can apply DCT for every \(\omega\), that is pathwise, with the domination of \(\vartheta^2\in L^1(\diff [M](\omega)) \) to obtain
+\begin{equation*}
+    \lim_{n\to\infty}\int_{0}^{\infty}|\vartheta_s^n(\omega)-\vartheta_s(\omega)|^2\diff [M]_s(\omega)=0.
+\end{equation*}
 Next, as \([M]\) is non-decreasing,
-\(\int_0^{\infty}|\vartheta_s^n-\vartheta|_s^2\diff [M]_s\) is dominated by \(\int_0^{\infty}|\vartheta|_s^2\diff [M]_s\) which is in \(L^1(\mathbb{P})\) by the observation previously made. The same bounds are clearly true for the \(\frac{p}{2}\)-power of the respective terms. Hence, again by DCT we finally conclude.
-\begin{equation}
+\(\int_0^{\infty}|\vartheta_s^n-\vartheta|_s^2\diff [M]_s\) is dominated by \(\int_0^{\infty}|\vartheta|_s^2\diff [M]_s\) which is in \(L^1(\mathbb{P})\) by the observation made in \eqref{eq:integral is integrable}. The same bounds are clearly true for the \(\frac{p}{2}\)-power of the respective terms. Hence, again by DCT we conclude.
+\begin{equation*}
     \lim_{n\to\infty}\mathbb{E}[\int_0^{\infty}|\vartheta^n_s-\vartheta_s|^2\diff[M]_s=0
-\end{equation}
+\end{equation*}
 Together, we get
-\begin{equation}
+\begin{equation*}
     \vartheta^n\overset{L^p(M)}{\to}\vartheta.
-\end{equation}
+\end{equation*}
 For the assertion that the constant functions are in
-\begin{equation}
+\begin{equation*}
         \mathcal{H}^{(p)}=\left\{ \vartheta\in b\mathcal{P}:\vartheta\in L^p(M),\forall \epsilon>0, \exists \vartheta_{\epsilon}\in \mathcal{E}\text{ with }\lVert \vartheta_{\epsilon}-\vartheta\rVert_{L^p(M)}<\epsilon\right\}.
-\end{equation}
+\end{equation*}
 we observe that the constant process \(X\equiv c\in L^p(M)\). Indeed 
-\begin{equation}
-    \mathbb{E}[\left(\int_0^{\infty}c^2\diff [M]\right)^{\frac{p}{2}}]=|c|^{p}\mathbb{E}[[M]_\infty^{\frac{p}{2}}]<\infty,
-\end{equation}
-where the last inequality is again due to the BDG inequalities. Hence, setting  \(X^n=c1_{\left\{0\right\}}+c1_{(0,n]}\) for which we have 
-\begin{equation}
+\begin{equation*}
+    \mathbb{E}\bigg[\left(\int_0^{\infty}c^2\diff [M]\right)^{\frac{p}{2}}\bigg]=|c|^{p}\mathbb{E}\big[[M]_\infty^{\frac{p}{2}}\big]<\infty,
+\end{equation*}
+where the finiteness of the last term is due to the BDG inequalities. Hence, setting  \(X^n=c1_{\left\{0\right\}}+c1_{(0,n]}\), with the obvious bound
+\begin{equation*}
     |X^n|\leq |c|
-\end{equation}
-argue by the same successive DCT argument as before that 
-\begin{equation}
+\end{equation*}
+we argue by the same successive DCT argument as before that 
+\begin{equation*}
     X^n\overset{L^p(M)}{\to}c.
-\end{equation}
+\end{equation*}
  The stability under bounded monotone limits follows analogously. Hence, we get the following proposition:
 \begin{proposition}\label{prop:density of E in Lp(M) via monotone class}
     Let \(M\in\mathcal{H}^p_0\) for \(p\in[1,\infty)\) and \(\mathcal{E}\) as defined in Definition \ref{def:elementary predictable process}. Then \(\mathcal{E}\) is dense in \(L^p(M)\).
 \end{proposition}
 \bigbreak
-Finally, having proven that the elementary processes are dense in \(L^2(M)\), we can use the isometry property for the map \eqref{eq:integral map as isometry} to extend the integral to a bounded linear operator by the standard extension theorem \parencite[Prop.~5.4]{SteinShakarchi2005RealAnalysis}. This uses, in particular, that \(L^2(M)\) and \(\mathcal{H}_0^2\) are Banach spaces, which follows from the fact that they can both be identified with a \(L^2\) space. Hence, as Hilbert spaces, they are in particular Banach.
+Finally, having proven that the elementary processes are dense in \(L^2(M)\), we can use the isometry property for the map \eqref{eq:integral map as isometry} to extend the integral to a bounded linear operator in \(\overline{\mathcal{E}}^{L^2(M)}=L^2(M)\) by the standard extension theorem (see \parencite[Prop.~5.4]{SteinShakarchi2005RealAnalysis}). This uses, in particular, that \(L^2(M)\) and \(\mathcal{H}_0^2\) are Banach spaces with respect to their norms. This follows from the fact that they can both be dentified with a \(L^2\) space. Hence, as Hilbert spaces, they are in particular Banach.
 We get the following theorem.
 \begin{theorem}\label{def:square-integrable stochastic integral}
-    The linear map \(H\mapsto \int H\diff M\) of \(\mathcal{E}\) into \(\mathcal{H}_0^2\) extends uniquely to an isometric linear map \(L^2(M)\mapsto\mathcal{H}_0^2\). We call this extension the integral of \(H\) with respect to \(M\).
+    The linear isometry \(H\mapsto \int H\diff M\) of \(\mathcal{E}\) to \(\mathcal{H}_0^2\) extends uniquely to an linear isometry from \(L^2(M)\) to \(\mathcal{H}_0^2\). We call this extension the integral of \(H\) with respect to \(M\) and denote it equivalently as \(I_M(H)\), \(H\bullet M\) or \(\int H\diff M\).
 \end{theorem}
 Notice that as we define the stochastic integral as the extension of a map \(I:\mathcal{E}\to\mathcal{H}_0^2\) to \(L^2(M)\), where \(\mathcal{E}\subseteq L^2(M)\) is a dense subset, the resulting integral is in \(\mathcal{H}_0^2\) by construction. 
-\\\\
-Furthermore, the isometry property is generally known as Itô's isometry. According to \parencite[Thm.~2.5.]{Schweizer2025BrownianMotionStochasticCalculus}, it even holds when \(M\) is only locally in \(\mathcal{H}_0^2\). 
+
+
+The isometry property of the integral in Theorem \ref{def:square-integrable stochastic integral} is generally known as Itô's isometry. According to \parencite[Thm.~2.5.]{Schweizer2025BrownianMotionStochasticCalculus}, it even holds when \(M\) is only locally in \(\mathcal{H}_0^2\). 
 \begin{theorem}[Itô Isometry]\label{thm:Ito Isometry}
     Let \(M\in\mathcal{H}^2\); then for \(H\in L^2(M)\)
-    \begin{equation}
-        \lVert H\rVert_{L^2(M)}^2=\mathbb{E}[\int_0^{\infty}H_t^2\diff \langle M\rangle_t]=\mathbb{E}[\left(\int_0^{\infty}H_t\diff M_t\right)^2].
-    \end{equation}
+    \begin{equation*}
+        \lVert H\rVert_{L^2(M)}^2=\mathbb{E}\bigg[\int_0^{\infty}H_t^2\diff \langle M\rangle_t\bigg]=\mathbb{E}\bigg[\left(\int_0^{\infty}H_t\diff M_t\right)^2\bigg].
+    \end{equation*}
 \end{theorem}
-We will refer to the setting in Definition \ref{def:square-integrable stochastic integral} as the \textit{square-integrable setting}. From here, one can start broadening the space of integrands and integrators. We provide a useful characterization of the integral in Definition \ref{def:square-integrable stochastic integral}
+We will refer to the setting in Definition \ref{def:square-integrable stochastic integral} as the \textit{square-integrable setting}. We provide a useful characterization of the integral in Definition \ref{def:square-integrable stochastic integral}
 \begin{proposition}\label{prop:characterisation of stochastic integral}
     Let \(M\in\mathcal{H}_0^2\) and \(H\in L^2(M)\). The stochastic integral \(H\bullet M\) is the unique process in \(\mathcal{H}^2_0\) such that, for every \(N\in\mathcal{H}^2\),
-    \begin{equation}
-        \langle M\bullet N,N\rangle=\int H\diff\langle M,N\rangle,\forall N\in\mathcal{H}_0^2
+    \begin{equation}\label{eq:Schweizer integral characterization}
+        \langle M\bullet N,N\rangle=\int H\diff\langle M,N\rangle,\forall N\in\mathcal{H}_0^2.
     \end{equation}
 \end{proposition}
-For the proof, we refer to \parencite[Thm.~2.5.]{Schweizer2025BrownianMotionStochasticCalculus}. More precisely, \parencite{Schweizer2025BrownianMotionStochasticCalculus} shows that everything presented in the square-integrable setting up to now remains valid if we take \(M\) to be only locally in \(\mathcal{H}_0^2\). For this, see \parencite[sec.~4.2.]{Schweizer2025BrownianMotionStochasticCalculus}. 
-\\\\
-Conceptually, note that the right-hand side is a linear form in \(N\) that is valid on \(\mathcal{H}^2\), which has been identified with a Hilbert space. By the Kunita-Watanabe inequality \parencite[Thm.11.4.1]{CohenElliott2015StochasticCalculusApplications}, it is also continuous. Then \(L\) is the unique Riesz-Fischer vector in \(\mathcal{H}^2\) such that the continuous linear form can be written as an inner product. The latter characterizes the continuous linear form on a Hilbert space uniquely. 
-One can further extend the integral of Definition \ref{def:square-integrable stochastic integral} to integrators in \(M\in\mathcal{H}^2_{0,\rm{loc}}\) and integrands in \(H\in L^2_{\rm{loc}}(M)\), where the latter is defined to be the class of predictable processes \(H\) such that there exists a localizing sequence \((\tau_n)_{n\in\mathbb{N}}\) for which \(H1_{(0,\tau_n]}\) is in \(L^2(M)\). 
-We give the definition of \(L_{\rm{loc}}^2(M)\).
+Proposition \ref{prop:characterisation of stochastic integral} might be used as an alternative definition of the stochastic integral of \(H\in L^2(M)\) and \(M\in\mathcal{H}^2_0\). In particular one can show Proposition \ref{prop:characterisation of stochastic integral} for \(M\in\mathcal{H}^2_{0,\rm{loc}}\). This shows that one can construct the stochastic integral \(\int H\diff M\in\mathcal{H}^2_0\) for \(M\in\mathcal{H}^2_{0,\rm{loc}}\) and \(H\in L^2(M)\). This is extension is not clear from our construction as we crucially used \(\mathcal{E}\subset L^2(M)\) which used the integrability of \([M]_{\infty}\), which is the case if and only if \(M\in\mathcal{H}^2_0\). 
+For the proof of Proposition \ref{prop:characterisation of stochastic integral}, we refer to \parencite[Thm.~2.5.]{Schweizer2025BrownianMotionStochasticCalculus}. Moreover, \parencite[sec.~4.2.]{Schweizer2025BrownianMotionStochasticCalculus} shows that the Itô-isometry also holds for the integral \(\int H\diff M\in\mathcal{H}^2_0\) for \(M\in\mathcal{H}^2_{0,\rm{loc}}\) and \(H\in L^2(M)\).
+
+
+Nevertheless we can give some insight in how to interpret \eqref{prop:characterisation of stochastic integral}. Observe that the right-hand side of \eqref{eq:Schweizer integral characterization} defines a linear form in \(N\), hence on \(\mathcal{H}_0^2\). The latter has been identified with a Hilbert space. By the Kunita-Watanabe inequality (see \parencite[Thm.11.4.1]{CohenElliott2015StochasticCalculusApplications})  it is continuous a linear map. By the Riesz representation theorem for Hilbert spaces there exists a unique support element \(L\in\mathcal{H}_0^2\) such that the continuous linear form can be written as an inner product with \(L\). The latter characterizes the continuous linear form on a Hilbert space uniquely. One then defines the stochastic integral \(H\bullet M \coloneqq L\) and justifies this definition by the properties of \(L\).
+
+Returning to our construction of the integral for \(M\in\mathcal{H}^2_0\) and \(H\in L^2(M)\) one can  extend the integral to integrators in \(M\in\mathcal{H}^2_{0,\rm{loc}}\) and integrands in \(H\in L^2_{\rm{loc}}(M)\), where the latter is defined to be the class of predictable processes \(H\) such that there exists a localizing sequence \((\tau_n)_{n\in\mathbb{N}}\) for which \(H1_{(0,\tau_n]}\) is in \(L^2(M)\). 
+
 \begin{definition}\label{def:L^p(M)_loc}
  For \(M\in\mathcal{H}^2_{0,\rm{loc}}\), the space \(L_{\rm{loc}}^2(M)\) consists of predictable processes \(H\) for which there is  a sequence of stopping times \(\tau_n\nearrow\infty\) almost surely, such that 
-    \begin{equation}
-        \mathbb{E}[\int_0^{\tau_n}H_t^2\diff \langle M\rangle_t]<\infty\quad\forall n\in\mathbb{N}.
-    \end{equation}
+    \begin{equation*}
+        \mathbb{E}\bigg[\int_0^{\tau_n}H_t^2\diff \langle M\rangle_t\bigg]<\infty\quad\forall n\in\mathbb{N}.
+    \end{equation*}
 \end{definition}
 In particular, we have that for \(M\in\mathcal{H}_{0,\rm{loc}}^2\), \(H\in L^2_{\rm{loc}}(M)\) is equivalent to \(H1_{(0,\tau_n]}\in L^2(M)\) for each \(n\in\mathbb{N}\), and is equivalent to \(H\in L^2(M^{\tau_n})\) for each \(n\in\mathbb{N}\).
 \bigbreak
-The extension of Definition \ref{def:square-integrable stochastic integral} for the localized objects is then done by setting 
-\begin{equation}\label{def:local stochastic integral}
+The extension of Definition \ref{def:square-integrable stochastic integral} for the localized objects is then done by the usual "stitching together" procedure of localization. We define 
+\begin{equation}\label{def:piece of local stochastic integral}
     I_M(H)^{(k)}\coloneqq H1_{(0,\tau_k]}\bullet X^{\tau_k}\quad \text{ on } (0,\tau_k] \text{ and } I_M(H)_0=0 ,
 \end{equation}
-where \((\tau_k)_{k\in\mathbb{N}}\) is a common localizing sequence of \(H\) and \(M\). To understand that the objects are well-defined we recall a well-known property of the integral defined in Definition \ref{def:square-integrable stochastic integral}
+where \((\tau_k)_{k\in\mathbb{N}}\) is a common localizing sequence of \(H\) and \(M\). We need to check that \eqref{def:piece of local stochastic integral} is consistent and well defined. For the following consideration, we restrict ourselves to \(\mathcal{N}^c\), where \(\mathbb{P}(\mathcal{N})=0\) on which \(\lim_{k\to\infty}\tau_k=\infty\). We might choose \(\tau_k\leq\tau_{k-1}\) for every \(k\in\mathbb{N}\) on \(\mathcal{N}^c\). Consistency means, in this context,
+\begin{equation*}
+    I_M(H)^{(k)}=I_M(H)^{(k-1)}\text{ on } (0,\tau_{k-1}].
+\end{equation*}
+where \((0,\tau_{k-1}]\subseteq(0,\tau_{k}]\)
+for every \(k\in\mathbb{N}\) as \(\tau_k\leq \tau_{k-1}\). To see this, recall the well-known property of the stochastic integral of Definition \ref{def:square-integrable stochastic integral}.
 \begin{lemma}\label{lemma:stopping stochastic integrals}
-    Let \(M\in\mathcal{H}_0^2\), \(\tau\) be a stopping time and \(H\in L^2(M)\). Then
-\begin{equation}
+    Let \(M\in\mathcal{H}_0^2\), \(\tau\) a stopping time and \(H\in L^2(M)\). Then
+\begin{equation*}
     (H\bullet M)^{\tau}=H\bullet(M)^{\tau}=H1_{(0,\tau]}\bullet M.
-\end{equation}
+\end{equation*}
 \end{lemma}
-Hence 
-\begin{equation}
-    H1_{(0,\tau_k]}\in L^2(M^{\tau_k}),
-\end{equation} 
-so the integral on the right-hand side of Definition \ref{def:local stochastic integral} is well-defined. It remains to check that the definition defines the integral on all of \(\Omega\times\mathbb{R}_+\) and that it does so consistently; that is, \(I_M(H)^{(k)}_t=I_M(H)^{(k-1)}_t\) for \(t<\tau_{k-1}\). For the first part, this follows from the definition of a localizing sequence as \(\tau_k\nearrow\infty\). The latter follows from the fact that 
-\begin{equation}
-(I_M(H)^{(k)}_t)^{\tau_{k-1}}=I_M(H)^{(k-1)}_t\,.
-\end{equation}
- The integral can then be defined by "gluing" the pieces together 
-\begin{align}
+Hence
+\begin{equation*}
+\big(I_M(H)^{(k)}_t\big)^{\tau_{k-1}}=\big(H1_{(0,\tau_k]}\bullet X^{\tau_k}\big)^{\tau_{k-1}}=H1_{(0,\tau_k]\cap(0,\tau_{k-1}]}\bullet X^{\tau_k}=I_M(H)^{(k-1)}_t.
+\end{equation*}
+which shows consistency. 
+
+
+
+The well-definedness refers to the fact that one needs to check that \(H1_{(0,\tau_k]}\bullet X^{\tau_k}\) is well-defined in the sense of the integrals we understand at this point, that is, the integral of Definition \ref{def:square-integrable stochastic integral}. Concretely, we need to show that 
+\begin{equation*}
+    H1_{(0,\tau_k]}\in L^2(M^{\tau_k}).
+\end{equation*} 
+But this is obvious by Definition \ref{def:L^p(M)_loc}.
+Furthermore, as \(\tau_k\nearrow\infty\), \((0,\tau_k]\nearrow\Omega/\mathcal{N}\times\mathbb{R}_+\), we can thus define the stochastic integral for \(M\in\mathcal{H}^2_{0,\rm{loc}}\) and \(H\in L^2_{\rm{loc}}(M)\) by stitching together the local construction \ref{def:piece of local stochastic integral}.
+\begin{align}\label{def:local sotchastic integral}
     I_M(H)_t(\omega)=
     \begin{cases}
         \sum_{k\geq 1}I_M(H)^{(k)}_t(\omega)1_{(\tau_k(\omega)<t\leq\tau_{k+1}(\omega)]}\text{ for } t\in\mathbb{R}_+/\left\{0\right\}\\
         0 \text{ for } t=0
     \end{cases}
 \end{align}
-For details and a different point of view, we refer to \parencite[Prop.~2.20]{Schweizer2025BrownianMotionStochasticCalculus}. In particular, there exists a characterization of this localized integral analogous to Proposition \ref{prop:characterisation of stochastic integral}. For details, see \parencite[Prop.~2.20]{Schweizer2025BrownianMotionStochasticCalculus}. In the case \(M\in\mathcal{H}_{0,\rm{loc}}^2\), we thus set the class of integrable processes by 
-\begin{equation}
-  L(M)=L_{\rm{loc}}^2(M),
-\end{equation}
-where \(L^2_{\rm{loc}}(M)\) as in Definition \ref{def:L^p(M)_loc}. Notice that in this stochastic integration, the local objects are themselves only local martingales. 
+for \(\omega\in\mathcal{N}^c\). We might define \(I_M(H)\) on all of \(\Omega\times\mathbb{R}_+\) by setting \(I_M(H)_t(\omega)=0\) for all \(t\in\mathbb{R}_+\) and \(\omega\in\mathcal{N}\).
+For a characterization of this integral analogous to Proposition \ref{prop:characterisation of stochastic integral} we refer to \parencite[Prop.~2.20]{Schweizer2025BrownianMotionStochasticCalculus}. 
 
 \begin{remark}\label{rem:local integrator global integrand yields global integral}
-The stochastic integral for the local objects, as defined in Definition \ref{def:local stochastic integral} is itself only a locally square-integrable local martingale. 
-   For \(M\in\mathcal{H}_{0,\rm{loc}}^2\) and \(M\in L^2(M)\) the respective stochastic integral is still in \(\mathcal{H}^2_0\) \parencite[Thm.~2.5.]{Schweizer2025BrownianMotionStochasticCalculus}. 
+The stochastic integral for the local objects, as defined in Definition \ref{def:local sotchastic integral}, is itself only a locally square-integrable local martingale. 
+   For \(M\in\mathcal{H}_{0,\rm{loc}}^2\) and \(M\in L^2(M)\) the respective stochastic integral is still in \(\mathcal{H}^2_0\) \parencite[Thm.~2.5.]{Schweizer2025BrownianMotionStochasticCalculus}.
 \end{remark}
+
 \subsection{Kunita-watanabe Decomposition}\label{sec:Kunita-Watanabe Decomposition}
 Before turning towards stochastic integration with respect to classical semimartingales, we profit from the current familiarity of the reader with the square-integrable setup to introduce and state the celebrated Kunita Watanabe decomposition, which shall play a central role in the solution theory for the mean-variance hedging problem for square-integrable martingale price processes. For this, we will need a stronger notion of orthogonality on \(\mathcal{H}^2_0\) than the one induced by the inner product structure. The fact that \(\mathcal{H}^2_0\) is a space of uniformly integrable martingales leads to a richer geometry than the Hilbert space structure discussed in \eqref{eq:H^p identification}. 
 \begin{definition}
@@ -2693,7 +2837,7 @@ an $\eta\in\mathcal{A}_{\infty}^m(U)$ such that
 \end{equation}
 \end{theorem}
  What is more, we want to approximate the map \(\eta:[0,T]\times\mathcal{W}^m[0,T]\to U\); hence, in light of the approximation results discussed in \cref{ch:Neural Networks and Universal Approximation}, we need the integrability of \(\eta\) as a map from \([0,T]\times\mathcal{W}^m[0,T]\) to \(U\). The natural idea would be to consider \(\varphi\in L^2(M)\) for some \(M\in\mathcal{H}_{0,\rm{loc}}^2\), as in this case the continuity of the integral map is guaranteed by Itô's isometry. Then one may want to argue via Fubini-Tonelli that \(\varphi\in L^2(M)\iff \eta\in L^2([0,T]\times\mathcal{W}^m[0,T],\mathbb{P}\otimes\diff\mathcal{L}(Y))\). We could then approximate \(\eta\) by elements in \(\mathcal{NN}_\psi(\left([0,T]\times\mathcal{W}^m[0,T]\right)^*)\). This fails for multiple reasons. \\\\
-The approach follows the following, WRONG heuristic.
+The approach follows the WRONG heuristic.
 \begin{align}
    & \mathbb{E}_{\mathbb{P}}[\int_0^{\infty}\eta\bigg(s,Y^s\bigg)^2\diff \langle B\rangle_t]= \mathbb{E}_{\mathbb{P}}[\int_0^{\infty}\eta\bigg(s,Y^s\bigg)^2\diff s]
    \\&=\int_0^{\infty}\mathbb{E}_{\mathbb{P}}[\eta\bigg(s,Y^s\bigg)^2]\diff s=\int_0^{\infty}\mathbb{E}_{\mathbb{P}\circ (Y^{s})^{-1}}[\eta\bigg(s,\cdot\bigg)^2]\diff s
@@ -3325,14 +3469,18 @@ and hence equality.
 
 
 \section{Extension for semimartingales}\label{sec:extension of deep mean squared hedging to semimartingales}
-Regarding Theorem \ref{thm:martingale-setup-continuous-deep-variance-hedging}, one is led to the natural question of whether one can obtain the claim for a more general setup, allowing for more general integrators. In this section, we will investigate one particular approach. More precisely, we will allow a subclass of semimartingales as price processes \(X\). For this, we will have to adapt the space of integrable processes in a way that density results like \cref{cor:p-ucp density of,cor:ucp and p-ucp density of E} still apply. We will first outline the general idea before giving concrete conditions and the corresponding extension. This section is structured in a didactic way, so that all definitions are motivated and intuitive. For what is to follow, we consider all stochastic processes to be real-valued processes, in particular one-dimensional. Furthermore, we allow and take \(T=\infty\) in this chapter.
-\bigbreak
+Regarding Theorem \ref{thm:martingale-setup-continuous-deep-variance-hedging}, one is led to the natural question of whether one can obtain the claim for a more general setup, allowing for more general integrators. In this section, we will investigate one particular approach. More precisely, we will allow a subclass of semimartingales as price processes \(X\). For this, we will have to adapt the space of integrable processes in a way that density results like \cref{cor:p-ucp density of,cor:ucp and p-ucp density of E} still apply. We will first outline the general idea before giving concrete conditions and the corresponding extension. This section is structured in a didactic way, so that all definitions are motivated and intuitive. For what is to follow, we consider all stochastic processes to be real-valued processes, in particular one-dimensional. 
+
+
+
 Let \(X\in\mathcal{S}_{\rm{\rm{loc}}}^2\) be a locally square-integrable special semimartingale. with unique canonical decomposition
 \begin{equation}\label{eq:canonical decomposition}
     X=X_0+M+A,
 \end{equation}
 where \(M\in\mathcal{H}^2_{0,\rm{\rm{loc}}}\) is a locally square-integrable local martingale starting at \(0\) and \(A\), of finite variation, predictable, starting at \(0\) and with locally square-integrable total variation. For a special martingale.
-\bigbreak
+
+
+
 The existence of a solution to the mean variance hedging problem for semimartingales is a separate issue. We treated it partly in Section \ref{sec:Mean-variance Hedging with continuous price process} and mainly refer to \parencite{Schweizer2001GuidedTourQuadraticHedging} for a good overview and \parencite{Schweizer1994ApproximatingRandomVariablesStochasticIntegrals} for the exhaustive treatment. By \cref{rem:sufficient condition for extension} we are interested in bounding the \(L^2(\mathbb{P})\)-norm of \((\vartheta\bullet X)_{\infty}\). The following bounds motivate the further definitions. Let \(\vartheta\in L^2(M)\):
 \begin{align}\label{eq:bounding-L2-norm-stochastic-integral}
     \lVert (\vartheta\bullet X)_{\infty}\rVert_{L^2(\mathbb{P})}
@@ -3741,7 +3889,7 @@ Let $X$ denote a continuous semimartingale. Then the following are equivalent:
 \end{enumerate}
 \end{theorem}
 Thus, to have an existence claim about the mean-variance hedging solution, we shall require \(X\) to be continuous. We can finally state an extension of 
-Theorem \ref{thm:martingale-setup-continuous-deep-variance-hedging} to price processes in \(L^2(M,A)\). Recall that  \(\mathbb{\mathbb{P}}_e^2(X)\) denotes the set of equivalent local martingale measures \(\mathbb{Q}\sim \mathbb{P}\) such that \(\frac{\diff \mathbb{Q}}{\diff \mathbb{P}}\in L^2(\mathbb{P})\).
+Theorem \ref{thm:martingale-setup-continuous-deep-variance-hedging} to price processes in \(L^2(M,A)\). Recall that  \(\mathbb{\mathbb{P}}_e^2(X)\) denotes the set of equivalent local martingale measures \(\mathbb{Q}\approx \mathbb{P}\) such that \(\frac{\diff \mathbb{Q}}{\diff \mathbb{P}}\in L^2(\mathbb{P})\).
 
 
 \begin{proposition}\label{prop:continuous time deep mean variance hedging for semimartingales under compactness}
