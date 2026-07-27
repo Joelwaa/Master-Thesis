@@ -2951,7 +2951,7 @@ in general. So an approximating sequence \(\eta^k(t,Y(\cdot\wedge t))\) in some 
     I_{B}(\eta^k)=\int_0^{\infty}\eta^k_t\diff B_t
 \end{align*}
 would be defined. We hope that these considerations are  sufficiently convincing that trying to approximate the predictable strategies \(\vartheta=(\vartheta_t)_{t\in\mathbb{R}_+}\) is not a good idea. 
-\subsection{Conceptual view of approach taken in \parencite[Chapter.~5]{Arandjelovic2025}}\label{sec:main ideas of alexandar}
+\section{Conceptual view of approach taken in \parencite[Chapter.~5]{Arandjelovic2025}}\label{sec:main ideas of alexandar}
  In light of the issues found in Section \ref{sec:The naïv approach and what goes wrong} and the central importance of the continuity of the integral map 
  \begin{equation*}
      \vartheta\mapsto I_X(\vartheta),
@@ -3189,7 +3189,7 @@ Hence, we technically don't need to reduce measurability to a countably generate
 practically relevant theory.
 
 
-\subsection{From simple processes to stochastic integral}\label{sec:From simple processes to stochastic integral}
+\section{From simple processes to stochastic integral}\label{sec:From simple processes to stochastic integral}
 As discussed in Section \ref{sec:main ideas of alexandar}, using approximation theory for \(L^p\) random variables that are measurable with respect to the market information process, we will approximate elementary predictable processes. This will enable us to build stochastic integration theory. The appropriate density properties of the approximated elementary predictable processes will then enable us to leverage the continuity properties of the integral mapping in order to approximate stochastic integrals. For the convenience of the reader, we recall the definition of elementary predictable processes and simple predictable processes.
 \\\\
     We call \(H\) a \textit{simple predictable process} if there exists a finite, increasing sequence of \(\mathbb{F}\)-stopping times, \(0=\tau_0\leq\dots<\tau_{n+1}\leq\infty\), and a sequence of bounded random variables \((\vartheta^i)_{i=0}^n\subseteqL^{\infty}(\mathcal{F}_{t_i},\mathbb{P})\) such that 
@@ -3254,19 +3254,20 @@ Following the results of Theorem \ref{thm:ucp continuity of general stochastic i
     where convergence holds in ucp.
 \end{theorem}
 \begin{proof}
-    By Theorem \ref{thm:ucp continuity of general stochastic integral} the integral map
+ By Proposition \ref{prop:p-ucp density of S} \(\mathcal{S}(\psi)\) is dense in \(\mathcal{S}\) in the \(ucp\)-topology. Furthermore, by Proposition \ref{prop:ucp density of simple process in cadlag processes} \(\mathcal{S}\) is dense in \(\mathbb{L}\) for the \(ucp\)-topology. Hence, there exists a unique continuous extension 
     \begin{equation*}
-     I_X:\mathcal{S}_{ucp}\to\mathbb{D}_{ucp}   
-    \end{equation*}
-    is continuous. By Proposition \ref{prop:p-ucp density of S} \(\mathcal{S}(\psi)\) is dense in \(\mathcal{S}\) in the \(ucp\)-topology. Furthermore, by Proposition \ref{prop:ucp density of simple process in cadlag processes} \(\mathcal{S}\) is dense in \(\mathbb{L}\) for the \(ucp\)-topology. Hence, there exists a unique continuous extension 
-    \begin{equation*}
-        \tilde{I}_X:\overline{S}^{ucp}\to\mathbb{D}_{ucp}
+        \tilde{I}_X:\overline{S(\psi)}^{ucp}\to\mathbb{D}
     \end{equation*} 
-    with \(\overline{S}^{ucp}=\mathbb{L}_{ucp}\). We have that \(\tilde{I}_X\) agrees with the map from Definition \ref{def:stochastic integral w.r.t. semimartingales}. Indeed, assume not. Denote by \(\tilde{\tilde{I}}\) the unique continuous extension of \(I:\mathcal{S}(\psi)\to\mathbb{D}\) and by \(\tilde{I}\) the unique continuous extension of \(I:\mathcal{S}\to\mathbb{D}\). By assumption, there exists \(x\in\mathbb{D}\) for which \(\tilde{\tilde{I}}(x)\neq\tilde{I}(x)\). By density \(\exists(x_n)_{n\in\mathbb{N}}\subseteq\mathcal{S}(\psi)\) such that \(\lim_{n\to\infty}x_n=x\) in \(ucp\). In particular \((x_n)_{n\in\mathbb{N}}\subseteq\mathcal{S}\). But then, by continuity
+    with \(\overline{S(\psi)}^{ucp}=\mathbb{L}\). This extension is equal to the extension in Definition \ref{def:stochastic integral w.r.t. semimartingales} used to define the integral map
     \begin{equation*}
-        \tilde{\tilde{I}}(x)=\lim_{n\to\infty}\tilde{\tilde{I}}(x_n)=\lim_{n\to\infty}I(x_n)=\lim_{n\to\infty}\tilde{I}(x_n)=\tilde{I}(x).
+        I_X:\mathbb{L}\to\mathbb{D}
+    \end{equation*} 
+    as the unique continuous extension of the map 
+    \begin{equation*}
+        I_X^{\mathcal{S}}:\mathcal{S}\to \mathbb{D}.
     \end{equation*}
-    Hence, the contradiction. 
+    Indeed, we have
+ \( I_X|_{\mathcal{S}(\psi)}=\widetilde{I}_X|_{\mathcal{S}(\psi)}\); hence equality on \(\overline{\mathcal{S}(\psi)}^{ucp}=\overline{\mathcal{S}}^{ucp}\) follows by the uniqueness of the continuous extension.
 \end{proof}
 The goal is to formulate a deep mean-variance hedging result in the continuous time setup. We will first formulate a version proposed by \parencite{Arandjelovic2025} in the square-integrable martingale setup discussed in Section \ref{sec:Stochastic Integration for square-integrable Martingales}. In this context, the relevant continuity of the integral map is given by the Itô-isometry, which asserts that for some \(X\in\mathcal{H}_0^2\), the linear operator
 \begin{align*}
@@ -3451,7 +3452,7 @@ for any activation function \(\psi\) and \(p\in[1,\infty)\) in the real-valued s
 \end{equation*}
 for \(M\in\mathcal{H}^2\), without additional \(\epsilon\)-infinitesimal integrability conditions, \(M\in\mathcal{H}_0^{p+\epsilon}\), as was the case in Proposition \ref{prop:Lp(M) density of E(psi)}.
 \begin{proposition}\label{prop:density of E(psi) in L^2(M)}
-    Assume \(Y_t\) takes values in a compact subspace \(K^t\in\mathbb{R}\) for every \(t\in\mathbb{R}_+\). Then, under the assumptions of Proposition \ref{prop:E(psi) generated P}, we have for \(M\in\mathcal{H}_0^2\)
+    Assume \(Y_t\) takes values in a compact subset \(K^t\in\mathbb{R}\) for every \(t\in\mathbb{R}_+\). Then, under the assumptions of Proposition \ref{prop:E(psi) generated P}, we have for \(M\in\mathcal{H}_0^2\)
     \begin{equation*}
         \overline{\mathcal{E}(\psi)}^{L^2(M)}=L^2(M)\,.
     \end{equation*}
@@ -3466,7 +3467,7 @@ Let \(\vartheta\in\mathcal{E}(\cos)\):
 \begin{equation*}
     \vartheta = \vartheta_01_{\left\{0\right\}}+\sum_{i=1}^n \varphi_i(Y_{t_1}^i,\dots,Y_{t_{k(i)}}^i)1_{(t_i,t_{i+1}]}
 \end{equation*}
-with \(\varphi_i\in\mathcal{NN}_{\cos}(\mathbb{R}^{k(i)})\). Note that by assumption, for every \(i=0,\dots,n\), \((Y_{t_1}^i,\dots,Y_{t_{k(i)}}^i)\) takes values in \(K^i\coloneqq K^{t_1}\times\dots\times K^{t_{k(i)}}\), with \(k(i)\leq t_i\) and \(Y_{t_i}(\Omega)\subseteq K^{t_i}\). As a product of compact sets, \(K^i\) is a compact subset of \(\mathbb{R}^{k(i)}\). By definition 
+with \(\varphi_i\in\mathcal{NN}_{\cos}(\mathbb{R}^{k(i)})\). Note that by assumption, for every \(i=0,\dots,n\), \((Y_{t_1}^i,\dots,Y_{t_{k(i)}}^i)\) takes values in \(K^i\coloneqq K^{t_1}\times\dots\times K^{t_{k(i)}}\), with \(t_{k(i)}\leq t_i\) and \(Y_{t_i}(\Omega)\subseteq K^{t_i}\). As a product of compact sets, \(K^i\) is a compact subset of \(\mathbb{R}^{k(i)}\). By definition 
 \begin{equation*}
     \varphi_i=\sum_{j=0}^m\alpha_{ij}\cos(A_{ij}),
 \end{equation*}
@@ -3544,13 +3545,13 @@ In particular, we have the density of \(\widetilde{\mathcal{E}}(\psi)\) in \(L^2
 \end{equation*}
 hence \(\widetilde{Y}\) takes values in a compact subset of \(\mathbb{R}\). Instead of requiring that the image of \(Y_t\) is included in a compact subset for every \(t\in\mathbb{R}_+\) we might consider \(\widetilde{Y}\) instead. 
 We get the following version of Proposition \ref{prop:Lp(M) density of E(psi)}
-\begin{proposition}\label{prop:Lp(M) density of E(psi) under compacteness}
+\begin{corollary}\label{cor:Lp(M) density of tilde(E)(psi) for change of variables}
     Let \(M\in\mathcal{H}_0^{2}\). Then the set \(\widetilde{\mathcal{E}}(\psi)\) is dense in \(L^2(M)\) with respect to the norm \(\lVert\cdot\rVert_{L^2(M)}\). Moreover, for every \(\vartheta\in L^2(M)\), there exists a sequence \((\widetilde{\vartheta^n})_{n\in\mathbb{N}}\subseteq\widetilde{\mathcal{E}}(\psi)\), such that
     \begin{equation*}
         \lim_{n\to\infty}\int \widetilde{\vartheta^n}\diff M=\int \vartheta\diff M,
     \end{equation*}
     where convergence holds in \(\mathcal{H}^2\). 
-\end{proposition}
+\end{corollary}
 This version does not require the additional \(\epsilon\)-infinitesimal integrability of \(M\).  
 
 
@@ -3602,7 +3603,7 @@ and hence equality.
     \end{align*}
 \end{proof}
 \begin{remark}
-    As Theorem \ref{thm:martingale-setup-continuous-deep-variance-hedging} is formulated for \(\mathcal{E}(\psi)\), according to the discussion leading up to Proposition \ref{prop:Lp(M) density of E(psi) under compacteness}, we might as well substitute \(\mathcal{E}(\psi)\) with \(\widetilde{\mathcal{E}}(\psi)\) and let go of the extra \(\epsilon\)-integrability.
+    As Theorem \ref{thm:martingale-setup-continuous-deep-variance-hedging} is formulated for \(\mathcal{E}(\psi)\), according to the discussion leading up to Lemma \ref{lemma:Lp(M) density of E(psi) under compacteness}, we might as well substitute \(\mathcal{E}(\psi)\) with \(\widetilde{\mathcal{E}}(\psi)\) and let go of the extra \(\epsilon\)-integrability.
 \end{remark}
 
 \begin{remark}\label{rem:sufficient condition for extension}
@@ -4050,7 +4051,7 @@ Theorem \ref{thm:martingale-setup-continuous-deep-variance-hedging} to price pro
     We could also relax the assumptions on \(X\) to be in \(\mathcal{S}^2_{loc}\) with the additional requirement that the local martingale part \(M\) of \(X\) is actually a true martingale in \(\mathcal{H}_0^{2+\epsilon}\) for some \(\epsilon>0\). The difference is that for \(\mathcal{S}_{\rm{loc}}^2\), one requires the finite variation process \(A\) to be locally square-integrable only. Notice that the requirement that \(M\in\mathcal{H}^2_0\) and not just locally is crucial in our development, as \(M\in\mathcal{H}^2_{0,\rm{loc}}\), \(\mathcal{E}\), and \(\mathcal{E}(\psi)\) need not be subsets of \(L^2(M)\).
 \end{remark}
 The previous statement only involves \(\mathcal{E}(\psi)\). Hence, 
-according to Proposition \ref{prop:Lp(M) density of E(psi) under compacteness}, considering the market information process \(\widetilde{Y}=\tanh(Y)\) instead of \(Y\), effectively replacing \(\mathcal{E}(\psi)\) by \(\widetilde{\mathcal{E}}(\psi)\), we might let go of the additional \(\epsilon\)-integrability condition on \(M\). We get the following version. 
+according to Lemma \ref{lemma:Lp(M) density of E(psi) under compacteness}, considering the market information process \(\widetilde{Y}=\tanh(Y)\) instead of \(Y\), effectively replacing \(\mathcal{E}(\psi)\) by \(\widetilde{\mathcal{E}}(\psi)\), we might let go of the additional \(\epsilon\)-integrability condition on \(M\). We get the following version. 
 
 
 \begin{proposition}\label{prop:continuous time deep mean variance hedging for semimartingales}
