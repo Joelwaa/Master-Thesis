@@ -257,7 +257,7 @@ I would like to thank my supervisor, Professor Martin Schweizer, for his ongoing
 \\
 $\mathcal{L}^0(\Omega,\mathcal{F};\mathbb{R})$ & Set of $\mathcal{F}$-measurable real-valued maps, that is set of real-valued random variables.\\
 $\mathcal{L}^p(\Omega,\mathcal{F},\mu;\mathbb{R})$, $p\in[1,\infty)$ & Set of $\mathcal{F}$-measurable real-valued maps $f$ such that $\lVert f\rVert_{L^p}^p=\int_{\Omega}|f|^p\diff \mu<\infty$ is $\mathbb{P}$-integrable.\\
-$\mathcal{L}^{\infty}(\Omega,\mathcal{F},\mu;\mathbb{R})$ & Set of $\mathcal{F}$-measurable real-valued maps $f$ such that $\lVert f\rVert_{\infty}=\underset{\mathbb{P}}{\operatorname*{ess\sup}}|f|<\infty$ is $\mathbb{P}$-integrable.\\
+$L^{\infty}(\Omega,\mathcal{F},\mu;\mathbb{R})$ & Set of $\mathcal{F}$-measurable real-valued maps $f$ such that $\lVert f\rVert_{\infty}=\underset{\mathbb{P}}{\operatorname*{ess\sup}}|f|<\infty$ is $\mathbb{P}$-integrable.\\
 $L^p(\Omega, \mathcal{F},\mu;\mathbb{R})$, $p\in [0,\infty]$ & quotient space of $\mathcal{L}^p$ with respect to the equivalence relation $f\sim g\iff \lVert f-g\rVert_{L^p}=0$.\\
 $C(V;W)$ & Continuous maps from $V$ to $W$ where $V,W$ denote topological spaces.\\
 \(\mathcal{F}\vee\mathcal{G}\) & For \(\mathcal{F},\mathcal{G}\) \(\sigma\)-algebras, \(\mathcal{F}\vee\mathcal{G}=\sigma(\mathcal{F}\cup\mathcal{G})\).
@@ -1578,7 +1578,7 @@ Furthermore, it is a standard result that any martingale \(M\) with respect to a
 \begin{equation*}
     \mathbb{P}(M_t=\widetilde{M}_t,\;\forall t\in \mathbb{R}_+).
 \end{equation*}
-We shall assume the underlying filtered probability space \((\Omega,\mathcal{F},\mathbb{F},\mathbb{P})\) to be complete and that the filtration satisfies the usual assumptions.
+We shall assume the underlying filtered probability space \((\Omega,\mathcal{F},\mathbb{F},\mathbb{P})\) to be complete and that the filtration satisfies the usual hypotheses.
 For any martingale in this and the following chapters, we shall always take the càdlàg version, even if not explicitly mentioned.
 \section{Self financing strategies in continuous times}\label{sec:Self financing strategies in continuous times}
 In the continuous time setting, the gains process of a self-financing strategy \eqref{eq:self financing strategy} is given by
@@ -1587,8 +1587,8 @@ In the continuous time setting, the gains process of a self-financing strategy \
 \end{equation*}
 where \(\int_0^t \vartheta_t\diff X_t\) denotes the stochastic integral of a strategy \(\vartheta\) with respect to the real-valued price process \(X\). Thus, we need to understand stochastic integration with respect to stochastic processes in order to understand self-financing strategies in continuous time mathematical finance and, in particular, mean-variance hedging. The definition of the stochastic integral with respect to \(X\) depends on the properties of \(X\). In particular, the class of processes \(\vartheta\) for which \(\int\vartheta\diff X\) is well-defined depends on the properties of \(X\). We call this process \(X\)-integrable.
 
-
-In the case where \(X\) is of finite variation, the integration theory is classical, pathwise Lebesgue-Stieltjes integration with respect to the induced signed measure on \(\mathbb{R}\):
+As the class of finite variation processes is a recurring object in this thesis, we define them formally as the class of adapted, càdlàg processes with paths of finite variation.
+In the case where \(X\) is a process of finite variation, the integration theory is classical, pathwise Lebesgue-Stieltjes integration with respect to the induced signed measure on \(\mathbb{R}\):
 \begin{equation*}
     \diff X(\omega)=\diff X_{+}(\omega)-\diff X_{-}(\omega)
 \end{equation*}
@@ -1610,7 +1610,7 @@ Elements of \(\mathcal M_e(X)\) are also called risk-neutral measures. We shall 
 the equivalent local martingale measure is unique, while in incomplete markets, one
 typically has several such measures. 
 \bigbreak
-From the perspective of stochastic integration theory, we might allow all \(X\)-integrable strategies \(\vartheta\). For our treatment of mean-variance hedging, we already argued that it is a good idea to restrict to a class of admissible integrands \(\Theta\) to processes for which the random variable \(\int_0^T\vartheta\diff X\) is itself a square-integrable random variable. For the purpose of this thesis, this shall be the relevant restriction on \(\vartheta\). We mention at this point that, from a mathematical finance perspective, one might consider restricting the set of admissible strategies further. A common financial admissibility condition, such as that found in \parencite[Def.~3.4.]{RheinlaenderSexton2011HedgingDerivatives}, is to require that admissible strategies are such that the associated value process, and thus, up to its initial value, the stochastic integral with respect to the price process, is a \(\mathbb{Q}\)-super-martingale for every \(\mathbb{Q}\in\mathcal{M}_e\). In particular, a strategy \(\vartheta\) that is locally bounded, predictable, and bounded from below is admissible. Indeed, for locally bounded and predictable strategies, the value process is a local martingale (see \parencite[Ch.~IV,Thm.~29]{Protter2005StochasticIntegration}), and by Fatou, boundedness from below implies that it is a super-martingale. 
+From the perspective of stochastic integration theory, we might allow all \(X\)-integrable strategies \(\vartheta\). For our treatment of mean-variance hedging, we already argued that it is a good idea to restrict to a class of admissible integrands \(\Theta\) to processes for which the random variable \(\int_0^T\vartheta\diff X\) is itself a square-integrable random variable. For the purpose of this thesis, this shall be the relevant restriction on \(\vartheta\). We mention at this point that, from a mathematical finance perspective, one might consider restricting the set of admissible strategies further. A common financial admissibility condition, such as that found in \parencite[Def.~3.4.]{RheinlaenderSexton2011HedgingDerivatives}, is to require that admissible strategies are such that the associated value process, and thus, up to its initial value, the stochastic integral with respect to the price process, is a \(\mathbb{Q}\)-super-martingale for every \(\mathbb{Q}\in\mathcal{M}_e\). In particular, a strategy \(\vartheta\) that is locally bounded, predictable, and bounded from below is admissible. Indeed, for locally bounded and predictable strategies, the value process is a local martingale (see \parencite[Ch.~IV,Thm.~29]{Protter2005StochasticIntegration}). 
 This notion of admissible strategies prohibits pathological examples such as the suicide strategy (see  \parencite[Ex.~3.3.]{RheinlaenderSexton2011HedgingDerivatives}) that yield a sure profit with unlimited risk. In this thesis, we are concerned with mean-variance hedging as a mathematical problem independent of its financial context. Hence, if not stated otherwise, admissible strategies are \(X\)-integrable strategies. In different contexts, we might put different assumptions on the strategies we call admissible. 
 
 \section{Square integrable martingale case}
@@ -1718,10 +1718,10 @@ The terminology \textit{weak} suggests that there might be a related \textit{str
 In the following section, we construct the stochastic integral for square integrable martingales \(X\) by first defining integration with respect to \(X\) for \textit{simple processes}. We will find that the integration map \(\vartheta\mapsto\int\vartheta\diff X\) defines an isomorphism of Hilbert-spaces for a well chosen class of stochastic processes. This observation, originally due to Kunita and Watanabe (see \parencite{KunitaWatanabe1967SquareIntegrableMartingales}), is used to extend the integral by continuity to a more general class of integrands.
 
 \subsection{Integration of simple integrands}
-As in classic integration theory, we start by defining the integral for the class of piecewise constant processes, where for stochastic processes, the pieces are intervals on \(\Omega\times\mathbb{R}_+\). More precisely, we shall take as intervals predictable sets of the form \((\tau,\sigma]\coloneqq \{(\omega,t)\in\Omega\times\mathbb{R}_+:\tau(\omega)< t\leq\sigma(\omega)\}\), where \(\tau\leq\sigma\) are stopping times. For the purposes of this section, it is enough to consider deterministic times. The stochastic intervals will only appear as indicator sets of indicator functions. Hence, there is no risk of confusion between stochastic intervals and ordinary real intervals when using deterministic times as \(1_{\{(\omega,r):s<r\leq t\}}=1_{\Omega}1_{(s,t]}=1_{(s,t]}\). In what follows we take all the stochstic process to take values in \(\mathbb{R}\).
+As in classic integration theory, we start by defining the integral for the class of piecewise constant processes, where for stochastic processes, the pieces are intervals on \(\Omega\times\mathbb{R}_+\). More precisely, we shall take as intervals predictable sets of the form \((\tau,\sigma]\coloneqq \{(\omega,t)\in\Omega\times\mathbb{R}_+:\tau(\omega)< t\leq\sigma(\omega)\}\), where \(\tau\leq\sigma\) are random times. We take the convention \((\tau,\tau]=\emptyset\) for any random time \(\tau\). For the purposes of this section, it is enough to consider deterministic times. The stochastic intervals will only appear as indicator sets of indicator functions. Hence, there is no risk of confusion between stochastic intervals and ordinary real intervals when using deterministic times as \(1_{\{(\omega,r):s<r\leq t\}}=1_{\Omega}1_{(s,t]}=1_{(s,t]}\). In what follows, we consider all the stochastic processes to take values in \(\mathbb{R}\).
 
 \begin{definition}\label{def:elementary predictable process}
-    We call \(\vartheta\) an \textit{elementary predictable process} if there exists a finite, increasing sequence of deterministic times, \(0=t_0<\dots<t_{n+1}<\infty\) and a sequence of bounded random variables \((\vartheta^i)_{i=0}^n\subseteq\mathcal{L}^{\infty}(\mathcal{F}_{t_i},\mathbb{P})\) such that 
+    We call \(\vartheta\) an \textit{elementary predictable process} if there exists a finite, increasing sequence of deterministic times, \(0=t_0\leq\dots\leq t_{n+1}<\infty\) and a sequence of bounded random variables \((\vartheta^i)_{i=0}^n\subseteqL^{\infty}(\mathcal{F}_{t_i},\mathbb{P})\) such that 
     \begin{equation}\label{eq:representation of elementary predictable process}
         \vartheta = \vartheta^01_{\left\{0\right\}}+\sum_{i=0}^n\vartheta^i1_{(t_i,t_{i+1}]}.
     \end{equation}
@@ -1733,19 +1733,19 @@ The association of \(\vartheta\) with \((t_k)_{k=0}^{n+1}\) should be understood
 Furthermore, notice that elementary processes are adapted, left-continuous processes; thus, they are predictable. In particular, observe that \(\mathcal{E}\) is clearly closed under summation; moreover, it is also closed under pointwise multiplication. To see this, take two elements of \(\vartheta,\eta\in\mathcal{E}\) and their associated sequences \((t^\vartheta_k)_{n=0}^{n+1}\), \((t^\eta_k)_{k=0}^{l+1}\) for some \(n,l\in\mathbb{N}\). They both form a partition of \([0,\infty]\) if we add the points \(t^{\vartheta
 }_{n+2}=t^{\eta}_{l+2}=\infty\) to both sequences. Take their common refinement and notice that the pointwise product of two indicator functions of disjoint sets vanishes.
 \\\\
-For later use, we denote by \(\mathcal{E}^{\infty}\) the set of processes as in Definition \ref{def:elementary predictable process}, but for infinite sets \((t_k)_{k\in\mathbb{N}}\) where \(0=t_0<t_1<\infty\) and \(\lim_{n\to\infty}t_n=\infty\). Hence, processes of the form 
+For later use, we denote by \(\mathcal{E}^{\infty}\) the set of processes as in Definition \ref{def:elementary predictable process}, but for infinite sets \((t_k)_{k\in\mathbb{N}}\) where \(0=t_0\leq t_1\leq\dots<\infty\) and \(\lim_{n\to\infty}t_n=\infty\). Hence, processes of the form 
 \begin{equation}
       \vartheta = \vartheta^01_{\left\{0\right\}}+\sum_{i= 0}^\infty \vartheta^i1_{(t_i,t_{i+1}]}.
 \end{equation}
 We identify a process \(\vartheta\in\mathcal{E}\) associated with the sequence \((t_k)_{k=0}^n\), to the process in \(\widetilde{\vartheta}\in\mathcal{E}^{\infty}\) associated with the sequence \(\tilde{t}_t=t_k\; k=0,\dots,n\), and \(t_k = t_n+k\) for \(k>n\) with \(\widetilde{\vartheta}^i=\vartheta^i\) for \(i\leq n\) and \(\vartheta^i=0\) for \(i>n\). Hence, we identify \(\mathcal{E}\) as a subset of \(\mathcal{E}^{\infty}\). Observe that a process in \(\mathcal{E}^{\infty}\) is not necessarily essentially bounded. 
 
 
-We define a stochastic integral of \(\vartheta\in\mathcal{E}\) with respect to integrators \(X\), which we assume to be a classical semimartingale, that is a stochastic process \(X\), that can be written as 
+We define a stochastic integral of \(\vartheta\in\mathcal{E}\) with respect to integrators \(X\), which we assume to be a classical semimartingale, that is, an adapted, càdlàg process \(X\), that can be written as 
 \begin{equation}\label{def:semimartingale}
     X = X_0+M+A\;
 \end{equation}
-with \(M\) a local martingale and \(A\) a process of finite variation, that is . We call \(X\) a special semimartingale if we can choose \(A\) in Definition \ref{def:semimartingale} to be predictable. In that case, the decomposition \(X=X_0+M+A\) is unique and is referred to as the canonical decomposition of \(X\).
-We define a stochastic integral of \(\vartheta\in\mathcal{E}\) with respect to a classic semimartingale \(X\) as follows
+with \(M\) a local martingale and \(A\) a process of finite variation. We call \(X\) a special semimartingale if we can choose \(A\) in Definition \ref{def:semimartingale} to be predictable. In that case, the decomposition \(X=X_0+M+A\) is unique and is referred to as the canonical decomposition of \(X\).
+We define a stochastic integral of \(\vartheta\in\mathcal{E}\) with respect to a classical semimartingale \(X\) as follows:
 \begin{definition}\label{def:integral of simple processes}
 Let \(\vartheta\in\mathcal{E}\). Then we set 
 \begin{equation}\label{eq:integral of simple processes}
@@ -1767,7 +1767,7 @@ It is clear that the pathwise definition of the integral \eqref{eq:integral of s
  We start this subsection by showing that the construction of the stochastic integral with respect to square integrable martingales is not just a special case in which the construction works nicely but constitutes the essential stepping stone towards a general theory of stochastic integration for the class of semimartingales.
 
 
-Consider the decomposition of a classic semimartingale
+Consider the decomposition of a classical semimartingale
 \begin{equation*}
     X = X_0+M+A.
 \end{equation*}
@@ -1841,7 +1841,7 @@ For a proof, see \parencite[Thm.~11.5.5.]{CohenElliott2015StochasticCalculusAppl
 \begin{proof}
  The statement is a simple observation of the Burkholder--Davis--Gundi inequality for \(p=2\). There exist constants \(c_2,C_2>0\) such that 
  \begin{equation}\label{eq:BDG p=2}
-     c_2\mathbb{E}[[M]_{\infty}]^{\frac{1}{2}}\leq\mathbb{E}[(M^*_\infty)^2]^{\frac{1}{2}}\leq  C_2\mathbb{E}[[M]_{\infty}]^{\frac{1}{2}}.
+     c_2\mathbb{E}\big[[M]_{\infty}\big]^{\frac{1}{2}}\leq\mathbb{E}[(M^*_\infty)^2]^{\frac{1}{2}}\leq  C_2\mathbb{E}\big[[M]_{\infty}\big]^{\frac{1}{2}}.
  \end{equation}
  Observe that the middle term corresponds exactly to the \(\mathcal{H}^2\)-norm as we introduced it in Definition \ref{def:H^p}. The lemma is now straightforward. If \(M\) is a local martingale with \(M_0=0\) and \(\mathbb{E}[[M]_\infty]<\infty\), then by \eqref{eq:BDG p=2} 
  \begin{equation*}
@@ -1849,7 +1849,7 @@ For a proof, see \parencite[Thm.~11.5.5.]{CohenElliott2015StochasticCalculusAppl
  \end{equation*}
  By Lemma \ref{lemma:local martingale is a true martingale} is a true martingale with finite \(\mathcal{H}^2\)-norm and \(M_0=0\) by assumption. Hence in \(\mathcal{H}^2_0\). Conversely, assume \(M\in\mathcal{H}^2_0\). Again by \eqref{eq:BDG p=2}.
  \begin{equation*}
-     \mathbb{E}[[M]_{\infty}]^{\frac{1}{2}}\leq\frac{1}{c_2}\mathbb{E}[(M^*_\infty)^2]^{\frac{1}{2}}=\frac{1}{c_2}\lVert M\rVert_{\mathcal{H}^2}<\infty.
+     \mathbb{E}\big[[M]_{\infty}\big]^{\frac{1}{2}}\leq\frac{1}{c_2}\mathbb{E}\big[(M^*_\infty)^2]\big^{\frac{1}{2}}=\frac{1}{c_2}\lVert M\rVert_{\mathcal{H}^2}<\infty.
  \end{equation*}
  Hence \(\mathbb{E}[[M]_{\infty}]<\infty\), which completes the proof.
 \end{proof}
@@ -1875,7 +1875,7 @@ We turn to the proof that the processes in \(L^2(M)\) are approximated by elemen
 \end{equation*}
 First, we show a simple but useful lemma.
 \begin{lemma}\label{lemma:sigma algebra of bounded functions}
-    Let \(\mathcal{M}\) be a class of real-valued functions on \(\Omega\). We denote by \(b\mathcal{M}\) the class of essentially bounded functions in \(\mathcal{M}\). Then
+    Let \(\mathcal{M}\) be a class of real-valued functions on \(\Omega\) that is stable under truncation, that is for every \(f\in\mathcal{M}\) and any \(n\in\mathbb{N}\) the truncated function \(-n\vee f\wedge n\in\mathcal{M}\). We denote by \(b\mathcal{M}\) the class of essentially bounded functions in \(\mathcal{M}\). Then
     \begin{equation*}
         \sigma(b\mathcal{M})=\sigma(\mathcal{M}).
     \end{equation*}
@@ -1903,7 +1903,7 @@ First, we show a simple but useful lemma.
         \begin{equation}\label{eq:approximating adapted left-continuous process}
             X^n= X_01_{\left\{0\right\}}+\sum_{k\geq 1}X_{k/n}1_{(k/n,(k+1)/n]}
         \end{equation}
-        As \(X\) is adapted and bounded, \(X_{k/n}\) is \(\mathcal{F}_{k/n}\)-measurable and bounded; thus, \(X^n\in\mathcal{E}^{\infty}\). Then, for every fixed \(t\in\mathbb{R}_+\), there exists a unique \(k(n)\in\mathbb{N}\) such that \(\frac{k(n)}{n}<t\leq \frac{k(n)+1}{n}\). Hence, \(X_t^n=X_{k(n)/n}\), thus \(X_t^n\) is \(\mathcal{F}_{k(n)/n}\subseteq\mathcal{F}_t\)-measurable; hence, it is adapted. Furthermore, notice that \(\lim_{n\to\infty}\frac{k(n)}{n}\leq\lim_{n\to\infty}|\frac{k(n)}{n}-t|+t\leq\lim_{n\to\infty}\frac{1}{n}+t=t\) and \(\frac{k(n)}{n}<t\); hence, \(k(n)\nearrow t\). Thus, for every \((\omega,t)\in\Omega\times\mathbb{R}_+,\;X^n_t(\omega)\to X_t(\omega)\) as \(n\to\infty\) by the left-continuity of \(X\). This implies 
+        As \(X\) is adapted and bounded, \(X_{k/n}\) is \(\mathcal{F}_{k/n}\)-measurable and bounded and thus, \(X^n\in\mathcal{E}^{\infty}\). Then, for every fixed \(t\in\mathbb{R}_+\), there exists a unique \(k(n)\in\mathbb{N}\) such that \(\frac{k(n)}{n}<t\leq \frac{k(n)+1}{n}\). Hence, \(X_t^n=X_{k(n)/n}\), thus \(X_t^n\) is \(\mathcal{F}_{k(n)/n}\subseteq\mathcal{F}_t\)-measurable and thus adapted. Furthermore, notice that \(\lim_{n\to\infty}\frac{k(n)}{n}\leq\lim_{n\to\infty}|\frac{k(n)}{n}-t|+t\leq\lim_{n\to\infty}\frac{1}{n}+t=t\) and \(\frac{k(n)}{n}<t\). Hence, \(k(n)\to t\) from below. Thus, for every \((\omega,t)\in\Omega\times\mathbb{R}_+,\;X^n_t(\omega)\to X_t(\omega)\) as \(n\to\infty\) by the left-continuity of \(X\). This implies 
         \begin{equation*}
             \mathcal{P}\subseteq\sigma(\mathcal{E}^{\infty}).
         \end{equation*}
@@ -1926,7 +1926,7 @@ First, we show a simple but useful lemma.
         \end{equation*}
         \end{proof}
 \end{lemma}
-Taking a closer look, we see that the previous proof can be used to show the following usefull corollary.
+Taking a closer look, we see that the previous proof can be used to show the following useful corollary.
 \begin{corollary}
     Let \(\mathcal{A}=\left\{A\times(s,t], A\in\mathcal{F}_s, s<t\in\mathbb{R}_+\right\}\cup \left\{\left\{0\right\}\times A, A\in\mathcal{F}_0\right\}\). Then \(\sigma(\mathcal{A})=\mathcal{P}\).
 \end{corollary}
@@ -2062,6 +2062,9 @@ we argue by the same successive DCT argument as before that
 \begin{equation*}
     X^n\overset{L^p(M)}{\to}c.
 \end{equation*}
+In particular this shows that for \(M\in\mathcal{H}^p_0\) we have \(\mathcal{E}\subseteq L^p(M)\) because elements in \(\mathcal{E}\) are uniformly bounded in \((\omega,t)\in \mathcal{N}^c\times\mathbb{R}_+\) where \(\mathbb{P}(\mathcal{N})\) (recall that strictly speaking we only required \(\vartheta^i\) in the Definition \ref{def:elementary predictable process} to be essentially bounded.
+
+
  The stability under bounded monotone limits follows analogously. Hence, we get the following proposition:
 \begin{proposition}\label{prop:density of E in Lp(M) via monotone class}
     Let \(M\in\mathcal{H}^p_0\) for \(p\in[1,\infty)\) and \(\mathcal{E}\) as defined in Definition \ref{def:elementary predictable process}. Then \(\mathcal{E}\) is dense in \(L^p(M)\).
@@ -2092,8 +2095,6 @@ We will refer to the setting in Definition \ref{def:square-integrable stochastic
 Proposition \ref{prop:characterisation of stochastic integral} might be used as an alternative definition of the stochastic integral of \(\vartheta\in L^2(M)\) and \(M\in\mathcal{H}^2_0\). In particular one can show Proposition \ref{prop:characterisation of stochastic integral} for \(M\in\mathcal{H}^2_{0,\rm{loc}}\). This shows that one can construct the stochastic integral \(\int \vartheta\diff M\in\mathcal{H}^2_0\) for \(M\in\mathcal{H}^2_{0,\rm{loc}}\) and \(\vartheta\in L^2(M)\). This is extension is not clear from our construction as we crucially used \(\mathcal{E}\subset L^2(M)\) which used the integrability of \([M]_{\infty}\), which is the case if and only if \(M\in\mathcal{H}^2_0\). 
 For the proof of Proposition \ref{prop:characterisation of stochastic integral}, we refer to \parencite[Thm.~2.5.]{Schweizer2025BrownianMotionStochasticCalculus}. Moreover, \parencite[sec.~4.2.]{Schweizer2025BrownianMotionStochasticCalculus} shows that the Itô-isometry also holds for the integral \(\int \vartheta\diff M\in\mathcal{H}^2_0\) for \(M\in\mathcal{H}^2_{0,\rm{loc}}\) and \(\vartheta\in L^2(M)\).
 
-
-Nevertheless we can give some insight in how to interpret \eqref{prop:characterisation of stochastic integral}. Observe that the right-hand side of \eqref{eq:Schweizer integral characterization} defines a linear form in \(N\), hence on \(\mathcal{H}_0^2\). The latter has been identified with a Hilbert space. By the Kunita-Watanabe inequality (see \parencite[Thm.11.4.1]{CohenElliott2015StochasticCalculusApplications})  it is continuous a linear map. By the Riesz representation theorem for Hilbert spaces there exists a unique support element \(L\in\mathcal{H}_0^2\) such that the continuous linear form can be written as an inner product with \(L\). The latter characterizes the continuous linear form on a Hilbert space uniquely. One then defines the stochastic integral \(\vartheta\bullet M \coloneqq L\) and justifies this definition by the properties of \(L\).
 
 Returning to our construction of the integral for \(M\in\mathcal{H}^2_0\) and \(\vartheta\in L^2(M)\) one can  extend the integral to integrators in \(M\in\mathcal{H}^2_{0,\rm{loc}}\) and integrands in \(\vartheta\in L^2_{\rm{loc}}(M)\), where the latter is defined to be the class of predictable processes \(\vartheta\) such that there exists a localizing sequence \((\tau_n)_{n\in\mathbb{N}}\) for which \(\vartheta1_{(0,\tau_n]}\) is in \(L^2(M)\). 
 
@@ -2153,7 +2154,7 @@ The stochastic integral for the local objects, as defined in Definition \ref{def
 \subsection{Kunita-watanabe Decomposition}\label{sec:Kunita-Watanabe Decomposition}
 Before turning to stochastic integration with respect to classical semimartingales, we take advantage of the reader's current familiarity with the square-integrable setup to introduce and state the celebrated Kunita Watanabe decomposition, which shall play a central role in the solution theory for the mean-variance hedging problem for square-integrable martingale price processes. For this, we will need a stronger notion of orthogonality on \(\mathcal{H}^2_0\) than the one induced by the inner product structure. The fact that \(\mathcal{H}^2_0\) is a space of uniformly integrable martingales leads to a richer geometry than the mere Hilbert space structure would suggest.
 \begin{definition}\label{def:stong orthogonality}
-    Let \(M,N\in\mathcal{H}_0^2\). We say that \(M\) is strongly orthogonal to \(N\) and vise versa if their product \(MN\) is a martingale. In this case, we denote \(M\perp N\).
+    Let \(M,N\in\mathcal{H}_0^2\). We say that \(M\) is strongly orthogonal to \(N\) and vice versa if their product \(MN\) is a martingale. In this case, we denote \(M\perp N\).
 \end{definition}
 In particular, for \(M\perp N\),
 \begin{equation*}
@@ -2193,11 +2194,11 @@ Theorem \ref{thm:Ito Isometry} states an isometry of Hilbert-spaces: \(L^2(M)\to
 \end{proposition}
 For the proof, we refer to \parencite[Prop.~5.5.]{Schweizer2025BrownianMotionStochasticCalculus}
 Note that the latter is conceptually astonishing. Weak orthogonality of two processes only assures \(L^2\)-orthogonality of their terminal values. It says nothing about the relation between the processes overall. Nevertheless, the weak orthogonal complement of stable subspaces is, in particular, strongly orthogonal.
-\begin{theorem}[Kunita-Watanabe Decomposition]\label{thm:KW}
+\begin{theorem}\label{thm:KW}
     Fix \(M\in\mathcal{H}_{0}^2\). Then every \(N\in\mathcal{H}_{0}^2\) can be uniquely written as 
-    \begin{equation}
+    \begin{equation*}
         N = \int \vartheta\diff M +L
-    \end{equation}
+    \end{equation*}
     for some \(\vartheta\in L^2(M)\) and some \(L\in\mathcal{H}_{0}^2\) with \(L\perp M\). Furthermore, \(\vartheta=\frac{\diff \langle M,N\rangle}{\diff \langle M\rangle}\) is a predictable density of \(\langle M,N\rangle\) with respect to \(\langle M\rangle\). 
 \end{theorem}
 \begin{proof}
@@ -2233,7 +2234,7 @@ Notice that if \(\mathcal{F}_0\) is trivial and completed, that is \(\mathcal{F}
 \end{remark}
 
 \subsection{Mean--variance hedging in square-integrable martingale setting}\label{sec:Mean Variance Hedging in square-integrable martingale setting}
-We now have all the tools to discuss mean-variance hedging in the case where the price process is a square-integrable marginal. We restate the mean variance hedging problem in the square-integrable martingale setting.
+We now have all the tools to discuss mean-variance hedging in the case where the price process is a square-integrable martingale. We restate the mean variance hedging problem in the square-integrable martingale setting.
 \begin{proposition}\label{prop:square-integrable mean variance via KW}
     Let \(H\in L^2(\mathbb{P},\mathcal{F}_{\infty})\), \(X\in\mathcal{H}_{0}^2\) and \(L^2(X)\) defined as in Definition \ref{def:L^p(M)}. Furthermore, assume \(\mathcal{F}_0\) to be trivial.
     Consider the following minimization problem
@@ -2301,7 +2302,7 @@ As mentioned in the introductory discussion around \eqref{eq:heuristic integral 
 For the interested reader, it should be noted that the notion of semimartingales used in \parencite[Chapter.~2]{Protter2005StochasticIntegration} is seemingly different from the classical one used in Definition \ref{def:semimartingale} at first sight. 
 
 In \parencite[Chapter.~4]{Protter2005StochasticIntegration}, semimartingales are defined to be processes for which the integration of simple predictable processes is continuous under uniform convergence. The latter guaranties a notion of bounded convergence for the respective integral, which is given a central role in the construction of a \textit{sensible} notion of an integral. It is the celebrated Bichteler-Dellacherie Theorem (see \parencite[Thm.~47]{DellacherieMeyer1982ProbabilitiesPotentialB}) that establishes the connection between these two notions. 
-Furthermore, as we consider the left and right-limit processes of adapted processes in this subsection, we assume that the underlying complete probability space \((\Omega,\mathcal{F},\mathbb{P})\) is equipped with a filtration \(\mathbb{F}\) satisfying the usual assumptions. The right continuity of \(\mathbb{F}\) entails that a right-limit process of an adapted process \(Z\), denoted by \(Z^+=(Z_t^+)_{t\in\mathbb{R}_+}=(Z_{t+})_{t\in\mathbb{R}_+}\) with
+Furthermore, as we consider the left and right-limit processes of adapted processes in this subsection, we assume that the underlying complete probability space \((\Omega,\mathcal{F},\mathbb{P})\) is equipped with a filtration \(\mathbb{F}\) satisfying the usual hypotheses. The right continuity of \(\mathbb{F}\) entails that a right-limit process of an adapted process \(Z\), denoted by \(Z^+=(Z_t^+)_{t\in\mathbb{R}_+}=(Z_{t+})_{t\in\mathbb{R}_+}\) with
 \begin{equation*}
     Z_{t+}\coloneqq\lim_{s\to t,s>t}Z_s
 \end{equation*}
@@ -2312,10 +2313,10 @@ is again adapted. The left-limit process is defined accordingly with
 \end{equation*}
 whenever it exists, is always adapted if \(Z\) is adapted.
 
-A key conceptual difference in the following approach is that we need to enlarge the definition of elementary predictable processes from Definition \ref{def:elementary predictable process} to the notion of \textit{simple predictable processes}.
+A key conceptual difference in the following approach is that we need to enlarge the definition of elementary predictable processes from Definition \ref{def:elementary predictable process} to the notion of \textit{simple predictable processes}. We take the convention \((\tau,\tau]=\emptyset\) for any random time \(\tau\).
 
 \begin{definition}\label{def:simple predictable process}
-    We call \(\vartheta\) a \textit{simple predictable process} if there exists a finite, increasing sequence of stopping times, \(0=\tau_0<\dots<\tau_{n+1}<\infty\), and a sequence of bounded random variables \((\vartheta^i)_{i=0}^n\subseteq\mathcal{L}^{\infty}(\mathcal{F}_{\tau_i},\mathbb{P})\) such that 
+    We call \(\vartheta\) a \textit{simple predictable process} if there exists a finite, increasing sequence of stopping times, \(0=\tau_0\leq\dots\leq\tau_{n+1}<\infty\), and a sequence of bounded random variables \((\vartheta^i)_{i=0}^n\subseteqL^{\infty}(\mathcal{F}_{\tau_i},\mathbb{P})\) such that 
     \begin{equation*}
         \vartheta = \vartheta^01_{\left\{0\right\}}+\sum_{i=0}^n\vartheta^i1_{(\tau_i,\tau_{i+1}]}.
     \end{equation*}
@@ -2324,7 +2325,7 @@ In particular, we have that \(\vartheta^i\) is \(\mathcal{F}_{\tau_i}\)-measurab
 The same remarks as in Definition \ref{def:elementary predictable process} about the association of \(\vartheta\) with the sequence of stopping times apply here. 
 
 
-Clearly \(\mathcal{E}\subseteq\mathcal{S}\). We denote by \(\mathbb{L}\) the class of adapted càglàd processes, and by \(\mathbb{D}\) the class of adapted càdlàg processes. As usual, we denote by \(b\mathbb{L}\) and \(b\mathbb{D}\) the respective subclasses of bounded processes. Notice that due to the right-continuity of the filtration, the left-limit process of a process in \(\mathbb{D}\) is in \(\mathbb{L}\) and vise versa. We will construct the stochastic integral \(\int \vartheta\diff X\) for \(\vartheta\in \mathbb{L}\) and \(X\), a classical semimartingale. The idea is similar to our previous construction in that we first define the stochastic integral for simple processes before extending it by density to a larger class of integrable processes. In particular, one needs to identify the right topology for which \(\vartheta\mapsto \int\vartheta\diff X\) is continuous for simple processes and such that the simple processes themselves form a dense subset in a larger class with respect to that topology. In the square-integrable martingale setting, the choices were inspired by the Itô isometry motivating the \(L^2(M)\)-topology for the elementary processes and the \(L^2\)-topology on \(G_{\infty}(\Theta)\). For the current case, we don't have the Itô isometry at our disposal. The topology we choose is \(ucp\)
+Clearly \(\mathcal{E}\subseteq\mathcal{S}\). We denote by \(\mathbb{L}\) the class of adapted càglàd processes, and by \(\mathbb{D}\) the class of adapted càdlàg processes. As usual, we denote by \(b\mathbb{L}\) and \(b\mathbb{D}\) the respective subclasses of bounded processes. Notice that due to the right-continuity of the filtration, the left-limit process of a process in \(\mathbb{D}\) is in \(\mathbb{L}\) and vice versa. We will construct the stochastic integral \(\int \vartheta\diff X\) for \(\vartheta\in \mathbb{L}\) and \(X\), a classical semimartingale. The idea is similar to our previous construction in that we first define the stochastic integral for simple processes before extending it by density to a larger class of integrable processes. In particular, one needs to identify the right topology for which \(\vartheta\mapsto \int\vartheta\diff X\) is continuous for simple processes and such that the simple processes themselves form a dense subset in a larger class with respect to that topology. In the square-integrable martingale setting, the choices were inspired by the Itô isometry motivating the \(L^2(M)\)-topology for the elementary processes and the \(L^2\)-topology on \(G_{\infty}(\Theta)\). For the current case, we don't have the Itô isometry at our disposal. The topology we choose is \(ucp\)
 -topology. 
 \begin{definition}\label{def:ucp convergence}
     Let \((X^n)_{n\in\mathbb{N}}\) be real-valued stochastic processes. We say \(X^n\to X\) converges \textit{uniformly on compact sets} (\(ucp\)) if 
@@ -2349,7 +2350,7 @@ The idea is very similar to the \(ucp\)-convergence, in the sense that we genera
 
 
 
-The stochastic integral for the process Definition \ref{def:simple predictable process} is naturally defined as follows
+The stochastic integral for the process Definition \ref{def:simple predictable process} with respect to a classical semimartingale \(X\) is naturally defined as follows
 \begin{equation}\label{def:simple integration}
     I_X(\vartheta)=\vartheta^0X_0+\sum_{i=0}^n \vartheta^i(X_{\tau_{i+1}}-X_{\tau_i}).
 \end{equation}
@@ -2426,7 +2427,7 @@ From the previous considerations, it follows that
 \end{equation*}
 for all \(t\in\mathbb{R}_+\) and \(\epsilon>0\). Hence, fix \(\epsilon>0\) and consider the sequence \((U^{\frac{1}{n}})_{n\in\mathbb{N}}\). We have that \(U^{\frac{1}{n}}\) converges to \(Y=Z^-+Y_01_{\{0\}}\) uniformly on compacts. Finally, let 
  \begin{equation*}
-        Y^{n,\epsilon}=1_{\left\{0\right\}}Y_0+\sum_{k=0 }^nZ_{T_k^{\epsilon}}1_{(T_{k}^{\epsilon}\wedge n,T_{k+1}^{\epsilon}\wedge n]}.
+        Y^{n,\epsilon}=1_{\left\{0\right\}}Y_0+\sum_{k=0 }^nZ_{T_k^{\epsilon}\wedge n}1_{(T_{k}^{\epsilon}\wedge n,T_{k+1}^{\epsilon}\wedge n]}.
     \end{equation*}
 Clearly, \(Y^{n,\epsilon}\) converges to \(U^{\epsilon}\) in \(ucp\). Indeed, we have
 \begin{equation*}
@@ -2443,7 +2444,7 @@ is not closed under bounded monotone limits, as this is a pointwise property and
 Secondly, the proof idea above crucially relies on partitioning the positive real line into random intervals \((\tau,\sigma]\) or \([\tau,\sigma)\) for stopping times \(\tau\leq\sigma\), in a way that allows us to approximate \(Y,Y_+,Y_-\) uniformly on such a random interval. We have \(\bigcup_{n\in\mathbb{N}} (T_n^{\epsilon},T_{n+1}^{\epsilon}]=\Omega\times\mathbb{R}_+\). Partitioning \(\Omega\times\mathbb{R}_+\) in this way can only be done by stopping times; thus, the above argument cannot be reduced to a proof for \(\mathcal{E}\) instead of \(\mathcal{S}\).
 \end{remark}
 \begin{theorem}\label{thm:ucp continuity of general stochastic integral}
-    Let \(X\) be a semimartingale. Then the mapping 
+    Let \(X\) be a classical semimartingale. Then the mapping 
     \begin{equation*}
         I_X:(\mathcal{S},d_{ucp})\to(\mathbb{D},d_{ucp}) 
     \end{equation*}
@@ -2452,7 +2453,7 @@ Secondly, the proof idea above crucially relies on partitioning the positive rea
 We refer to \parencite[Thm.~11,Ch.II]{Protter2005StochasticIntegration} for a proof.
 This allows us to define the integral on \(\mathbb{L}\) by continuous extension.
 \begin{definition}\label{def:stochastic integral w.r.t. semimartingales}
-    Let \(X\) be a semimartingale. We define the stochastic integral
+    Let \(X\) be a classical semimartingale. We define the stochastic integral
     \begin{align*}
         I_X:\;&\mathbb{L}\to\mathbb{D}\\
         &\vartheta\mapsto\int \vartheta\diff X
@@ -2493,7 +2494,7 @@ In particular, this implies that \(\langle M\rangle\) exists. Hence, the relevan
 \end{definition}
 \bigbreak
 We mention that one can define a more general notion of stochastic integration. 
-The crucial observation is then to notice that any semimartingale is \newline (pre-)locally in \(\mathcal{S}^2\). Hence, we can extend the integral by localization to any semimartingale \(X\). For a classical semimartingale \(X\), we denote the set of \(X\)-integrable processes by \(L(X)\). We define \(L(X)\) to be the set of predictable processes for which the integral in the definition on the bottom of page 165 of \parencite{Protter2005StochasticIntegration} is well defined. For practical purposes, we mostly use the fact that locally bounded, predictable processes are in \(L(X)\), as shown in \parencite[Thm.~15,Ch.IV]{Protter2005StochasticIntegration}. 
+The crucial observation is then to notice that every (classic) semimartingale is (pre-)locally in \(\mathcal{S}^2\). Hence, we can extend the integral by localization to any semimartingale \(X\). For a classical semimartingale \(X\), we denote the set of \(X\)-integrable processes by \(L(X)\). We define \(L(X)\) to be the set of predictable processes for which the integral in the definition on the bottom of page 165 of \parencite{Protter2005StochasticIntegration} is well defined. For practical purposes, we mostly use the fact that locally bounded, predictable processes are in \(L(X)\), as shown in \parencite[Thm.~15,Ch.IV]{Protter2005StochasticIntegration}. 
 
 
 
@@ -2534,11 +2535,11 @@ Equivalently, the problem is to project the random variable \(H\) onto the affin
         \int_0^{\infty} \vartheta_t\,dX_t : \vartheta \in \Theta
         \right\}.
 \]
-In the square-integrable martingale case, it is a consequence of the Itô-isometry that the space \(G_{\infty}(\Theta)\subseteq L^2(\mathcal{F}_{\infty},\mathbb{P})\) is closed, assuring the existence of the mean-variance hedging problem. Furthermore, the Kunita-Watanabe decomposition, relying on the geometric properties of \(\mathcal{H}_0^2\), allowed us to characterize the solution to the mean-variance hedging problem explicitly. Fundamentally, the results in the square-integrable martingale case rely on the property of the stochastic integral of \(\vartheta\in L^2(M)\) with respect to \(X\in\mathcal{H}_{0}^2\) that we have.
+For \(X\in \mathcal{H}^2_0\) and \(\Theta \in L^2(X)\), it is a consequence of the Itô-isometry that the space \(G_{\infty}(\Theta)\subseteq L^2(\mathcal{F}_{\infty},\mathbb{P})\) is closed, assuring the existence of the mean-variance hedging problem. Furthermore, the Kunita-Watanabe decomposition, relying on the geometric properties of \(\mathcal{H}_0^2\), allowed us to explicitly characterize the solution to the mean-variance hedging problem. Fundamentally, the results in the square-integrable martingale case rely on the property of the stochastic integral of \(\vartheta\in L^2(M)\) with respect to \(X\in\mathcal{H}_{0}^2\) that we have.
 \begin{equation*}
    \int \vartheta\diff X\in\mathcal{H}_{0}^2.
 \end{equation*}
-In the case where \(X\in\mathcal{H}^2_{0,\rm{loc}}\) and \(\vartheta\in L^2_{\rm{loc}}(M)\), we saw in Definition \ref{def:local sotchastic integral} that the stochastic integral need not be a true martingale. In the general case, that is for a classic semimartingale \(X\) and  \(X\)-integrable \(\vartheta\), the resulting stochastic integral might not even be a local martingale (see Emery's example after \parencite[Thm.~34]{Protter2005StochasticIntegration}). Hence, the study of the mean-variance problem for more general price processes is more involved. The following discussion largely follows the overview \parencite{Schweizer2001GuidedTourQuadraticHedging}. Recall the standing assumption that \(X\in\mathcal{S}^2_{\rm{loc}}\). We refer to this setting as the semimartingale case.
+In the case where \(X\in\mathcal{H}^2_{0,\rm{loc}}\) and \(\vartheta\in L^2_{\rm{loc}}(M)\), we saw in Definition \ref{def:local sotchastic integral} that the stochastic integral need not be a true martingale. In the general case, that is for a classical semimartingale \(X\) and  \(X\)-integrable \(\vartheta\), the resulting stochastic integral might not even be a local martingale (see Emery's example after \parencite[Thm.~34]{Protter2005StochasticIntegration}). Hence, the study of the mean-variance problem for more general price processes is more involved. The following discussion largely follows the overview \parencite{Schweizer2001GuidedTourQuadraticHedging}. Recall the standing assumption that \(X\in\mathcal{S}^2_{\rm{loc}}\). We refer to this setting as the semimartingale case.
 
 
 
@@ -2549,7 +2550,7 @@ A natural first step is to consider the mean-variance hedging minimization probl
 \begin{equation*}
     \mathbb{R}+\overline{G_{\infty}(\Theta)}^{L^2},
 \end{equation*}
-which is a \(L^2\)-closed subspace by Lemma \ref{lemma:A closed if G closed}. In particular, the mean-variance solution \((V_0^*,g^*)\) exists in \(\mathbb{R}+\overline{G_{\infty}(\Theta)}^{L^2}\) and is unique as an element of the latter by the Hilbert projection theorem. Notice two things. The uniqueness of the mean-variance solution refers to uniqueness as an element \(V_0^*+g^*\in\mathbb{R}+\overline{G_{\infty}(\Theta)}^{L^2}\) and not necessarily as a pair  \((V_0^*,g^*)\). In particular, the mean-variance price \(V_0^*\) might not be unique. This is easily seen from the following observation. If  \((V_0^*,g^*)\) is a mean-variance solution, so is \((\widetilde{V_0}^*,\widetilde{g}^*)\) with \(\widetilde{V_0}^*=\widetilde{V_0}^*+a\), \(\widetilde{g}^*=\widetilde{g}^*-a\) with \(a\in\mathbb{R}/\left\{0\right\}\). Indeed
+which is a \(L^2\)-closed subspace by Lemma \ref{lemma:A closed if G closed}. In particular, the mean-variance solution \((V_0^*,g^*)\) exists in \(\mathbb{R}+\overline{G_{\infty}(\Theta)}^{L^2}\) and is unique as an element of the latter by the Hilbert projection theorem. Notice two things. The uniqueness of the mean-variance solution refers to uniqueness as an element \(V_0^*+g^*\in\mathbb{R}+\overline{G_{\infty}(\Theta)}^{L^2}\) and not necessarily as a pair  \((V_0^*,g^*)\). In particular, the mean-variance price \(V_0^*\) might not be unique. This is easily seen from the following observation. If  \((V_0^*,g^*)\) is a mean-variance solution, so is \((\widetilde{V_0}^*,\widetilde{g}^*)\) with \(\widetilde{V_0}^*=\widetilde{V_0}^*+a\), \(\widetilde{g}^*=\widetilde{g}^*-a\) whenever \(a\in\overline{G_{\infty}(\Theta)}^{L^2}\) with \(a\in\mathbb{R}/\left\{0\right\}\). Indeed
 \begin{equation*}
     \widetilde{V_0}^*+\widetilde{g}^*=V_0^*+a+g^*-a=V_0^*+g^*.
 \end{equation*}
@@ -2631,9 +2632,9 @@ is a closed, convex subset of \(L^2\).
 By definition of \(\mathbb{\mathbb{P}}^2_t(\mathcal{G})\), \(\frac{\diff \mathbb{Q}}{\diff \mathbb{P}}\in L^2(\mathbb{P})\). Furthermore, 
     every measurable function \(Z\in \mathcal{G}^{\perp}\), where \(\mathcal{G}^{\perp}\) denotes the orthogonal complement of \(\mathcal{G}\) in \(L^2(\mathbb{P})\), such that \(\mathbb{E}[Z]=1\), induces a signed measure \(\mathbb{Q}(A)=\mathbb{E}[1_AZ]\), which is absolutely continuous to \(\mathbb{P}\) by construction; hence, we have 
 \begin{equation*}
-    \mathcal{Z}=\mathcal{G}^{\perp}\cap \ker(\phi),
+    \mathcal{Z}=\mathcal{G}^{\perp}\cap \{Z\in L^2(\mathbb{P}):\mathbb{E}[Z]=1\}.
 \end{equation*}
- where \(\phi:Z\mapsto\mathbb{E}[Z]-1\) is a continuous map from \(L^2(\mathbb{P})\) to \(\mathbb{R}\). Hence, \(\mathcal{Z}\subseteq L^2(\mathbb{P})\) is closed. Regarding convexity, it is clear that for \(\lambda\in [0,1]\)
+As the map \(L^2(\mathbb{P})\) to \(\mathbb{R}\) defined as \(Z\mapsto\mathbb{E}[Z]-1\) is continuous and the orthogonal complement of a linear space \(\mathcal{G}\) is always closed, \(\mathcal{Z}\subseteq L^2(\mathbb{P})\) is closed. Regarding convexity, it is clear that for \(\lambda\in [0,1]\)
 \begin{equation*}
     \lambda\frac{\diff \mathbb{Q}_1}{\diff \mathbb{P}}+(1-\lambda)\frac{\diff \mathbb{Q}_2}{\diff \mathbb{P}}=\frac{\diff \widetilde{\mathbb{Q}}}{\diff \mathbb{P}}
 \end{equation*}
@@ -2763,8 +2764,8 @@ We denote this set by \(\mathbb{P}^2_e(X)\). We can characterize \(\mathbb{P}^2_
         \mathbb{E}_{\mathbb{P}}\Big[\sup_{t\in\mathbb{R}_+}|X_t^{\tau_n}|^2\Big]<\infty.
     \end{equation*}
     Because a stopped martingale is again a martingale, \(X^{\tau_N}\) is also a local \(\mathbb{Q}\)-martingale for the same localizing sequence \((\delta_n)_{n\in\mathbb{N}}\). Hence, 
-    \(X^{\delta_n\wedge \tau_N}=(X^{\tau_N})^{\delta_n}=(X^{\delta_n})^{\tau_N}\) is square integrable with respect to \(\mathbb{P}\) and a martingale on \((\Omega,\mathcal{F},\mathbb{F},\mathbb{Q})\). 
-    Denoting \(\psi_n\coloneqq \tau_N\wedge \delta_n\) we have
+    \(X^{\delta_n\wedge \tau_N}=(X^{\tau_N})^{\delta_n}=(X^{\delta_n})^{\tau_N}\) is square integrable with respect to \(\mathbb{P}\) and a martingale on \((\Omega,\mathcal{F},\mathbb{F},\mathbb{Q})\).
+ Denoting \(\psi_n\coloneqq \tau_N\wedge \delta_n\), we have
     \begin{align}\label{eq:common localizing sequence}
         \mathbb{E}_\mathbb{P}\Big[\Big(\frac{\diff\mathbb{Q}}{\diff\mathbb{P}}\Big)\xi(X_{\tau\wedge\psi_n}-X_{\sigma\wedge\psi_n})\Big]&
         =\mathbb{E}_\mathbb{Q}\big[\xi((X^{\psi_n})_{\tau}-(X^{\psi_n})_{\sigma})\big]\notag\\&
@@ -2962,11 +2963,11 @@ More precisely, recall the representation of simple predictable processes introd
  \begin{equation*}
      \vartheta_t = \vartheta^01_{\left\{ 0\right\}}+\sum_{k=1}^n \vartheta^k1_{(\tau_k,\tau_{k+1}]},
  \end{equation*}
- for a non-decreasing family of stopping times \(0<\tau_1,\dots<\tau_n<\infty\) and \(\vartheta^i\in\mathcal{L}^{\infty}(\mathcal{F}_{\tau_k},\mathbb{P})\). The idea is to approximate the Doob-Dynkin function of the random variables \(\vartheta^i\) rather than directly approximating the Doob-Dynkin function of \(\vartheta_t\). The resulting processes
+ for a non-decreasing family of stopping times \(0<\tau_1,\dots<\tau_n<\infty\) and \(\vartheta^i\inL^{\infty}(\mathcal{F}_{\tau_k},\mathbb{P})\). The idea is to approximate the Doob-Dynkin function of the random variables \(\vartheta^i\) rather than directly approximating the Doob-Dynkin function of \(\vartheta_t\). The resulting processes
  \begin{equation}\label{eq:neural simple predictable processes}
      \vartheta_t = \vartheta_n^01_{\left\{ 0\right\}}+\sum_{k=1}^n \vartheta_n^k1_{(\tau_k,\tau_{k+1}]},
  \end{equation}
- for "neural" approximations \(\vartheta_n^k\) of \(\vartheta^k\in\mathcal{L}^{\infty}(\mathcal{F}_{\tau_k},\mathbb{P})\) are, again, predictable by construction. It remains to show that the class of such neural approximations of \(\vartheta=(\vartheta_t)_{t\in\mathbb{R}_+}\) is rich enough to develop stochastic integration.
+ for "neural" approximations \(\vartheta_n^k\) of \(\vartheta^k\inL^{\infty}(\mathcal{F}_{\tau_k},\mathbb{P})\) are, again, predictable by construction. It remains to show that the class of such neural approximations of \(\vartheta=(\vartheta_t)_{t\in\mathbb{R}_+}\) is rich enough to develop stochastic integration.
  Note that the terminology used for \eqref{eq:neural simple predictable processes} is only used in this introductory section and will be substituted for more appropriate and precise terminology throughout this section. This section closely follows and comments on the results of \parencite[Chapter.~5]{Arandjelovic2025}.
 
 
@@ -3031,7 +3032,7 @@ By definition, \(\bigcup_{i\in I}\mathcal{F}_i\) generates \(\mathcal{F}_I\); he
  where \(J\), a countable union of countable sets, is countable.
  But \(\mathcal{F}_X=\sigma(X^{-1}(S_n):S_n\in\mathcal{S})\) is the smallest \(\sigma\)-algebra for which \(X^{-1}(S_n)\), for all \(n\in\mathbb{N}\), are measurable, thus \(\mathcal{F}_X\subseteq \mathcal{F}_J\). We conclude by recalling again that \(X\) is \(\mathcal{F}_X\) and thus also \(\mathcal{F}_J\)-measurable.
    \end{proof}
-As mentioned, we will be especially interested in the case where \(I=\mathbb{R}_+\) and where the collection of \(\sigma\)-algebras \((\mathcal{F}_i)_{i\in I }\) is given by the natural filtration of the market information process \(Y\), that is \(\mathcal{F}^0_t=\{Y_t:0\leq s\leq t\}\). Then \(\mathbb{F}=\{\mathcal{F}^0_t\}_{t\in\mathbb{R}_+}\) defines a filtration on \((\Omega,\mathcal{F},\mathbb{P})\). It is standard and advantageous to work with a filtration satisfying the usual assumptions: right-continuity and completeness. We recall from \eqref{eq:completed filtration} that the completion can be done canonically by defining \(\mathcal{F}_t=\sigma(\mathcal{F}_t^0\cup\mathcal{N}_{\mathbb{P}})\), where \(\mathcal{N}_{\mathbb{P}}\) is as in \eqref{eq:nullsets}.  We denote the completed filtration by \(\mathbb{F}=(\mathcal{F}_t)_{t\in\mathbb{R}_+}\). 
+As mentioned, we will be especially interested in the case where \(I=\mathbb{R}_+\) and where the collection of \(\sigma\)-algebras \((\mathcal{F}_i)_{i\in I }\) is given by the natural filtration of the market information process \(Y\), that is \(\mathcal{F}^0_t=\{Y_t:0\leq s\leq t\}\). Then \(\mathbb{F}=\{\mathcal{F}^0_t\}_{t\in\mathbb{R}_+}\) defines a filtration on \((\Omega,\mathcal{F},\mathbb{P})\). It is standard and advantageous to work with a filtration satisfying the usual hypotheses: right-continuity and completeness. We recall from \eqref{eq:completed filtration} that the completion can be done canonically by defining \(\mathcal{F}_t=\sigma(\mathcal{F}_t^0\cup\mathcal{N}_{\mathbb{P}})\), where \(\mathcal{N}_{\mathbb{P}}\) is as in \eqref{eq:nullsets}.  We denote the completed filtration by \(\mathbb{F}=(\mathcal{F}_t)_{t\in\mathbb{R}_+}\). 
 Furthermore, we recall at this point the notion of a stopping time. 
 \begin{definition}\label{def:stopping time}
    We call a \(\mathbb{R}_+\cup \{+\infty\}\)-valued random variable \(\tau\) a stopping time for the filtration \(\mathbb{F}=(\mathcal{F}_{t})_{t\in\mathbb{R}_+}\) or \(\mathbb{F}\)-stopping time if, for every \(t\in\mathbb{R}_+\), we have
@@ -3052,8 +3053,8 @@ with \(X^{\tau}_t(\omega)\coloneqq X(\omega)^{\tau(\omega)}_t\). For the natural
 \begin{equation}\label{eq:stopped natural sigma algebra}
     \mathcal{F}_{\tau}=\sigma(\tau)\vee\sigma\big(\bigvee_{t\in\mathbb{R}_+}\sigma(X^{\tau}_t)\vee\mathcal{N}_{\mathbb{P}}\Big).
 \end{equation}
-We studied the completion of natural filtrations and the \(\sigma\)-algebras of stopped processes, but we have not touched on the second assumption of the usual assumptions; right continuity.
-For the latter, we refer to \parencite[Thm.~31,Ch.I]{Protter2005StochasticIntegration}, stating that for Lévy-processes, the completed natural filtration of \(Y\) is automatically right-continuous, thus satisfies the usual assumptions. Thus, we assume that \(Y\) is Lévy. The above implies that the corresponding completed natural filtration satisfies the usual assumptions and behaves nicely under stopping in the sense that the stopped \(\sigma\)-algebra, based on the natural filtration of \(Y\), is of the form \eqref{eq:stopped natural sigma algebra}.
+We studied the completion of natural filtrations and the \(\sigma\)-algebras of stopped processes, but we have not touched on the second assumption of the usual hypotheses; right continuity.
+For the latter, we refer to \parencite[Thm.~31,Ch.I]{Protter2005StochasticIntegration}, stating that for Lévy-processes, the completed natural filtration of \(Y\) is automatically right-continuous, thus satisfies the usual hypotheses. Thus, we assume that \(Y\) is Lévy. The above implies that the corresponding completed natural filtration satisfies the usual hypotheses and behaves nicely under stopping in the sense that the stopped \(\sigma\)-algebra, based on the natural filtration of \(Y\), is of the form \eqref{eq:stopped natural sigma algebra}.
 
 
 
@@ -3076,7 +3077,7 @@ Proposition \ref{prop:reduction to countable measurability with filtration} now 
         \begin{equation*}
             \vartheta = f(Y).
         \end{equation*}
-        \item Assume \(Y\) is a stochstic process taking alues in \(\mathbb{R}^d\) for \(d\in\mathbb{N}\). For \(t\in\mathbb{R}_+\cup\{\infty\}\), we call an \(\mathcal{F}_t\)-measurable, real-valued random variable \(\vartheta\) \textit{algorithmically generated} if there exist deterministic times 
+        \item Assume \(Y\) is a stochastic process taking values in \(\mathbb{R}^d\) for \(d\in\mathbb{N}\). For \(t\in\mathbb{R}_+\cup\{\infty\}\), we call an \(\mathcal{F}_t\)-measurable, real-valued random variable \(\vartheta\) \textit{algorithmically generated} if there exist deterministic times 
         \(t_1,\dots,t_n\) in \([0,t]\) for \(n\in\mathbb{N}\) and a neural network \(f\in\mathcal{NN}_\psi((\mathbb{R}^{d\times n})^*)\), such that
         \begin{equation*}
             \vartheta = f(Y_{t_1},\dots,Y_{t_n}).
@@ -3191,7 +3192,7 @@ practically relevant theory.
 \subsection{From simple processes to stochastic integral}\label{sec:From simple processes to stochastic integral}
 As discussed in Section \ref{sec:main ideas of alexandar}, using approximation theory for \(L^p\) random variables that are measurable with respect to the market information process, we will approximate elementary predictable processes. This will enable us to build stochastic integration theory. The appropriate density properties of the approximated elementary predictable processes will then enable us to leverage the continuity properties of the integral mapping in order to approximate stochastic integrals. For the convenience of the reader, we recall the definition of elementary predictable processes and simple predictable processes.
 \\\\
-    We call \(H\) a \textit{simple predictable process} if there exists a finite, increasing sequence of \(\mathbb{F}\)-stopping times, \(0=\tau_0<\dots<\tau_{n+1}<\infty\), and a sequence of bounded random variables \((\vartheta^i)_{i=0}^n\subseteq\mathcal{L}^{\infty}(\mathcal{F}_{t_i},\mathbb{P})\) such that 
+    We call \(H\) a \textit{simple predictable process} if there exists a finite, increasing sequence of \(\mathbb{F}\)-stopping times, \(0=\tau_0\leq\dots<\tau_{n+1}\leq\infty\), and a sequence of bounded random variables \((\vartheta^i)_{i=0}^n\subseteqL^{\infty}(\mathcal{F}_{t_i},\mathbb{P})\) such that 
     \begin{equation}\label{eq:simple representation}
         \vartheta = \vartheta^01_{\left\{0\right\}}+\sum_{i=0}^n\vartheta^i1_{(\tau_i,\tau_{i+1}]}.
     \end{equation}
@@ -3199,331 +3200,358 @@ In particular, we have that \(\vartheta^i\) is \(\mathcal{F}_{\tau_i}\)-measurab
 \\\\
 If the sequence of stopping times is deterministic, we denote them by \(\tau_i=t_i\in\mathbb{R}\quad\forall i=0,\dots,n\) and call \(\vartheta\) a \textit{elementary predictable process} and denote the corresponding set by \(\mathcal{E}\). Analogously, we say \(\vartheta\in\mathcal{E}\) is associated with a sequence \((t_k)_{k=0}^{n+1}\).
 \bigbreak
-For statements that are true for both \(\mathcal{E}\) and \(\mathcal{S}\) we shall formulate the result for \(\mathcal{S}\) only, as the case for \(\mathcal{E}\) results as a special case of the latter. Analogously we use \(\tau\) to denote both cases, where \(\tau\) is truly random and the case where it is deterministic. If we write \(t\) we only refer to a deterministic time. \\\\
-In particular, as we are in a finite measure space setting, notice that \(\mathcal{L}^{\infty}(\mathcal{F}_{\tau_i})\subseteq\mathcal{L}^{p}(\mathcal{F}_{\tau_i})\) for any \(p\in[1,\infty]\). By Proposition \ref{prop:approximation of measurable maps by algorithmic strategies} we can find approximating sequences of \((\vartheta^i_n)_{n\in\mathbb{N}}\subseteq\Theta_{\mathcal{NN}}(\tau_i,\psi)\) that converge to \(\vartheta^i\in\mathcal{L}^{\infty}(\mathcal{F}_{\tau_i})\) in \(L^p\). Indeed, take any null-sequence of positive real numbers \((\epsilon_n)_{n\in\mathbb{N}}\) and apply Proposition \ref{prop:approximation of measurable maps by algorithmic strategies} (2) repeatedly. This motivates the definition of the following space
+For statements that are true for both \(\mathcal{E}\) and \(\mathcal{S}\) we shall formulate the result for \(\mathcal{S}\) only, as the case for \(\mathcal{E}\) results as a special case of the latter. In particular, \(\tau\) denotes a random time, which may be deterministic. We write \(t\) for deterministic times only. 
+
+
+In particular, as we are in a finite measure space setting, notice that \(L^{\infty}(\mathcal{F}_{\tau_i})\subseteq L^{p}(\mathcal{F}_{\tau_i})\) for any \(p\in[1,\infty]\). By Proposition \ref{prop:approximation of measurable maps by algorithmic strategies} we can find an approximating sequence of \((\vartheta^i_n)_{n\in\mathbb{N}}\subseteq\Theta_{\mathcal{NN}}(\tau_i,\psi)\) that converge to \(\vartheta^i\in L^{\infty}(\mathcal{F}_{\tau_i})\) in \(L^p\). Indeed, take any null-sequence of positive real numbers \((\epsilon_n)_{n\in\mathbb{N}}\) and apply Proposition \ref{prop:approximation of measurable maps by algorithmic strategies} (2) repeatedly. This motivates the definition of the following space
 \begin{definition}
     Let \(\vartheta\) be a stochastic process with representation \eqref{eq:simple representation}, where \(\vartheta^i\in\Theta_{\mathcal{NN}}(\tau_i,\psi)\) for \(i=0,\dots,n\). We denote this subspace of \(\mathcal{S}\) by \(\mathcal{S}(\psi)\) and call its elements \textit{simple algorithmic strategies}.
 \end{definition}
 \begin{definition}
     Let \(\vartheta\) be a stochastic process with representation \eqref{eq:simple representation}, where \(\vartheta^i\in\Theta_{\mathcal{NN}}(t_i,\psi)\) for \(i=0,\dots,n\). We denote this subspace of \(\mathcal{E}\) by \(\mathcal{E}(\psi)\) and call its elements \textit{elementary algorithmic strategies}.
 \end{definition}
-The main motivation for the definition of these sets, and in a sense for all of Section \ref{sec:algorithmically generated random variables}, is that there exists a suitable topology in which \(\mathcal{E}(\psi)\) and \(\mathcal{S}(\psi)\) are dense in \(\mathcal{E}\) and \(\mathcal{S}\) respectively. By a suitable topology, we mean, firstly, that density actually holds and that it is compatible with the respective notion of stochastic integration; that is, stochastic integration is continuous with respect to this topology. The first two candidates that come to mind are \(ucp\)-convergence and, in the square-integrable martingale setting, \(\mathcal{H}^2\)-convergence. Indeed, by Definition \ref{def:stochastic integral w.r.t. semimartingales} in the semimartingale setting and the Theorem \ref{thm:Ito Isometry} in the square-integrable martingale setting, the respective stochastic integral maps \(\vartheta\mapsto \vartheta\bullet X\) are continuous in the respective topologies. We treat both settings separately as they involve convergence with respect to very different norms. We start with the \(ucp\) setting. 
+The main motivation for the definition of these sets, and in a sense for all of Section \ref{sec:algorithmically generated random variables}, is that there exists a suitable topology in which \(\mathcal{E}(\psi)\) and \(\mathcal{S}(\psi)\) are dense in \(\mathcal{E}\) and \(\mathcal{S}\) respectively. By a suitable topology, we mean, firstly, that density actually holds and that it is compatible with the respective notion of stochastic integration; that is, stochastic integration is continuous with respect to the topology. The first two candidates that come to mind are \(ucp\)-convergence and, in the square-integrable martingale setting, \(\mathcal{H}^2\)-convergence. Indeed, by Definition \ref{def:stochastic integral w.r.t. semimartingales} in the semimartingale setting and Theorem \ref{thm:Ito Isometry} in the square-integrable martingale setting, the respective stochastic integral maps \(\vartheta\mapsto \vartheta\bullet X\) are continuous in the respective topologies. We treat both settings separately as they involve convergence with respect to very different norms. We start with the \(ucp\) setting. 
 \begin{proposition}\label{prop:p-ucp density of S}
     For \(\vartheta\in\mathcal{S}\) and \(\epsilon>0\), there exists \(\vartheta^{\epsilon}\in\mathcal{S}(\psi)\), such that \(\lVert(\vartheta-\vartheta^{\epsilon})_{\infty}^*\rVert_p<\epsilon\) for \(p\in[1,\infty)\). In other words \(S(\psi)\) is dense in \(\mathcal{S}\) for the \(p-ucp\) topology for \(p\in[1,\infty)\).
 \end{proposition}
 \begin{proof}
-For \(V\in\mathcal{S}(\psi)\), consider \(\vartheta^i\) for some fixed \(i=0,\dots,n\). We have \(\vartheta^i\in\mathcal{L}^{\infty}(\mathcal{F}_{\tau_i})\subseteq \mathcal{L}^p(\mathcal{F}_{\tau_i})\). Using the second part of Proposition \ref{prop:approximation of measurable maps by algorithmic strategies}, there exists an approximating sequence \((\vartheta^i_m)_{m\in\mathbb{N}}\subseteq\Theta_{\mathcal{NN}}(\tau_i,\psi)\) in \(L^p\). Thus we consider the obvious candidate sequence for our approximation, given by \((\vartheta_m)_{m\in\mathbb{N}}\)
-\begin{equation}
-    \vartheta_m = \vartheta^0_m1_{\left\{0\right\}}+\sum_{i=1}^n\vartheta^i_m1_{(\tau_i,\tau_{i+1}]}.
-\end{equation}
+For \(V\in\mathcal{S}(\psi)\), consider \(\vartheta^i\) for some fixed \(i=0,\dots,n\). We have \(\vartheta^i\in L^{\infty}(\mathcal{F}_{\tau_i})\subseteq L^p(\mathcal{F}_{\tau_i})\). Using the second part of Proposition \ref{prop:approximation of measurable maps by algorithmic strategies}, there exists an approximating sequence \((\vartheta^i_m)_{m\in\mathbb{N}}\subseteq\Theta_{\mathcal{NN}}(\tau_i,\psi)\) in \(L^p\). Thus we consider the obvious candidate sequence for our approximation, given by \((\vartheta_m)_{m\in\mathbb{N}}\) where we define the latter as follows
+\begin{equation*}
+    \vartheta_m = \vartheta^0_m1_{\left\{0\right\}}+\sum_{i=0}^n\vartheta^i_m1_{(\tau_i,\tau_{i+1}]}.
+\end{equation*}
 We have the obvious bound, uniformly in time
-\begin{equation}
-   (\vartheta-\vartheta^m)_{\infty}^*(\omega)\leq \sum_{i=1}^n|\vartheta^i(\omega)-\vartheta^i_m(\omega)|\quad\forall\omega\in\Omega.
-\end{equation}
-Hence, by the monotonicity of the \(L^p\) norm and the triangle inequality
-\begin{equation}
-    \lVert (\vartheta-\vartheta^m)_{\infty}^*\rVert_{p}\leq\sum_{i=1}^n\lVert \vartheta^i-\vartheta^i_m\rVert_p.
-\end{equation}
-But by construction, the right hand side converges to \(0\) as a finite sum of terms, each converging to \(0\). This shows density, as for every \(\epsilon>0\) we can find \(m\) big enough such that \(\lVert (\vartheta-\vartheta^m)_{\infty}^*\rVert_{p}<\epsilon\). 
+\begin{equation*}
+   (\vartheta-\vartheta^m)_{\infty}^*(\omega)\leq \sum_{i=0}^n|\vartheta^i(\omega)-\vartheta^i_m(\omega)|\quad\forall\omega\in\Omega.
+\end{equation*}
+Hence, by the monotonicity of the \(L^p\)-norm and the triangle inequality
+\begin{equation*}
+    \lVert (\vartheta-\vartheta^m)_{\infty}^*\rVert_{p}\leq\sum_{i=0}^n\lVert \vartheta^i-\vartheta^i_m\rVert_p.
+\end{equation*}
+But by construction, the right-hand side converges to \(0\) as a finite sum of terms, each converging to \(0\). This shows density, as for every \(\epsilon>0\) we can find \(m\) big enough such that \(\lVert (\vartheta-\vartheta^m)_{\infty}^*\rVert_{p}<\epsilon\). 
 \end{proof}
-As remarked in Definition \ref{def:p-ucp convergence}, convergence in \(p-ucp\) implies convergence in \(ucp\). This relies on the fact that convergence in \(L^p\) for \(p\in[1,\infty)\) implies convergence in probability. The standard argument is based on the Chebyshev inequality \parencite[Sec.8.2.1.]{LeGall2022MeasureTheoryProbabilityStochasticProcesses}. We show it here explicitly. 
+As remarked in Definition \ref{def:p-ucp convergence}, convergence in \(p-ucp\) implies convergence in \(ucp\). This relies on the fact that convergence in \(L^p\) for \(p\in[1,\infty)\) implies convergence in probability. The standard argument is based on the Chebyshev inequality. We show it explicitly. 
 \begin{corollary}\label{cor:p-ucp density of S}
-    \(S(\psi)\) is dense in \(\mathcal{S}\) for the \(ucp\).
+    \(S(\psi)\) is dense in \(\mathcal{S}\) for the \(ucp\)-topology.
 \end{corollary}
 \begin{proof}
    The claim thus follows from Chebyshev's inequality. Indeed,
-    \begin{equation}
+    \begin{equation*}
         \mathbb{P}((\vartheta-\vartheta^m)_{\infty}^*>\epsilon)\leq\frac{1}{\epsilon^p}\int_{\Omega}\left((\vartheta-\vartheta^m)_{\infty}^*\right)^p\diff \mathbb{P}=\left(\frac{1}{\epsilon}\lVert (\vartheta-\vartheta^m)_{\infty}^*\rVert_p\right)^p
-    \end{equation}
-By the continuity of the function \(x\mapsto x^{1/p}\), for any \(p\in[1,\infty)\), the right hand side converges to \(0\) as \(m\to\infty\) by Proposition \ref{prop:p-ucp density of S}. The claim follows. 
+    \end{equation*}
+By the continuity of the function \(x\mapsto x^{1/p}\), for any \(p\in[1,\infty)\) and by Proposition \ref{prop:p-ucp density of S} the right hand side converges to \(0\) as \(m\to\infty\) .  
 \end{proof}
-\
+
 Notice that in \cref{cor:p-ucp density of S} we can substitute the stopping times \(\tau_i\) with deterministic times \(t_i\) everywhere, and the proof goes through unchanged. Thus, we get the immediate result for \(\mathcal{E}\) and \(\mathcal{E}(\psi)\) respectively.
 \begin{corollary}\label{cor:ucp and p-ucp density of E}
     \(\mathcal{E}(\psi)\) is dense in \(\mathcal{E}\) for the \(p-ucp\)-topology for \(p\in[1,\infty)\) and, in particular, for the \(ucp\)-topology.
 \end{corollary}
 Following the results of Theorem \ref{thm:ucp continuity of general stochastic integral}, the simple processes are the basic building blocks of stochastic integration of adapted, càglàd processes with respect to semimartingales in the sense that the integral extends from simple integrands to càglàd integrands by continuity. Hence, \cref{cor:p-ucp density of S} implies that the integral of \(S(\psi)\)-integrands also extends to càglàd integrands by continuity. Indeed, this is the content of the following theorem.
-\begin{theorem}[Approximation of Stochastic Integrals]\label{thm:Approx of stoch. Integrals}
-    Let \(X\) be a semimartingale, and \(\vartheta\in \mathbb{L}\). Then, there exists a sequence \((\vartheta^n)_{n\in\mathbb{N}}\) in \(\mathcal{S}(\psi)\) that converges to \(\vartheta\) in ucp, such that
-    \begin{equation}
-        \int \vartheta_t^n\diff X_t \to \int \vartheta_t\diff X_t,\quad n\to\infty
-    \end{equation}
+\begin{theorem}\label{thm:Approx of stoch. Integrals}
+    Let \(X\) be a classical semimartingale, and \(\vartheta\in \mathbb{L}\). Then, there exists a sequence \((\vartheta^n)_{n\in\mathbb{N}}\) in \(\mathcal{S}(\psi)\) that converges to \(\vartheta\) in ucp, such that
+    \begin{equation*}
+        \int \vartheta_t^n\diff X_t \to \int \vartheta_t\diff X_t,\quad n\to\infty,
+    \end{equation*}
     where convergence holds in ucp.
 \end{theorem}
 \begin{proof}
     By Theorem \ref{thm:ucp continuity of general stochastic integral} the integral map
-    \begin{align}
+    \begin{equation*}
      I_X:\mathcal{S}_{ucp}\to\mathbb{D}_{ucp}   
-    \end{align}
+    \end{equation*}
     is continuous. By Proposition \ref{prop:p-ucp density of S} \(\mathcal{S}(\psi)\) is dense in \(\mathcal{S}\) in the \(ucp\)-topology. Furthermore, by Proposition \ref{prop:ucp density of simple process in cadlag processes} \(\mathcal{S}\) is dense in \(\mathbb{L}\) for the \(ucp\)-topology. Hence, there exists a unique continuous extension 
-    \begin{equation}
+    \begin{equation*}
         \tilde{I}_X:\overline{S}^{ucp}\to\mathbb{D}_{ucp}
-    \end{equation} 
-    with \(\overline{S}^{ucp}=\mathbb{L}_{ucp}\). We have that \(\tilde{I}_X\) agrees with the map from Definition \ref{def:stochastic integral w.r.t. semimartingales}. Indeed, assume not. Denote by \(\tilde{\tilde{I}}\) the unique continuous extension of \(I:\mathcal{S}(\psi)\to\mathbb{D}\) and by \(\tilde{I}\) the unique continuous extension of \(I:\mathcal{S}\to\mathbb{D}\). Then there must exist \(x\in\mathbb{D}\) for which \(\tilde{\tilde{I}}(x)\neq\tilde{I}(x)\). By density \(\exists(x_n)_{n\in\mathbb{N}}\subseteq\mathcal{S}(\psi)\) such that \(\lim_{n\to\infty}x_n=x\) in \(ucp\). In particular \((x_n)_{n\in\mathbb{N}}\subseteq\mathcal{S}\). But then, by continuity
-    \begin{equation}
+    \end{equation*} 
+    with \(\overline{S}^{ucp}=\mathbb{L}_{ucp}\). We have that \(\tilde{I}_X\) agrees with the map from Definition \ref{def:stochastic integral w.r.t. semimartingales}. Indeed, assume not. Denote by \(\tilde{\tilde{I}}\) the unique continuous extension of \(I:\mathcal{S}(\psi)\to\mathbb{D}\) and by \(\tilde{I}\) the unique continuous extension of \(I:\mathcal{S}\to\mathbb{D}\). By assumption, there exists \(x\in\mathbb{D}\) for which \(\tilde{\tilde{I}}(x)\neq\tilde{I}(x)\). By density \(\exists(x_n)_{n\in\mathbb{N}}\subseteq\mathcal{S}(\psi)\) such that \(\lim_{n\to\infty}x_n=x\) in \(ucp\). In particular \((x_n)_{n\in\mathbb{N}}\subseteq\mathcal{S}\). But then, by continuity
+    \begin{equation*}
         \tilde{\tilde{I}}(x)=\lim_{n\to\infty}\tilde{\tilde{I}}(x_n)=\lim_{n\to\infty}I(x_n)=\lim_{n\to\infty}\tilde{I}(x_n)=\tilde{I}(x).
-    \end{equation}
+    \end{equation*}
     Hence, the contradiction. 
 \end{proof}
-Our goal is to formulate a deep mean-variance hedging result in our continuous time setup. We will first formulate a version proposed by \parencite{Arandjelovic2025} in the square-integrable setup discussed in Section \ref{sec:Stochastic Integration for square-integrable Martingales}. In this context, the relevant continuity of the integral map is given by the Itô-isometry, which asserts that for some \(X\in\mathcal{H}_0^2\), the linear operator
+The goal is to formulate a deep mean-variance hedging result in the continuous time setup. We will first formulate a version proposed by \parencite{Arandjelovic2025} in the square-integrable martingale setup discussed in Section \ref{sec:Stochastic Integration for square-integrable Martingales}. In this context, the relevant continuity of the integral map is given by the Itô-isometry, which asserts that for some \(X\in\mathcal{H}_0^2\), the linear operator
 \begin{align*}
     I_X:& \vartheta\mapsto \vartheta\bullet X\\
     &L^2(M)\to \mathcal{H}^2
 \end{align*}
-is bounded; hence, it is (uniformly) continuous. In order to establish such a mean-variance result, we still need a similar density result of elementary or simple algorithmic strategies in \(L^2(X)\). Note that this is a fundamentally different kind of density than the \(ucp\) density discussed in \cref{cor:p-ucp density of S} and \cref{cor:ucp and p-ucp density of E}, as convergence in \(L^2(X)\) is with respect to the integral norm 
-\begin{equation}
+is bounded and hence (uniformly) continuous. In order to establish such a mean-variance result, we still need a similar density result of elementary or simple algorithmic strategies in \(L^2(X)\). Note that this is a fundamentally different kind of density than the \(ucp\) density discussed in \cref{cor:p-ucp density of S} and \cref{cor:ucp and p-ucp density of E}, as convergence in \(L^2(X)\) is with respect to the integral norm 
+\begin{equation*}
     \lVert \vartheta\rVert_{L^2(M)}^2=\mathbb{E}\bigg[\int_0^{\infty} \vartheta_t^2\diff [M]_t\bigg].
-\end{equation}
-Hence, we need a different argument for density. The following proposition shows that the respective density statement holds for the more general spaces \(L^p(M)\).
+\end{equation*}
+Hence, we need a different argument for density. The following proposition shows that the respective density statement holds for the more general \(L^p(M)\)-spaces.
 \begin{proposition}\label{prop:Lp(M) density of E(psi)}
-    Assume there exists \(\epsilon>0\) such that \(M\in\mathcal{H}_0^{p+\epsilon}\). Then the set \(\mathcal{E}(\psi)\) is dense in \(L^p(M)\) with respect to the seminorm on \(\lVert\cdot\rVert_{L^p(M)}\). Moreover, for every \(\vartheta\in L^p(M)\), there exists a sequence \((\vartheta^n)_{n\in\mathbb{N}}\subseteq\mathcal{E}(\psi)\) such that
-    \begin{equation}
+    Assume there exists \(\epsilon>0\) such that \(M\in\mathcal{H}_0^{p+\epsilon}\). Then the set \(\mathcal{E}(\psi)\) is dense in \(L^p(M)\) with respect to the norm \(\lVert\cdot\rVert_{L^p(M)}\) for \(p\in[1,\infty)\). Moreover, for every \(\vartheta\in L^p(M)\), there exists a sequence \((\vartheta^n)_{n\in\mathbb{N}}\subseteq\mathcal{E}(\psi)\) such that
+    \begin{equation}\label{eq:elementary integrals converge}
         \lim_{n\to\infty}\int \vartheta^n\diff M=\int \vartheta\diff M,
     \end{equation}
     where convergence holds in \(\mathcal{H}^p\). 
 \end{proposition}
 \begin{proof}
-Let \(\vartheta\in L^p(M)\). Notice that we can assume without loss of generality that \(\vartheta\in L^p(M)\) is bounded. Indeed, if not, use \(\vartheta^{(n)}=-n\vee \vartheta\wedge n\) instead. If we are able to approximate \(\xi^n\) by elements of \(\mathcal{E}(\psi)\), we can do so as well for \(\vartheta\). Indeed, by dominated convergence, we find \(\vartheta^{(n)}\to \vartheta\) in \(L^p(M)\). Hence, if there exists a sequence \((\xi^n_m)_{m\in\mathbb{N}}\) converging to \(\vartheta^{(n)}\) for every \(n\in\mathbb{N}\), we might choose for every fixed \(n\) a \(m(n)\) large enough so that \(\lVert \xi^n_{m(n)}-\vartheta^{(n)}\rVert_{L^p(M)}<\frac{1}{n}\). Hence, 
+Let \(\vartheta\in L^p(M)\). Notice that we can assume without loss of generality that \(\vartheta\in L^p(M)\) is bounded. Indeed, if not, use \(\vartheta^{(n)}=-n\vee \vartheta\wedge n\) instead. If we are able to approximate \(\vartheta^{(n)}\) by elements of \(\mathcal{E}(\psi)\), we can do so as well for \(\vartheta\). Indeed, by dominated convergence (DCT), we find \(\vartheta^{(n)}\to \vartheta\) in \(L^p(M)\). Hence, if there exists a sequence \((\xi^n_m)_{m\in\mathbb{N}}\subseteq \mathcal{E}(\psi)\) converging to \(\vartheta^{(n)}\) for every \(n\in\mathbb{N}\), we might choose for every fixed \(n\) a \(m(n)\) large enough so that \(\lVert \xi^n_{m(n)}-\vartheta^{(n)}\rVert_{L^p(M)}<\frac{1}{n}\). Hence, 
 \begin{equation*}
     \lim_{n\to\infty}\lVert\xi^n_{m(n)}-\vartheta\rVert_{L^p(M)}\leq\limsup_{n\to\infty}\lVert\xi^n_{m(n)}-\vartheta^{(n)}\rVert_{L^p(M)}+\limsup_{n\to\infty}\lVert\vartheta^{(n)}-\vartheta\rVert_{L^p(M)}=0.
 \end{equation*}
 For the DCT argument, notice that in the case \(p=2\) we saw that \(L^2(M)\simeq L^2(\mathcal{P},\mathbb{P}_M)\), hence \(\vartheta^{(n)}\to\vartheta\) in \(L^2(M)\) directly by DCT. In the case \(p\neq 2\), we argue by two successive applications of DCT.
- Define \(I^n=\int_0^{\infty}(\vartheta^n_t-\vartheta_t)^2\diff[M]_t\) and \(I=\int_0^{\infty}\vartheta_t^2\diff[M]_t\) and furthermore notice
- \begin{equation*}
+ Define \(I^n=\int_0^{\infty}(\vartheta^n_t-\vartheta_t)^2\diff[M]_t\) and \(I=\int_0^{\infty}\vartheta_t^2\diff[M]_t\). Moreover, notice
+ \begin{equation}\label{eq:bound on vartheta}
      (\vartheta_t^{(n)}(\omega)-\vartheta_t(\omega))^2\leq 4\vartheta_t(\omega)^2,\;\forall(\omega,t)\in\Omega\times\mathbb{R}_+.
- \end{equation*}
- From \(\mathbb{E}[I^{\frac{p}{2}}]<\infty\), we have \(I<\infty\) \(\mathbb{P}\)-almost surely; hence, \(\vartheta^2(\omega)\) is \(\diff [M](\omega)\)-integrable for almost all \(\omega\). Hence, on a \(\mathbb{P}\)-measure 1 set \(N^c\), we can apply DCT pathwise to obtain
+ \end{equation}
+ From \(\mathbb{E}[I^{\frac{p}{2}}]<\infty\), we have \(I<\infty\) \(\mathbb{P}\)-almost surely. Hence, \(\vartheta^2(\omega)\) is \(\diff [M](\omega)\)-integrable for almost all \(\omega\). Hence, on a \(\mathbb{P}\)-measure 1 set \(\mathcal{N}^c\), we can apply DCT pathwise to obtain
  \begin{equation*}
-     \lim_{n\to\infty}\int_0^{\infty}\Big(\vartheta^{(n)}_t(\omega)-\vartheta_t(\omega)\Big)^2\diff [M]_t(\omega)=0,\;\forall\omega\in N^c.
+     \lim_{n\to\infty}\int_0^{\infty}\Big(\vartheta^{(n)}_t(\omega)-\vartheta_t(\omega)\Big)^2\diff [M]_t(\omega)=0,\;\forall\omega\in \mathcal{N}^c.
  \end{equation*}
- By the same bound, and because \([M]\) is non-decreasing, we have for every \(\omega\in\Omega\): \(I^n(\omega)\leq 4 I(\omega)\) and in particular  \(I^n(\omega)^{\frac{p}{2}}\leq 4 I(\omega)^{\frac{p}{2}}\).  By assumption, \(I^{\frac{p}{2}}\) is \(\mathbb{P}\)-integrable. Hence, by DCT, we have 
+ By the same bound as in \eqref{eq:bound on vartheta}, and because \([M]\) is non-decreasing with \([M]_0\), we have for every \(\omega\in\Omega\) that \(I^n(\omega)\leq 4 I(\omega)\) and, in particular, \(I^n(\omega)^{\frac{p}{2}}\leq 4 I(\omega)^{\frac{p}{2}}\).  By assumption, \(I^{\frac{p}{2}}\) is \(\mathbb{P}\)-integrable. Hence, by DCT, we have 
  \begin{equation*}
   \lim_{n\to\infty}\mathbb{E}\Big[(I^n)^{\frac{p}{2}}\Big]=\mathbb{E}\Big[(\lim_{n\to\infty}I^n)^{\frac{p}{2}}\Big]=0.
  \end{equation*} 
-\\\\
-    Furthermore, recall from Proposition \ref{prop:density of E in Lp(M) via monotone class} that \(\mathcal{E}\) is dense in \(L^p(M)\) by the monotone class, dominated convergence, and the fact that \(\sigma(\mathcal{E})=\mathcal{P}\). Thus, for the first claim, it suffices to show that \(\mathcal{E}(\psi)\) is dense in \(\mathcal{E}\) for the \(L^p(M)\) seminorm. \\\\
- For this, we will make use of the fact that \(M\in\mathcal{H}^p\); thus, we have Doob's \(L^p\)-inequality and the BDG inequality at our disposal.
- \\ Let \(\vartheta\in\mathcal{E}\cap L^p(M)\) and  \(\epsilon>0\).
-    Recall from \cref{cor:ucp and p-ucp density of E} that for every \(\epsilon>0\) and any \(q\in[1,\infty)\), there is a \(\xi\in\mathcal{E}(\psi)\) such that \(\lVert (\xi-\vartheta)^*_{\infty}\rVert_{q}<\epsilon\). For the convenience of the proof, we choose \(\lVert (\xi-\vartheta)^*_{\infty}\rVert_{q}<\epsilon^{1/p}\) where we take \(q=\frac{p(p+\epsilon)}{\epsilon}\). We use the trivial bound \((\xi_t(\omega)-\vartheta_t(\omega))\leq(\xi(\omega)-\vartheta(\omega))_{\infty}^*,\;\forall\omega\in\Omega\), to get 
-    \begin{equation}
-        \rVert \xi-\vartheta\lVert_{L^p(M)}^p=\mathbb{E}\bigg[\left(\int_{0}^{\infty}(\xi_t-\vartheta_t)^2\diff[M]\right)^{p/2}\bigg]\leq\mathbb{E}[((\xi-\vartheta)_{\infty}^*)^p[M]_{\infty}^{p/2}]
-    \end{equation}
+ This finally shows that we might assume \(\vartheta\in L^p(M)\) to be bounded.
+
+
+
+    Furthermore, recall from Proposition \ref{prop:density of E in Lp(M) via monotone class} that \(\mathcal{E}\) is dense in \(L^p(M)\). Thus, to show the density of \(\mathcal{E}(\psi)\) in \(L^p(M)\), it suffices to show that \(\mathcal{E}(\psi)\) is dense in \(\mathcal{E}\) as a subspace of \(L^p(M)\).
+
+    
+   For this, we will make use of the fact that \(M\in\mathcal{H}^p\) Thus, we have Doob's \(L^p\)-inequality and the BDG inequality at our disposal.
+ 
+ 
+ Let \(\vartheta\in\mathcal{E}\) and  \(\epsilon>0\).
+    Recall from \cref{cor:ucp and p-ucp density of E} that for every \(\epsilon>0\) and any \(q\in[1,\infty)\), there is a \(\xi\in\mathcal{E}(\psi)\) such that \(\lVert (\xi-\vartheta)^*_{\infty}\rVert_{q}<\epsilon^{1/p}\). By setting \(q=\frac{p(p+\epsilon)}{\epsilon}\) and using the trivial bound \((\xi_t(\omega)-\vartheta_t(\omega))\leq(\xi(\omega)-\vartheta(\omega))_{\infty}^*,\;\forall(\omega,t)\in\Omega\times\mathbb{R}_+\) we get
+    \begin{equation*}
+        \rVert \xi-\vartheta\lVert_{L^p(M)}^p=\mathbb{E}\bigg[\left(\int_{0}^{\infty}(\xi_t-\vartheta_t)^2\diff[M]\right)^{p/2}\bigg]\leq\mathbb{E}\big[((\xi-\vartheta)_{\infty}^*)^p[M]_{\infty}^{p/2}\big].
+    \end{equation*}
  By Hölder's inequality for the conjugate pair \(\tilde{p}=\frac{p+\epsilon}{\epsilon}\) and \(\tilde{q}=\frac{p+\epsilon}{p}\), we further get the bound
-    \begin{equation}
+    \begin{equation*}
         \mathbb{E}[((\xi-\vartheta)
         _{\infty}^*)^p[M]_{\infty}^{p/2}]\leq\lVert(\xi-\vartheta)_{\infty}^*)^p\rVert_{\tilde{p}}\lVert[M]_{\infty}^p/2 \rVert_{\tilde{q}}.
-    \end{equation}
-    We now first use the BDG inequality\footnote{Here it is important that we use the \(L^2(M)\) definition via the measure \(\mathbb{P}_{[M]}\) in order to apply the BDG inequality.} and then Doob's \(L^p\)-inequality to finally obtain
-    \begin{equation}
+    \end{equation*}
+    We now first use the BDG inequality and then Doob's \(L^p\)-inequality to finally obtain
+    \begin{equation}\label{eq:BDG bound}
         \lVert((\xi-\vartheta)_{\infty}^*)^p\rVert_{\tilde{p}}\lVert[M]_{\infty}^{p/2} \rVert_{\tilde{q}}\lesssim \lVert(\xi-\vartheta)_{\infty}^*\rVert_{q}^p\lVert M^*_{\infty}\rVert_{p+\epsilon}^p\leq\epsilon\lVert M\rVert_{\mathcal{H}^{p+\epsilon}},
     \end{equation}
-    where we don't care about the exact BDG constants as they only depend on \(p\) and not on the process. 
-    As \(\mathcal{H}^{p+\epsilon}\) is finite by assumption, the latter can be made arbitrarily small, hence showing the claim. \\\\
-    For the last claim, we use the fact that for every \(\vartheta\in L^p(M)\) we have \(\vartheta\bullet M\in\mathcal{H}^p\) by \parencite[Corollary.~12.3.6.]{CohenElliott2015StochasticCalculusApplications}. Furthermore, by the first part, for every \(\xi\in L^p(M)\) we can find a sequence \((\vartheta_n)_{n\in\mathbb{N}}\subseteq\mathcal{E}(\psi)\) that converges to \(\vartheta\) in \(L^p(M)\). Furthermore, we have \([\vartheta\bullet M]=\vartheta^2\bullet[M]\) again by \parencite[Corollary.~12.3.6.]{CohenElliott2015StochasticCalculusApplications}. Hence, by the BDG inequality, we get 
+    where we don't care about the exact BDG constants as they only depend on \(p\) and not on the process. Notice that in order to apply the BDG inequality, we need to use the equivalent definition of the measure \(\mathbb{P}_M=\mathbb{P}_{[M]}\) via the process \([M]\).
+    As \(\mathcal{H}^{p+\epsilon}\) is finite by assumption, the right-hand side of \eqref{eq:BDG bound} can be made arbitrarily small, hence showing the first claim that \(\mathcal{E}(\psi)\) is dense in \(L^p(M)\) in the \(L^p(M)\)-norm topology.
+
+    
+    In order to show the last claim, that is \eqref{eq:elementary integrals converge}, we use the fact that for every \(\vartheta\in L^p(M)\) we have \(\vartheta\bullet M\in\mathcal{H}^p\) (see \parencite[Corollary.~12.3.6.]{CohenElliott2015StochasticCalculusApplications}). Furthermore, by the first part, for every \(\xi\in L^p(M)\) we can find a sequence \((\vartheta_n)_{n\in\mathbb{N}}\subseteq\mathcal{E}(\psi)\) that converges to \(\vartheta\) in \(L^p(M)\). Furthermore, we have \([\vartheta\bullet M]=\vartheta^2\bullet[M]\) (see \parencite[Corollary.~12.3.6.]{CohenElliott2015StochasticCalculusApplications}). Hence, by the BDG inequality, we get 
     \begin{align*}
-        \lVert \int \vartheta\diff M-\int \vartheta^n\diff M\rVert_{\mathcal{H}^p}=&\mathbb{E}[\left(\left(\vartheta-\vartheta^n)\bullet M\right)^*_{\infty}\right)^p]^{1/p}\lesssim \mathbb{E}[[\left(\vartheta-\vartheta^n)\bullet M\right)_{\infty}]^{p/2}]^{1/p}\\&=\mathbb{E}[\left(\vartheta-\vartheta^n)^2\bullet [M]\right)_{\infty}]^{p/2}]^{1/p}
+        \lVert \int \vartheta\diff M-\int \vartheta^n\diff M\rVert_{\mathcal{H}^p}=&\mathbb{E}[\left(\left(\vartheta-\vartheta^n)\bullet M\right)^*_{\infty}\right)^p]^{1/p}\\&\lesssim \mathbb{E}[[\left(\vartheta-\vartheta^n)\bullet M\right)_{\infty}]^{p/2}]^{1/p}\\&=\mathbb{E}[\left(\vartheta-\vartheta^n)^2\bullet [M]\right)_{\infty}]^{p/2}]^{1/p}
         =\lVert \vartheta-\vartheta^n\rVert_{L^p(M)},
     \end{align*}
     which concludes the proof. 
 \end{proof}
-One might find the \(\epsilon\) in the integrability condition of \(M\) in Proposition \ref{prop:Lp(M) density of E(psi)} unpleasant. First, notice that fundamentally it appears due to the application of the Hölder inequality. Indeed, in the proof of Proposition \ref{prop:Lp(M) density of E(psi)}, one wants to bound the \(L^p(M)\)-norm of \((\vartheta-\xi)\) for fixed \(\vartheta\in L^p(M)\) and the \(p-ucp\) close element \(\xi\) in \(\mathcal{E}(\psi)\). We obtain, repeating the first part of the proof, 
- \begin{equation}
-        \rVert \xi-\vartheta\lVert_{L^p(M)}^p=\mathbb{E}[\left(\int_{0}^{\infty}(\xi_t-\vartheta_t)^2\diff[M]_t\right)^{p/2}]\leq\mathbb{E}[(\xi-\vartheta_{\infty}^*)^p[M]_{\infty}^{p/2}].
-\end{equation}\;
-Applying Hölder's inequality with conjugate exponents \(a,b\geq 1\) we get 
-\begin{equation}
-    \mathbb{E}[((\xi-\vartheta)_{\infty}^*)^p[M]_{\infty}^{p/2}]\leq \mathbb{E}[((\xi-\vartheta)_{\infty}^*)^{pa}]^{\frac{1}{a}}\mathbb{E}[[M]_{\infty}^{\frac{pb}{2}}]^{\frac{1}{b}}
-\end{equation}
-Recall that \(\vartheta\) was chosen to be the \(\epsilon\)-close element of \(\mathcal{E}(\psi)\) in the \(p-ucp\) topology. We can find such a \(\vartheta\) for any \(p\in[1,\infty)\) according to Proposition \ref{prop:approximation of measurable maps by algorithmic strategies}. On the other hand, we want to have the least restrictive integrability assumption on \(M\). In other words, we want to take the smallest possible \(b\). The optimal choice \(b=1\) is not admissible as it entails \(a=\infty\), for which Proposition \ref{prop:approximation of measurable maps by algorithmic strategies} does not apply. Hence any \(b>1\) will do the job and due to BDG and Doob
-\begin{equation}
-    \mathbb{E}[[M]_{\infty}^{pb/2}]\leq\mathbb{E}[([M]_{\infty}^*)^{pb}]\lesssim  \mathbb{E}[[M]_{\infty}^{pb}]=\lVert M\rVert_{\mathcal{H}^{pb}}^{pb}
-\end{equation}
-Requiring \(b>1\) is equivalent to requiring \(\tilde{\epsilon}>0\) such that \(b=1+\tilde{\epsilon}\) or \(pb=p+\epsilon\) with \(\epsilon=\tilde{\epsilon}p\). Thus, in this sense, the argument in Proposition \ref{prop:Lp(M) density of E(psi)} is optimal and can't be improved via a bound from Hölder's inequality. Taking a step back, one might ask why one should not just conduct a similar monotone class argument directly on \(\mathcal{E}(\psi)\) to show its density in \(L^p(M)\), as is done for \(\mathcal{E}\). The fundamental objection to this approach is that \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) is not closed under pointwise multiplication, and hence neither is \(\mathcal{E}(\psi)\). We show that under stricter assumptions on the information process \(Y\), one can eliminate the \(\epsilon\) by directly applying the monotone class on \(\mathcal{E}(\psi)\) for a well chosen \(\psi\) and then arguing for the general case by approximation. Finally, we show that the additional assumptions on \(Y\) are in some sense a simple change of coordinates regarding the market information process.
-\bigbreak
-The following idea is based on the observation made by \parencite{HornikStinchcombeWhite1989UniversalApproximators} and sketched in \cref{rem:NN don't form algebra}. We further use that according to \parencite[Thm.~2]{Hornik1991} the activation function 
-\begin{equation}
+One might find the additional \(\epsilon\) in the integrability condition of \(M\) in Proposition \ref{prop:Lp(M) density of E(psi)} unpleasant. First, notice that fundamentally it appears due to the application of Hölder's inequality. Indeed, in the proof of Proposition \ref{prop:Lp(M) density of E(psi)}, one wants to bound the \(L^p(M)\)-norm of \((\vartheta-\xi)\) for \(\vartheta\in L^p(M)\) and \(\xi\in\mathcal{E}(\psi)\). We obtain, repeating the first part of the proof, 
+ \begin{equation*}
+        \rVert \xi-\vartheta\lVert_{L^p(M)}^p=\mathbb{E}[\left(\int_{0}^{\infty}(\xi_t-\vartheta_t)^2\diff[M]_t\right)^{p/2}]\leq\mathbb{E}\big[(\xi-\vartheta_{\infty}^*)^p[M]_{\infty}^{p/2}\big].
+\end{equation*}\;
+Applying Hölder's inequality with conjugate exponents \(a,b\geq 1\), we get 
+\begin{equation*}
+    \mathbb{E}\big[\big((\xi-\vartheta)_{\infty}^*\big)^p[M]_{\infty}^{p/2}\big]\leq \mathbb{E}\big[\big((\xi-\vartheta)_{\infty}^*\big)^{pa}\big]^{\frac{1}{a}}\mathbb{E}\big[[M]_{\infty}^{\frac{pb}{2}}\big]^{\frac{1}{b}}
+\end{equation*}
+Recall that \(\vartheta\) was chosen to be the \(\epsilon\)-close element of \(\mathcal{E}(\psi)\) with respect to the \(p-ucp\) topology. We can find such a \(\vartheta\) for any \(p\in[1,\infty)\) according to Proposition \ref{prop:approximation of measurable maps by algorithmic strategies}. On the other hand, we want to have the least restrictive integrability assumption on \(M\). In other words, we want to take the smallest possible \(b\). The optimal choice \(b=1\) is not admissible as it entails \(a=\infty\), for which Proposition \ref{prop:approximation of measurable maps by algorithmic strategies} does not apply. Hence, any \(b>1\) will do the job, and due to BDG and Doob we have
+\begin{equation*}
+    \mathbb{E}\big[[M]_{\infty}^{pb/2}\big]\leq\mathbb{E}[([M]_{\infty}^*)^{pb}]\lesssim  \mathbb{E}\big[[M]_{\infty}^{pb}\big]=\lVert M\rVert_{\mathcal{H}^{pb}}^{pb}.
+\end{equation*}
+Requiring \(b>1\) is equivalent to requiring \(\tilde{\epsilon}>0\) such that \(b=1+\tilde{\epsilon}\) or \(pb=p+\epsilon\) with \(\epsilon=\tilde{\epsilon}p\). Thus, in this sense, the argument in Proposition \ref{prop:Lp(M) density of E(psi)} is optimal and can't be improved via a bound from Hölder's inequality. Taking a step back, one might ask why one would not conduct a similar monotone class argument directly on \(\mathcal{E}(\psi)\) to show its density in \(L^p(M)\), as is done for \(\mathcal{E}\). The fundamental objection to this approach is that \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) is not closed under pointwise multiplication, hence, neither is \(\mathcal{E}(\psi)\). We show that under careful consideration of the properties \(Y\) needed for Proposition \ref{prop:Lp(M) density of E(psi)} to hold, one can eliminate the \(\epsilon\) by directly applying the monotone class on \(\mathcal{E}(\psi)\) for a well chosen \(\psi\) and then arguing for the general case by approximation.
+
+
+
+The following idea is based on the observation made by \parencite{HornikStinchcombeWhite1989UniversalApproximators} and sketched in \cref{rem:NN don't form algebra}. We use that according to \parencite[Thm.~2]{Hornik1991} the activation function 
+\begin{equation*}
     \psi=\cos:\mathbb{R}\to\mathbb{R},
-\end{equation}
-is discriminatory, as a Borel-measurable, non-constant, and bounded function. Recall the trigonometric identity.
-\begin{align}
-    \cos(x)\cos(y)=\frac{1}{2}(\cos(x+y)+\cos(x-y))
-\end{align}
-In particular \(\mathcal{NN}_{\cos}(\mathbb{R}^k)\) forms an algebra of functions; hence, so does \(\mathcal{E}(\cos)\). The monotone class arguments of Proposition \ref{prop:density of E in L2(M) via monotone class} and Proposition \ref{prop:density of E in Lp(M) via monotone class} are totally analogous for \(\mathcal{E}(\cos)\) instead of \(\mathcal{E}\), provided we argue that 
-\begin{equation}
+\end{equation*}
+is discriminatory as a Borel-measurable, non-constant, and bounded function in the sense \ref{def:discriminatory maps over reals}. Furthermore, recall the following trigonometric identity
+\begin{align*}
+    \cos(x)\cos(y)=\frac{1}{2}(\cos(x+y)+\cos(x-y)).
+\end{align*}
+In particular, \(\mathcal{NN}_{\cos}(\mathbb{R}^k)\) forms an algebra of functions; hence, \(\mathcal{E}(\cos)\) does so as well. The monotone class arguments of Proposition \ref{prop:density of E in L2(M) via monotone class} and Proposition \ref{prop:density of E in Lp(M) via monotone class} are totally analogous for \(\mathcal{E}(\cos)\) instead of \(\mathcal{E}\), provided we argue that 
+\begin{equation*}
     \sigma(\mathcal{E}(\cos))=\mathcal{P}.
-\end{equation}
-We show more generally that  \(\sigma(\mathcal{E}(\psi))=\mathcal{P}\) for any activation function \(\psi\) satisfying the standing assumptions Definition \ref{def:standing assumptions}. 
+\end{equation*}
+We show more generally that  \(\sigma(\mathcal{E}(\psi))=\mathcal{P}\) for any activation function \(\psi\) satisfying the standing assumptions \ref{def:standing assumptions}. 
 \begin{proposition}\label{prop:E(psi) generated P}
  Let \(\psi\) be as in Definition \ref{def:standing assumptions}. Then 
-    \begin{equation}
+    \begin{equation*}
         \overline{\sigma(\mathcal{E}(\psi))}^{\mathbb{P}_M}=\overline{\mathcal{P}}^{\mathbb{P}_M},
-    \end{equation}
+    \end{equation*}
     where \(\overline{(\cdot)}^{\mathbb{P}_M}\) denotes the completion with respect to the measure \({\mathbb{P}_M}\).
 \end{proposition}
 \begin{proof}
     We show that any process of the form 
     \begin{equation}\label{eq:left continuous step function}
-        \alpha_t = \varphi_01_{\left\{ 0\right\}}(t)+\sum_{i=0}^n \varphi_i1_{(t_i,t_{i+1}]}(t),t\in\mathbb{R}_+,
+        \alpha_t = \varphi_01_{\left\{ 0\right\}}(t)+\sum_{i=0}^n \varphi_i1_{(t_i,t_{i+1}]}(t),\;t\in\mathbb{R}_+,
     \end{equation}
-    for \(\varphi_i\in\mathcal{L}^{\infty}(\mathcal{F}_{t_i},\mathbb{P})\) 
-    is the \(\mathbb{P}_M\)-almost sure limit of elements in \(\mathcal{E}(\psi)\). It then follows that \(\alpha\) is measurable with respect to \(\overline{\sigma(\mathcal{E}(\psi))}\), the \(\mathbb{P}_M\)-completed \(\sigma\)-algebra. As seen in the proof of Lemma \ref{lemma:elementary processes generated predictable sigma algebra}, every left-continuous process is approximated by processes of the form \eqref{eq:left continuous step function} (or pointwise limits of the latter). But the predictable \(\sigma\)-algebra is generated by left-continuous and adapted processes; hence, the claim.
-    \\\\ 
-    As \(\mathcal{L}^{\infty}(\mathcal{F}_{t_i},\mathbb{P})\subseteq \mathcal{L}^p(\mathcal{F}_{t_i},\mathbb{P})\) for any \(p\in[1,\infty]\), as we are working on a probability space, we have by point 2.  of Proposition \ref{prop:approximation of measurable maps by algorithmic strategies} that there exists a sequence \((\varphi_i^n)_{n\in\mathbb{N}}\subseteq\Theta_{\mathcal{NN}}(t_i,\psi)\) approximating \(\varphi_i\) in \(L^p\) for any \(p\in[1,\infty)\). 
+    for \(\varphi_i\in L^{\infty}(\mathcal{F}_{t_i},\mathbb{P})\), 
+    is the \(\mathbb{P}_M\)-almost sure limit of elements in \(\mathcal{E}(\psi)\). It then follows that \(\alpha\) is measurable with respect to \(\overline{\sigma(\mathcal{E}(\psi))}\), the \(\mathbb{P}_M\)-completed \(\sigma\)-algebra generated by processes in \(\mathcal{E}(\psi)\). As seen in the proof of Lemma \ref{lemma:elementary processes generated predictable sigma algebra}, every left-continuous process is approximated by processes of the form \eqref{eq:left continuous step function} (or pointwise limits of the latter). But the predictable \(\sigma\)-algebra is generated by left-continuous and adapted processes; hence, the claim.
+
+
+
+     Because \(L^{\infty}(\mathcal{F}_{t_i},\mathbb{P})\subseteq L^p(\mathcal{F}_{t_i},\mathbb{P})\) for any \(p\in[1,\infty]\), as we are working on a probability space, we have by point (2.)  of Proposition \ref{prop:approximation of measurable maps by algorithmic strategies} that there exists a sequence \((\varphi_i^k)_{k\in\mathbb{N}}\subseteq\Theta_{\mathcal{NN}}(t_i,\psi)\) approximating \(\varphi_i\) in \(L^p\) for any \(p\in[1,\infty)\). 
     We might do this for every \(i=0,\dots, n\). Then 
-    \begin{equation}
+    \begin{equation*}
         \alpha_t^k=\varphi_0^k1_{\left\{ 0\right\}}(t)+\sum_{i=0}^n \varphi_i^k1_{(t_i,t_{i+1}]}(t),
-    \end{equation}
-    converges to \(\alpha_t\) as \(k\to\infty\) in \(L^p(\mathbb{P})\) for every \(t\in\mathbb{R}_+\). What we want is to have some \(\widetilde{\alpha}_t\) converging to \(\alpha_t\), \(\mathbb{P}\)-almost surely for every \(t\in\mathbb{R}_+\). We construct \(\widetilde{\alpha}\) by extracting almost surely converging subsequence from \((\varphi_i^n)_{n\in\mathbb{N}}\). We do this as follows.
-    We start with \(i=1\). We extract a subsequence such that \((\varphi_1^{n(k)})_{k\in\mathbb{N}}\) converges to \(\varphi_1\) \(\mathbb{P}\)-almost surely. Along this subsequence \(n(k)\), we still have that \((\varphi_{2}^{n(k)})_{k\in\mathbb{N}}\) converges in \(L^p\) to \(\varphi_2\), hence we can extract a subsubsequence such that \((\varphi_{2}^{n(k(s))})_{s\in\mathbb{N}}\) converges to \(\varphi_2\) almost surely. We can iterate this procedure up to \(i=n\) to get a subsequence, which we reindex, and denote the corresponding sequence \((\widetilde{\varphi_i}^n)_{n\in\mathbb{N}}\) for all \(i=0,\dots,n\). Then we have 
+    \end{equation*}
+    converges to \(\alpha_t\) as \(k\to\infty\) in \(L^p(\mathbb{P})\) for every \(t\in\mathbb{R}_+\). Indeed, 
+    \begin{equation*}
+        \lVert \alpha_t-\alpha_t^k\rVert_{L^p}\leq\sum_{i=0}^n\lVert\varphi_i-\varphi_i^k\rVert_{L^p}\to0,\;k\to\infty
+    \end{equation*}
+    We want to have some \(\widetilde{\alpha}_t\) converging to \(\alpha_t\), \(\mathbb{P}\)-almost surely for every \(t\in\mathbb{R}_+\). We construct \(\widetilde{\alpha}\) by extracting an almost surely converging subsequence from \((\varphi_i^n)_{n\in\mathbb{N}}\) for every \(i\) in such a way that \(\alpha_t\) also converges almost surely. We proceed as follows.
+    We start with \(i=0\). We extract a subsequence such that \((\varphi_0^{n(k)})_{k\in\mathbb{N}}\) converges to \(\varphi_0\) \(\mathbb{P}\)-almost surely. Along this subsequence \(n(k)\), we still have that \((\varphi_{1}^{n(k)})_{k\in\mathbb{N}}\) converges in \(L^p\) to \(\varphi_1\), hence we can extract a subsubsequence such that \((\varphi_{1}^{n(k(s))})_{s\in\mathbb{N}}\) converges to \(\varphi_1\) almost surely. We can iterate this procedure up to \(i=n\) to get a subsequence, which we reindex, denoting the corresponding sequence \((\widetilde{\varphi_i}^k)_{k\in\mathbb{N}}\) for all \(i=0,\dots,n\). Then we have 
    \begin{equation}\label{eq:neural simple processes}
-        \widetilde{\alpha}_t^{k} = \widetilde{\varphi}^{k}_01_{\left\{ 0\right\}}(t)+\sum_{i=1}^n \widetilde{\varphi}_i^{k}1_{(t_i,t_{i+1}]}(t),
+        \widetilde{\alpha}_t^{k} = \widetilde{\varphi}^{k}_01_{\left\{ 0\right\}}(t)+\sum_{i=0}^n \widetilde{\varphi}_i^{k}1_{(t_i,t_{i+1}]}(t),
     \end{equation}
-    where \((\widetilde{\varphi}_i^{n(k)})_{k}\subseteq\Theta_{\mathcal{NN}}(t_i,\psi)\) converge for almost all \(\omega\in\Omega\) to \(\phi_i\), for all \(i=1,\dots,n\) and all \(t\in\mathbb{R}_+\). Clearly such \(\widetilde{\alpha}^{k}\in\mathcal{E}(\psi),\) for every \(k\). Hence
-    \begin{equation}
-        \widetilde{\alpha}^{k}\overset{k\to\infty}{\to}\alpha,
-    \end{equation}
-    for all \((\omega,t)\in\Omega/N\times\mathbb{R}_+=\Omega\times\mathbb{R}_+/N\times \mathbb{R}_+\), where \(\mathbb{P}(N)=0\). Notice that  \(N\times\mathbb{R}_+\) is a \(\mathbb{P}_M\)-nullset. Indeed 
-    \begin{equation}
-        \mathbb{P}_M(N\times\mathbb{R}_+)=\mathbb{E}\bigg[\int_0^{\infty}1_N1_{\mathbb{R}_+}(t)\diff [M]_t\bigg]=\mathbb{E}[1_N[M]_{\infty}]=0
-    \end{equation}
+    where \((\widetilde{\varphi}_i^{k})_{k}\subseteq\Theta_{\mathcal{NN}}(t_i,\psi)\) converge for almost all \(\omega\in\Omega\) to \(\varphi_i\), for all \(i=1,\dots,n\) and all \(t\in\mathbb{R}_+\). Clearly such \(\widetilde{\alpha}^{k}\in\mathcal{E}(\psi),\) for every \(k\). Hence
+    \begin{equation*}
+        \widetilde{\alpha}^{k}\to\alpha,\;k\to\infty
+    \end{equation*}
+    for all \((\omega,t)\in\Omega/\mathcal{N}\times\mathbb{R}_+=\Omega\times\mathbb{R}_+/(\mathcal{N}\times \mathbb{R}_+)\), where \(\mathbb{P}(\mathcal{N})=0\). Notice that  \(\mathcal{N}\times\mathbb{R}_+\) is a \(\mathbb{P}_M\)-null set. Indeed 
+    \begin{equation*}
+        \mathbb{P}_M(\mathcal{N}\times\mathbb{R}_+)=\mathbb{E}\bigg[\int_0^{\infty}1_\mathcal{N}1_{\mathbb{R}_+}(t)\diff [M]_t\bigg]=\mathbb{E}[1_\mathcal{N}[M]_{\infty}]=0
+    \end{equation*}
     because \([M]_{\infty}\) is integrable by the assumption that \(M\in\mathcal{H}_{0}^2\). Hence \(\widetilde{\alpha}_t^k\to \alpha_t\), \(\mathbb{P}_M\)-almost surely. Thus we have shown that \(\alpha\) is measurable with respect to the completion of \(\sigma(\mathcal{E}(\psi))\) with respect to the measure \(\mathbb{P}_M\). We denote the latter by \(\overline{\sigma(\mathcal{E}(\psi))}^{\mathbb{P}_M}\). By the remarks at the beginning of this proof, this shows that 
-     \begin{equation}
+     \begin{equation*}
         \mathcal{P}\subseteq\overline{\sigma(\mathcal{E}(\psi))}^{\mathbb{P}_M}
-    \end{equation}
+    \end{equation*}
     But \(\sigma(\mathcal{E}(\psi))\subseteq\mathcal{P}\) is clear; hence, the claim. 
 \end{proof}
-In light of our goal of showing the density of \(\sigma(\mathcal{E}(cos))\) in \(L^2(M)\), the completion issue in Proposition \ref{prop:E(psi) generated P} seems problematic. Indeed, the monotone class argument Proposition \ref{prop:density of E in L2(M) via monotone class} yields in our present case that the class 
-\begin{equation}
-     \mathcal{H}=\left\{ \vartheta\in b\mathcal{P}:\vartheta\in L^2(M),\forall \epsilon>0, \exists \vartheta_{\epsilon}\in b\mathcal{E}(cos)\text{ with }\lVert \vartheta_{\epsilon}-\vartheta\rVert_{L^2(M)}<\epsilon\right\}.
-\end{equation}
-contains all bounded \(\sigma(\mathcal{E}(cos))\)-measurable maps. The conclusion then relies on the fact that \(\sigma(\mathcal{E}(cos))=\mathcal{P}\).  Hence, Proposition \ref{prop:E(psi) generated P} doesn't allow us to conclude directly. Nevertheless, the completion issue can be dealt with by some standard considerations on null-sets.
-\\\\
-Recall the well-known fact that for \(\overline{\mathcal{F}}^{\mu}\)-measurable \(\widetilde{f}\)  there exists an \(\mathcal{F}\)-measurable \(f\) such that \(\mu(\left\{\omega\in\Omega:f(\omega)\neq \widetilde{f}(\omega)\right\})=0\).\footnote{Strictly speaking, one should be careful here. The completion of a measure space also involves the extension of a completed measure, which assigns the value \(0\) to every set in \(\mathcal{N}_{\mu}\). We denote it by \(\overline{\mu}\). The set \(\left\{\omega\in\Omega:f(\omega)\neq \widetilde{f}(\omega)\right\}\) is a \(0\)-set with respect to \(\overline{\mu}\) but need not be defined with respect to the original measure, as it needs to be measurable in the raw/uncompleted \(\sigma\)-algebra.} By the monotone class argument, we have for every bounded \(\sigma(\mathcal{E}(\psi))\)-measurable \(f\), and for every \(\epsilon>0\), there exists \(g_{\epsilon}\in \mathcal{E}(cos)\) such that 
- \begin{equation}
+In light of our goal of showing the density of \(\sigma(\mathcal{E}(\cos))\) in \(L^2(M)\), the completion issue in Proposition \ref{prop:E(psi) generated P} seems problematic. Indeed, the monotone class argument in Proposition \ref{prop:density of E in L2(M) via monotone class} yields, in our present case, that the class 
+\begin{equation*}
+     \mathcal{H}=\left\{ \vartheta\in b\mathcal{P}:\vartheta\in L^2(M),\forall \epsilon>0, \exists \vartheta_{\epsilon}\in \mathcal{E}(\cos)\text{ with }\lVert \vartheta_{\epsilon}-\vartheta\rVert_{L^2(M)}<\epsilon\right\}.
+\end{equation*}
+contains all bounded \(\sigma(\mathcal{E}(\cos))\)-measurable maps. The conclusion for density then relies on the fact that \(\mathcal{H}\) defines a monotone class and that \(\sigma(\mathcal{E}(\cos))=\mathcal{P}\).  Hence, Proposition \ref{prop:E(psi) generated P} doesn't allow us to conclude directly. Nevertheless, the completion issue can be dealt with by some standard considerations on null-sets.
+
+
+Recall the well-known fact that for \(\overline{\mathcal{F}}^{\mu}\)-measurable \(\widetilde{f}\)  there exists an \(\mathcal{F}\)-measurable \(f\) such that \(\mu\big(\big\{\omega\in\Omega:f(\omega)\neq \widetilde{f}(\omega)\big\}\big)=0\) (see \parencite[Thm.~1.55]{Salamon2020MeasureIntegration}). More precisely \(\overline{\mu}\big(\big\{\omega\in\Omega:f(\omega)\neq \widetilde{f}(\omega)\big\}\big)=0\), where \(\overline{\mu}\) is the unique extension of \(\mu\) to \(\overline{\mathcal{F}}^{\mu}\), defined by \(\overline{\mu}(A\cup E)=\mu(A)\) for \(A\in\mathcal{F},E\in\mathcal{N}_{\mu}\). By Lemma \ref{lemma:characterisation of completed sigma-algebra}, this characterizes \(\overline{\mu}\) on all of \(\overline{\mathcal{F}}^{\mu}\). We abuse notation and do not distinguish between \(\mu\) and its canonical completion \(\overline{\mu}\) notationally, as it is clear from the context which one is being considered.
+
+
+By the monotone class argument, we get for every bounded \(\sigma(\mathcal{E}(\psi))\)-measurable \(f\), and for every \(\epsilon>0\), that there exists \(g_{\epsilon}\in \mathcal{E}(\cos)\) such that 
+ \begin{equation*}
      \lVert f-g_{\epsilon}\rVert_{L^2(M)}<\epsilon.
- \end{equation}
- We want to show that \(\mathcal{H}\) contains all bounded \(\overline{\sigma(\mathcal{E}(\cos))}^{\mathbb{P}_M}\)-measurable maps. Let \(\widetilde{f}\) be bounded and \(\overline{\sigma(\mathcal{E}(\cos))}^{\mathbb{P}_M}\)-measurable. There exists a bounded \(\sigma(\mathcal{E}(\cos))\)-measurable \(f\) that is \(\mathbb{P}_M\)-almost everywhere equal to \(\widetilde{f}\)\footnote{By the completion property stated previously; this \(f\) could be unbounded on a \(0\)-measure set with respect to the completed measure. If so, simply take \(f'=-C\wedge f\vee C\), where \(C\) is the bound of \(\widetilde{f}\). Alternatively, just redefine \(f'\) to be \(0\) on a \(\mu\)-null set containing the \(\overline{\mu}\)-null set.} For every \(\epsilon>0\), there is some \(g_{\epsilon}\in\mathcal{E}(\cos)\) that approximates \(f\) in \(L^2(M)\). Hence 
- \begin{equation}
+ \end{equation*}
+ We want to show that \(\mathcal{H}\) contains all bounded \(\overline{\sigma(\mathcal{E}(\cos))}^{\mathbb{P}_M}\)-measurable maps. Let \(\widetilde{f}\) be bounded and \(\overline{\sigma(\mathcal{E}(\cos))}^{\mathbb{P}_M}\)-measurable. There exists a bounded \(\sigma(\mathcal{E}(\cos))\)-measurable \(f\) that is \(\mathbb{P}_M\)-almost everywhere equal to \(\widetilde{f}\). Hence 
+ \begin{equation*}
      \lVert \widetilde{f}-g_{\epsilon}\rVert_{L^2(M)}=\lVert f-g_{\epsilon}\rVert_{L^2(M)}<\epsilon.
- \end{equation}
- Hence, we can approximate every \(\widetilde{f}\in L^2(\overline{\mathcal{P}}^{\mathbb{P}_M},\mathbb{P}_M)\) hence every \(f\in L^2(\mathcal{P},\mathbb{P}_M)\) as well. We deduce the following result.
+ \end{equation*}
+ Hence, we can approximate every \(\widetilde{f}\in L^2(\overline{\mathcal{P}}^{\mathbb{P}_M},\mathbb{P}_M)\) by elements in \(\mathcal{E}(\cos)\) and in particular every \(f\in L^2(\mathcal{P},\mathbb{P}_M)\) as well. We deduce the following result.
 \begin{lemma}\label{lemma:density of E(cos) in L2(M)}
 Assume the conditions of Proposition \ref{prop:E(psi) generated P}. Then 
-\begin{equation}
+\begin{equation*}
     \overline{\mathcal{E}(\cos)}^{L^2(M)}=L^2(M).
-\end{equation}
+\end{equation*}
 \end{lemma}
 \begin{remark}
-    Note that we used \(\widetilde{V}^n\to V\) \(\mathbb{P}_M\) almost surely. We could then consider the completion of the measure space \((\Omega\times\mathbb{R}_+, \mathcal{P},\mathbb{P}_M)\) with respect to \(\mathbb{P}_M\). This allowed us to argue about approximation in \(L^2(M)=L^2(\mathcal{P},\mathbb{P}_M)\) and the completed space \(L^2(M)=L^2(\mathcal{P},\mathbb{P}_M)\). More precisely, we use the fact that 
-    \begin{equation}
-        L^2(\Omega,\mathcal{F},\mathbb{P})\simeq  L^2(\Omega,\overline{\mathcal{F}}^{\mathbb{P}},\mathbb{P}),
-    \end{equation}
-    as quotient spaces, that is, under the identification \(X\sim Y\) if \(\lVert X-Y\rVert_{L^2}=0\),\footnote{ Again, strictly speaking, one has to consider the space \(L^2(\Omega,\overline{\mathcal{F}}^{\mathbb{P}},\overline{\mathbb{P}})\), where \(\overline{\mathbb{P}}\) is the unique extension of \(\mathbb{P}\) to \(\overline{\mathcal{F}}^{\mathbb{P}}\). Then the correct statement is that \(L^2(\Omega,\overline{\mathcal{F}}^{\mathbb{P}},\overline{\mathbb{P}})=L^2(\Omega,\mathcal{F},\overline{\mathbb{P}})\),, where \(\mathcal{F}\subseteq\overline{\mathcal{F}}^{\mathbb{P}}\) is a sub-\(\sigma\)-algebra. Hence, \(L^2(\Omega,\overline{\mathcal{F}}^{\mathbb{P}},\overline{\mathbb{P}})\subseteq L^2(\Omega,\mathcal{F},\overline{\mathbb{P}})\) is clear, and the converse containment follows from the identification of \(f\in L^2(\Omega,\overline{\mathcal{F}}^{\mathbb{P}},\overline{\mathbb{P}})\) with its \(\mathcal{F}\)-measurable version \(\widetilde{f}\) such that \(\lVert f-\overline{f}\rVert_{L^2(\overline{\mathbb{P}})}\); hence, \(f=\widetilde{f}\) in the \(L^2(\overline{\mathbb{P}})\)-sense. In particular, we abuse notation slightly in the main text by identifying \(\mathbb{P}\) and \(\overline{\mathbb{P}}\). In particular, they only differ on sets \(A\subseteq N\) where \(\mathbb{P}(N)=0\) and \(A\in\overline{\mathcal{F}}^{\mathbb{P}}/\mathcal{F}\).}
-    The argument thus crucially uses that for \(p=2\), \(L^p(M)=L^2(\mathbb{P}_M)\). Thus this argument yields the claim for \(p=2\). Fortunately, this is the interesting case for the mean-variance hedging results. 
+    Note that we argued about the argument on the completion issue, which was based on the completion of the measure space \(\Omega\times\mathbb{R}_+,\mathcal{P},\mathbb{P}_M\) for \(M\in\mathcal{H}^2_0\), arguing about approximating elements in \(L^2(M)=L^2(\mathcal{P},\mathbb{P}_M)\) and the completed space \(L^2(M)=L^2(\mathcal{P},\mathbb{P}_M)\).
+    The argument thus crucially uses that for \(p=2\), \(L^p(M)=L^2(\mathbb{P}_M)\), which holds in the case \(p=2\) and is not true for general \(p\in [1,\infty)\). As the case \(p=2\) is the relevant case for our use case, which is deep mean-variance hedging, this suffices.
 \end{remark}
-The remaining task is to show that
-\begin{equation}
+In order to show \(\overline{\mathcal{E}(\psi)}^{L^2(M)}=L^2(M)\) for any discriminatory activation function, it remains to show that
+\begin{equation*}
     \mathcal{E}(\cos)\subseteq \overline{\mathcal{E}(\psi)}^{L^2(M)}
-\end{equation}
-for any activation function \(\psi\) and \(p\in[1,\infty)\). Indeed, if this holds, together with Lemma \ref{lemma:density of E(cos) in L2(M)} we get 
-\begin{equation}
-    \overline{\mathcal{E}(\psi)}^{L^2(M)}=L^2(M).
-\end{equation}
-for \(M\in\mathcal{H}^2\), without further infinitesimal integrability conditions. 
+\end{equation*}
+for any activation function \(\psi\) and \(p\in[1,\infty)\) in the real-valued sense of Definition \ref{def:discriminatory maps over reals}. Indeed, if this holds, we get, together with Lemma \ref{lemma:density of E(cos) in L2(M)}, that
+\begin{equation*}
+    \overline{\mathcal{E}(\psi)}^{L^2(M)}=L^2(M)
+\end{equation*}
+for \(M\in\mathcal{H}^2\), without additional \(\epsilon\)-infinitesimal integrability conditions, \(M\in\mathcal{H}_0^{p+\epsilon}\), as was the case in Proposition \ref{prop:Lp(M) density of E(psi)}.
 \begin{proposition}\label{prop:density of E(psi) in L^2(M)}
-    Assume \(Y_t\) takes values in a compact subspace \(K^t\in\mathbb{R}\) for every \(t\in\mathbb{R}_+\). Then, under the assumptions of Proposition \ref{prop:E(psi) generated P}, we have for \(M\in\mathcal{H}^2\)
-    \begin{equation}
+    Assume \(Y_t\) takes values in a compact subspace \(K^t\in\mathbb{R}\) for every \(t\in\mathbb{R}_+\). Then, under the assumptions of Proposition \ref{prop:E(psi) generated P}, we have for \(M\in\mathcal{H}_0^2\)
+    \begin{equation*}
         \overline{\mathcal{E}(\psi)}^{L^2(M)}=L^2(M)\,.
-    \end{equation}
-    for any \(\psi\) satisfying the standing assumption Definition \ref{def:standing assumptions}.
+    \end{equation*}
+    for any \(\psi\) satisfying Definition \ref{def:discriminatory maps over reals}.
 \end{proposition}
 \begin{proof}
-As explained it remainse to show that 
-    \begin{equation}
+As explained, it remains to show that 
+    \begin{equation*}
     \mathcal{E}(\cos)\subseteq \overline{\mathcal{E}(\psi)}^{L^2(M)}
-\end{equation}
+\end{equation*}
 Let \(\vartheta\in\mathcal{E}(\cos)\):
-\begin{equation}
+\begin{equation*}
     \vartheta = \vartheta_01_{\left\{0\right\}}+\sum_{i=1}^n \varphi_i(Y_{t_1}^i,\dots,Y_{t_{k(i)}}^i)1_{(t_i,t_{i+1}]}
-\end{equation}
-with \(\varphi_i\in\mathcal{NN}_{\cos}(\mathbb{R}^{k(i)})\). Note that for every \(i=0,\dots,n\), \((Y_{t_1}^i,\dots,Y_{t_{k(i)}}^i)\) takes values in \(K^{t_1}\times\dots\times K^{t_{k(i)}}\) which is a compact subset of \(\mathbb{R}^{k(i)}\). Hence 
-\begin{equation}
+\end{equation*}
+with \(\varphi_i\in\mathcal{NN}_{\cos}(\mathbb{R}^{k(i)})\). Note that by assumption, for every \(i=0,\dots,n\), \((Y_{t_1}^i,\dots,Y_{t_{k(i)}}^i)\) takes values in \(K^i\coloneqq K^{t_1}\times\dots\times K^{t_{k(i)}}\), with \(k(i)\leq t_i\) and \(Y_{t_i}(\Omega)\subseteq K^{t_i}\). As a product of compact sets, \(K^i\) is a compact subset of \(\mathbb{R}^{k(i)}\). By definition 
+\begin{equation*}
     \varphi_i=\sum_{j=0}^m\alpha_{ij}\cos(A_{ij}),
-\end{equation}
-where \(A_{ji}:\mathbb{R}^{k(i)}\to\mathbb{R}\) is affine linear. 
-By \parencite[Thm.~2]{Hornik1991}, for the continuous activation function \(\cos\) and with the compact set \(K^i=K^{t_1}\times\dots\times K^{t_{k(i)}}\), for every \(\epsilon>0\) there exists \(\vartheta_{ij}^{\epsilon}\in\mathcal{NN}_{\psi}(K)\) such that 
-\begin{equation}
-    \sup_{x\in K^i}|\cos(A_{ij}(x))-\vartheta_{ij}^{\epsilon}(x)|<\epsilon
-\end{equation}
-where \(\vartheta_{ij}^{\epsilon}=\sum_{k=1}^l\beta_{ijk}\psi(B_{ijk})\) for some affine linear \(B_{ijk}\). Setting
-\begin{equation}
-    \xi = \widetilde{\varphi}_i(Y_{t_1},\dots,Y_{t_{k(0)}})1_{\left\{ 0\right\}}+\sum_{i=1}^n\widetilde{\varphi}_i(Y_{t_1},\dots,Y_{t_{k(i)}})1_{(t_i,t_{i+1}]}
-\end{equation}
-with \(\widetilde{\varphi}_i(Y_{t_1},\dots,Y_{t_{k(i)}})=\sum_{j=0}^m\alpha_{ij}\vartheta_{ij}^{\epsilon(ij)}\). We choose \(\epsilon(ij)=\frac{\epsilon^{\frac{1}{2}}}{(n+1)(m+1)|\alpha_{ij}|}\)
-we get 
-\begin{align*}
-    \sup_{t\in\mathbb{R}_+]}|\vartheta_t-\xi_t|\leq \sum_{i=0}^{n}|\widetilde{\varphi}_i(Y_{t_1},\dots,Y_{t_{k(i)}})-\varphi_i(Y_{t_1},\dots,Y_{t_{k(i)}})|\leq \sum_{i=0}^{n}\sum_{j=0}^m|\alpha_{ij}||\cos(A_{ij}(x))-\vartheta_{ij}^{\epsilon}(x)|
-\end{align*}
+\end{equation*}
+for coefficients \(\alpha_{ij}\in\mathbb{R}\) and
+where \(A_{ij}:\mathbb{R}^{k(i)}\to\mathbb{R}\) is affine linear and \(i=0,\dots,n,j=0,\dots,m\).
+By \parencite[Thm.~2]{Hornik1991}, the bounded, non-constant, continuous, real-valued activation function \(\cos\) is discriminatory in the sense \ref{eq:discriminatory maps over reals}. Considering the \(\phi_i\) as functions over compact sets \(K^i\coloneqq K^{t_1}\times\dots\times K^{t_{k(i)}}\), we have by Proposition \ref{eq:density of NN in C(K)} applied to the continuous function \(\cos(A_{ij}):K^i\to\mathbb{R}\) that for every \(\epsilon>0\) and \((i,j)=\{0,\dots,n\}\times\{0,\dots,m\}\), there exists \(\vartheta_{ij}^{\epsilon}\in\mathcal{NN}_{\psi}(K^i)\) such that 
+\begin{equation*}
+    \sup_{x\in K^i}|\cos(A_{ij}(x))-\vartheta_{ij}^{\epsilon}(x)|<\epsilon,
+\end{equation*}
+where \(\vartheta_{ij}^{\epsilon}=\sum_{k=1}^l\beta_{ijk}\psi(B_{ijk})\) for some affine linear \(B_{ijk}\). Consider
+\begin{equation*}
+    \xi \coloneqq \widetilde{\varphi}_0(Y_{t_1},\dots,Y_{t_{k(0)}})1_{\left\{ 0\right\}}+\sum_{i=1}^n\widetilde{\varphi}_i(Y_{t_1},\dots,Y_{t_{k(i)}})1_{(t_i,t_{i+1}]}
+\end{equation*}
 with
-\begin{equation}
-    \sup_{x\in K^i}(\vartheta-\xi)_{\infty}^*\leq \sum_{i=0}^{n}\sum_{j=0}^m|\alpha_{ij}|\sup_{x\in K^i}|\cos(A_{ij}(x))-\vartheta_{ij}^{\epsilon}(x)|< \epsilon^{\frac{1}{2}}
-\end{equation}
-Finally we can bound the \(L^2(M)\) norm as follows
+\begin{equation*}
+    \widetilde{\varphi}_i(Y_{t_1},\dots,Y_{t_{k(i)}})\coloneqq\sum_{j=0}^m\alpha_{ij}\vartheta_{ij}^{\epsilon(ij)}\in \mathcal{NN}_{\psi}(K^i),
+\end{equation*}
+where we set \(\epsilon(ij)\coloneqq\frac{\epsilon^{\frac{1}{2}}}{(n+1)(m+1)|\alpha_{ij}|}\). Clearly \(\xi\in\mathcal{E}(\psi)\). Denoting \(x_i=(Y_{t_1}(\omega),\dots,Y_{t_{k(i)}}(\omega))\in K^i\). We have for every \(\omega\in\Omega\) that 
 \begin{align*}
-    \mathbb{E}\bigg[\left(\int_{0}^{\infty}(\xi_t-\vartheta_t)^2\diff [M]_t\right)\bigg]\leq \mathbb{E}\Big[((\xi-\vartheta)_{\infty}^*)[M]_{\infty}^{\frac{1}{2}}\Big]\leq\epsilon\mathbb{E}\Big[[M]_{\infty}^{\frac{1}{2}}\Big].
+    (\vartheta-\xi)^*_{\infty}(\omega)=&\sup_{t\in\mathbb{R}_+}|\vartheta_t(\omega)-\xi_t(\omega)|
+    \\&\leq \sum_{i=0}^{n}|\widetilde{\varphi}_i(x_i)-\varphi_i(x_i)|\leq \sum_{i=0}^{n}\sum_{j=0}^m|\alpha_{ij}||\cos(A_{ij}(x_i))-\vartheta_{ij}^{\epsilon(ij)}(x_i)|<\epsilon^{\frac{1}{2}},
 \end{align*}
-By assumption \(\mathbb{E}[[M]_{\infty}^{\frac{1}{2}}]\lesssim\lVert M\rVert_{\mathcal{H}^2}^2<\infty\), the claim follows. 
+where we used
+\begin{equation*}
+\sum_{i=0}^{n}\sum_{j=0}^m|\alpha_{ij}||\cos(A_{ij}(x_i))-\vartheta_{ij}^{\epsilon(ij)}(x_i)|
+\leq \sum_{i=0}^{n}\sum_{j=0}^m|\alpha_{ij}|\sup_{x_i\in K^i}|\cos(A_{ij}(x_i))-\vartheta_{ij}^{\epsilon(ij)}(x_i)|\leq
+\epsilon^{\frac{1}{2}}.
+\end{equation*}
+This allows us to bound the \(L^2(M)\)-norm as follows
+\begin{align*}
+    \lVert\vartheta-\xi\rVert_{L^2(M)}=\mathbb{E}\bigg[\left(\int_{0}^{\infty}(\xi_t-\vartheta_t)^2\diff [M]_t\right)\bigg]\leq \mathbb{E}\big[((\xi-\vartheta)_{\infty}^*)[M]_{\infty}^{\frac{1}{2}}\big]\leq\epsilon\mathbb{E}\big[[M]_{\infty}^{\frac{1}{2}}\big].
+\end{align*}
+This holds for every \(\epsilon>0\) and
+\(\mathbb{E}[[M]_{\infty}^{\frac{1}{2}}]\lesssim\lVert M\rVert_{\mathcal{H}^2}^2<\infty\) as \(M\in\mathcal{H}^2_0\) by assumption, whence the claim.
 \end{proof}
-The compactness assumption on the image of \(Y_t\) is unpleasant and is violated in basic examples. Indeed, assume that our market information is given by the price process, which is taken to be a Brownian motion. Then, by the law of iterated logarithm \parencite[Thm.~2.1]{Schweizer2025BrownianMotionStochasticCalculus}, it has almost surely unbounded paths. To get rid of the compactness assumption, we observe the following. We are only considering \(\mathcal{E}(\psi)\) at the moment. The relevant approximation property from the second part of Proposition \ref{prop:approximation of measurable maps by algorithmic strategies} does not require \(Y\) to be Lévy. So we might as well consider 
-\begin{equation}
+The compactness assumption on the image of \(Y_t\) is unpleasant and is violated in basic examples. Indeed, assume that our market information is given a price process, which is taken to be a Brownian motion. Then, by the law of iterated logarithm (see \parencite[Thm.~2.1]{Schweizer2025BrownianMotionStochasticCalculus}), it has almost surely unbounded paths. To eliminate the compactness assumption, we observe the following. We are only considering \(\mathcal{E}(\psi)\) at the moment. The relevant approximation property from the second part of Proposition \ref{prop:approximation of measurable maps by algorithmic strategies} does not require \(Y\) to be Lévy. So we might as well consider 
+\begin{equation*}
     \widetilde{Y}_t=\tanh(Y_t)\quad\forall t\in\mathbb{R}_+.
-\end{equation} 
-Then clearly 
-\begin{equation}
-    \mathcal{F}=\sigma(Y_t:t\in\mathbb{R}_+)=\sigma(\widetilde{Y}_t:t\in\mathbb{R}_+)=\widetilde{\mathcal{F}},
-\end{equation}
-because \(\tanh:\mathbb{R}\to(-1,1)\) is injective, hence \(Y_t=\tanh^{-1}\circ\tanh\circ Y_t\). The same clearly holds for the respective \(\mathbb{P}\)-completion. Denote by \(\widetilde{\Theta}_{\mathcal{NN}}(t,\psi)\) the class of random variables analogous to \(\Theta_{\mathcal{NN}}(t,\psi)\) with \(\widetilde{Y}\) instead of \(Y\); that is, \(Z\in\widetilde{\Theta}_{\mathcal{NN}}(t,\psi)\) has the representation.
-\begin{equation}
+\end{equation*} 
+Then, clearly 
+\begin{equation*}
+    \mathcal{F}^0=\sigma(Y_t:t\in\mathbb{R}_+)=\sigma(\widetilde{Y}_t:t\in\mathbb{R}_+)=\widetilde{\mathcal{F}}^0,
+\end{equation*}
+because \(\tanh:\mathbb{R}\to(-1,1)\) is injective, hence \(Y_t=\tanh^{-1}\circ\tanh\circ Y_t\). The same clearly holds for the respective \(\mathbb{P}\)-completions \(\mathcal{F}=\mathcal{F}\vee\mathcal{N}_{\mathbb{P}}\) and \(\mathcal{F}^0=\overline{\mathcal{F}}^0\vee\mathcal{N}_{\mathbb{P}}\). Denote by \(\widetilde{\Theta}_{\mathcal{NN}}(t,\psi)\) the class of random variables analogously defined as \(\Theta_{\mathcal{NN}}(t,\psi)\) but with \(\widetilde{Y}\) instead of \(Y\); that is, \(Z\in\widetilde{\Theta}_{\mathcal{NN}}(t,\psi)\) has the representation
+\begin{equation*}
     Z =f(\widetilde{Y}_{t_1},\dots, \widetilde{Y}_{t_n}).
-\end{equation}
-for some \(f\in\mathcal{NN}_{\psi}((\mathbb{R}^{dn})^*)\). 
+\end{equation*}
+for some \(f\in\mathcal{NN}_{\psi}(\mathbb{R}^{d\times n})\). 
 Denote by \(\widetilde{\mathcal{E}}(\psi)\) the set of processes of the form
-\begin{equation}
-  \widetilde{\vartheta}_t=\widetilde{\varphi}_01_{\left\{0\right\}}(t)+\sum_{i=1}^n\widetilde{\varphi}_i1_{(t_I,t_{i+1}]}(t),
-  \end{equation}
+\begin{equation*}
+  \widetilde{\vartheta}=\widetilde{\varphi}_01_{\left\{0\right\}}+\sum_{i=0}^n\widetilde{\varphi}_i1_{(t_I,t_{i+1}]},
+  \end{equation*}
  where \(\widetilde{\varphi}_i\in\widetilde{\Theta}_{\mathcal{NN}}(t,\psi)\).  
- \\\\
- Observe that we can simply replace \({\Theta}_{\mathcal{NN}}(t,\psi)\) by \(\widetilde{\Theta}_{\mathcal{NN}}(t,\psi)\) in the second part of  Proposition \ref{prop:approximation of measurable maps by algorithmic strategies} to get that \(\widetilde{\Theta}_{\mathcal{NN}}(t,\psi)\) is dense in \(L^p(\overline{{\mathcal{F}_{t_i}}})\). Again, this is because the Lévy-assumption of \(Y\) is only necessary for the stopped versions, that is the third part of Proposition \ref{prop:approximation of measurable maps by algorithmic strategies}, where one needs \(\overline{\mathcal{F}}_{\tau}=\sigma(\tau)\vee\sigma(Y_t^{\tau}:t\in J)\vee\mathcal{N}_{\mathbb{P}}\). However, in the deterministic case of \(\mathcal{E}\) and \(\mathcal{E}(\psi)\), we don't need \(Y\) to be Lévy. For the relevant first part of Proposition \ref{prop:approximation of measurable maps by algorithmic strategies} the arguments are unchanged for \(\widetilde{Y}\) instead of \(Y\). Indeed, the crucial Doob-Dynkin application for the process 
- \begin{equation}
+
+
+ 
+ Observe that we can simply replace \({\Theta}_{\mathcal{NN}}(t,\psi)\) with \(\widetilde{\Theta}_{\mathcal{NN}}(t,\psi)\) in part (2.) of  Proposition \ref{prop:approximation of measurable maps by algorithmic strategies} to conclude that \(\widetilde{\Theta}_{\mathcal{NN}}(t,\psi)\) is dense in \(L^p({\mathcal{F}_{t_i}})\). Again, this is because the Lévy-assumption of \(Y\) is only relevant for properties of \(\mathcal{F}_{\sigma}\) that allow for stopping-times \(\tau\), which is part (3.) of Proposition \ref{prop:approximation of measurable maps by algorithmic strategies}. More precisely, one needs \(\mathcal{F}_{\tau}=\sigma(\tau)\vee\sigma(Y_t^{\tau}:t\in J)\vee\mathcal{N}_{\mathbb{P}}\) in part (3.) of Proposition \ref{prop:approximation of measurable maps by algorithmic strategies}, which is true if \(Y\) is assumed to be Lévy. However, regarding the definition of \(\mathcal{E}\) and \(\mathcal{E}(\psi)\), which involve deterministic times only, we don't need \(Y\) to be Lévy. Indeed, for part (1.) of Proposition \ref{prop:approximation of measurable maps by algorithmic strategies}, the arguments are unchanged for \(\widetilde{Y}\) instead of \(Y\). Indeed, the crucial Doob-Dynkin application for the process 
+ \begin{equation*}
      \widetilde{M}_n=\mathbb{E}[Z_{\mathcal{F}_I}|\widetilde{\mathcal{F}}_n]
- \end{equation}
+ \end{equation*}
  yields the existence of a measurable map \(\widetilde{f}_n\) such that
- \begin{equation}
+ \begin{equation*}
       \widetilde{M}_n=\widetilde{f}_n(\widetilde{Y}_{j_1},\dots,\widetilde{Y}_{j_n})\,.
- \end{equation}
- The argument ist those completely analogous.
+ \end{equation*}
+ Hence, the argument for part (1.) of Proposition \ref{prop:approximation of measurable maps by algorithmic strategies} is  completely analogous when replacing \(Y\) by \(\widetilde{Y}\).
  
  
- From a conceptual point of view, the trader/seller observes the market information through \(\mathcal{F}\) and the filtration \((\mathcal{F}_t)_{t\in\mathbb{R}_+}\) generated by the market information process to be \(Y\) or \(\widetilde{Y}\); it should be regarded as a change of coordinates, as long as he only asks questions on deterministic times, not random times. 
- \\\\
- In particular, we have density of \(\widetilde{\mathcal{E}}(\psi)\) in \(L^2(M)\). Crucially, considering \(\widetilde{Y}\) instead of \(Y\) has the following advantage:
-\begin{equation}
+ From a conceptual point of view, the trader/seller observes the market information at time \(t\) given by \(\mathcal{F}_t^0=\sigma(Y_s:s\leq t)=\sigma(\widetilde{Y}_s:s\leq t)=\widetilde{\mathcal{F}}_t^0\). Exchanging \(Y\) with \(\widetilde{Y}\) and vise versa should  be regarded as a change of coordinates for the seller/buyer, as long as the time of observation is deterministic. 
+
+
+
+In particular, we have the density of \(\widetilde{\mathcal{E}}(\psi)\) in \(L^2(M)\). Crucially, considering \(\widetilde{Y}\) instead of \(Y\) has the following advantage. Observe that
+\begin{equation*}
 \widetilde{Y}_t=\tanh(Y_t)\in(-1,1)\subseteq[-1,1]\quad\forall t\in\mathbb{R}_+,
-\end{equation}
-hence \(\widetilde{Y}\) takes values in a compact subset of \(\mathbb{R}\). Instead of requiring that the image of \(Y_t\) is included in a compact subset for every \(t\) we might consider \(\widetilde{Y}\) instead. 
-\bigbreak
+\end{equation*}
+hence \(\widetilde{Y}\) takes values in a compact subset of \(\mathbb{R}\). Instead of requiring that the image of \(Y_t\) is included in a compact subset for every \(t\in\mathbb{R}_+\) we might consider \(\widetilde{Y}\) instead. 
 We get the following version of Proposition \ref{prop:Lp(M) density of E(psi)}
 \begin{proposition}\label{prop:Lp(M) density of E(psi) under compacteness}
-    Let \(M\in\mathcal{H}_0^{2}\). Then the set \(\widetilde{\mathcal{E}}(\psi)\) is dense in \(L^2(M)\) with respect to the seminorm on \(\lVert\cdot\rVert_{L^2(M)}\). Moreover, for every \(\vartheta\in L^2(M)\), there exists a sequence \((\widetilde{\vartheta^n})_{n\in\mathbb{N}}\subseteq\widetilde{\mathcal{E}}(\psi)\), such that
-    \begin{equation}
+    Let \(M\in\mathcal{H}_0^{2}\). Then the set \(\widetilde{\mathcal{E}}(\psi)\) is dense in \(L^2(M)\) with respect to the norm \(\lVert\cdot\rVert_{L^2(M)}\). Moreover, for every \(\vartheta\in L^2(M)\), there exists a sequence \((\widetilde{\vartheta^n})_{n\in\mathbb{N}}\subseteq\widetilde{\mathcal{E}}(\psi)\), such that
+    \begin{equation*}
         \lim_{n\to\infty}\int \widetilde{\vartheta^n}\diff M=\int \vartheta\diff M,
-    \end{equation}
+    \end{equation*}
     where convergence holds in \(\mathcal{H}^2\). 
 \end{proposition}
-\begin{proof}
-    The density of \(\widetilde{\mathcal{E}}(\psi)\) in \(L^2(M)\) is analogous to Proposition \ref{prop:density of E(psi) in L^2(M)}. The last claim follows the exact same reasoning as in Proposition \ref{prop:Lp(M) density of E(psi)}.
-\end{proof}
-This version does not require the additional infinitesimal integrability of \(M\).  
+This version does not require the additional \(\epsilon\)-infinitesimal integrability of \(M\).  
 
 
 \chapter{Deep mean--variance hedging in continuous time}\label{ch:deep mean-square hedging in continuous time}
@@ -3869,7 +3897,7 @@ Recall that in order to develop an \(L^2\)-approximatin theory of stochastic int
 \begin{equation}
     \vartheta\mapsto (\vartheta\bullet X)_{\infty}.
 \end{equation}
-We found it usefull to consider the latter as a continuous and surjective map
+We found it useful to consider the latter as a continuous and surjective map
 \begin{equation}
 (L^2(M,A),\lVert\cdot\rVert_{L^2(M,A)})\to(G_{\infty}(L^2(M,A)),\lVert\cdot\rVert_{L^2(\mathbb{P})}),
 \end{equation}
