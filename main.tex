@@ -1157,7 +1157,7 @@ We call \(\left\{w_{ij}\right\}_{(i,j)\in\{1,\dots,k\}\times\{1,\dots,N\}}\) the
 
 This is the simplest class of neural networks one can define. As it is the only class of neural networks of interest in this thesis, we refer to them plainly as \textit{neural networks}. 
 \begin{remark}\label{rem:NN don't form algebra}
-    Notice that \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) is a vector space by definition, but it is not closed under pointwise multiplication. In particular, \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) doesn't form an algebra of functions.
+    Notice that \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) is a vector space by definition, but it is not closed under pointwise multiplication. In particular, \(\mathcal{NN}_{\psi}(\mathbb{R}^k)\) doesn't form an algebra of functions in general.
 \end{remark}
 The first question we address is whether continuous functions on compact domains \(K\subseteq\mathbb{R}^k\) can be approximated by elements of 
 \begin{equation*}
@@ -1497,7 +1497,7 @@ In the proof of Theorem \ref{thm:density of NN in C(K)} we showed that if \(\psi
  \begin{equation*}
      \overline{\mu}(B)\coloneqq \mu(B\cap K),\;B\in\mathcal{B}(E),
  \end{equation*}
- defines a Radon-measure on \(\mathcal{B(E)}\). In particular, we have 
+ defines a Radon-measure on \(\mathcal{B}(E)\). In particular, we have 
  \begin{equation}\label{eq:inclusion mapping}
      \overline{\mu}=i_*\mu,
  \end{equation}
@@ -1679,14 +1679,14 @@ exists almost surely.
 
 For the following lemma, we need an easy criterion for which a local martingale is actually a true martingale. Furthermore, it gives sufficient conditions for a local martingale to be a uniformly integrable martingale
 \begin{lemma}\label{lemma:local martingale is a true martingale}
-    Let \(M\) be a local martingale such that \(\mathbb{E}[M_t^*]<\infty\) for all \(t\in\mathbb{R}_+\). Then \(M\) is a martingale. If \(E[M_\infty^*]<\infty\), then \(M\) is a uniformly integrable martingale. 
+    Let \(M\) be a local martingale such that \(\mathbb{E}[M_t^*]<\infty\) for all \(t\in\mathbb{R}_+\). Then \(M\) is a martingale. If \(\mathbb{E}[M_\infty^*]<\infty\), then \(M\) is a uniformly integrable martingale. 
 \end{lemma}
 For a proof, see \parencite[Thm.~5.1, II]{Protter2005StochasticIntegration}.
 \begin{lemma}\label{lemma:martingales in H^p are UI}
     For every \(p\in[1,\infty)\), we have that \(M\in\mathcal{H}^p\) is uniformly integrable and \(|M_t|^p\to|M_\infty|^p\) in \(L^1\).
 \end{lemma}
 \begin{proof}
-    For the first part, it suffices to notice that \(M\in\mathcal{H}^p\) for \(p\in[1,\infty)\) implies  \(E[M_\infty^*]<\infty\), by point (1.) of Lemma \ref{lemma:equivalence of H^p norm}. Thus, \(M\) is uniformly integrable by Lemma \ref{lemma:local martingale is a true martingale}, and in particular \(M_\infty\) exists as an almost sure limit \(\lim_{t\to \infty}M_t=M_\infty\). Now, because \(|M_t|^p\leq (M_\infty^*)^p\) and \((M_\infty^*)^p\) is integrable, the family \((|M_t|^p)_{t\in\mathbb{R}_+}\) is uniformly integrable by \parencite[Example.~2.5.3.]{CohenElliott2015StochasticCalculusApplications} for \(\phi(\cdot)=|\cdot|^p\). Hence, the almost sure convergence of \(|M_t|^p\) to \(|M_\infty|^p\) implies the respective \(L^1\) convergence of the latter.
+    For the first part, it suffices to notice that \(M\in\mathcal{H}^p\) for \(p\in[1,\infty)\) implies  \(\mathbb{E}[M_\infty^*]<\infty\), by point (1.) of Lemma \ref{lemma:equivalence of H^p norm}. Thus, \(M\) is uniformly integrable by Lemma \ref{lemma:local martingale is a true martingale}, and in particular \(M_\infty\) exists as an almost sure limit \(\lim_{t\to \infty}M_t=M_\infty\). Now, because \(|M_t|^p\leq (M_\infty^*)^p\) and \((M_\infty^*)^p\) is integrable, the family \((|M_t|^p)_{t\in\mathbb{R}_+}\) is uniformly integrable by \parencite[Example.~2.5.3.]{CohenElliott2015StochasticCalculusApplications} for \(\phi(\cdot)=|\cdot|^p\). Hence, the almost sure convergence of \(|M_t|^p\) to \(|M_\infty|^p\) implies the respective \(L^1\) convergence of the latter.
 \end{proof}
 
 We can use our general insight from Lemma \ref{lemma:equivalence of H^p norm} to identify \(\mathcal{H}^p\) with the Banach space \(L^p(\Omega,\mathcal{F}_{\infty},\mathbb{P})\). Indeed, the identification is explicitly given by the mapping that associates a martingale with its terminal value.
@@ -3490,7 +3490,7 @@ In particular, \(\mathcal{NN}_{\cos}(\mathbb{R}^k)\) forms an algebra of functio
 \end{equation*}
 We show more generally that  \(\sigma(\mathcal{E}(\psi))=\mathcal{P}\) for any continuous, discriminatory activation function \(\psi\).
 \begin{proposition}\label{prop:E(psi) generated P}
- Let \(\psi\) be as in Definition \ref{def:standing assumptions} and \(M\in\mathcal{H}^2_0\). Then 
+ Let \(\psi\) be a discriminatory activation function in the sense of Definition \ref{def:discriminatory maps over reals} and \(M\in\mathcal{H}^2_0\). Then 
     \begin{equation*}
         \overline{\sigma\big(\mathcal{E}(\psi)\big)}^{\mathbb{P}_M}=\overline{\mathcal{P}}^{\mathbb{P}_M},
     \end{equation*}
@@ -3595,7 +3595,7 @@ with \(\eta_i\in\mathcal{NN}_{\cos}(\mathbb{R}^{k(i)})\). Note that by assumptio
 \end{equation*}
 for coefficients \(\alpha_{ij}\in\mathbb{R}\) and
 where \(A_{ij}:\mathbb{R}^{k(i)}\to\mathbb{R}\) is affine linear and \(i=0,\dots,n,j=0,\dots,m\).
-By \parencite[Thm.~2]{Hornik1991}, the bounded, non-constant, continuous, real-valued activation function \(\cos\) is discriminatory in the sense \eqref{eq:discriminatory maps over reals}. Considering the \(\eta_i\) as functions over compact sets \(K^i\coloneqq K^{t_1}\times\dots\times K^{t_{k(i)}}\), we have by Theorem \ref{thm:density of NN in C(K)} applied to the continuous function \(\cos(A_{ij}):K^i\to\mathbb{R}\) that for every \(\epsilon>0\) and \((i,j)=\{0,\dots,n\}\times\{0,\dots,m\}\), there exists \(\varphi_{ij}^{\epsilon}\in\mathcal{NN}_{\psi}(K^i)\) such that 
+By \parencite[Thm.~5]{Hornik1991}, the bounded, non-constant, continuous, real-valued activation function \(\cos\) is discriminatory in the sense \eqref{eq:discriminatory maps over reals}. Considering the \(\eta_i\) as functions over compact sets \(K^i\coloneqq K^{t_1}\times\dots\times K^{t_{k(i)}}\), we have by Theorem \ref{thm:density of NN in C(K)} applied to the continuous function \(\cos(A_{ij}):K^i\to\mathbb{R}\) that for every \(\epsilon>0\) and \((i,j)=\{0,\dots,n\}\times\{0,\dots,m\}\), there exists \(\varphi_{ij}^{\epsilon}\in\mathcal{NN}_{\psi}(K^i)\) such that 
 \begin{equation*}
     \sup_{x\in K^i}\big|\cos(A_{ij}(x))-\varphi_{ij}^{\epsilon}(x)\big|<\epsilon,
 \end{equation*}
@@ -3607,7 +3607,7 @@ with
 \begin{equation*}
     \widetilde{\eta}_i(Y_{t_1},\dots,Y_{t_{k(i)}})\coloneqq\sum_{j=0}^m\alpha_{ij}\varphi_{ij}^{\epsilon(ij)}\in \mathcal{NN}_{\psi}(K^i),
 \end{equation*}
-where we set \(\epsilon(ij)\coloneqq\frac{\epsilon^{\frac{1}{2}}}{(n+1)(m+1)|(|\alpha_{ij}|+1)}\). Clearly \(\xi\in\mathcal{E}(\psi)\). Denoting \(x_i=(Y_{t_1}(\omega),\dots,Y_{t_{k(i)}}(\omega))\in K^i\). We have for every \(\omega\in\Omega\) that 
+where we set \(\epsilon(ij)\coloneqq\frac{\epsilon^{\frac{1}{2}}}{(n+1)(m+1)|(|\alpha_{ij}|+1)}\). Clearly, \(\xi\in\mathcal{E}(\psi)\). Denoting \(x_i=(Y_{t_1}(\omega),\dots,Y_{t_{k(i)}}(\omega))\in K^i\). We have for every \(\omega\in\Omega\) that 
 \begin{align*}
     (\vartheta-\xi)^*_{\infty}(\omega)=&\sup_{t\in\mathbb{R}_+}|\vartheta_t(\omega)-\xi_t(\omega)|
     \\&\leq \sum_{i=0}^{n}|\widetilde{\eta}_i(x_i)-\eta_i(x_i)|\leq \sum_{i=0}^{n}\sum_{j=0}^m\big|\alpha_{ij}\big|\big|\cos(A_{ij}(x_i))-\varphi_{ij}^{\epsilon(ij)}(x_i)\big|<\epsilon^{\frac{1}{2}},
@@ -3620,7 +3620,7 @@ where we used
 \end{equation*}
 This allows us to bound the \(L^2(M)\)-norm as follows
 \begin{align*}
-    \lVert\vartheta-\xi\rVert_{L^2(M)}^2=\mathbb{E}\bigg[\left(\int_{0}^{\infty}(\xi_t-\vartheta_t)^2\diff [M]_t\right)\bigg]\leq \mathbb{E}\big[\big((\xi-\vartheta)_{\infty}^*\big)^2[M]_{\infty}\big]\leq\epsilon\mathbb{E}\big[[M]_{\infty}\big].
+    \lVert\vartheta-\xi\rVert_{L^2(M)}^2=\mathbb{E}\bigg[\left(\int_{0}^{\infty}(\vartheta_t-\xi_t)^2\diff [M]_t\right)\bigg]\leq \mathbb{E}\big[\big((\vartheta-\xi)_{\infty}^*\big)^2[M]_{\infty}\big]\leq\epsilon\mathbb{E}\big[[M]_{\infty}\big].
 \end{align*}
 This holds for every \(\epsilon>0\) and as
 \(\mathbb{E}[[M]_{\infty}]\lesssim\lVert M\rVert_{\mathcal{H}^2}^2<\infty\) due to the assumption that \(M\in\mathcal{H}^2_0\), whence the claim.
